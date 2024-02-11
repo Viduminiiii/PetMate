@@ -1,9 +1,9 @@
 import React from 'react';
-import UserCategory from './User Category'
+import DocChannelling from './Doctor channelling'
 
 const App = () => {
    return (
-      <UserCategory />
+      <DocChannelling />
    )
 }
 export default App
