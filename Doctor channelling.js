@@ -1,20 +1,35 @@
-import React, {Component} from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
+import React, { Component, useState } from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity, DatePickerAndriod, Button} from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import DatePicker from "react-native-date-picker";
+
+// const data = [
+//     { label: "Male", value: "1" },
+//     { label: "Female", value: "2" },
+//   ];
 
 const DocChannelling = () => {
     const handlePress = () => {
         console.log("Button pressed");
     }
+    const [valueType, setValueType] = useState(null);
+    const [isFocusType, setIsFocusType] = useState(false);
+    const [valueDoc, setValueDoc] = useState(null);
+    const [isFocusDoc, setIsFocusDoc] = useState(false);
+    const [valueHosp, setValueHosp] = useState(null);
+    const [isFocusHosp, setIsFocusHosp] = useState(false);
+    const [date, setDate] = useState(new Date());
+
     return (
        <View style = {styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Logo')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     DOCTOR CHANNELLING
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Setting')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -25,29 +40,148 @@ const DocChannelling = () => {
                 <Text style={styles.text}>Type</Text>
                 <View style={styles.search_box}>
                     <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
-                    <Text style={styles.text1}>Search</Text>
-                    <Image source={require ('../PetMate/AppPics/DoctorChan_dropDown.png')} style={styles.arrow_img}/>
+                        <Dropdown
+                            style={[styles.dropdown]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={[
+                            { label: "Doctor", value: "1" },
+                            { label: "Hospital", value: "2" },
+                            ]}
+                            labelField="label"
+                            valueField="value"
+                            placeholder={!isFocusType ? "Select type" : "..."}
+                            searchPlaceholder="Search..."
+                            value={valueType}
+                            onFocus={() => setIsFocusType(true)}
+                            onBlur={() => setIsFocusType(false)}
+                            onChange={(item) => {
+                            setValueType(item.value);
+                            setIsFocusType(false);
+                            }}
+                        />
                 </View>
                 <Text style={styles.text}>Doctor's Name</Text>
                 <View style={styles.search_box}>
-                    <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
-                    <Text style={styles.text1}>Search</Text>
-                    <Image source={require ('../PetMate/AppPics/DoctorChan_dropDown.png')} style={styles.arrow_img}/>
+                <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
+                        <Dropdown
+                            style={[styles.dropdown]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={[
+                            { label: "Dr. John", value: "1" },
+                            { label: "Dr. Paul", value: "2" },
+                            { label: "Dr. Sean", value: "3" },
+                            { label: "Dr. Harry", value: "4" },
+                            ]}
+                            labelField="label"
+                            valueField="value"
+                            placeholder={!isFocusDoc ? "Select doctor" : "..."}
+                            searchPlaceholder="Search..."
+                            value={valueDoc}
+                            onFocus={() => setIsFocusDoc(true)}
+                            onBlur={() => setIsFocusDoc(false)}
+                            onChange={(item) => {
+                            setValueDoc(item.value);
+                            setIsFocusDoc(false);
+                            }}
+                        />
                 </View>
                 <Text style={styles.text}>Hospital's Name</Text>
                 <View style={styles.search_box}>
-                    <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
-                    <Text style={styles.text1}>Search</Text>
-                    <Image source={require ('../PetMate/AppPics/DoctorChan_dropDown.png')} style={styles.arrow_img}/>
+                <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
+                        <Dropdown
+                            style={[styles.dropdown]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={[
+                            { label: "ABC hospital", value: "1" },
+                            { label: "DEF hospital", value: "2" },
+                            { label: "GHI hospital", value: "3" },
+                            { label: "JKL hospital", value: "4" },
+                            { label: "MNO hospital", value: "5" },
+                            ]}
+                            labelField="label"
+                            valueField="value"
+                            placeholder={!isFocusHosp ? "Select hospital" : "..."}
+                            searchPlaceholder="Search..."
+                            value={valueHosp}
+                            onFocus={() => setIsFocusHosp(true)}
+                            onBlur={() => setIsFocusHosp(false)}
+                            onChange={(item) => {
+                            setValueHosp(item.value);
+                            setIsFocusHosp(false);
+                            }}
+                        />
                 </View>
-                <Text style={styles.text}>Date</Text>
+                <Text style={styles.text}>Appointment Date</Text>
                 <View style={styles.search_box}>
                     <Image source={require ('../PetMate/AppPics/Calender.png')} style={styles.calendar_img}/>
+                    <View style={styles.date_container}>
+                        <DatePicker
+                        style={styles.datePickerStyle}
+                        date={date}
+                        mode="date"
+                        placeholder="select date"
+                        format="DD/MM/YYYY"
+                        minDate="01-01-1900"
+                        maxDate="01-01-2100"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                            position: 'absolute',
+                            right: -5,
+                            top: 4,
+                            marginLeft: 0,
+                            },
+                            dateInput: {
+                            borderColor : "black",
+                            alignItems: "flex-start",
+                            borderWidth: 1,
+                            borderBottomWidth: 1,
+                            },
+                            placeholderText: {
+                            fontSize: 15,
+                            color: "black"
+                            },
+                            dateText: {
+                            fontSize: 15,
+                            }
+                        }}
+                        onDateChange={(date) => {
+                            setDate(date);
+                        }}
+                        />
+                    </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Search')}>
                     <View style ={styles.button}>
                         <Text style={styles.search_btn}>Search</Text>
                     </View>
+                </TouchableOpacity>
+            </View>
+            <View style ={styles.footer}>
+                <TouchableOpacity onPress={() => handlePress('Home')}>
+                    <Image source={require ('../PetMate/AppPics/Footer_Menu.png')} style={styles.menu_img}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Home')}>
+                    <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Home')}>
+                    <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Home')}>
+                    <Image source={require ('../PetMate/AppPics/Footer_appointment.png')} style={styles.menu_img}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress('Home')}>
+                    <Image source={require ('../PetMate/AppPics/Footer_medicalRecords.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
             </View>
         </View>
@@ -58,42 +192,35 @@ const styles = StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
         backgroundColor:'#BAFAD0',
-        justifyContent: 'flex-start', //start from the top
+        justifyContent: 'space-between', // This ensures the footer is pushed to the bottom
         alignItems:'center',
         paddingTop:30,
     },
     nav_bar: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignContent: 'center',
+        alignItems: 'center',
     },
     logo: {
         resizeMode: 'contain',
         width: 60,
         height: 60,
-        // alignSelf: 'flex-start', // Center the image horizontally
-        // paddingLeft: 30,
-        // paddingRight: 30,
         borderRadius: 90,
         marginRight:20,
     },
     nav_text: {
         fontSize: 20,
         fontWeight: 'bold',
-        // alignSelf: 'center'
     },
     settings: {
         resizeMode: 'contain',
         width: 60,
         height: 60,
-        // alignSelf: 'flex-start', // Center the image horizontally
-        // paddingLeft: 30,
-        // paddingRight: 30,
         borderRadius: 90,
         marginLeft:20,
     },
     container1: {
-        paddingTop: 50,
+        paddingTop: 30,
         justifyContent: 'center',
         alignContent: 'center',
         
@@ -103,14 +230,13 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
     search_page:{
+        flex: 1,
         backgroundColor: '#E6B4EB',
         width:'85%',
-        height: '73%',
         borderRadius: 20,
-        marginTop: 30,
-        // justifyContent: 'center',
+        marginTop: 10,
         alignItems: 'center',
-        // alignContent: 'center',
+        marginVertical: 10,
     },
     text: {
         fontSize: 25,
@@ -118,25 +244,18 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     search_box:{
-        backgroundColor: 'white',
         width:'85%',
         height:'8%',
         justifyContent: 'center',
-        // alignItems: 'center',
-        borderRadius: 20,
-        borderColor: 'black',
-        borderWidth: 1,
+        alignItems: 'center',
         flexDirection: 'row', // Use 'column' for vertical split
         padding:10,
         marginTop:-10,
-        // alignContent: 'flex-start',
     },
     search_img: {
         width: 30,
         height: 30,
-        // alignSelf: 'flex-start',
         marginRight: 10,
-        // padding: 5,
     },
     text1: {
         fontSize: 20,
@@ -151,8 +270,8 @@ const styles = StyleSheet.create({
     calendar_img: {
         width: 30,
         height: 30,
-        marginLeft: 200,
-        // padding: 10,
+        top:-7,
+        left:2,
     },
     button: {
         height: 60,
@@ -166,6 +285,57 @@ const styles = StyleSheet.create({
     search_btn: {
         fontWeight: 'bold',
         fontSize: 25
-    }
+    },
+    footer: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        width: '100%',
+        height: 65,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    menu_img: {
+        width: 40,
+        height: 40,
+        margin:15
+    },
+    placeholderStyle: {
+        fontSize: 20,
+    },
+    selectedTextStyle: {
+        fontSize: 20,
+    },
+    iconStyle: {
+        width: 10,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 30,
+        fontSize: 16,
+    },
+    dropdown: {
+        height: 50,
+        width: '85%',
+        borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: 'white',
+    },
+    datePickerStyle:{
+        height: 50,
+        width: 230,
+        left:5,
+        borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 1,
+        backgroundColor: 'white',
+
+    },
+    date_container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
 })
 export default DocChannelling
