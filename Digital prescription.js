@@ -10,11 +10,6 @@ import {
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
-const data = [
-  { label: "Male", value: "1" },
-  { label: "Female", value: "2" },
-];
-
 const Prescription = () => {
   const handlePress = () => {
     console.log("Button pressed");
@@ -26,8 +21,7 @@ const Prescription = () => {
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-  const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
+  const [date, setDate] = useState(new Date());
 
   return (
     <View style={styles.container}>
@@ -55,12 +49,6 @@ const Prescription = () => {
           </View>
           <View style={styles.info}>
             <Text style={styles.name}>Gender</Text>
-            {/* <TextInput style={styles.petText_box}>
-              <Image
-                source={require("../PetMate/AppPics/DoctorChan_dropDown.png")}
-                style={styles.arrow_img}
-              />
-            </TextInput> */}
             <View>
               <Dropdown
                 style={[styles.dropdown]}
@@ -75,7 +63,7 @@ const Prescription = () => {
                 maxHeight={200}
                 labelField="label"
                 valueField="value"
-                placeholder={!isFocus ? "Select item" : "..."}
+                placeholder={!isFocus ? "Select" : "..."}
                 searchPlaceholder="Search..."
                 value={value}
                 onFocus={() => setIsFocus(true)}
@@ -130,25 +118,43 @@ const Prescription = () => {
           </View>
           <View style={styles.info}>
             <Text style={styles.name}>Issued Date</Text>
-      <TouchableOpacity title="Open" onPress={() => setOpen(true)} >
-            <DatePicker style={styles.datepick}
-                modal
-                open={open}
+
+            <View style={styles.date_container}>
+              <DatePicker
+                style={styles.datePickerStyle}
                 date={date}
-                onConfirm={(date) => {
-                  setOpen(false);
+                mode="date"
+                placeholder="select date"
+                format="DD/MM/YYYY"
+                minDate="01-01-1900"
+                maxDate="01-01-2100"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: "absolute",
+                    right: -5,
+                    top: 4,
+                    marginLeft: 0,
+                  },
+                  dateInput: {
+                    borderColor: "black",
+                    alignItems: "flex-start",
+                    borderWidth: 1,
+                    borderBottomWidth: 1,
+                  },
+                  placeholderText: {
+                    fontSize: 15,
+                    color: "black",
+                  },
+                  dateText: {
+                    fontSize: 15,
+                  },
+                }}
+                onDateChange={(date) => {
                   setDate(date);
                 }}
-                onCancel={() => {
-                  setOpen(false);
-                }}
               />
-              </TouchableOpacity>
-              {/* <DatePicker date={date} onDateChange={setDate}  
-              style={styles.datepick}/> */}
-            <View style={styles.docText_box}>
-              {/* <TextInput style={styles.text1}>DD/MM/YY</TextInput> */}
-              
             </View>
           </View>
         </View>
@@ -265,11 +271,6 @@ const styles = StyleSheet.create({
     marginTop: 23,
     borderRadius: 10,
   },
-  // arrow_img: {
-  //     width: 20,
-  //     height: 20,
-  //     marginLeft: 90,
-  // },
   ownerInfo: {
     marginTop: -30,
   },
@@ -347,7 +348,6 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 15,
   },
-
   placeholderStyle: {
     fontSize: 16,
   },
@@ -366,19 +366,23 @@ const styles = StyleSheet.create({
     top: 15,
     height: 20,
     width: 200,
-    // borderColor: 'gray',
-    // borderWidth: 0.5,
     borderRadius: 10,
     paddingHorizontal: 10,
     backgroundColor: "white",
   },
-  datepick: {
-    height:100,
-    fontSize: 18,
-    padding: 1,
-    // alignSelf: "flex-start",
-    fontWeight: "bold",
-    // backgroundColor: "white",
+  datePickerStyle: {
+    height: 30,
+    width: 220,
+    left: -10,
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: "white",
+  },
+  date_container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 export default Prescription;
