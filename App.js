@@ -8,7 +8,11 @@ import React from 'react';
 // import Payment_1 from './Payment_1';
 // import Payment_2 from './payment_2';
 // import Login from './Login';
-import VetMenu from './Vet - Menu'
+import SignUp from './Sign up'
+//import VetSignUp from './Vet Sign up'
+//import PharmacySignUp from './Pharmacy Sign up'
+// import Chat from './Pet Owner Chat'
+//import VetChat from './Vet Chat'
 
 function App() {
    return (
@@ -16,11 +20,16 @@ function App() {
       // <UserCategory />
       // <Prescription />
       // <VetPrescription />
-      <VetMenu />
+      // <VetMenu />
       // <PetOwnerMenu />
       // <Payment_1 />
       // <Payment_2 />
       // <Login />
+      <SignUp />
+      //<VetSignUp />
+      //<PharmacySignUp />
+      // <Chat />
+      // <VetChat />
    )
 }
 export default App
