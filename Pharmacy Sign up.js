@@ -1,19 +1,20 @@
 import React from "react";
-import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
+import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput,ScrollView} from 'react-native';
 
-const SignUp = ()=>{
+const PharmacySignUp = ()=>{
     const handlePress = () => {
         console.log("Button pressed");
     }
     return(
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
                 <Text style = {styles.nav_text}>
-                   PET OWNER REGISTRATION
+                PHARMACY REGISTRATION 
                 </Text>   
             </View>
             <View style={styles.container1}>
-                <Text style={styles.text}>Pet Owner Information</Text>
+                <Text style={styles.text}>Pharmacy Owner Information</Text>
             </View>
             <View style={styles.container2}>
                 <TextInput style={styles.textInput}>Full name</TextInput>
@@ -25,14 +26,23 @@ const SignUp = ()=>{
                 <TextInput style={styles.textInput}>Email</TextInput>
             </View>
             <View style={styles.container1}>
-                <Text style={styles.text}>Pet information</Text>
+                <Text style={styles.text}>Pharmacy Information</Text>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Pet name</TextInput>
+                <TextInput style={styles.textInput}>Pharmacy name</TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Age</TextInput>
+                <TextInput style={styles.textInput}>Pharmacy License Number</TextInput>
             </View>
+            <View style={styles.container2}>
+                <TextInput style={styles.textInput}>Pharmacy Address</TextInput>
+            </View>
+            <View style={styles.container4}>
+                <Text style={styles.text}>Pin Your Pharmacy Location</Text>
+            </View>
+            <TouchableOpacity>
+                    <Image source={require('../PetMate/AppPics/Google_map.png')} style={styles.image} />
+            </TouchableOpacity>
             <View style={styles.container3}>
                 <View style={styles.inputWithImage}>
                     <TextInput style={styles.textInput}>Password</TextInput>
@@ -44,7 +54,7 @@ const SignUp = ()=>{
             <TouchableOpacity style={styles.signUpButton} onPress={handlePress}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
-            <View style={styles.container5}>
+            <View style={styles.centeredContainer}>
                 <Text style={styles.text}>or continue with</Text>
             </View>
             <View style={styles.imageContainer}>
@@ -57,10 +67,10 @@ const SignUp = ()=>{
                 </TouchableOpacity>
             </View>
             <View style={styles.container4}>
-                <Text style={styles.text}>Do you have an account?</Text>
-                <TouchableOpacity><Text style={styles.loginText}>LOGIN</Text></TouchableOpacity>
+                <Text style={styles.text}>Do you have an account? <TouchableOpacity><Text style={styles.loginText}>LOGIN</Text></TouchableOpacity></Text>
             </View>
         </View>
+        </ScrollView>
     )
 }
 
@@ -71,10 +81,11 @@ const styles=StyleSheet.create({
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
         paddingTop:30,
+        marginLeft:7
     },
     container1: {
-        marginLeft: -150,
-        paddingTop: 20,
+        marginLeft: -120,
+        paddingTop: 20
     }, 
     text: {
         fontSize: 20,
@@ -83,17 +94,7 @@ const styles=StyleSheet.create({
         backgroundColor: 'white',
         width: '80%',
         height: '5%',
-        borderRadius: 15,
-        borderColor: 'black',
-        borderWidth: 2,
-        marginTop:25,
-        justifyContent: 'center'
-    },
-    container3: {
-        backgroundColor: 'white',
-        width: '50%',
-        height: '5%',
-        borderRadius: 15,
+        borderRadius: 20,
         borderColor: 'black',
         borderWidth: 2,
         marginTop:25,
@@ -102,66 +103,78 @@ const styles=StyleSheet.create({
     textInput: {
         fontSize:15,
         color: 'rgba(0, 0, 0, 0.5)', // 50% transparent text
-        marginLeft: 10,
+        marginLeft: 10
     },
+    container3: {
+        backgroundColor: 'white',
+        width: '50%',
+        height: '5%',
+        borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 2,
+        marginTop:25,
+        justifyContent: 'center'
+    },
+    //text1: {
+        //fontSize: 20,
+        //color: 'rgba(0, 0, 0, 0.5)', // 50% transparent text
+        //marginLeft: 10,
+    //},
     inputWithImage: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     imageStyle: {
         width: 20,
         height: 20,
-        marginLeft: 98,
+        marginLeft: 98
     },
     signUpButton: {
         backgroundColor: 'white',
         paddingVertical: 15,
         paddingHorizontal: 55,
         borderRadius: 10,
-        marginTop: 20,
+        marginTop: 20
     },
     signUpButtonText: {
         color: 'black',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    continueWithImage: {
-        width: 50,
-        height: 50,
-        flexDirection: 'row',
+        fontSize: 16,
+        fontWeight: 'bold'
     },
     imageContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20, 
         marginTop: 10, 
+        marginBottom: 110,
     },
     image: {
         width: 50, // Adjust image width 
         height: 50, // Adjust image height 
+        marginTop: 15,
     },
     space: {
-        width: 60, // Adjust the space between images 
+        width: 90, // Adjust the space between images 
     },
     loginText: {
-        fontSize: 20,
         color: 'black',
         fontWeight: 'bold',
     },
     container4: {
+        //marginLeft: -150,
         paddingTop: 20,
         alignItems:'center',
-        flexDirection: 'row'
     }, 
+    centeredContainer: {
+        alignItems: 'center',
+        marginTop: 20,
+    },
     nav_text: {
         fontSize: 20,
         fontWeight: 'bold',
     },
-    container5: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20
-    }
+
+
 })
 
-export default SignUp
+export default PharmacySignUp
