@@ -11,8 +11,8 @@ import React from 'react';
 //import SignUp from './Sign up'
 // import VetSignUp from './Vet Sign up'
 //import PharmacySignUp from './Pharmacy Sign up'
-// import Chat from './Pet Owner Chat'
-import VetChat from './Vet Chat'
+import Chat from './Pet Owner Chat'
+// import VetChat from './Vet Chat'
 
 function App() {
    return (
@@ -28,8 +28,8 @@ function App() {
       //<SignUp />
       // <VetSignUp />
       //<PharmacySignUp />
-      // <Chat />
-      <VetChat />
+      <Chat />
+      // <VetChat />
    )
 }
 export default App
