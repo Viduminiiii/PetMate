@@ -8,7 +8,7 @@ import React from 'react';
 // import Payment_1 from './Payment_1';
 // import Payment_2 from './payment_2';
 // import Login from './Login';
-import VetMenu from './Vet - Menu'
+import UserSearch from './User search'
 
 function App() {
    return (
@@ -16,11 +16,12 @@ function App() {
       // <UserCategory />
       // <Prescription />
       // <VetPrescription />
-      <VetMenu />
+      // <VetMenu />
       // <PetOwnerMenu />
       // <Payment_1 />
       // <Payment_2 />
       // <Login />
+      <UserSearch />
    )
 }
 export default App
