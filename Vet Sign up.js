@@ -10,7 +10,7 @@ const VetSignUp = ()=>{
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
                 <Text style = {styles.nav_text}>
-                Veterinary Registration
+                VETERINARY REGISTRATION 
                 </Text>   
             </View>
             <View style={styles.container1}>

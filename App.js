@@ -8,7 +8,7 @@ import React from 'react';
 // import Payment_1 from './Payment_1';
 // import Payment_2 from './payment_2';
 // import Login from './Login';
-// import SignUp from './Sign up'
+//import SignUp from './Sign up'
 import VetSignUp from './Vet Sign up'
 //import PharmacySignUp from './Pharmacy Sign up'
 // import Chat from './Pet Owner Chat'
@@ -25,7 +25,7 @@ function App() {
       // <Payment_1 />
       // <Payment_2 />
       // <Login />
-      // <SignUp />
+      //<SignUp />
       <VetSignUp />
       //<PharmacySignUp />
       // <Chat />
