@@ -10,9 +10,10 @@ import React from 'react';
 // import Login from './Login';
 //import SignUp from './Sign up'
 // import VetSignUp from './Vet Sign up'
-import PharmacySignUp from './Pharmacy Sign up'
+// import PharmacySignUp from './Pharmacy Sign up'
 // import Chat from './Pet Owner Chat'
 // import VetChat from './Vet Chat'
+import UserSearch from './User search'
 
 function App() {
    return (
@@ -27,9 +28,10 @@ function App() {
       // <Login />
       //<SignUp />
       // <VetSignUp />
-      <PharmacySignUp />
+      // <PharmacySignUp />
       // <Chat />
       // <VetChat />
+      <UserSearch />
    )
 }
 export default App
