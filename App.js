@@ -1,26 +1,32 @@
 import React from 'react';
 // import UserCategory from './User Category';
 // import DocChannelling from './Doctor channelling';
-// import Prescription from './Digital prescription'
+//import Prescription from './Digital prescription'
 // import VetPrescription from './Vet - Digital prescription'
 // import VetMenu from './Vet - Menu'
 // import PetOwnerMenu from './petowner_menu'
-// import Payment_1 from './Payment_1';
-// import Payment_2 from './payment_2';
-import Login from './Login';
+//import Payment_1 from './Payment_1';
+//import Payment_2 from './payment_2';
+//import Login from './Login';
+//import Settings from './Settings';
+//import Pharmacy_Settings from './Pharmacy_Settings';
+import Vet_Settings from './Vet_Settings';
 
 
 function App() {
    return (
       // <DocChannelling />
       // <UserCategory />
-      // <Prescription />
+      //<Prescription />
       // <VetPrescription />
       // <VetMenu />
       // <PetOwnerMenu />
       // <Payment_1 />
       // <Payment_2 />
-      <Login />
+      //<Login />
+      //<Settings />
+      //<Pharmacy_Settings />
+      <Vet_Settings />
 
    );
 }
