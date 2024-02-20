@@ -8,9 +8,11 @@ import React from 'react';
 //import Payment_1 from './Payment_1';
 //import Payment_2 from './payment_2';
 //import Login from './Login';
-//import Settings from './Settings';
-//import Pharmacy_Settings from './Pharmacy_Settings';
-import Vet_Settings from './Vet_Settings';
+// import Petowner_Settings from './Petowner_Settings';
+ import Pharmacy_Settings from './Pharmacy_Settings';
+// import Vet_Settings from './Vet_Settings';
+// import Petowner_NotificationPage from './Petowner_NotificationPage';
+//import Vet_Notification from './Vet_Notification';
 
 
 function App() {
@@ -24,9 +26,11 @@ function App() {
       // <Payment_1 />
       // <Payment_2 />
       //<Login />
-      //<Settings />
-      //<Pharmacy_Settings />
-      <Vet_Settings />
+      // <Petowner_Settings />
+       <Pharmacy_Settings />
+      // <Vet_Settings />
+      // <Petowner_NotificationPage />
+      //<Vet_Notification />
 
    );
 }

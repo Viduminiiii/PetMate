@@ -9,7 +9,7 @@ import {
   TextInput,
 } from "react-native";
 
-const Pharmacy_Settings = () => {
+const Petowner_Settings = () => {
   const handlePress = () => {
     console.log("Button pressed");
   };
@@ -46,17 +46,24 @@ const Pharmacy_Settings = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.notifications_btns}>
-        <View style={styles.container_2}>
-          <TextInput style={styles.dark_mode}>Dark Mode</TextInput>
-          <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image_2}
-            />
-          </TouchableOpacity>
-        </View>
+      <View style={styles.notification_btns}>
+      <View style={styles.container_1}>
+        <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
+          <TextInput style={styles.notification}>Notifications</TextInput>
+        </TouchableOpacity>
       </View>
+
+      <View style={styles.container_2}>
+        <TextInput style={styles.dark_mode}>Dark Mode</TextInput>
+        <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
+          <Image
+            source={require("../PetMate/AppPics/Settings_Switch.png")}
+            style={styles.image_2}
+          />
+        </TouchableOpacity>
+      </View>
+      </View>
+      
 
       <View style={styles.container_3}>
         <TouchableOpacity style={styles.signoutbutton} onPress={handlePress}>
@@ -65,23 +72,33 @@ const Pharmacy_Settings = () => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Pharmacy_Prescription")}>
-          <Image
-            source={require("../PetMate/AppPics/PharFooter_Prescription.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => handlePress("Home")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handlePress("Medicine")}>
+        <TouchableOpacity onPress={() => handlePress("Chat")}>
           <Image
-            source={require("../PetMate/AppPics/PharFooter_Medicine.png")}
+            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -129,28 +146,48 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
   },
+  email: {
+    fontSize:18
+  },
   text2: {
     marginTop: -25,
     fontSize: 20,
   },
-  notifications_btns: {
-    margin:20
+  notification_btns:{
+    marginTop:-30
+  },
+  container_1: {
+    backgroundColor: "white",
+    width: 300,
+    height: 50,
+    borderRadius: 20,
+    marginTop: 50,
+    justifyContent: "center",
+  },
+  notification: {
+    fontSize: 18,
+    textAlign: "left",
+    marginLeft: 30,
   },
   container_2: {
     backgroundColor: "white",
-    width: 350,
-    height: "25%",
+    width: 300,
+    height: 50,
     borderRadius: 20,
-    flexDirection:'row'
+    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: "center",
   },
   dark_mode: {
     fontSize: 18,
+    textAlign: "left",
     marginLeft: 30,
   },
   image_2: {
+    resizeMode: "contain",
     width: 55,
-    height: "80%",
-    marginLeft: 150,
+    height: "90%",
+    marginLeft: 120,
     marginTop: 3,
   },
   container_3: {
@@ -162,6 +199,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 55,
     borderRadius: 10,
+    marginTop: 20,
   },
   signout_buttonText: {
     color: "black",
@@ -182,4 +220,4 @@ const styles = StyleSheet.create({
     margin: 15,
   },
 });
-export default Pharmacy_Settings;
+export default Petowner_Settings;
