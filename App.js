@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // import UserCategory from './User Category';
 // import DocChannelling from './Doctor channelling';
 // import Prescription from './Digital prescription'
@@ -13,25 +13,31 @@ import React from 'react';
 // import PharmacySignUp from './Pharmacy Sign up'
 // import Chat from './Pet Owner Chat'
 // import VetChat from './Vet Chat'
-import UserSearch from './User search'
+// import UserSearch from './User search'
+import Routes from './Routes.js'
+import AppNavigator from "./AppNavigator"; // Import the navigator
 
 function App() {
-   return (
-      // <DocChannelling />
-      // <UserCategory />
-      // <Prescription />
-      // <VetPrescription />
-      // <VetMenu />
-      // <PetOwnerMenu />
-      // <Payment_1 />
-      // <Payment_2 />
-      // <Login />
-      //<SignUp />
-      // <VetSignUp />
-      // <PharmacySignUp />
-      // <Chat />
-      // <VetChat />
-      <UserSearch />
-   )
+  return (
+    // <DocChannelling />
+   //  <UserCategory />
+    // <Prescription />
+    // <VetPrescription />
+    // <VetMenu />
+    // <PetOwnerMenu />
+    // <Payment_1 />
+    // <Payment_2 />
+    // <Login />
+    //<SignUp />
+    // <VetSignUp />
+    // <PharmacySignUp />
+    // <Chat />
+    // <VetChat />
+    // <UserSearch />
+    // <NavigationContainer>
+    //   <AppNavigator />
+    // </NavigationContainer>
+    <Routes/>
+  );
 }
-export default App
+export default App;

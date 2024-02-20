@@ -1,10 +1,12 @@
 import React from "react";
+import { Actions } from 'react-native-router-flux';
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
 const UserCategory = () => {
+    
     const handlePress = () => {
-        console.log('Button pressed');
-    }
+        Actions.userCategory()
+    };
     return (
         <View style={styles.page}>
             <Image
@@ -13,7 +15,7 @@ const UserCategory = () => {
             />
             <Text style={styles.text}>Select the user category: </Text>
 
-            <TouchableOpacity onPress={() => handlePress('Pet Owner')} style={styles.button}>
+            <TouchableOpacity onPress={handlePress} style={styles.button}>
                 <View style={styles.petowner}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                         <Image source={require('../PetMate/AppPics/UC_PetOwner.png')} style={styles.owner_image} />
