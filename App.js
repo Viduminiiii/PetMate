@@ -15,10 +15,12 @@ import React from 'react';
 // import VetChat from './Vet Chat'
 // import UserSearch from './User search'
 // import Petowner_Settings from './Petowner_Settings';
- import Pharmacy_Settings from './Pharmacy_Settings';
+ //import Pharmacy_Settings from './Pharmacy_Settings';
 // import Vet_Settings from './Vet_Settings';
 // import Petowner_NotificationPage from './Petowner_NotificationPage';
 //import Vet_Notification from './Vet_Notification';
+import Available_VetSessions from './Available_VetSessions';
+// import Reminders from './Reminders';
 
 
 function App() {
@@ -39,10 +41,12 @@ function App() {
       // <VetChat />
       // <UserSearch />
       // <Petowner_Settings />
-       <Pharmacy_Settings />
+      //<Pharmacy_Settings />
       // <Vet_Settings />
       // <Petowner_NotificationPage />
       //<Vet_Notification />
+      <Available_VetSessions />
+      // <Reminders />
 
    );
 }
