@@ -20,8 +20,8 @@ import React from 'react';
 // import Available_VetSessions from './Available_VetSessions';
 // import Reminders from './Reminders';
 //import Payment_1 from './Payment_1';
-//import Medicalrecords from './Medicalrecords';
-import PharmacyPrescription from './PharmacyPrescription';
+import Medicalrecords from './Medicalrecords';
+// import PharmacyPrescription from './PharmacyPrescription';
 
 
 
@@ -48,8 +48,8 @@ function App() {
       //<Vet_Notification />
       // <Available_VetSessions />
       // <Reminders />
-      //<Medicalrecords />
-      <PharmacyPrescription />
+      <Medicalrecords />
+      // <PharmacyPrescription />
    )
 }
 export default App
