@@ -1,10 +1,11 @@
 import React from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
-const UserCategory = () => {
-    const handlePress = () => {
-        console.log('Button pressed');
-    }
+const UserCategory = ({ navigation }) => {
+    // const handlePress = (print) => {
+    //     console.log('Button pressed:  '+ print);
+    //     // navigation.navigate('SignUp');
+    // }
     return (
         <View style={styles.page}>
             <Image
@@ -13,7 +14,7 @@ const UserCategory = () => {
             />
             <Text style={styles.text}>Select the user category: </Text>
 
-            <TouchableOpacity onPress={() => handlePress('Pet Owner')} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.button}>
                 <View style={styles.petowner}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                         <Image source={require('../PetMate/AppPics/UC_PetOwner.png')} style={styles.owner_image} />
@@ -24,7 +25,7 @@ const UserCategory = () => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handlePress('Vetenarian')} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('VetSignUp')} style={styles.button}>
                 <View style={styles.vet}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                         <Image source={require('../PetMate/AppPics/Menu_VetClinic.png')} style={styles.owner_image} />
@@ -35,7 +36,7 @@ const UserCategory = () => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handlePress('Vetenarian')} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('PharmacySignUp')} style={styles.button}>
                 <View style={styles.pharmacy}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                         <Image source={require('../PetMate/AppPics/UC_Pharmacy.png')} style={styles.phar_image} />

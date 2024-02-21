@@ -8,10 +8,10 @@ import DatePicker from "react-native-date-picker";
 //     { label: "Female", value: "2" },
 //   ];
 
-const DocChannelling = () => {
-    const handlePress = () => {
-        console.log("Button pressed");
-    }
+const DocChannelling = ({ navigation }) => {
+    // const handlePress = () => {
+    //     console.log("Button pressed");
+    // }
     const [valueType, setValueType] = useState(null);
     const [isFocusType, setIsFocusType] = useState(false);
     const [valueDoc, setValueDoc] = useState(null);
@@ -23,13 +23,13 @@ const DocChannelling = () => {
     return (
        <View style = {styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress('Logo')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     DOCTOR CHANNELLING
                 </Text>
-                <TouchableOpacity onPress={() => handlePress('Setting')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -161,23 +161,23 @@ const DocChannelling = () => {
                         />
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => handlePress('Search')}>
+                <TouchableOpacity /*onPress={() => navigation.navigate('Menu')}*/>
                     <View style ={styles.button}>
                         <Text style={styles.search_btn}>Search</Text>
                     </View>
                 </TouchableOpacity>
             </View>
             <View style ={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Menu.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handlePress('Home')}>
                     <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity  onPress={() => navigation.navigate('DocChannelling')}>
                     <Image source={require ('../PetMate/AppPics/Footer_appointment.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handlePress('Home')}>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     text: {
-        fontSize: 25,
+        fontSize: 20,
         padding: 20,
         alignSelf: 'flex-start',
     },

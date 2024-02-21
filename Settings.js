@@ -1,14 +1,14 @@
 import React, { Component, useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, DatePickerAndriod, Button,TextInput} from "react-native";
 
-const Settings = () => {
-    const handlePress = () =>{
-        console.log('Button pressed');
-    }
+const Settings = ({ navigation }) => {
+    // const handlePress = () =>{
+    //     console.log('Button pressed');
+    // }
     return( 
         <View style={styles.container}>
             <View style={styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress("Logo")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image
                         source={require("../PetMate/AppPics/Logo.png")}
                           style={styles.logo}
@@ -35,29 +35,29 @@ const Settings = () => {
 
             <View style={styles.container_1}>
                 <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
-                  <TextInput style={styles.notification}>Notifications</TextInput>
+                  <Text style={styles.notification}>Notifications</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.container_2}>
-                <TextInput style={styles.notification}>Dark Mode</TextInput>
+                <Text style={styles.notification}>Dark Mode</Text>
                 <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
                     <Image source={require("../PetMate/AppPics/Settings_Switch.png")} style={styles.image_2}/>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.container_3}>
-                <TouchableOpacity style={styles.signoutbutton} onPress={handlePress}>
+                <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
                   <Text style={styles.signout_buttonText}>SIGN OUT</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                   <Image source={require("../PetMate/AppPics/Footer_Menu.png")} style={styles.menu_img}/>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                   <Image source={require("../PetMate/AppPics/Footer_Chat.png")} style={styles.menu_img}/>
                 </TouchableOpacity>
 
@@ -68,7 +68,7 @@ const Settings = () => {
                   />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
                       source={require("../PetMate/AppPics/Footer_appointment.png")}
                       style={styles.menu_img}

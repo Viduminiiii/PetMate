@@ -10,14 +10,14 @@ import {
   TextInput,
 } from "react-native";
 
-const Vet_Notification = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const Vet_Notification = ({ navigation }) => {
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -28,11 +28,10 @@ const Vet_Notification = () => {
 
       <View style={styles.notifications}>
         <View style={styles.container_1}>
-          <TextInput style={styles.reminders}>Reminders</TextInput>
+          <Text style={styles.reminders}>Reminders</Text>
           <TouchableOpacity
             style={styles.notification_settings}
-            onPress={handlePress}
-          >
+            onPress={handlePress}>
             <Image
               source={require("../PetMate/AppPics/Settings_Switch.png")}
               style={styles.image2}
@@ -41,11 +40,10 @@ const Vet_Notification = () => {
         </View>
 
         <View style={styles.container_2}>
-          <TextInput style={styles.reminders_2}>Appointment Reminders</TextInput>
+          <Text style={styles.reminders_2}>Appointment Reminders</Text>
           <TouchableOpacity
             style={styles.notification_settings}
-            onPress={handlePress}
-          >
+            onPress={handlePress}>
             <Image
               source={require("../PetMate/AppPics/Settings_Switch.png")}
               style={styles.image3}
@@ -56,7 +54,7 @@ const Vet_Notification = () => {
       
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}

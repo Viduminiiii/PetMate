@@ -10,10 +10,10 @@ import {
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
-const VetPrescription = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const VetPrescription = ({ navigation }) => {
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  // };
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -22,7 +22,7 @@ const VetPrescription = () => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -154,14 +154,14 @@ const VetPrescription = () => {
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={() => handlePress("Send")}>
+        <TouchableOpacity onPress={() => navigation.navigate('UserSearch')}>
           <View style={styles.button}>
             <Text style={styles.search_btn}>Send</Text>
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
@@ -173,9 +173,9 @@ const VetPrescription = () => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => handlePress("Appointment")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>

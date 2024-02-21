@@ -9,14 +9,14 @@ import {
   TextInput,
 } from "react-native";
 
-const Petowner_Settings = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const Petowner_Settings = ({ navigation }) => {
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -48,13 +48,13 @@ const Petowner_Settings = () => {
 
       <View style={styles.notification_btns}>
       <View style={styles.container_1}>
-        <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
-          <TextInput style={styles.notification}>Notifications</TextInput>
+        <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Vet_Notification')}>
+          <Text style={styles.notification}>Notifications</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.container_2}>
-        <TextInput style={styles.dark_mode}>Dark Mode</TextInput>
+        <Text style={styles.dark_mode}>Dark Mode</Text>
         <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
           <Image
             source={require("../PetMate/AppPics/Settings_Switch.png")}
@@ -66,13 +66,13 @@ const Petowner_Settings = () => {
       
 
       <View style={styles.container_3}>
-        <TouchableOpacity style={styles.signoutbutton} onPress={handlePress}>
+        <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}

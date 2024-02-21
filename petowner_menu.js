@@ -1,26 +1,26 @@
 import React from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
-const PetOwnerMenu = () => {
-    const handlePress = () => {
-        console.log('Button pressed');
-    }
+const PetOwnerMenu = ({ navigation }) => {
+    // const handlePress = () => {
+    //     console.log('Button pressed');
+    // }
     return (
         <View style={styles.page}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     MENU
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Reminder.png')} style = {styles.reminder}/>
                 </TouchableOpacity>
             </View>
 
             <View style ={styles.menu_buttons}>
-               <TouchableOpacity onPress={() => handlePress('Pet Owner')} style={styles.button}>
+               <TouchableOpacity onPress={() => navigation.navigate('Chat')} style={styles.button}>
                   <View style={styles.chat}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../PetMate/AppPics/Menu_ChatDoc.png')} style={styles.chatDoc_image} />
@@ -42,7 +42,7 @@ const PetOwnerMenu = () => {
                   </View>
                </TouchableOpacity>
 
-               <TouchableOpacity onPress={() => handlePress('Doctor channelling')} style={styles.button}>
+               <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')} style={styles.button}>
                   <View style={styles.channelling}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../PetMate/AppPics/Menu_Channeling.png')} style={styles.channelling_image} />
@@ -107,7 +107,8 @@ const PetOwnerMenu = () => {
       marginLeft:45,
   },
   menu_buttons:{
-      paddingTop:150,
+      paddingTop:130,
+      margin:20
   },
     chat: {
         flexDirection: 'row', // Use 'column' for vertical split

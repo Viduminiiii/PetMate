@@ -1,10 +1,10 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
-const SignUp = ()=>{
-    const handlePress = () => {
-        console.log("Button pressed");
-    }
+const SignUp = ({ navigation })=>{
+    // const handlePress = () => {
+    //     console.log("Button pressed");
+    // }
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
@@ -41,7 +41,7 @@ const SignUp = ()=>{
                     </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={styles.signUpButton} onPress={handlePress}>
+            <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('Menu')}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={styles.container5}>

@@ -1,21 +1,21 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const UserSearch = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const UserSearch = ({ navigation }) => {
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  // };
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>SELECT A PET OWNER</Text>
-        <TouchableOpacity onPress={() => handlePress("Setting")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
           <Image
             source={require("../PetMate/AppPics/Setting.png")}
             style={styles.settings}
@@ -55,7 +55,7 @@ const UserSearch = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
@@ -67,9 +67,9 @@ const UserSearch = () => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => handlePress("Appointment")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>

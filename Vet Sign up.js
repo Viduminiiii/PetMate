@@ -1,10 +1,10 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput ,ScrollView} from 'react-native';
 
-const VetSignUp = ()=>{
-    const handlePress = () => {
-        console.log("Button pressed");
-    }
+const VetSignUp = ({ navigation })=>{
+    // const handlePress = () => {
+    //     console.log("Button pressed");
+    // }
     return(
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
@@ -51,7 +51,7 @@ const VetSignUp = ()=>{
                     </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={styles.signUpButton} onPress={handlePress}>
+            <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('VetMenu')}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={styles.container5}>

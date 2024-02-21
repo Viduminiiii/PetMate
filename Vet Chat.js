@@ -1,20 +1,20 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
-const VetChat = ()=>{
+const VetChat = ({ navigation })=>{
     const handlePress = () => {
         console.log("Button pressed");
     }
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     CHAT
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -29,14 +29,14 @@ const VetChat = ()=>{
                     <TouchableOpacity>
                         <Image source={require('../PetMate/AppPics/Chat_Mic.png')} style={styles.inputImage1} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                         <Image source={require('../PetMate/AppPics/Chat_Send.png')} style={styles.inputImage} />
                     </TouchableOpacity>
                 </View>
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>

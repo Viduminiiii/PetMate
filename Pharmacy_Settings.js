@@ -9,14 +9,14 @@ import {
   TextInput,
 } from "react-native";
 
-const Pharmacy_Settings = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const Pharmacy_Settings = ({ navigation }) => {
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity /*onPress={() => navigation.navigate('VetMenu')}*/>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -48,7 +48,7 @@ const Pharmacy_Settings = () => {
 
       <View style={styles.notifications_btns}>
         <View style={styles.container_2}>
-          <TextInput style={styles.dark_mode}>Dark Mode</TextInput>
+          <Text style={styles.dark_mode}>Dark Mode</Text>
           <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
             <Image
               source={require("../PetMate/AppPics/Settings_Switch.png")}
@@ -59,7 +59,7 @@ const Pharmacy_Settings = () => {
       </View>
 
       <View style={styles.container_3}>
-        <TouchableOpacity style={styles.signoutbutton} onPress={handlePress}>
+        <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
