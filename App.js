@@ -19,6 +19,12 @@ import Petowner_Settings from './Petowner_Settings';
 import Vet_Settings from './Vet_Settings';
 // import Petowner_NotificationPage from './Petowner_NotificationPage';
 import Vet_Notification from './Vet_Notification';
+// import Available_VetSessions from './Available_VetSessions';
+// import Reminders from './Reminders';
+//import Payment_1 from './Payment_1';
+import Medicalrecords from './Medicalrecords';
+// import PharmacyPrescription from './PharmacyPrescription';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -26,26 +32,6 @@ const Stack = createNativeStackNavigator();
 
 function App() {
    return (
-      // <DocChannelling />
-      // <UserCategory />
-      //<Prescription />
-      // <VetPrescription />
-      // <VetMenu />
-      // <PetOwnerMenu />
-      // <Payment_1 />
-      // <Payment_2 />
-      // <Login />
-      //<SignUp />
-      // <VetSignUp />
-      // <PharmacySignUp />
-      // <Chat />
-      // <VetChat />
-      // <UserSearch />
-      // <Petowner_Settings />
-      //  <Pharmacy_Settings />
-      // <Vet_Settings />
-      // <Petowner_NotificationPage />
-      //<Vet_Notification />
       <NavigationContainer initialRouteName="UserCategory">
          <Stack.Navigator>
             <Stack.Screen name="UserCategory" component={UserCategory} />
