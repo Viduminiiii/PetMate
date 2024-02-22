@@ -2,12 +2,11 @@ import React from 'react';
 //import UserCategory from './User Category';
 //  import DocChannelling from './Doctor channelling';
 //import Prescription from './Digital prescription'
-//import VetPrescription from './Vet - Digital prescription'
-//import VetMenu from './Vet - Menu'
-//import PetOwnerMenu from './petowner_menu'
-//import Payment_1 from './Payment_1';
-//import Payment_2 from './payment_2';
-//import Login from './Login';
+// import VetPrescription from './Vet - Digital prescription'
+// import VetMenu from './Vet - Menu'
+// import PetOwnerMenu from './petowner_menu'
+// import Payment_1 from './Payment_1';
+// import Login from './Login';
 //import SignUp from './Sign up'
 // import VetSignUp from './Vet Sign up'
 // import PharmacySignUp from './Pharmacy Sign up'
@@ -19,8 +18,12 @@ import React from 'react';
 //import Vet_Settings from './Vet_Settings';
 //import Petowner_NotificationPage from './Petowner_NotificationPage';
 //import Vet_Notification from './Vet_Notification';
-//import Available_VetSessions from './Available_VetSessions';
+// import Available_VetSessions from './Available_VetSessions';
 import Reminders from './Reminders';
+//import Payment_1 from './Payment_1';
+// import Medicalrecords from './Medicalrecords';
+// import PharmacyPrescription from './PharmacyPrescription';
+
 
 
 function App() {
@@ -32,7 +35,6 @@ function App() {
       // <VetMenu />
       //<PetOwnerMenu />
       // <Payment_1 />
-      // <Payment_2 />
       //<Login />
       //<SignUp />
       // <VetSignUp />
@@ -47,7 +49,8 @@ function App() {
       //<Vet_Notification />
       //<Available_VetSessions />
       <Reminders />
-
-   );
+      // <Medicalrecords />
+      // <PharmacyPrescription />
+   )
 }
 export default App
