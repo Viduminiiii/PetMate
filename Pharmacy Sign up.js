@@ -2,9 +2,6 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput,ScrollView} from 'react-native';
 
 const PharmacySignUp = ()=>{
-    const handlePress = () => {
-        console.log("Button pressed");
-    }
     return(
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
@@ -67,7 +64,10 @@ const PharmacySignUp = ()=>{
                 </TouchableOpacity>
             </View>
             <View style={styles.container4}>
-                <Text style={styles.text}>Do you have an account? <TouchableOpacity><Text style={styles.loginText}>LOGIN</Text></TouchableOpacity></Text>
+                <Text style={styles.text}>Do you have an account? 
+                <TouchableOpacity>
+                    <Text style={styles.loginText}>LOGIN</Text>
+                </TouchableOpacity></Text>
             </View>
         </View>
         </ScrollView>

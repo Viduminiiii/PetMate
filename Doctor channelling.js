@@ -3,15 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, DatePickerAndriod, But
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
-// const data = [
-//     { label: "Male", value: "1" },
-//     { label: "Female", value: "2" },
-//   ];
-
 const DocChannelling = ({ navigation }) => {
-    // const handlePress = () => {
-    //     console.log("Button pressed");
-    // }
     const [valueType, setValueType] = useState(null);
     const [isFocusType, setIsFocusType] = useState(false);
     const [valueDoc, setValueDoc] = useState(null);
@@ -161,7 +153,7 @@ const DocChannelling = ({ navigation }) => {
                         />
                     </View>
                 </View>
-                <TouchableOpacity /*onPress={() => navigation.navigate('Menu')}*/>
+                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')}>
                     <View style ={styles.button}>
                         <Text style={styles.search_btn}>Search</Text>
                     </View>
@@ -180,7 +172,7 @@ const DocChannelling = ({ navigation }) => {
                 <TouchableOpacity  onPress={() => navigation.navigate('DocChannelling')}>
                     <Image source={require ('../PetMate/AppPics/Footer_appointment.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image source={require ('../PetMate/AppPics/Footer_medicalRecords.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
             </View>

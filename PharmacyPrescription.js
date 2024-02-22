@@ -1,20 +1,17 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
 
-const PharmacyPrescription = () => {
-    const handlePress = () => {
-        console.log("Button pressed");
-    }
+const PharmacyPrescription = ({ navigation }) => {
     return(
     <View style={styles.maincontainer}>
        <View style = {styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress('Logo')}>
+                <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     PHARMACY
                 </Text>
-                <TouchableOpacity onPress={() => handlePress('Setting')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Pharmacy_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
         </View>
@@ -29,40 +26,40 @@ const PharmacyPrescription = () => {
             </Text>
     </View>
     <View style={styles.detailContainer}>
-        <TouchableOpacity onPress={() => handlePress('Prescription')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Prescription')}>
         <View style={styles.topicContainer}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
         <View style={styles.topicContainer2}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
         <View style={styles.topicContainer3}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
         <View style={styles.topicContainer4}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
         <View style={styles.topicContainer5}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
         <View style={styles.topicContainer6}>
         </View>
         </TouchableOpacity>
     </View>
 
         <View style ={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
                     <Image source={require ('../PetMate/AppPics/PharFooter_Prescription.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                {/* <TouchableOpacity onPress={() => handlePress('Home')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Menu.png')} style={styles.menu_img}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                </TouchableOpacity> */}
+                <TouchableOpacity onPress={() => navigation.navigate('AvailableMedicine')}>
                     <Image source={require ('../PetMate/AppPics/PharFooter_Medicine.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
             </View>

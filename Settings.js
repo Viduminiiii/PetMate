@@ -2,9 +2,6 @@ import React, { Component, useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, DatePickerAndriod, Button,TextInput} from "react-native";
 
 const Settings = ({ navigation }) => {
-    // const handlePress = () =>{
-    //     console.log('Button pressed');
-    // }
     return( 
         <View style={styles.container}>
             <View style={styles.nav_bar}>
@@ -34,7 +31,7 @@ const Settings = ({ navigation }) => {
             </View>
 
             <View style={styles.container_1}>
-                <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
+                <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Petowner_NotificationPage')}>
                   <Text style={styles.notification}>Notifications</Text>
                 </TouchableOpacity>
             </View>
@@ -75,7 +72,7 @@ const Settings = ({ navigation }) => {
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => handlePress("Medical records")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
                       source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
                       style={styles.menu_img}

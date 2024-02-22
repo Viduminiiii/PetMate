@@ -2,9 +2,6 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput ,ScrollView} from 'react-native';
 
 const VetSignUp = ({ navigation })=>{
-    // const handlePress = () => {
-    //     console.log("Button pressed");
-    // }
     return(
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
@@ -68,7 +65,9 @@ const VetSignUp = ({ navigation })=>{
             </View>
             <View style={styles.container4}>
                 <Text style={styles.text}>Do you have an account?</Text>
-                <TouchableOpacity><Text style={styles.loginText}>LOGIN</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.loginText}>LOGIN</Text>
+                    </TouchableOpacity>
             </View>
         </View>
         </ScrollView>
@@ -148,8 +147,8 @@ const styles=StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20, 
-        marginTop: 10, 
-        marginBottom: 110,
+        marginTop: 0, 
+        marginBottom: 100,
     },
     image: {
         width: 50, // Adjust image width 

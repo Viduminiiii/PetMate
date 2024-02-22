@@ -5,18 +5,14 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  Button,
   TextInput,
 } from "react-native";
 
-const Petowner_NotificationPage = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const Petowner_NotificationPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -55,13 +51,13 @@ const Petowner_NotificationPage = () => {
       
 
         <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
@@ -73,13 +69,13 @@ const Petowner_NotificationPage = () => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
             source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}

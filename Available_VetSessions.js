@@ -1,14 +1,11 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const Available_VetSessions = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const Available_VetSessions = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -18,7 +15,7 @@ const Available_VetSessions = () => {
           <Text style={styles.nav_text}>AVAILABLE</Text>
           <Text style={styles.nav_text}>SESSIONS</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
           <Image
             source={require("../PetMate/AppPics/Setting.png")}
             style={styles.settings}
@@ -42,7 +39,7 @@ const Available_VetSessions = () => {
             <View style={styles.container2}>
               <TouchableOpacity
                 style={styles.book_button}
-                onPress={handlePress}
+                onPress={() => navigation.navigate('Payment_1')}
               >
                 <Text style={styles.bookButtonText}>BOOK NOW</Text>
               </TouchableOpacity>
@@ -67,7 +64,7 @@ const Available_VetSessions = () => {
             <View style={styles.container4}>
               <TouchableOpacity
                 style={styles.book_button}
-                onPress={handlePress}
+                onPress={() => navigation.navigate('Payment_1')}
               >
                 <Text style={styles.bookButtonText}>BOOK NOW</Text>
               </TouchableOpacity>
@@ -92,7 +89,7 @@ const Available_VetSessions = () => {
             <View style={styles.container5}>
               <TouchableOpacity
                 style={styles.book_button}
-                onPress={handlePress}
+                onPress={() => navigation.navigate('Payment_1')}
               >
                 <Text style={styles.bookButtonText}>BOOK NOW</Text>
               </TouchableOpacity>
@@ -117,7 +114,7 @@ const Available_VetSessions = () => {
             <View style={styles.container6}>
               <TouchableOpacity
                 style={styles.book_button}
-                onPress={handlePress}
+                onPress={() => navigation.navigate('Payment_1')}
               >
                 <Text style={styles.bookButtonText}>BOOK NOW</Text>
               </TouchableOpacity>
@@ -127,13 +124,13 @@ const Available_VetSessions = () => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
@@ -145,13 +142,13 @@ const Available_VetSessions = () => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
             source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}

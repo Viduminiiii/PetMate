@@ -2,9 +2,6 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
 const SignUp = ({ navigation })=>{
-    // const handlePress = () => {
-    //     console.log("Button pressed");
-    // }
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
@@ -58,7 +55,9 @@ const SignUp = ({ navigation })=>{
             </View>
             <View style={styles.container4}>
                 <Text style={styles.text}>Do you have an account?</Text>
-                <TouchableOpacity><Text style={styles.loginText}>LOGIN</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.loginText}>LOGIN</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )

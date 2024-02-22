@@ -1,10 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from "react-native";
 
-const Payment_1 = () => {
-    const handlePress = () => {
-        console.log("Button pressed");
-      };
+const Payment_1 = ({ navigation }) => {
     return (
         <View style={styles.page}>
             <View style = {styles.nav_bar}>
@@ -45,13 +42,13 @@ const Payment_1 = () => {
             </View>
             
             <View style = {styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_Menu.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_Chat.png")}
                         style={styles.menu_img}
@@ -63,13 +60,13 @@ const Payment_1 = () => {
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_appointment.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Medical records")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
                         style={styles.menu_img}

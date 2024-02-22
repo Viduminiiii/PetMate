@@ -10,9 +10,6 @@ import {
 } from "react-native";
 
 const Petowner_Settings = ({ navigation }) => {
-  // const handlePress = () => {
-  //   console.log("Button pressed");
-  // };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
@@ -26,24 +23,18 @@ const Petowner_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.user}>
-        <TouchableOpacity onPress={() => handlePress}>
           <Image
             source={require("../PetMate/AppPics/User_icon.png")}
             style={styles.image1}
           />
-        </TouchableOpacity>
       </View>
 
       <View style={styles.text1}>
-        <TouchableOpacity style={styles.text_input1} onPress={handlePress}>
           <Text style={styles.username}>Marsh Smith</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.text2}>
-        <TouchableOpacity style={styles.text_input2} onPress={handlePress}>
           <Text style={styles.email}>marshsmith@gmail.com</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.notification_btns}>
@@ -79,14 +70,14 @@ const Petowner_Settings = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetChat")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Appointment")}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}

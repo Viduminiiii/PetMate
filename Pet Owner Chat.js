@@ -2,19 +2,16 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
 const Chat = ({ navigation })=>{
-    // const handlePress = () => {
-    //     console.log("Button pressed");
-    // }
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     CHAT
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -36,11 +33,11 @@ const Chat = ({ navigation })=>{
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_Chat.png")}
                     style={styles.menu_img}/>
@@ -51,13 +48,13 @@ const Chat = ({ navigation })=>{
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_appointment.png")}
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Medical records")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
                     style={styles.menu_img}

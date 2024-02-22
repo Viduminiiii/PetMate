@@ -11,9 +11,6 @@ import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
 const VetPrescription = ({ navigation }) => {
-  // const handlePress = () => {
-  //   console.log("Button pressed");
-  // };
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -167,7 +164,7 @@ const VetPrescription = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}

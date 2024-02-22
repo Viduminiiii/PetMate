@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "react-native";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };

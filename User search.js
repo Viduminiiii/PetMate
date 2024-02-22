@@ -2,9 +2,6 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const UserSearch = ({ navigation }) => {
-  // const handlePress = () => {
-  //   console.log("Button pressed");
-  // };
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>
@@ -23,32 +20,32 @@ const UserSearch = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.selection}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Anne</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>John</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Peter</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Atlas</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Lily</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Oliver</Text>
             </View>
@@ -61,7 +58,7 @@ const UserSearch = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}

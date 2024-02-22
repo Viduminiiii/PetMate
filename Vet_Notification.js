@@ -5,15 +5,9 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  DatePickerAndriod,
-  Button,
-  TextInput,
 } from "react-native";
 
 const Vet_Notification = ({ navigation }) => {
-  // const handlePress = () => {
-  //   console.log("Button pressed");
-  // };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
@@ -61,7 +55,7 @@ const Vet_Notification = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}

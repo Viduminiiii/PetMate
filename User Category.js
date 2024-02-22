@@ -2,10 +2,6 @@ import React from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
 const UserCategory = ({ navigation }) => {
-    // const handlePress = (print) => {
-    //     console.log('Button pressed:  '+ print);
-    //     // navigation.navigate('SignUp');
-    // }
     return (
         <View style={styles.page}>
             <Image

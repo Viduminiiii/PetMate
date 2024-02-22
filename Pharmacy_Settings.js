@@ -5,18 +5,13 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  Button,
-  TextInput,
 } from "react-native";
 
 const Pharmacy_Settings = ({ navigation }) => {
-  // const handlePress = () => {
-  //   console.log("Button pressed");
-  // };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity /*onPress={() => navigation.navigate('VetMenu')}*/>
+        <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -26,24 +21,18 @@ const Pharmacy_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.user}>
-        <TouchableOpacity onPress={() => handlePress}>
           <Image
             source={require("../PetMate/AppPics/User_icon.png")}
             style={styles.image1}
           />
-        </TouchableOpacity>
       </View>
 
       <View style={styles.text1}>
-        <TouchableOpacity style={styles.text_input1} onPress={handlePress}>
           <Text style={styles.username}>Marsh Smith</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.text2}>
-        <TouchableOpacity style={styles.text_input2} onPress={handlePress}>
           <Text style={styles.email}>marshsmith@gmail.com</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.notifications_btns}>
@@ -65,21 +54,21 @@ const Pharmacy_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Pharmacy_Prescription")}>
+        <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
           <Image
             source={require("../PetMate/AppPics/PharFooter_Prescription.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        {/* <TouchableOpacity onPress={() => handlePress("Home")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TouchableOpacity onPress={() => handlePress("Medicine")}>
+        <TouchableOpacity onPress={() => navigation.navigate('AvailableMedicine')}>
           <Image
             source={require("../PetMate/AppPics/PharFooter_Medicine.png")}
             style={styles.menu_img}

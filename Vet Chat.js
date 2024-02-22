@@ -2,9 +2,6 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
 const VetChat = ({ navigation })=>{
-    const handlePress = () => {
-        console.log("Button pressed");
-    }
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
@@ -40,7 +37,7 @@ const VetChat = ({ navigation })=>{
                     <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_Chat.png")}
                     style={styles.menu_img}/>

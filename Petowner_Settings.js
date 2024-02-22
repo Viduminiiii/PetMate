@@ -9,14 +9,11 @@ import {
   TextInput,
 } from "react-native";
 
-const Petowner_Settings = () => {
-  const handlePress = () => {
-    console.log("Button pressed");
-  };
+const Petowner_Settings = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -26,29 +23,23 @@ const Petowner_Settings = () => {
       </View>
 
       <View style={styles.user}>
-        <TouchableOpacity onPress={() => handlePress}>
           <Image
             source={require("../PetMate/AppPics/User_icon.png")}
             style={styles.image1}
           />
-        </TouchableOpacity>
       </View>
 
       <View style={styles.text1}>
-        <TouchableOpacity style={styles.text_input1} onPress={handlePress}>
           <Text style={styles.username}>Marsh Smith</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.text2}>
-        <TouchableOpacity style={styles.text_input2} onPress={handlePress}>
           <Text style={styles.email}>marshsmith@gmail.com</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.notification_btns}>
       <View style={styles.container_1}>
-        <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
+        <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Petowner_NotificationPage')}>
           <TextInput style={styles.notification}>Notifications</TextInput>
         </TouchableOpacity>
       </View>
@@ -66,19 +57,19 @@ const Petowner_Settings = () => {
       
 
       <View style={styles.container_3}>
-        <TouchableOpacity style={styles.signoutbutton} onPress={handlePress}>
+        <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
@@ -90,13 +81,13 @@ const Petowner_Settings = () => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
             source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
