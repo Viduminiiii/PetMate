@@ -32,7 +32,7 @@ const Petowner_Settings = ({ navigation }) => {
       <View style={styles.notification_btns}>
       <View style={styles.container_1}>
         <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Petowner_NotificationPage')}>
-          <TextInput style={styles.notification}>Notifications</TextInput>
+          <Text style={styles.notification}>Notifications</Text>
         </TouchableOpacity>
       </View>
 

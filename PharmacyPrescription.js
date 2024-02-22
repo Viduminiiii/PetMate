@@ -26,27 +26,27 @@ const PharmacyPrescription = ({ navigation }) => {
             </Text>
     </View>
     <View style={styles.detailContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Prescription')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
         <View style={styles.topicContainer}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Medicalrecords')}>
         <View style={styles.topicContainer2}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Medicalrecords')}>
         <View style={styles.topicContainer3}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Medicalrecords')}>
         <View style={styles.topicContainer4}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Medicalrecords')}>
         <View style={styles.topicContainer5}>
         </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => navigation.navigate('Prescription')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Medicalrecords')}>
         <View style={styles.topicContainer6}>
         </View>
         </TouchableOpacity>
