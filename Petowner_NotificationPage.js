@@ -5,7 +5,6 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 
 const Petowner_NotificationPage = ({ navigation }) => {
@@ -21,34 +20,33 @@ const Petowner_NotificationPage = ({ navigation }) => {
         <Text style={styles.nav_text}>NOTIFICATIONS</Text>
       </View>
 
-        <View style={styles.notifications}>
-          <View style={styles.container_1}>
-            <TextInput style={styles.reminders}>Reminders</TextInput>
-            <TouchableOpacity
-              style={styles.notification_settings}
-              onPress={handlePress}
-            >
-              <Image
-                source={require("../PetMate/AppPics/Settings_Switch.png")}
-                style={styles.image2}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.container_2}>
-            <TextInput style={styles.reminders_2}>Appointment Reminders</TextInput>
-            <TouchableOpacity
-              style={styles.notification_settings}
-              onPress={handlePress}
-            >
-              <Image
-                source={require("../PetMate/AppPics/Settings_Switch.png")}
-                style={styles.image3}
-              />
-            </TouchableOpacity>
-          </View>
+      <View style={styles.notifications}>
+        <View style={styles.container_1}>
+          <Text style={styles.reminders}>Reminders</Text>
+          <TouchableOpacity
+            style={styles.notification_settings}
+            onPress={handlePress}
+          >
+            <Image
+              source={require("../PetMate/AppPics/Settings_Switch.png")}
+              style={styles.image2}
+            />
+          </TouchableOpacity>
         </View>
-      
+
+        <View style={styles.container_2}>
+          <Text style={styles.reminders_2}>Appointment Reminders</Text>
+          <TouchableOpacity
+            style={styles.notification_settings}
+            onPress={handlePress}
+          >
+            <Image
+              source={require("../PetMate/AppPics/Settings_Switch.png")}
+              style={styles.image3}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
 
         <View style={styles.footer}>
         <TouchableOpacity  onPress={() => navigation.navigate('Menu')}>
@@ -117,8 +115,8 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
   },
-  notifications:{
-    marginTop: -350
+  notifications: {
+    marginTop: -350,
   },
   container_1: {
     backgroundColor: "white",
@@ -131,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 30,
+    marginTop: 12,
   },
   image2: {
     width: 50,
@@ -149,6 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 20,
+    marginTop: 12,
   },
   image3: {
     width: 50,

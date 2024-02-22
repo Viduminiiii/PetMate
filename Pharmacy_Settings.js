@@ -123,18 +123,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   notifications_btns: {
-    margin:20
+    margin: 20,
   },
   container_2: {
     backgroundColor: "white",
     width: 350,
     height: "25%",
     borderRadius: 20,
-    flexDirection:'row'
+    flexDirection: "row",
   },
   dark_mode: {
     fontSize: 18,
     marginLeft: 30,
+    marginTop: 12,
   },
   image_2: {
     width: 55,

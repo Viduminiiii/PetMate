@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 30,
+    marginTop:12
   },
   image2: {
     width: 50,
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 20,
+    marginTop:12
   },
   image3: {
     width: 50,
