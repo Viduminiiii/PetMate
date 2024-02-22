@@ -1,13 +1,5 @@
 import React, { Component, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  TextInput,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const Pharmacy_Settings = () => {
   const handlePress = () => {
@@ -26,29 +18,23 @@ const Pharmacy_Settings = () => {
       </View>
 
       <View style={styles.user}>
-        <TouchableOpacity onPress={() => handlePress}>
-          <Image
-            source={require("../PetMate/AppPics/User_icon.png")}
-            style={styles.image1}
-          />
-        </TouchableOpacity>
+        <Image
+          source={require("../PetMate/AppPics/User_icon.png")}
+          style={styles.image1}
+        />
       </View>
 
       <View style={styles.text1}>
-        <TouchableOpacity style={styles.text_input1} onPress={handlePress}>
-          <Text style={styles.username}>Marsh Smith</Text>
-        </TouchableOpacity>
+        <Text style={styles.username}>Marsh Smith</Text>
       </View>
 
       <View style={styles.text2}>
-        <TouchableOpacity style={styles.text_input2} onPress={handlePress}>
-          <Text style={styles.email}>marshsmith@gmail.com</Text>
-        </TouchableOpacity>
+        <Text style={styles.email}>marshsmith@gmail.com</Text>
       </View>
 
       <View style={styles.notifications_btns}>
         <View style={styles.container_2}>
-          <TextInput style={styles.dark_mode}>Dark Mode</TextInput>
+          <Text style={styles.dark_mode}>Dark Mode</Text>
           <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
             <Image
               source={require("../PetMate/AppPics/Settings_Switch.png")}
@@ -134,18 +120,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   notifications_btns: {
-    margin:20
+    margin: 20,
   },
   container_2: {
     backgroundColor: "white",
     width: 350,
     height: "25%",
     borderRadius: 20,
-    flexDirection:'row'
+    flexDirection: "row",
   },
   dark_mode: {
     fontSize: 18,
     marginLeft: 30,
+    marginTop: 12,
   },
   image_2: {
     width: 55,

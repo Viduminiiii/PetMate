@@ -5,8 +5,6 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  DatePickerAndriod,
-  Button,
   TextInput,
 } from "react-native";
 
@@ -28,7 +26,7 @@ const Vet_Notification = () => {
 
       <View style={styles.notifications}>
         <View style={styles.container_1}>
-          <TextInput style={styles.reminders}>Reminders</TextInput>
+          <Text style={styles.reminders}>Reminders</Text>
           <TouchableOpacity
             style={styles.notification_settings}
             onPress={handlePress}
@@ -41,7 +39,7 @@ const Vet_Notification = () => {
         </View>
 
         <View style={styles.container_2}>
-          <TextInput style={styles.reminders_2}>Appointment Reminders</TextInput>
+          <Text style={styles.reminders_2}>Appointment Reminders</Text>
           <TouchableOpacity
             style={styles.notification_settings}
             onPress={handlePress}
@@ -126,6 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 30,
+    marginTop:12
   },
   image2: {
     width: 50,
@@ -144,6 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 20,
+    marginTop:12
   },
   image3: {
     width: 50,

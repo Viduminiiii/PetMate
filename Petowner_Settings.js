@@ -1,13 +1,5 @@
 import React, { Component, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  TextInput,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const Petowner_Settings = () => {
   const handlePress = () => {
@@ -26,44 +18,37 @@ const Petowner_Settings = () => {
       </View>
 
       <View style={styles.user}>
-        <TouchableOpacity onPress={() => handlePress}>
-          <Image
-            source={require("../PetMate/AppPics/User_icon.png")}
-            style={styles.image1}
-          />
-        </TouchableOpacity>
+        <Image
+          source={require("../PetMate/AppPics/User_icon.png")}
+          style={styles.image1}
+        />
       </View>
 
       <View style={styles.text1}>
-        <TouchableOpacity style={styles.text_input1} onPress={handlePress}>
-          <Text style={styles.username}>Marsh Smith</Text>
-        </TouchableOpacity>
+        <Text style={styles.username}>Marsh Smith</Text>
       </View>
 
       <View style={styles.text2}>
-        <TouchableOpacity style={styles.text_input2} onPress={handlePress}>
-          <Text style={styles.email}>marshsmith@gmail.com</Text>
-        </TouchableOpacity>
+        <Text style={styles.email}>marshsmith@gmail.com</Text>
       </View>
 
       <View style={styles.notification_btns}>
-      <View style={styles.container_1}>
-        <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
-          <TextInput style={styles.notification}>Notifications</TextInput>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.container_1}>
+          <TouchableOpacity style={styles.text_input3} onPress={handlePress}>
+            <Text style={styles.notification}>Notifications</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.container_2}>
-        <TextInput style={styles.dark_mode}>Dark Mode</TextInput>
-        <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
-          <Image
-            source={require("../PetMate/AppPics/Settings_Switch.png")}
-            style={styles.image_2}
-          />
-        </TouchableOpacity>
+        <View style={styles.container_2}>
+          <Text style={styles.dark_mode}>Dark Mode</Text>
+          <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
+            <Image
+              source={require("../PetMate/AppPics/Settings_Switch.png")}
+              style={styles.image_2}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      </View>
-      
 
       <View style={styles.container_3}>
         <TouchableOpacity style={styles.signoutbutton} onPress={handlePress}>
@@ -147,14 +132,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   email: {
-    fontSize:18
+    fontSize: 18,
   },
   text2: {
     marginTop: -25,
     fontSize: 20,
   },
-  notification_btns:{
-    marginTop:-30
+  notification_btns: {
+    marginTop: -30,
   },
   container_1: {
     backgroundColor: "white",
@@ -175,13 +160,14 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 20,
     marginTop: 50,
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "center",
   },
   dark_mode: {
     fontSize: 18,
     textAlign: "left",
     marginLeft: 30,
+    marginTop: 12,
   },
   image_2: {
     resizeMode: "contain",
