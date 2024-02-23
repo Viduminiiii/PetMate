@@ -20,11 +20,14 @@ import React from 'react';
 //import Vet_Notification from './Vet_Notification';
 // import Available_VetSessions from './Available_VetSessions';
 // import Reminders from './Reminders';
+//import Payment_1 from './Payment_1';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
 // import Startup from './Startup';
 // import LocateVetClinics from './LocateVetClinics';
-import LocatePharmacy from './LocatePharmacy';
+// import LocatePharmacy from './LocatePharmacy';
+import VetReminder from './Vet_Reminder';
+
 
 
 function App() {
@@ -54,7 +57,8 @@ function App() {
       // <PharmacyPrescription />
       // <Startup />
       // <LocateVetClinics />
-      <LocatePharmacy />
+      // <LocatePharmacy />
+      <VetReminder/>
    )
 }
 export default App
