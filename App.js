@@ -19,10 +19,11 @@ import React from 'react';
 //import Petowner_NotificationPage from './Petowner_NotificationPage';
 //import Vet_Notification from './Vet_Notification';
 // import Available_VetSessions from './Available_VetSessions';
-import Reminders from './Reminders';
+// import Reminders from './Reminders';
 //import Payment_1 from './Payment_1';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
+import VetReminder from './VetReminder';
 
 
 
@@ -48,9 +49,10 @@ function App() {
       //<Petowner_NotificationPage />
       //<Vet_Notification />
       //<Available_VetSessions />
-      <Reminders />
+      // <Reminders />
       // <Medicalrecords />
       // <PharmacyPrescription />
+      <VetReminder/>
    )
 }
 export default App
