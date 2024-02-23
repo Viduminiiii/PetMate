@@ -23,8 +23,8 @@ import React from 'react';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
 // import Startup from './Startup';
-import LocateVetClinics from './LocateVetClinics';
-// import LocatePharmacy from './LocatePharmacy';
+// import LocateVetClinics from './LocateVetClinics';
+import LocatePharmacy from './LocatePharmacy';
 
 
 function App() {
@@ -53,8 +53,8 @@ function App() {
       // <Medicalrecords />
       // <PharmacyPrescription />
       // <Startup />
-      <LocateVetClinics />
-      // <LocatePharmacy />
+      // <LocateVetClinics />
+      <LocatePharmacy />
    )
 }
 export default App
