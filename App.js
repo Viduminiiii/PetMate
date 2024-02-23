@@ -1,6 +1,6 @@
 import React from 'react';
 //import UserCategory from './User Category';
-//  import DocChannelling from './Doctor channelling';
+// import DocChannelling from './Doctor channelling';
 //import Prescription from './Digital prescription'
 // import VetPrescription from './Vet - Digital prescription'
 // import VetMenu from './Vet - Menu'
@@ -23,6 +23,9 @@ import React from 'react';
 //import Payment_1 from './Payment_1';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
+// import Startup from './Startup';
+// import LocateVetClinics from './LocateVetClinics';
+// import LocatePharmacy from './LocatePharmacy';
 import VetReminder from './VetReminder';
 
 
@@ -52,6 +55,9 @@ function App() {
       // <Reminders />
       // <Medicalrecords />
       // <PharmacyPrescription />
+      // <Startup />
+      // <LocateVetClinics />
+      // <LocatePharmacy />
       <VetReminder/>
    )
 }
