@@ -22,8 +22,8 @@ import React from 'react';
 // import Reminders from './Reminders';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
-import Startup from './Startup';
-// import LocateVetClinics from './LocateVetClinics';
+// import Startup from './Startup';
+import LocateVetClinics from './LocateVetClinics';
 // import LocatePharmacy from './LocatePharmacy';
 
 
@@ -52,8 +52,8 @@ function App() {
       // <Reminders />
       // <Medicalrecords />
       // <PharmacyPrescription />
-      <Startup />
-      // <LocateVetClinics />
+      // <Startup />
+      <LocateVetClinics />
       // <LocatePharmacy />
    )
 }
