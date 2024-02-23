@@ -1,7 +1,7 @@
 import React from 'react';
-// import UserCategory from './User Category';
+//import UserCategory from './User Category';
 // import DocChannelling from './Doctor channelling';
-// import Prescription from './Digital prescription'
+//import Prescription from './Digital prescription'
 // import VetPrescription from './Vet - Digital prescription'
 // import VetMenu from './Vet - Menu'
 // import PetOwnerMenu from './petowner_menu'
@@ -13,12 +13,15 @@ import React from 'react';
 // import PharmacySignUp from './Pharmacy Sign up'
 // import Chat from './Pet Owner Chat'
 // import VetChat from './Vet Chat'
-import UserSearch from './User search'
+//import UserSearch from './User search'
+import Startup from './Startup';
+// import LocateVetClinics from './LocateVetClinics';
+// import LocatePharmacy from './LocatePharmacy';
 
 function App() {
    return (
       // <DocChannelling />
-      // <UserCategory />
+      //<UserCategory />
       // <Prescription />
       // <VetPrescription />
       // <VetMenu />
@@ -31,7 +34,10 @@ function App() {
       // <PharmacySignUp />
       // <Chat />
       // <VetChat />
-      <UserSearch />
+      //<UserSearch />
+      <Startup />
+      // <LocateVetClinics />
+      // <LocatePharmacy />
    )
 }
 export default App
