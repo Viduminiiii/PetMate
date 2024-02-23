@@ -26,7 +26,7 @@ import React from 'react';
 // import Startup from './Startup';
 // import LocateVetClinics from './LocateVetClinics';
 // import LocatePharmacy from './LocatePharmacy';
-import VetReminder from './VetReminder';
+import VetReminder from './Vet_Reminder';
 
 
 

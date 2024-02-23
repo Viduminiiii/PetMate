@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, useState } from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput,ScrollView} from 'react-native';
 import DatePicker from "react-native-date-picker";
 
@@ -140,21 +140,9 @@ const VetReminder = ()=>{
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => handlePress("Medical records")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
