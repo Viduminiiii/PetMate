@@ -1,6 +1,6 @@
 import React from 'react';
 //import UserCategory from './User Category';
-//  import DocChannelling from './Doctor channelling';
+// import DocChannelling from './Doctor channelling';
 //import Prescription from './Digital prescription'
 // import VetPrescription from './Vet - Digital prescription'
 // import VetMenu from './Vet - Menu'
@@ -19,11 +19,12 @@ import React from 'react';
 //import Petowner_NotificationPage from './Petowner_NotificationPage';
 //import Vet_Notification from './Vet_Notification';
 // import Available_VetSessions from './Available_VetSessions';
-import Reminders from './Reminders';
-//import Payment_1 from './Payment_1';
+// import Reminders from './Reminders';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
-
+import Startup from './Startup';
+// import LocateVetClinics from './LocateVetClinics';
+// import LocatePharmacy from './LocatePharmacy';
 
 
 function App() {
@@ -48,9 +49,12 @@ function App() {
       //<Petowner_NotificationPage />
       //<Vet_Notification />
       //<Available_VetSessions />
-      <Reminders />
+      // <Reminders />
       // <Medicalrecords />
       // <PharmacyPrescription />
+      <Startup />
+      // <LocateVetClinics />
+      // <LocatePharmacy />
    )
 }
 export default App
