@@ -77,7 +77,6 @@ const VetReminder = ()=>{
       </View>
 
       <View style={styles.dates}>
-      <RNDateTimePicker dayOfWeekFormat={'{dayofweek.abbreviated(2)}'} />
         {/* <View style={styles.container3}>
           <TouchableOpacity style={styles.date_button} onPress={handlePress}>
             <Text style={styles.dateButtonText}>THU</Text>
@@ -142,9 +141,21 @@ const VetReminder = ()=>{
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handlePress("Appointment")}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
