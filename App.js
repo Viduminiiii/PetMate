@@ -22,6 +22,12 @@ import Available_VetSessions from './Available_VetSessions';
 // import Reminders from './Reminders';
 import Medicalrecords from './Medicalrecords';
 import PharmacyPrescription from './PharmacyPrescription';
+// import Startup from './Startup';
+// import LocateVetClinics from './LocateVetClinics';
+// import LocatePharmacy from './LocatePharmacy';
+// import VetReminder from './Vet_Reminder';
+// import ReceivedMessages from './ReceivedMessages';
+// import AvailableMedicine from './AvailableMedicine';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

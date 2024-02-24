@@ -1,13 +1,5 @@
 import React, { Component, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  TextInput,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const Petowner_Settings = ({ navigation }) => {
   return (
@@ -54,7 +46,6 @@ const Petowner_Settings = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       </View>
-      
 
       <View style={styles.container_3}>
         <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
@@ -128,14 +119,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   email: {
-    fontSize:18
+    fontSize: 18,
   },
   text2: {
     marginTop: -25,
     fontSize: 20,
   },
-  notification_btns:{
-    marginTop:-30
+  notification_btns: {
+    marginTop: -30,
   },
   container_1: {
     backgroundColor: "white",
@@ -157,16 +148,14 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 20,
     marginTop: 50,
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "center",
   },
   dark_mode: {
     fontSize: 18,
     textAlign: "left",
     marginLeft: 30,
-    // justifyContent: "center",
-    // marginTop: 30,
-    // color: "rgba(0, 0, 0, 0.5)",
+    marginTop: 12,
   },
   image_2: {
     resizeMode: "contain",
