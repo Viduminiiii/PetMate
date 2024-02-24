@@ -26,8 +26,9 @@ import React from 'react';
 // import Startup from './Startup';
 // import LocateVetClinics from './LocateVetClinics';
 // import LocatePharmacy from './LocatePharmacy';
-import VetReminder from './Vet_Reminder';
-
+// import VetReminder from './Vet_Reminder';
+// import ReceivedMessages from './ReceivedMessages';
+import AvailableMedicine from './AvailableMedicine';
 
 
 function App() {
@@ -58,7 +59,9 @@ function App() {
       // <Startup />
       // <LocateVetClinics />
       // <LocatePharmacy />
-      <VetReminder/>
+      // <VetReminder/>
+      // < ReceivedMessages />
+      <AvailableMedicine />
    )
 }
 export default App
