@@ -2,6 +2,9 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput ,ScrollView} from 'react-native';
 
 const VetSignUp = ({ navigation })=>{
+    const handlePress = () => {
+        console.log("Button pressed");
+      };
     return(
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>

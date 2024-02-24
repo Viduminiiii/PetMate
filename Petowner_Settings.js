@@ -2,10 +2,13 @@ import React, { Component, useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const Petowner_Settings = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -48,37 +51,42 @@ const Petowner_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.container_3}>
-        <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity
+          style={styles.signoutbutton}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LocateVetClinics")}
+        >
           <Image
             source={require("../PetMate/AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
           <Image
             source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -178,10 +186,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   signoutbutton: {
-    backgroundColor: "white",
+    backgroundColor: "#F2E5E5",
     paddingVertical: 15,
     paddingHorizontal: 55,
-    borderRadius: 10,
+    borderRadius: 20,
     marginTop: 20,
   },
   signout_buttonText: {

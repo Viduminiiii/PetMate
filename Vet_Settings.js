@@ -2,10 +2,13 @@ import React, { Component, useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const Petowner_Settings = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -45,16 +48,39 @@ const Petowner_Settings = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
+
+      <View style={styles.notification_btns}>
+        <View style={styles.container_1}>
+          <TouchableOpacity
+            style={styles.text_input3}
+            onPress={() => navigation.navigate("Vet_Notification")}
+          >
+            <Text style={styles.notification}>Notifications</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.container_2}>
+          <Text style={styles.dark_mode}>Dark Mode</Text>
+          <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
+            <Image
+              source={require("../PetMate/AppPics/Settings_Switch.png")}
+              style={styles.image_2}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.container_3}>
-        <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity
+          style={styles.signoutbutton}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
@@ -169,10 +195,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   signoutbutton: {
-    backgroundColor: "white",
+    backgroundColor: "#F2E5E5",
     paddingVertical: 15,
     paddingHorizontal: 55,
-    borderRadius: 10,
+    borderRadius: 20,
     marginTop: 20,
   },
   signout_buttonText: {

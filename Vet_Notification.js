@@ -8,6 +8,9 @@ import {
 } from "react-native";
 
 const Vet_Notification = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>

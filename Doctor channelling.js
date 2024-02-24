@@ -4,6 +4,10 @@ import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
 const DocChannelling = ({ navigation }) => {
+    const handlePress = () => {
+        console.log("Button pressed");
+    }
+
     const [valueType, setValueType] = useState(null);
     const [isFocusType, setIsFocusType] = useState(false);
     const [valueDoc, setValueDoc] = useState(null);
@@ -166,7 +170,7 @@ const DocChannelling = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
                     <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity  onPress={() => navigation.navigate('DocChannelling')}>

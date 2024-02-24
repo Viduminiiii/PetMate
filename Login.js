@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
       <View style={styles.password}>
         <TextInput style={styles.text}>Password</TextInput>
         <TouchableOpacity
-          onPress={() => handlePress("LOGIN")}
+          onPress={() => navigation.navigate('VetMenu')}
           style={styles.button}
         >
           <Image
@@ -73,7 +73,7 @@ const Login = ({ navigation }) => {
       <View style={styles.log5}>
         <Text style={styles.no_account}>
           Don't have an account?{" "}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('UserCategory')}>
             <Text style={styles.signUpText}>SIGN UP</Text>
           </TouchableOpacity>
         </Text>

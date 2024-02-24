@@ -12,6 +12,10 @@ import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
 const Prescription = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
+  
   state = { user: "" };
   updateUser = (user) => {
     this.setState({ user: user });
@@ -159,7 +163,7 @@ const Prescription = ({ navigation }) => {
             
           </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("PharmacyPrescription")}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}>
           <View style={styles.button}>
             <Text style={styles.send_btn}>Send</Text>
           </View>
@@ -178,7 +182,7 @@ const Prescription = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
           <Image
             source={require("../PetMate/AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}

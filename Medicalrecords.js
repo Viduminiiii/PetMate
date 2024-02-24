@@ -3,6 +3,9 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
 
 const Medicalrecords = ({ navigation }) => {
+    const handlePress = () => {
+        console.log("Button pressed");
+      };
     return(
     <View style={styles.maincontainer}>
        <View style = {styles.nav_bar}>
@@ -42,7 +45,7 @@ const Medicalrecords = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
                     <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>

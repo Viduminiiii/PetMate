@@ -2,6 +2,9 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from "react-native";
 
 const Payment_1 = ({ navigation }) => {
+    const handlePress = () => {
+        console.log("Button pressed");
+      };
     return (
         <View style={styles.page}>
             <View style = {styles.nav_bar}>

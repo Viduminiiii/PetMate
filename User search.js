@@ -2,6 +2,9 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const UserSearch = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>

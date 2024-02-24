@@ -1,7 +1,10 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput,ScrollView} from 'react-native';
 
-const PharmacySignUp = ()=>{
+const PharmacySignUp = ({ navigation })=>{
+    const handlePress = () => {
+        console.log("Button pressed");
+      };
     return(
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
@@ -48,7 +51,7 @@ const PharmacySignUp = ()=>{
                     </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={styles.signUpButton} onPress={handlePress}>
+            <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('PharmacyPrescription')}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={styles.centeredContainer}>
@@ -65,7 +68,7 @@ const PharmacySignUp = ()=>{
             </View>
             <View style={styles.container4}>
                 <Text style={styles.text}>Do you have an account? 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                     <Text style={styles.loginText}>LOGIN</Text>
                 </TouchableOpacity></Text>
             </View>

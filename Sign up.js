@@ -2,6 +2,9 @@ import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
 const SignUp = ({ navigation })=>{
+    const handlePress = () => {
+        console.log("Button pressed");
+      };
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>

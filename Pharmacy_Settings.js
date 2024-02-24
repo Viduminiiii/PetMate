@@ -8,10 +8,15 @@ import {
 } from "react-native";
 
 const Pharmacy_Settings = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("PharmacyPrescription")}
+        >
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -48,13 +53,18 @@ const Pharmacy_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.container_3}>
-        <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity
+          style={styles.signoutbutton}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("PharmacyPrescription")}
+        >
           <Image
             source={require("../PetMate/AppPics/PharFooter_Prescription.png")}
             style={styles.menu_img}
@@ -68,12 +78,12 @@ const Pharmacy_Settings = ({ navigation }) => {
           />
         </TouchableOpacity> */}
 
-        <TouchableOpacity onPress={() => navigation.navigate('AvailableMedicine')}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('AvailableMedicine')}>
           <Image
             source={require("../PetMate/AppPics/PharFooter_Medicine.png")}
             style={styles.menu_img}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -148,10 +158,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   signoutbutton: {
-    backgroundColor: "white",
+    backgroundColor: "#F2E5E5",
     paddingVertical: 15,
     paddingHorizontal: 55,
-    borderRadius: 10,
+    borderRadius: 20,
   },
   signout_buttonText: {
     color: "black",
@@ -167,8 +177,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   menu_img: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 55,
     margin: 15,
   },
 });
