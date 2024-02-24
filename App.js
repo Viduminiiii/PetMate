@@ -23,7 +23,7 @@ import React from 'react';
 //import Payment_1 from './Payment_1';
 // import Medicalrecords from './Medicalrecords';
 // import PharmacyPrescription from './PharmacyPrescription';
-import VetReminder from './VetReminder';
+import VetReminder from './Vet_Reminder';
 
 
 

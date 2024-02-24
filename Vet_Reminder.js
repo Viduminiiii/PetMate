@@ -1,6 +1,7 @@
-import React from "react";
-import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput,ScrollView} from 'react-native';
+import React, { useState } from "react";
+import {View,Text,StyleSheet, TouchableOpacity, Image} from 'react-native';
 import DatePicker from "react-native-date-picker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const VetReminder = ()=>{
     const handlePress = () => {
@@ -76,7 +77,8 @@ const VetReminder = ()=>{
       </View>
 
       <View style={styles.dates}>
-        <View style={styles.container3}>
+      <RNDateTimePicker dayOfWeekFormat={'{dayofweek.abbreviated(2)}'} />
+        {/* <View style={styles.container3}>
           <TouchableOpacity style={styles.date_button} onPress={handlePress}>
             <Text style={styles.dateButtonText}>THU</Text>
             <Text style={styles.dateButtonText}> 22</Text>
@@ -102,7 +104,7 @@ const VetReminder = ()=>{
             <Text style={styles.dateButtonText}>SUN</Text>
             <Text style={styles.dateButtonText}> 25</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.reminder_container}>
