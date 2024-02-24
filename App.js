@@ -24,7 +24,9 @@ import React from 'react';
 // import PharmacyPrescription from './PharmacyPrescription';
 // import Startup from './Startup';
 // import LocateVetClinics from './LocateVetClinics';
-import LocatePharmacy from './LocatePharmacy';
+// import LocatePharmacy from './LocatePharmacy';
+import ReceivedMessages from './ReceivedMessages';
+// import AvailableMedicine from './AvailableMedicine';
 
 
 function App() {
@@ -54,7 +56,9 @@ function App() {
       // <PharmacyPrescription />
       // <Startup />
       // <LocateVetClinics />
-      <LocatePharmacy />
+      // <LocatePharmacy />
+      < ReceivedMessages />
+      // <AvailableMedicine />
    )
 }
 export default App
