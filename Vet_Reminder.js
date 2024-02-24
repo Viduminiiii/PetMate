@@ -142,21 +142,9 @@ const VetReminder = ()=>{
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => handlePress("Medical records")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
