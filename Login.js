@@ -1,12 +1,10 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
   TouchableOpacity,
-  DatePickerAndriod,
-  Button,
   TextInput,
 } from "react-native";
 

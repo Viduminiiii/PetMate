@@ -107,8 +107,7 @@ const PetOwnerMenu = ({ navigation }) => {
       marginLeft:45,
   },
   menu_buttons:{
-      paddingTop:120,
-      margin: 20
+    marginTop: 160,
   },
     chat: {
         flexDirection: 'row', // Use 'column' for vertical split
@@ -120,19 +119,19 @@ const PetOwnerMenu = ({ navigation }) => {
         height: '38%', 
         width: '90%', 
       //   paddingTop:80,
-      marginTop: 40,
+      marginTop: 20,
     },
     channelling: {
         flexDirection: 'row', // Use 'column' for vertical split
         height: '37%', 
         width: '90%', 
-        marginTop: 60,
+        marginTop: 30,
     },
    pharmacy: {
        flexDirection: 'row', // Use 'column' for vertical split
        height: '37%', 
        width: '90%', 
-       marginTop: 65,
+       marginTop: 40,
    },
     halfView1: {
         justifyContent: 'center',

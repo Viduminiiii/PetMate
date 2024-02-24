@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   nav_text2: {
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: -400,
+    marginTop: -450,
   },
   settings: {
     resizeMode: "contain",
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     top: 170,
     //left: 20,
     width: 365,
-    height: 500,
+    height: '66%',
     borderRadius: 20,
   },
   topic_text: {
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   topicContainer: {
     backgroundColor: "white",
-    top: 10,
+    top: 30,
     width: 340,
     height: 60,
     marginLeft: 12,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   topicContainer2: {
     backgroundColor: "white",
-    top: 35,
+    top: 50,
     width: 340,
     height: 60,
     marginLeft: 12,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   topicContainer3: {
     backgroundColor: "white",
-    top: 60,
+    top: 70,
     width: 340,
     height: 60,
     marginLeft: 12,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   topicContainer4: {
     backgroundColor: "white",
-    top: 85,
+    top: 88,
     width: 340,
     height: 60,
     marginLeft: 12,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   topicContainer6: {
     backgroundColor: "white",
-    top: 135,
+    top: 130,
     width: 340,
     height: 60,
     marginLeft: 12,

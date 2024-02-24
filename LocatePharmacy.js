@@ -45,7 +45,7 @@ const LocatePharmacy = ({ navigation }) => {
       </View>
       <View style={styles.inside_container}>
         <TouchableOpacity
-          onPress={() => handlePress("Prescription")}
+          onPress={() => navigation.navigate('Medicalrecords')}
           style={styles.prescription_button}
         >
           <Text style={styles.prescription_button_text}>

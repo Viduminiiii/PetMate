@@ -1,35 +1,33 @@
 import React from 'react';
-import UserCategory from './User Category';
-import DocChannelling from './Doctor channelling';
-import Prescription from './Digital prescription'
-import VetPrescription from './Vet - Digital prescription'
-import VetMenu from './Vet - Menu'
-import PetOwnerMenu from './petowner_menu'
-import Payment_1 from './Payment_1';
-import Login from './Login';
-import SignUp from './Sign up'
-import VetSignUp from './Vet Sign up'
-import PharmacySignUp from './Pharmacy Sign up'
-import Chat from './Pet Owner Chat'
-import VetChat from './Vet Chat'
-import UserSearch from './User search'
-import Petowner_Settings from './Petowner_Settings';
-import Pharmacy_Settings from './Pharmacy_Settings';
-import Vet_Settings from './Vet_Settings';
-import Petowner_NotificationPage from './Petowner_NotificationPage';
-import Vet_Notification from './Vet_Notification';
+import AvailableMedicine from './AvailableMedicine';
 import Available_VetSessions from './Available_VetSessions';
-import Reminders from './Reminders';
-import Medicalrecords from './Medicalrecords';
-import PharmacyPrescription from './PharmacyPrescription';
-// import Startup from './Startup';
-import LocateVetClinics from './LocateVetClinics';
+import Chat from './Pet Owner Chat'
+import DocChannelling from './Doctor channelling';
 import LocatePharmacy from './LocatePharmacy';
-// import VetReminder from './Vet_Reminder';
-// import ReceivedMessages from './ReceivedMessages';
-// import AvailableMedicine from './AvailableMedicine';
-=========
-
+import LocateVetClinics from './LocateVetClinics';
+import Login from './Login';
+import Medicalrecords from './Medicalrecords';
+import Payment_1 from './Payment_1';
+import PetOwnerMenu from './petowner_menu'
+import Petowner_Settings from './Petowner_Settings';
+import Petowner_NotificationPage from './Petowner_NotificationPage';
+import Pharmacy_Settings from './Pharmacy_Settings';
+import PharmacySignUp from './Pharmacy Sign up'
+import PharmacyPrescription from './PharmacyPrescription';
+import Prescription from './Digital prescription'
+import ReceivedMessages from './ReceivedMessages';
+import Reminders from './Reminders';
+import SignUp from './Sign up'
+import Startup from './Startup';
+import UserCategory from './User Category';
+import UserSearch from './User search'
+import VetChat from './Vet Chat'
+import VetMenu from './Vet - Menu'
+import VetPrescription from './Vet - Digital prescription'
+import VetReminder from './Vet_Reminder';
+import VetSignUp from './Vet Sign up'
+import Vet_Settings from './Vet_Settings';
+import Vet_Notification from './Vet_Notification';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -39,7 +37,7 @@ const Stack = createNativeStackNavigator();
 function App() {
    return (
       <NavigationContainer initialRouteName="UserCategory">
-         <Stack.Navigator>
+         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Startup" component={Startup} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="UserCategory" component={UserCategory} />
@@ -66,7 +64,9 @@ function App() {
             <Stack.Screen name="Reminders" component={Reminders} />
             <Stack.Screen name="LocateVetClinics" component={LocateVetClinics} />
             <Stack.Screen name="LocatePharmacy" component={LocatePharmacy} />
-            
+            <Stack.Screen name="VetReminder" component={VetReminder} />
+            <Stack.Screen name="ReceivedMessages" component={ReceivedMessages} />
+            <Stack.Screen name="AvailableMedicine" component={AvailableMedicine} />
          </Stack.Navigator>
       </NavigationContainer>
 

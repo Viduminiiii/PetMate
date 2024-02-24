@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -58,7 +58,7 @@ const Vet_Notification = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}

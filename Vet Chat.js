@@ -40,7 +40,7 @@ const VetChat = ({ navigation })=>{
                     <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
+                <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_Chat.png")}
                     style={styles.menu_img}/>
