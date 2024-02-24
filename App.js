@@ -22,6 +22,9 @@ import Available_VetSessions from './Available_VetSessions';
 import Reminders from './Reminders';
 import Medicalrecords from './Medicalrecords';
 import PharmacyPrescription from './PharmacyPrescription';
+import Startup from './Startup';
+import LocateVetClinics from './LocateVetClinics';
+import LocatePharmacy from './LocatePharmacy';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -30,8 +33,9 @@ const Stack = createNativeStackNavigator();
 
 function App() {
    return (
-      <NavigationContainer initialRouteName="UserCategory">
+      <NavigationContainer initialRouteName="Startup">
          <Stack.Navigator>
+            <Stack.Screen name="Startup" component={Startup} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="UserCategory" component={UserCategory} />
             <Stack.Screen name="SignUp" component={SignUp} />
@@ -55,6 +59,9 @@ function App() {
             <Stack.Screen name="Pharmacy_Settings" component={Pharmacy_Settings} />
             <Stack.Screen name="Prescription" component={Prescription} />
             <Stack.Screen name="Reminders" component={Reminders} />
+            <Stack.Screen name="LocateVetClinics" component={LocateVetClinics} />
+            <Stack.Screen name="LocatePharmacy" component={LocatePharmacy} />
+            
          </Stack.Navigator>
       </NavigationContainer>
 

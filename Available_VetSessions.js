@@ -2,6 +2,9 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 const Available_VetSessions = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
@@ -136,7 +139,7 @@ const Available_VetSessions = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
           <Image
             source={require("../PetMate/AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}

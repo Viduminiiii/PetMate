@@ -1,7 +1,7 @@
 import React from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
-const PetOwnerMenu = () => {
+const PetOwnerMenu = ({ navigation }) => {
     const handlePress = () => {
         console.log('Button pressed');
     }
@@ -31,7 +31,7 @@ const PetOwnerMenu = () => {
                   </View>
                </TouchableOpacity>
 
-               <TouchableOpacity onPress={() => handlePress('Vet clinics')} style={styles.button}>
+               <TouchableOpacity onPress={() => navigation.navigate('LocateVetClinics')} style={styles.button}>
                   <View style={styles.vet}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../PetMate/AppPics/Menu_VetClinic.png')} style={styles.owner_image} />
@@ -53,7 +53,7 @@ const PetOwnerMenu = () => {
                   </View>
                </TouchableOpacity>
 
-               <TouchableOpacity onPress={() => handlePress('Pharmacy')} style={styles.button}>
+               <TouchableOpacity onPress={() => navigation.navigate('LocatePharmacy')} style={styles.button}>
                   <View style={styles.pharmacy}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../PetMate/AppPics/Menu_Pharmacy.png')} style={styles.phar_image} />
@@ -107,7 +107,8 @@ const PetOwnerMenu = () => {
       marginLeft:45,
   },
   menu_buttons:{
-      paddingTop:150,
+      paddingTop:120,
+      margin: 20
   },
     chat: {
         flexDirection: 'row', // Use 'column' for vertical split

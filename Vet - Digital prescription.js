@@ -11,6 +11,9 @@ import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
 const VetPrescription = ({ navigation }) => {
+  const handlePress = () => {
+    console.log("Button pressed");
+  };
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 // This is a functional component named "Startup" which is call in "App.js".
-const Startup = () => {
+const Startup = ({ navigation }) => {
     // A function to handle events or perform actions in response to user triggers.
     const handlePress = () => {
         console.log("Button pressed");
@@ -19,10 +19,10 @@ const Startup = () => {
                 <Text style={[styles.textItem, {paddingLeft: 60}]}>and now,</Text>
                 <Text style={styles.textItem}>it's just a tap away!</Text>
             </View>
-            <TouchableOpacity onPress={() => handlePress("Login")} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.button}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handlePress("Sign up")} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('UserCategory')} style={styles.button}>
                 <Text style={styles.buttonText}>Sign up</Text>
             </TouchableOpacity>
         </View>
@@ -38,28 +38,28 @@ const styles = StyleSheet.create({
     },
     image:{
         width: "100%",
-        height: "40%",
+        height: "45%",
     },
     text:{
-        paddingTop: 20,
+        paddingTop: 30,
     },
     // Styles that start with "font" can only be used with the "Text" component.
     textItem:{
         fontSize: 28,
-        fontWeight: "bold",
     },
     button:{
         backgroundColor: "white",
-        margin: 30, // "margin" property is used to create space around elements.
+        margin: 40, // "margin" property is used to create space around elements.
+        marginBottom: 5,
         width: 300,
         height: 60,
         borderRadius: 50,
         alignItems: "center",
+        justifyContent: 'center'
     },
     buttonText:{
         fontSize: 27,
         fontWeight: "bold",
-        marginTop: 10,
     }
 })
 

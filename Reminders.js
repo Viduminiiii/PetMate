@@ -141,7 +141,7 @@ const Reminders = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+        <TouchableOpacity onPress={() => navigation.navigate('LocateVetClinics')}>
           <Image
             source={require("../PetMate/AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
