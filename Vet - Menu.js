@@ -1,26 +1,26 @@
 import React from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
-const PetOwnerMenu = () => {
+const PetOwnerMenu = ({ navigation }) => {
     const handlePress = () => {
-        console.log('Button pressed');
-    }
+        console.log("Button pressed");
+      };
     return (
         <View style={styles.page}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     MENU
                 </Text>
-                <TouchableOpacity>
-                    <Image source={require ('../PetMate/AppPics/Reminder.png')} style = {styles.reminder}/>
+                <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
+                    <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
 
             <View style ={styles.menu_button1}>
-               <TouchableOpacity onPress={() => handlePress('Chat')} style={styles.button}>
+               <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')} style={styles.button}>
                   <View style={styles.chat}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../PetMate/AppPics/Menu_ChatDoc.png')} style={styles.chatDoc_image} />
@@ -33,7 +33,7 @@ const PetOwnerMenu = () => {
             </View> 
 
             <View style={styles.menu_button2}>
-            <TouchableOpacity onPress={() => handlePress('Digital prescription')} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('VetPrescription')} style={styles.button}>
                   <View style={styles.vet}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../PetMate/AppPics/Digital_Prescription.png')} style={styles.prescription_image} />
@@ -44,28 +44,6 @@ const PetOwnerMenu = () => {
                   </View>
                </TouchableOpacity>
             </View>
-
-               {/* <TouchableOpacity onPress={() => handlePress('Doctor channelling')} style={styles.button}>
-                  <View style={styles.channelling}>
-                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                           <Image source={require('../Pet_Mate/App pics/Menu - Channeling.png')} style={styles.channelling_image} />
-                     </View>
-                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
-                           <Text style={styles.text1}>Doctor channelling</Text>
-                     </View>
-                  </View>
-               </TouchableOpacity>
-
-               <TouchableOpacity onPress={() => handlePress('Pharmacy')} style={styles.button}>
-                  <View style={styles.pharmacy}>
-                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                           <Image source={require('../Pet_Mate/App pics/Menu - Pharmacy.png')} style={styles.phar_image} />
-                     </View>
-                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
-                           <Text style={styles.text1}>Pharmacy</Text>
-                     </View>
-                  </View>
-               </TouchableOpacity> */}
         </View>
     );
   };
@@ -73,7 +51,7 @@ const PetOwnerMenu = () => {
   const styles = StyleSheet.create({
     page:{
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
     },
@@ -94,7 +72,7 @@ const PetOwnerMenu = () => {
       fontSize: 35,
       fontWeight: 'bold',
   },
-  reminder: {
+  settings: {
       resizeMode: 'contain',
       width: 60,
       height: 60,

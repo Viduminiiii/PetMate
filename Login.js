@@ -1,18 +1,30 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
   TouchableOpacity,
-  DatePickerAndriod,
-  Button,
   TextInput,
 } from "react-native";
 
-const Login = () => {
+const Login = ({ navigation }) => {
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const handlePress = () => {
-    console.log("Button pressed");
+    // console.log("handlePress ----  " + username + " -  " + password);
+    if (username === "pet" && password === "123") {
+      navigation.navigate("SignUp");
+    } else if (username === "vet" && password === "123") {
+      navigation.navigate("VetSignUp");
+    } else if (username === "pharmacy" && password === "123") {
+      navigation.navigate("PharmacySignUp");
+    }
+  };
+  const handlePressForgot = () => {
+    console.log("Forgot Button pressed");
   };
   return (
     <View style={styles.loginpage1}>
@@ -21,16 +33,22 @@ const Login = () => {
         style={styles.image}
       />
 
-      <View style={styles.username}>
-        <TextInput style={styles.text}>Email or Username</TextInput>
+      <View id="username" style={styles.username}>
+        <TextInput
+          style={styles.text}
+          placeholder="Email or Username"
+          onChangeText={(text) => setUsername(text)}
+        ></TextInput>
       </View>
 
-      <View style={styles.password}>
-        <TextInput style={styles.text}>Password</TextInput>
-        <TouchableOpacity
-          onPress={() => handlePress("LOGIN")}
-          style={styles.button}
-        >
+      <View id="password" style={styles.password}>
+        <TextInput
+          style={styles.text}
+          placeholder="Password"
+          secureTextEntry={!isPasswordVisible}
+          onChangeText={(text) => setPassword(text)}
+        ></TextInput>
+        <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)} style={styles.button}>
           <Image
             source={require("../PetMate/AppPics/Password.png")}
             style={styles.password_eyeimage}
@@ -39,7 +57,10 @@ const Login = () => {
       </View>
 
       <View style={styles.container}>
-        <TouchableOpacity style={styles.forgot_password} onPress={handlePress}>
+        <TouchableOpacity
+          style={styles.forgot_password}
+          onPress={handlePressForgot}
+        >
           <Text style={styles.forgot_password}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
@@ -51,7 +72,7 @@ const Login = () => {
       </View>
 
       <View style={styles.log4}>
-        <Text style={styles.forgot_password}>or continue with</Text>
+        <Text style={styles.text2}>or continue with</Text>
       </View>
 
       <View style={styles.signup_imageContainer}>
@@ -71,12 +92,10 @@ const Login = () => {
       </View>
 
       <View style={styles.log5}>
-        <Text style={styles.no_account}>
-          Don't have an account?{" "}
-          <TouchableOpacity>
-            <Text style={styles.signUpText}>SIGN UP</Text>
-          </TouchableOpacity>
-        </Text>
+        <Text style={styles.no_account}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("UserCategory")}>
+          <Text style={styles.signUpText}>SIGN UP</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -84,7 +103,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   loginpage1: {
     flex: 1, //fill the whole screen
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "flex-start", //start from the top
     alignItems: "center",
   },
@@ -96,8 +115,8 @@ const styles = StyleSheet.create({
   },
   password_eyeimage: {
     resizeMode: "contain",
-    width: "20%",
-    height: "100%",
+    width: 40,
+    height: 35,
     marginLeft: 150,
   },
   username: {
@@ -107,6 +126,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 25,
     justifyContent: "center",
+    borderColor: "black",
+    borderWidth: 2,
   },
   password: {
     backgroundColor: "white",
@@ -115,13 +136,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 25,
     flexDirection: "row",
+    borderColor: "black",
+    borderWidth: 2,
   },
   login_button: {
     backgroundColor: "white",
-    paddingVertical: 15,
-    paddingHorizontal: 55,
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 30,
+    height: 50,
+    width: 150,
   },
   loginButtonText: {
     color: "black",
@@ -134,28 +159,26 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    // marginTop: 10,
-    textAlign: "left",
     marginLeft: 20,
-    color: "rgba(0, 0, 0, 0.5)", // 50% transparent text
   },
   container: {
     justifyContent: "center",
     marginTop: 20,
     marginLeft: 130,
   },
-  forgot_password: {
-    fontSize: 15,
-  },
   container1: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  text2: {
+    fontSize: 18,
+    marginTop: 20,
   },
   signup_imageContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    marginTop: 10,
+    marginTop: 5,
   },
   image2: {
     width: 50,
@@ -170,10 +193,14 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   signUpText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   no_account: {
+    fontSize: 18,
+  },
+  log5: {
+    flexDirection: "row",
     marginTop: 30,
   },
 });

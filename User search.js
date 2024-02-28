@@ -1,75 +1,75 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const UserSearch = () => {
+const UserSearch = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>SELECT A PET OWNER</Text>
-        <TouchableOpacity onPress={() => handlePress("Setting")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
           <Image
             source={require("../PetMate/AppPics/Setting.png")}
             style={styles.settings}
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.selection}>
-        <TouchableOpacity>
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Anne</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>John</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Peter</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Atlas</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Lily</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Oliver</Text>
             </View>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => handlePress("Appointment")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -80,7 +80,7 @@ const UserSearch = () => {
 const styles = StyleSheet.create({
   page: {
     flex: 1, //fill the whole screen
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between", // This ensures the footer is pushed to the bottom
     alignItems: "center",
     paddingTop: 10,

@@ -1,14 +1,14 @@
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 
-const LocateVetClinics = () => {
+const LocateVetClinics = ({ navigation }) => {
     const handlePress = () => {
         console.log("Button pressed");
     }
     return(
         <View style={styles.container}>
             <View style={styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image
                         source={require("../PetMate/AppPics/Logo.png")}
                         style={styles.logo_img} 
@@ -18,7 +18,7 @@ const LocateVetClinics = () => {
                     <Text style={styles.nav_text}>VETERINARY</Text>
                     <Text style={[styles.nav_text, {paddingLeft: 30}]}>CLINICS</Text>
                 </View>
-                <TouchableOpacity onPress={() => handlePress("Settings")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image
                         source={require("../PetMate/AppPics/Setting.png")}
                         style={styles.settings_img} 
@@ -31,7 +31,7 @@ const LocateVetClinics = () => {
                     source={require("../PetMate/AppPics/Search.png")}
                     style={styles.search_img} 
                 />
-                <TextInput style={styles.search_bar_text}>Search</TextInput>
+                <TextInput style={styles.search_bar_text} placeholder="Search"></TextInput>
                 <Image
                     source={require("../PetMate/AppPics/Google_map.png")}
                     style={styles.google_map_img} 
@@ -91,37 +91,37 @@ const LocateVetClinics = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Menu")}>
-                    <Image
-                        source={require("../PetMate/AppPics/Footer_Menu.png")}
-                        style={styles.footer_menu_img} 
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
-                    <Image
-                        source={require("../PetMate/AppPics/Footer_Chat.png")}
-                        style={styles.footer_menu_img} 
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Vet Clinics")}>
-                    <Image
-                        source={require("../PetMate/AppPics/Footer_VetClinic.png")}
-                        style={styles.footer_vet_clinic_img} 
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
-                    <Image
-                        source={require("../PetMate/AppPics/Footer_appointment.png")}
-                        style={styles.footer_appointment_img} 
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Pharmacy")}>
-                    <Image
-                        source={require("../PetMate/AppPics/PharFooter_Medicine.png")}
-                        style={styles.footer_pharmacy_img} 
-                    />
-                </TouchableOpacity>
-            </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('LocateVetClinics')}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+          <Image
+            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+      </View>
         </View>
     )
 };
@@ -129,8 +129,9 @@ const LocateVetClinics = () => {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#BAFAD0",
-        alignItems: "center"
+        backgroundColor: "#CEEFA3",
+        alignItems: "center",
+        justifyContent: 'space-between'
     },
     nav_bar:{
         flexDirection: "row", // This style is used to arrange the items of the container horizontally, from left to right.
@@ -159,11 +160,11 @@ const styles = StyleSheet.create({
     },
     loc_search_bar:{
         alignItems: "center", // Aligns the content of the container vertically to the center.
-        flexDirection: "row",
-        backgroundColor: "white",
-        width: 330,
-        height: 65,
-        borderRadius: 70,
+    flexDirection: "row",
+    backgroundColor: "white",
+    width: 360,
+    height: 60,
+    borderRadius: 80,
     },
     search_img:{
         width: 40,
@@ -173,16 +174,20 @@ const styles = StyleSheet.create({
     },
     search_bar_text:{
         fontSize: 22,
-        marginLeft: 60,
+        marginLeft: 20,
+
     },
     google_map_img:{
         width: 40,
         height: 40,
-        marginLeft: 60,
+        position: 'absolute',
+        top: 10, // Distance from the top of the parent container
+        right: 30, // Distance from the right of the parent container
     },
     inside_container:{
-        backgroundColor: "pink",
+        backgroundColor: "#E6B4EB",
         marginTop: 20,
+        marginBottom: -28,
         width: 400,
         height: 440,
         borderTopRightRadius: 40,
@@ -248,15 +253,16 @@ const styles = StyleSheet.create({
     footer:{
         flexDirection: "row",
         backgroundColor: "white",
-        width: 400,
+        width: "100%",
         height: 65,
-        justifyContent: "space-between", // Used to add a space between items of the container in horizontal.
+        justifyContent: "center", 
         alignItems: "center", // Aligns the content of the container vertically to the center.
     },
-    footer_menu_img:{
-        width: 40,
-        height: 40,
-        marginLeft: 10,
+    menu_img:{
+            width: 40,
+            height: 40,
+            margin: 15,
+     
     },
     footer_chat_img:{
         width: 40,

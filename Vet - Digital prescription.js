@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
-const VetPrescription = () => {
+const VetPrescription = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
@@ -22,7 +22,7 @@ const VetPrescription = () => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -154,28 +154,28 @@ const VetPrescription = () => {
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={() => handlePress("Send")}>
+        <TouchableOpacity onPress={() => navigation.navigate('UserSearch')}>
           <View style={styles.button}>
             <Text style={styles.search_btn}>Send</Text>
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -186,7 +186,7 @@ const VetPrescription = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1, //fill the whole screen
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between", // This ensures the footer is pushed to the bottom
     alignItems: "center",
     paddingTop: 30,

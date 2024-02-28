@@ -2,51 +2,56 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
 
-const Medicalrecords = () => {
+const Medicalrecords = ({ navigation }) => {
     const handlePress = () => {
         console.log("Button pressed");
-    }
+      };
     return(
     <View style={styles.maincontainer}>
        <View style = {styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress('Logo')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     MEDICAL RECORDS
                 </Text>
-                <TouchableOpacity onPress={() => handlePress('Setting')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
         </View>
         <View style={styles.detailContainer}>
             <View style={styles.topicContainer}>
                 <Text style = {styles.topic_text}>
-                        Digital Prescriptions
+                    Digital Prescriptions
                 </Text>
+            </View>
+            <View style={styles.samplePrescription}>
+                <TouchableOpacity onPress={() => navigation.navigate('Prescription')}>
+                    <Text style={styles.sampleText}>Digital prescription</Text>
+                </TouchableOpacity>
             </View>
         </View>
         <View style={styles.detailContainer2}>
             <View style={styles.topicContainer2}>
                 <Text style = {styles.topic_text}>
-                        Appointment Details
+                    Appointment Details
                 </Text>
             </View>
         </View>
         <View style ={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Menu.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
                     <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image source={require ('../PetMate/AppPics/Footer_appointment.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image source={require ('../PetMate/AppPics/Footer_medicalRecords.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
             </View>
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
     },
     maincontainer: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'space-between', // This ensures the footer is pushed to the bottom
         alignItems:'center',
         paddingTop:30,
@@ -101,11 +106,13 @@ const styles = StyleSheet.create({
         //flexDirection: "row",
         backgroundColor: "#E6B4EB",
         position: "absolute",
-        top: 110, 
+        top: 125, 
         //left: 20,
         width: 365,
         height: 250,
         borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     detailContainer2: {
         //flexDirection: "row",
@@ -119,10 +126,21 @@ const styles = StyleSheet.create({
     },
     topicContainer: {
         backgroundColor: "#3300FF",
-        top: 0,
+        top: -85,
         width: 365,
         height: 70,
         borderRadius: 20,
+    },
+    samplePrescription:{
+        backgroundColor: 'white',
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: -70,
+        borderRadius: 20
+    },
+    sampleText:{
+        fontSize: 20
     },
     topicContainer2: {
         backgroundColor: "#3300FF",

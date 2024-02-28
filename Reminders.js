@@ -1,8 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import DatePicker from "react-native-date-picker";
 
-const Reminders = () => {
+const Reminders = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
@@ -14,7 +14,7 @@ const Reminders = () => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -23,7 +23,7 @@ const Reminders = () => {
         <View style={styles.nav_text_container}>
           <Text style={styles.nav_text}>REMINDERS</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
           <Image
             source={require("../PetMate/AppPics/Setting.png")}
             style={styles.settings}
@@ -129,31 +129,31 @@ const Reminders = () => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+        <TouchableOpacity onPress={() => navigation.navigate('LocateVetClinics')}>
           <Image
             source={require("../PetMate/AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
             source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -166,7 +166,7 @@ const Reminders = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "flex-start",
     alignItems: "center",
     paddingTop: 30,

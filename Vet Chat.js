@@ -1,20 +1,20 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
-const VetChat = ()=>{
+const VetChat = ({ navigation })=>{
     const handlePress = () => {
         console.log("Button pressed");
-    }
+      };
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     CHAT
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -23,30 +23,30 @@ const VetChat = ()=>{
                 <Text style={styles.blueBoxText}>Pet owner name</Text>
             </View>
             <View style = {styles.page1}>
-                <View style={{ flex: 1 }} /> 
+                {/* <View style={{ flex: 1 }} />  */}
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} placeholder="Type your message here"  />
                     <TouchableOpacity>
                         <Image source={require('../PetMate/AppPics/Chat_Mic.png')} style={styles.inputImage1} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                         <Image source={require('../PetMate/AppPics/Chat_Send.png')} style={styles.inputImage} />
                     </TouchableOpacity>
                 </View>
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_Chat.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
                 
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_appointment.png")}
                     style={styles.menu_img}
@@ -63,11 +63,10 @@ const VetChat = ()=>{
 const styles=StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
         paddingTop:30,
-        marginLeft:7,
     },
     text: {
         fontSize: 20,
@@ -122,7 +121,8 @@ const styles=StyleSheet.create({
         marginRight: 10
     },
     inputContainer: {
-        flexDirection: 'row',  
+        flexDirection: 'row', 
+        marginTop: 540
     },
     inputImage: {
         width: 40,

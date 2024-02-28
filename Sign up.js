@@ -1,10 +1,10 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
-const SignUp = ()=>{
+const SignUp = ({ navigation })=>{
     const handlePress = () => {
         console.log("Button pressed");
-    }
+      };
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
@@ -16,32 +16,32 @@ const SignUp = ()=>{
                 <Text style={styles.text}>Pet Owner Information</Text>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Full name</TextInput>
+                <TextInput style={styles.textInput} placeholder="Full name" ></TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Username</TextInput>
+                <TextInput style={styles.textInput} placeholder="Username" ></TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Email</TextInput>
+                <TextInput style={styles.textInput} placeholder="Email" ></TextInput>
             </View>
-            <View style={styles.container1}>
+            <View style={styles.infoText_container}>
                 <Text style={styles.text}>Pet information</Text>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Pet name</TextInput>
+                <TextInput style={styles.textInput} placeholder="Pet name"></TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput}>Age</TextInput>
+                <TextInput style={styles.textInput} placeholder="Age"></TextInput>
             </View>
             <View style={styles.container3}>
                 <View style={styles.inputWithImage}>
-                    <TextInput style={styles.textInput}>Password</TextInput>
+                    <TextInput style={styles.textInput} placeholder="Password"></TextInput>
                     <TouchableOpacity>
                         <Image source={require('../PetMate/AppPics/Password.png')} style={styles.imageStyle} />
                     </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={styles.signUpButton} onPress={handlePress}>
+            <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('Menu')}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={styles.container5}>
@@ -58,7 +58,9 @@ const SignUp = ()=>{
             </View>
             <View style={styles.container4}>
                 <Text style={styles.text}>Do you have an account?</Text>
-                <TouchableOpacity><Text style={styles.loginText}>LOGIN</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.loginText}>LOGIN</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -67,7 +69,7 @@ const SignUp = ()=>{
 const styles=StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
         paddingTop:30,
@@ -76,14 +78,18 @@ const styles=StyleSheet.create({
         marginLeft: -150,
         paddingTop: 20,
     }, 
+    infoText_container: {
+        marginLeft: -210,
+        paddingTop: 20
+    },
     text: {
         fontSize: 20,
     },  
     container2: {
         backgroundColor: 'white',
         width: '80%',
-        height: '5%',
-        borderRadius: 15,
+        height: 45,
+        borderRadius: 20,
         borderColor: 'black',
         borderWidth: 2,
         marginTop:25,
@@ -92,8 +98,8 @@ const styles=StyleSheet.create({
     container3: {
         backgroundColor: 'white',
         width: '50%',
-        height: '5%',
-        borderRadius: 15,
+        height: 45,
+        borderRadius: 20,
         borderColor: 'black',
         borderWidth: 2,
         marginTop:25,
@@ -101,7 +107,6 @@ const styles=StyleSheet.create({
     },
     textInput: {
         fontSize:15,
-        color: 'rgba(0, 0, 0, 0.5)', // 50% transparent text
         marginLeft: 10,
     },
     inputWithImage: {
@@ -115,10 +120,12 @@ const styles=StyleSheet.create({
     },
     signUpButton: {
         backgroundColor: 'white',
-        paddingVertical: 15,
-        paddingHorizontal: 55,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 10,
         marginTop: 20,
+        height: 50,
+        width: '35%'
     },
     signUpButtonText: {
         color: 'black',

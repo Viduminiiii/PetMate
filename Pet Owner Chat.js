@@ -1,20 +1,20 @@
 import React from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 
-const Chat = ()=>{
+const Chat = ({ navigation })=>{
     const handlePress = () => {
         console.log("Button pressed");
-    }
+      };
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     CHAT
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -23,9 +23,9 @@ const Chat = ()=>{
                 <Text style={styles.blueBoxText}>Chat</Text>
             </View>
             <View style = {styles.page1}>
-                <View style={{ flex: 1 }} /> 
+                {/* <View style={{ flex: 1 }} />  */}
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.inputText} placeholder="Type your message here"  />
+                    <TextInput style={styles.inputText} placeholder="Type your message here"/>
                     <TouchableOpacity>
                         <Image source={require('../PetMate/AppPics/Chat_Mic.png')} style={styles.inputImage1} />
                     </TouchableOpacity>
@@ -36,28 +36,28 @@ const Chat = ()=>{
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_Chat.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+                <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_VetClinic.png")}
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_appointment.png")}
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Medical records")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
                     style={styles.menu_img}
@@ -73,11 +73,10 @@ const Chat = ()=>{
 const styles=StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
         paddingTop:30,
-        marginLeft:7,
     },
     text: {
         fontSize: 20,
@@ -134,6 +133,7 @@ const styles=StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',  
+        marginTop: 540
     },
     inputImage: {
         width: 40,

@@ -1,8 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput,ScrollView} from 'react-native';
 import DatePicker from "react-native-date-picker";
 
-const VetReminder = ()=>{
+const VetReminder = ({ navigation })=>{
     const handlePress = () => {
         console.log("Button pressed");
     }
@@ -13,7 +13,7 @@ const VetReminder = ()=>{
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -22,7 +22,7 @@ const VetReminder = ()=>{
         <View style={styles.nav_text_container}>
           <Text style={styles.nav_text}>REMINDERS</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}> 
           <Image
             source={require("../PetMate/AppPics/Setting.png")}
             style={styles.settings}
@@ -128,19 +128,19 @@ const VetReminder = ()=>{
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
@@ -153,7 +153,7 @@ const VetReminder = ()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "flex-start",
     alignItems: "center",
     paddingTop: 30,

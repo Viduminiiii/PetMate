@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from "react-native";
 
-const Payment_1 = () => {
+const Payment_1 = ({ navigation }) => {
     const handlePress = () => {
         console.log("Button pressed");
       };
@@ -45,13 +45,13 @@ const Payment_1 = () => {
             </View>
             
             <View style = {styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_Menu.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_Chat.png")}
                         style={styles.menu_img}
@@ -63,13 +63,13 @@ const Payment_1 = () => {
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_appointment.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Medical records")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
                         style={styles.menu_img}
@@ -95,7 +95,7 @@ const styles = StyleSheet.create ({
     },
     page:{
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
     },
@@ -173,9 +173,9 @@ const styles = StyleSheet.create ({
         width: 120,
         backgroundColor: "#F2E5E5",
         borderRadius: 10,
-        //justifyContent: "center",
+        justifyContent: "center",
         alignItems: "center",
-        alignSelf: "center",
+        // alignSelf: "center",
         //marginTop: -5,
       },
       proceed_btn: {

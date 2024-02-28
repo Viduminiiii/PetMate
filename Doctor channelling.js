@@ -1,17 +1,13 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, DatePickerAndriod, Button} from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
-// const data = [
-//     { label: "Male", value: "1" },
-//     { label: "Female", value: "2" },
-//   ];
-
-const DocChannelling = () => {
+const DocChannelling = ({ navigation }) => {
     const handlePress = () => {
         console.log("Button pressed");
     }
+
     const [valueType, setValueType] = useState(null);
     const [isFocusType, setIsFocusType] = useState(false);
     const [valueDoc, setValueDoc] = useState(null);
@@ -23,13 +19,13 @@ const DocChannelling = () => {
     return (
        <View style = {styles.container}>
             <View style = {styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress('Logo')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     DOCTOR CHANNELLING
                 </Text>
-                <TouchableOpacity onPress={() => handlePress('Setting')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
@@ -161,26 +157,26 @@ const DocChannelling = () => {
                         />
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => handlePress('Search')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')}>
                     <View style ={styles.button}>
                         <Text style={styles.search_btn}>Search</Text>
                     </View>
                 </TouchableOpacity>
             </View>
             <View style ={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Menu.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
                     <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity  onPress={() => navigation.navigate('DocChannelling')}>
                     <Image source={require ('../PetMate/AppPics/Footer_appointment.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image source={require ('../PetMate/AppPics/Footer_medicalRecords.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
             </View>
@@ -191,7 +187,7 @@ const DocChannelling = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'space-between', // This ensures the footer is pushed to the bottom
         alignItems:'center',
         paddingTop:30,
@@ -239,7 +235,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     text: {
-        fontSize: 25,
+        fontSize: 20,
         padding: 20,
         alignSelf: 'flex-start',
     },

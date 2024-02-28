@@ -1,21 +1,21 @@
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const ReceivedMessages = () => {
+const ReceivedMessages = ({ navigation }) => {
     const handlePress = () => {
         console.log("Button pressed");
     }
     return(
         <View style={styles.container}>
             <View style={styles.nav_bar}>
-                <TouchableOpacity onPress={() => handlePress("Home")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image
                         source={require("../PetMate/AppPics/Logo.png")}
                         style={styles.logo_img} 
                     />
                 </TouchableOpacity>
                 <Text style={styles.nav_text}>CHAT</Text>
-                <TouchableOpacity onPress={() => handlePress("Settings")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
                     <Image
                         source={require("../PetMate/AppPics/Setting.png")}
                         style={styles.settings_img} 
@@ -24,7 +24,7 @@ const ReceivedMessages = () => {
             </View>
             <View style={styles.inside_container}>
                 <View style={styles.user_and_message_buttons}>
-                    <TouchableOpacity onPress={() => handlePress("User")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                         <Image
                             source={require("../PetMate/AppPics/User_icon.png")}
                             style={styles.user_icon_img} 
@@ -35,78 +35,78 @@ const ReceivedMessages = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.user_and_message_buttons}>
-                    <TouchableOpacity onPress={() => handlePress("User")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                         <Image
                             source={require("../PetMate/AppPics/User_icon.png")}
                             style={styles.user_icon_img} 
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handlePress("Message")} style={styles.message_button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')} style={styles.message_button}>
                         <Text style={styles.message_button_text}>Hi Doctor, My Dog...</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.user_and_message_buttons}>
-                    <TouchableOpacity onPress={() => handlePress("User")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                         <Image
                             source={require("../PetMate/AppPics/User_icon.png")}
                             style={styles.user_icon_img} 
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handlePress("Message")} style={styles.message_button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')} style={styles.message_button}>
                         <Text style={styles.message_button_text}>Hi Doctor, My Dog...</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.user_and_message_buttons}>
-                    <TouchableOpacity onPress={() => handlePress("User")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                         <Image
                             source={require("../PetMate/AppPics/User_icon.png")}
                             style={styles.user_icon_img} 
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handlePress("Message")} style={styles.message_button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')} style={styles.message_button}>
                         <Text style={styles.message_button_text}>Hi Doctor, My Dog...</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.user_and_message_buttons}>
-                    <TouchableOpacity onPress={() => handlePress("User")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                         <Image
                             source={require("../PetMate/AppPics/User_icon.png")}
                             style={styles.user_icon_img} 
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handlePress("Message")} style={styles.message_button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')} style={styles.message_button}>
                         <Text style={styles.message_button_text}>Hi Doctor, My Dog...</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.user_and_message_buttons}>
-                    <TouchableOpacity onPress={() => handlePress("User")}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')}>
                         <Image
                             source={require("../PetMate/AppPics/User_icon.png")}
                             style={styles.user_icon_img} 
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handlePress("Message")} style={styles.message_button}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VetChat')} style={styles.message_button}>
                         <Text style={styles.message_button_text}>Hi Doctor, My Dog...</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.footer}>
-                <TouchableOpacity onPress={() => handlePress("Menu")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_Menu.png")}
                         style={styles.footer_menu_img} 
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_Chat.png")}
                         style={styles.footer_menu_img} 
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
                     <Image
                         source={require("../PetMate/AppPics/Footer_appointment.png")}
-                        style={styles.footer_appointment_img} 
+                        style={styles.footer_menu_img} 
                     />
                 </TouchableOpacity>
             </View>
@@ -117,7 +117,8 @@ const ReceivedMessages = () => {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#BAFAD0",
+        backgroundColor: "#CEEFA3",
+        justifyContent: 'space-between',
         alignItems: "center"
     },
     nav_bar:{
@@ -141,11 +142,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     inside_container:{
-        backgroundColor: "pink",
+        backgroundColor: "#E6B4EB",
         marginTop: 20,
         width: 400,
-        height: 600,
-        borderRadius: 40,
+        height: 650,
+        borderRadius: 20,
     },
     user_icon_img:{
         width: 60,
@@ -160,20 +161,22 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
-        width: 220,
-        height: 45,
-        borderRadius: 40,
-        borderWidth: 5,
+        width: 250,
+        height: 50,
+        borderRadius: 20,
+        borderWidth: 3,
         marginLeft: 50,
     },
     message_button_text:{
         fontSize: 17,
-        fontWeight: "bold",
+        // fontWeight: "bold",
+        alignSelf: 'flex-start',
+        paddingLeft: 15
     },
     footer:{
         flexDirection: "row",
         backgroundColor: "white",
-        width: 400,
+        width: '100%',
         height: 65,
         justifyContent: "center", // Used to add a space between items of the container in horizontal.
         alignItems: "center", // Aligns the content of the container vertically to the center.
@@ -181,16 +184,16 @@ const styles = StyleSheet.create({
     footer_menu_img:{
         width: 40,
         height: 40,
-        marginRight: 50,
+        margin: 15,
     },
-    footer_chat_img:{
-        width: 40,
-        height: 40,
-    },
-    footer_appointment_img:{
-        width: 40,
-        height: 40,
-    },
+    // footer_chat_img:{
+    //     width: 40,
+    //     height: 40,
+    // },
+    // footer_appointment_img:{
+    //     width: 40,
+    //     height: 40,
+    // },
 })
 
 export default ReceivedMessages;

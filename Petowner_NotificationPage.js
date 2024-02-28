@@ -1,14 +1,30 @@
-import React, { Component, useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState }  from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Switch
+} from "react-native";
 
-const Petowner_NotificationPage = () => {
+const Petowner_NotificationPage = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
+  // State to manage switch value
+  const [isEnabledReminder, setIsEnabledReminder] = useState(false);
+  const [isEnabledAppReminder, setIsEnabledAppReminder] = useState(false);
+  // Function to toggle the switch
+  const toggleSwitchReminder = () =>
+    setIsEnabledReminder((previousState) => !previousState);
+  const toggleSwitchAppReminder = () =>
+    setIsEnabledAppReminder((previousState) => !previousState);
+    
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => handlePress("Logo")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -20,57 +36,59 @@ const Petowner_NotificationPage = () => {
       <View style={styles.notifications}>
         <View style={styles.container_1}>
           <Text style={styles.reminders}>Reminders</Text>
-          <TouchableOpacity
-            style={styles.notification_settings}
-            onPress={handlePress}
-          >
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image2}
-            />
-          </TouchableOpacity>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
+            thumbColor={isEnabledReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
+            onValueChange={toggleSwitchReminder}
+            value={isEnabledReminder}
+            style={[
+              styles.switch,
+              { marginLeft: 120,},
+            ]}
+          />
         </View>
 
         <View style={styles.container_2}>
           <Text style={styles.reminders_2}>Appointment Reminders</Text>
-          <TouchableOpacity
-            style={styles.notification_settings}
-            onPress={handlePress}
-          >
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image3}
-            />
-          </TouchableOpacity>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
+            thumbColor={isEnabledAppReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
+            onValueChange={toggleSwitchAppReminder}
+            value={isEnabledAppReminder}
+            style={[
+              styles.switch,
+              { marginLeft: 20,},
+            ]}
+          />
         </View>
       </View>
 
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={() => handlePress("Home")}>
+        <View style={styles.footer}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
           <Image
             source={require("../PetMate/AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Medical records")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
             source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -83,7 +101,7 @@ const Petowner_NotificationPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 30,
