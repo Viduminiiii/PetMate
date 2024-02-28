@@ -51,7 +51,7 @@ const PetOwnerMenu = ({ navigation }) => {
   const styles = StyleSheet.create({
     page:{
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
     },

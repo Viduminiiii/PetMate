@@ -22,7 +22,7 @@ const UserSearch = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.selection}>
+      <View>
         <TouchableOpacity onPress={() => navigation.navigate('Medicalrecordss')}>
             <View style={styles.user_btn}>
                 <Text style={styles.user}>Anne</Text>
@@ -80,7 +80,7 @@ const UserSearch = ({ navigation }) => {
 const styles = StyleSheet.create({
   page: {
     flex: 1, //fill the whole screen
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between", // This ensures the footer is pushed to the bottom
     alignItems: "center",
     paddingTop: 10,

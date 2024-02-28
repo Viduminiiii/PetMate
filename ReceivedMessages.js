@@ -117,7 +117,7 @@ const ReceivedMessages = ({ navigation }) => {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#BAFAD0",
+        backgroundColor: "#CEEFA3",
         justifyContent: 'space-between',
         alignItems: "center"
     },

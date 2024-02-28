@@ -40,18 +40,6 @@ const Pharmacy_Settings = ({ navigation }) => {
           <Text style={styles.email}>marshsmith@gmail.com</Text>
       </View>
 
-      <View style={styles.notifications_btns}>
-        <View style={styles.container_2}>
-          <Text style={styles.dark_mode}>Dark Mode</Text>
-          <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image_2}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-
       <View style={styles.container_3}>
         <TouchableOpacity
           style={styles.signoutbutton}
@@ -70,20 +58,6 @@ const Pharmacy_Settings = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity onPress={() => handlePress("Home")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity> */}
-
-        {/* <TouchableOpacity onPress={() => navigation.navigate('AvailableMedicine')}>
-          <Image
-            source={require("../PetMate/AppPics/PharFooter_Medicine.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -91,7 +65,7 @@ const Pharmacy_Settings = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 30,
@@ -115,13 +89,15 @@ const styles = StyleSheet.create({
   },
   user: {
     marginBottom: 620,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image1: {
     width: 100,
     height: 100,
   },
   text1: {
-    marginTop: -650,
+    marginTop: -700,
     textAlign: "right",
   },
   username: {
@@ -129,7 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   text2: {
-    marginTop: -25,
+    marginTop: -90,
     fontSize: 20,
   },
   notifications_btns: {

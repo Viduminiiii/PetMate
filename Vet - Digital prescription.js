@@ -173,7 +173,7 @@ const VetPrescription = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
@@ -186,7 +186,7 @@ const VetPrescription = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1, //fill the whole screen
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between", // This ensures the footer is pushed to the bottom
     alignItems: "center",
     paddingTop: 30,

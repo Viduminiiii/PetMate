@@ -31,7 +31,7 @@ const LocateVetClinics = ({ navigation }) => {
                     source={require("../PetMate/AppPics/Search.png")}
                     style={styles.search_img} 
                 />
-                <TextInput style={styles.search_bar_text}>Search</TextInput>
+                <TextInput style={styles.search_bar_text} placeholder="Search"></TextInput>
                 <Image
                     source={require("../PetMate/AppPics/Google_map.png")}
                     style={styles.google_map_img} 
@@ -129,7 +129,7 @@ const LocateVetClinics = ({ navigation }) => {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#BAFAD0",
+        backgroundColor: "#CEEFA3",
         alignItems: "center",
         justifyContent: 'space-between'
     },
@@ -180,11 +180,14 @@ const styles = StyleSheet.create({
     google_map_img:{
         width: 40,
         height: 40,
-        marginLeft: 140,
+        position: 'absolute',
+        top: 10, // Distance from the top of the parent container
+        right: 30, // Distance from the right of the parent container
     },
     inside_container:{
         backgroundColor: "#E6B4EB",
         marginTop: 20,
+        marginBottom: -28,
         width: 400,
         height: 440,
         borderTopRightRadius: 40,

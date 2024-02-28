@@ -23,7 +23,7 @@ const VetChat = ({ navigation })=>{
                 <Text style={styles.blueBoxText}>Pet owner name</Text>
             </View>
             <View style = {styles.page1}>
-                <View style={{ flex: 1 }} /> 
+                {/* <View style={{ flex: 1 }} />  */}
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} placeholder="Type your message here"  />
                     <TouchableOpacity>
@@ -46,7 +46,7 @@ const VetChat = ({ navigation })=>{
                     style={styles.menu_img}/>
                 </TouchableOpacity>
                 
-                <TouchableOpacity onPress={() => handlePress("Appointment")}>
+                <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
                     <Image
                     source={require("../PetMate/AppPics/Footer_appointment.png")}
                     style={styles.menu_img}
@@ -63,11 +63,10 @@ const VetChat = ({ navigation })=>{
 const styles=StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
         paddingTop:30,
-        marginLeft:7,
     },
     text: {
         fontSize: 20,
@@ -122,7 +121,8 @@ const styles=StyleSheet.create({
         marginRight: 10
     },
     inputContainer: {
-        flexDirection: 'row',  
+        flexDirection: 'row', 
+        marginTop: 540
     },
     inputImage: {
         width: 40,

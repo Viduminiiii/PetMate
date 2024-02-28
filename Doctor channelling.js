@@ -187,7 +187,7 @@ const DocChannelling = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'space-between', // This ensures the footer is pushed to the bottom
         alignItems:'center',
         paddingTop:30,

@@ -13,7 +13,7 @@ const VetReminder = ({ navigation })=>{
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -22,7 +22,7 @@ const VetReminder = ({ navigation })=>{
         <View style={styles.nav_text_container}>
           <Text style={styles.nav_text}>REMINDERS</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}> 
           <Image
             source={require("../PetMate/AppPics/Setting.png")}
             style={styles.settings}
@@ -140,7 +140,7 @@ const VetReminder = ({ navigation })=>{
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Appointment')}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
@@ -153,7 +153,7 @@ const VetReminder = ({ navigation })=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "flex-start",
     alignItems: "center",
     paddingTop: 30,

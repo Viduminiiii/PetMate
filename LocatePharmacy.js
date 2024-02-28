@@ -37,21 +37,24 @@ const LocatePharmacy = ({ navigation }) => {
           source={require("../PetMate/AppPics/Search.png")}
           style={styles.search_img}
         />
-        <TextInput style={styles.search_bar_text}>Search</TextInput>
+        <TextInput
+          style={styles.search_bar_text}
+          placeholder="Search"
+        ></TextInput>
         <Image
           source={require("../PetMate/AppPics/Google_map.png")}
           style={styles.google_map_img}
         />
       </View>
       <View style={styles.inside_container}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('Medicalrecords')}
           style={styles.prescription_button}
         >
           <Text style={styles.prescription_button_text}>
             Digital Prescription
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           onPress={() => handlePress("Pharmacy")}
           style={styles.button}
@@ -157,9 +160,10 @@ const LocatePharmacy = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     alignItems: "center",
-    justifyContent: 'space-between'
+    justifyContent: "space-between",
+    position: 'relative'
   },
   nav_bar: {
     flexDirection: "row", // This style is used to arrange the items of the container horizontally, from left to right.
@@ -205,13 +209,17 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   google_map_img: {
+    // position: 'absolute',
     width: 40,
     height: 40,
-    marginLeft: 140,
+    position: "absolute",
+    top: 10, // Distance from the top of the parent container
+    right: 30, // Distance from the right of the parent container
   },
   inside_container: {
     backgroundColor: "#E6B4EB",
     marginTop: 20,
+    marginBottom: -28,
     width: 400,
     height: 460,
     borderTopRightRadius: 40,
@@ -234,19 +242,20 @@ const styles = StyleSheet.create({
   },
   button: {
     marginLeft: 20,
-    marginBottom: 20,
+    // marginBottom: 20,
     backgroundColor: "white",
     width: 350,
     height: 100,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
+    marginTop: 40,
   },
   button_1_2: {
     flexDirection: "row",
   },
   button_img_1: {
     width: 120,
-    height: 70,
+    height: 90,
   },
   button_img_2: {
     width: 120,
@@ -282,14 +291,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "100%",
     height: 65,
-    justifyContent: "center", 
+    justifyContent: "center",
     alignItems: "center", // Aligns the content of the container vertically to the center.
   },
-menu_img: {
-        width: 40,
-        height: 40,
-        margin: 15,
-
+  menu_img: {
+    width: 40,
+    height: 40,
+    margin: 15,
   },
   footer_chat_img: {
     width: 40,

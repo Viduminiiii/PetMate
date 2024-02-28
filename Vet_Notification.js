@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
   TouchableOpacity,
+  Switch,
 } from "react-native";
 
 const Vet_Notification = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
+
+  // State to manage switch value
+  const [isEnabledReminder, setIsEnabledReminder] = useState(false);
+  const [isEnabledAppReminder, setIsEnabledAppReminder] = useState(false);
+  // Function to toggle the switch
+  const toggleSwitchReminder = () =>
+    setIsEnabledReminder((previousState) => !previousState);
+  const toggleSwitchAppReminder = () =>
+    setIsEnabledAppReminder((previousState) => !previousState);
+    
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../PetMate/AppPics/Logo.png")}
             style={styles.logo}
@@ -26,46 +37,51 @@ const Vet_Notification = ({ navigation }) => {
       <View style={styles.notifications}>
         <View style={styles.container_1}>
           <Text style={styles.reminders}>Reminders</Text>
-          <TouchableOpacity
-            style={styles.notification_settings}
-            onPress={handlePress}>
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image2}
-            />
-          </TouchableOpacity>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
+            thumbColor={isEnabledReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
+            onValueChange={toggleSwitchReminder}
+            value={isEnabledReminder}
+            style={[
+              styles.switch,
+              { marginLeft: 120,},
+            ]}
+          />
         </View>
 
         <View style={styles.container_2}>
           <Text style={styles.reminders_2}>Appointment Reminders</Text>
-          <TouchableOpacity
-            style={styles.notification_settings}
-            onPress={handlePress}>
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image3}
-            />
-          </TouchableOpacity>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
+            thumbColor={isEnabledAppReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
+            onValueChange={toggleSwitchAppReminder}
+            value={isEnabledAppReminder}
+            style={[
+              styles.switch,
+              { marginLeft: 20,},
+            ]}
+          />
         </View>
       </View>
-      
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../PetMate/AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("ReceivedMessages")}
+        >
           <Image
             source={require("../PetMate/AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handlePress("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
@@ -78,7 +94,7 @@ const Vet_Notification = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 30,
@@ -107,8 +123,8 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
   },
-  notifications:{
-    marginTop: -350
+  notifications: {
+    marginTop: -350,
   },
   container_1: {
     backgroundColor: "white",
@@ -121,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 30,
-    marginTop:12
+    marginTop: 12,
   },
   image2: {
     width: 50,
@@ -140,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "left",
     marginLeft: 20,
-    marginTop:12
+    marginTop: 12,
   },
   image3: {
     width: 50,

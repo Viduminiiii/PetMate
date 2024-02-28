@@ -121,7 +121,6 @@ const Prescription = ({ navigation }) => {
           <View style={styles.info}>
             <Text style={styles.name}>Issued Date</Text>
 
-            <ScrollView style={styles.scrollContainer}>
             <View style={styles.date_container}>
               <DatePicker
                 style={styles.datePickerStyle}
@@ -159,7 +158,6 @@ const Prescription = ({ navigation }) => {
                 }}
               />
             </View>
-            </ScrollView>
             
           </View>
         </View>
@@ -207,7 +205,7 @@ const Prescription = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1, //fill the whole screen
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between", // This ensures the footer is pushed to the bottom
     alignItems: "center",
     paddingTop: 30,
@@ -325,9 +323,6 @@ const styles = StyleSheet.create({
     height: "30%",
     marginTop: 23,
     borderRadius: 10,
-  },
-  scrollContainer:{
-    color: 'red'
   },
   button: {
     height: "20%",

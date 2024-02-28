@@ -33,7 +33,8 @@ const Startup = ({ navigation }) => {
 const styles = StyleSheet.create({
     container:{
         flex: 1, // Expand to fill all the available space in the screen.
-        backgroundColor: "#BAFAD0",
+        backgroundColor: "#CEEFA3",
+        // backgroundColor: "#F2E390",
         alignItems: "center",
     },
     image:{
@@ -55,7 +56,9 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 50,
         alignItems: "center",
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderColor: 'black',
+        borderWidth: 1
     },
     buttonText:{
         fontSize: 27,

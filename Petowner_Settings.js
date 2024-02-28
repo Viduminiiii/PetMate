@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
 
 const Petowner_Settings = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
@@ -38,16 +39,6 @@ const Petowner_Settings = ({ navigation }) => {
           <Text style={styles.notification}>Notifications</Text>
         </TouchableOpacity>
       </View>
-
-        <View style={styles.container_2}>
-          <Text style={styles.dark_mode}>Dark Mode</Text>
-          <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
-            <Image
-              source={require("../PetMate/AppPics/Settings_Switch.png")}
-              style={styles.image_2}
-            />
-          </TouchableOpacity>
-        </View>
       </View>
 
       <View style={styles.container_3}>
@@ -99,7 +90,7 @@ const Petowner_Settings = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 30,

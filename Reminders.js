@@ -166,7 +166,7 @@ const Reminders = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "flex-start",
     alignItems: "center",
     paddingTop: 30,

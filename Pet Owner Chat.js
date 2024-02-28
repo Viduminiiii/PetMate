@@ -23,9 +23,9 @@ const Chat = ({ navigation })=>{
                 <Text style={styles.blueBoxText}>Chat</Text>
             </View>
             <View style = {styles.page1}>
-                <View style={{ flex: 1 }} /> 
+                {/* <View style={{ flex: 1 }} />  */}
                 <View style={styles.inputContainer}>
-                    <TextInput style={styles.inputText} placeholder="Type your message here"  />
+                    <TextInput style={styles.inputText} placeholder="Type your message here"/>
                     <TouchableOpacity>
                         <Image source={require('../PetMate/AppPics/Chat_Mic.png')} style={styles.inputImage1} />
                     </TouchableOpacity>
@@ -73,11 +73,10 @@ const Chat = ({ navigation })=>{
 const styles=StyleSheet.create({
     container: {
         flex:1, //fill the whole screen
-        backgroundColor:'#BAFAD0',
+        backgroundColor:'#CEEFA3',
         justifyContent: 'flex-start', //start from the top
         alignItems:'center',
         paddingTop:30,
-        marginLeft:7,
     },
     text: {
         fontSize: 20,
@@ -134,6 +133,7 @@ const styles=StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row',  
+        marginTop: 540
     },
     inputImage: {
         width: 40,

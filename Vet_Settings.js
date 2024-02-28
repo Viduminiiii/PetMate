@@ -39,15 +39,6 @@ const Petowner_Settings = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.container_2}>
-        <Text style={styles.dark_mode}>Dark Mode</Text>
-        <TouchableOpacity style={styles.image_settings} onPress={handlePress}>
-          <Image
-            source={require("../PetMate/AppPics/Settings_Switch.png")}
-            style={styles.image_2}
-          />
-        </TouchableOpacity>
-      </View>
       </View>
 
       <View style={styles.container_3}>
@@ -71,7 +62,7 @@ const Petowner_Settings = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Appointment")}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
           <Image
             source={require("../PetMate/AppPics/Footer_appointment.png")}
             style={styles.menu_img}
@@ -84,7 +75,7 @@ const Petowner_Settings = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#BAFAD0",
+    backgroundColor: "#CEEFA3",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 30,
@@ -175,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2E5E5",
     paddingVertical: 15,
     paddingHorizontal: 55,
-    borderRadius: 10,
+    borderRadius: 20,
     marginTop: 20,
   },
   signout_buttonText: {
