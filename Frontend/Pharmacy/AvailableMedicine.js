@@ -10,7 +10,7 @@ const AvailableMedicine = ({ navigation }) => {
             <View style={styles.nav_bar}>
                 <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
                     <Image
-                        source={require("../PetMate/AppPics/Logo.png")}
+                        source={require("../../AppPics/Logo.png")}
                         style={styles.logo_img} 
                     />
                 </TouchableOpacity>
@@ -20,7 +20,7 @@ const AvailableMedicine = ({ navigation }) => {
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Pharmacy_Settings')}>
                     <Image
-                        source={require("../PetMate/AppPics/Setting.png")}
+                        source={require("../../AppPics/Setting.png")}
                         style={styles.settings_img} 
                     />
                 </TouchableOpacity>
@@ -39,7 +39,7 @@ const AvailableMedicine = ({ navigation }) => {
                     <View style={styles.send_button_container}>
                         <Text style={styles.send_text}>Send</Text>
                         <Image
-                            source={require("../PetMate/AppPics/Chat_Send.png")}
+                            source={require("../../AppPics/Chat_Send.png")}
                             style={styles.send_img} 
                         />
                     </View>
@@ -48,7 +48,7 @@ const AvailableMedicine = ({ navigation }) => {
             <View style={styles.footer}>
             <TouchableOpacity onPress={() => navigation.navigate('PharmacyPrescription')}>
                     <Image
-                        source={require("../PetMate/AppPics/PharFooter_Prescription.png")}
+                        source={require("../../AppPics/PharFooter_Prescription.png")}
                         style={styles.footer_prescription_img} 
                     />
                 </TouchableOpacity>

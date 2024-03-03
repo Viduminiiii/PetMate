@@ -41,13 +41,13 @@ const VetSignUp = ({ navigation })=>{
                 <Text style={styles.text}>Pin Your Clinic Location</Text>
             </View>
             <TouchableOpacity>
-                    <Image source={require('../PetMate/AppPics/Google_map.png')} style={styles.image} />
+                    <Image source={require('../../AppPics/Google_map.png')} style={styles.image} />
             </TouchableOpacity>
             <View style={styles.container3}>
                 <View style={styles.inputWithImage}>
                     <TextInput style={styles.textInput} placeholder="Password"></TextInput>
                     <TouchableOpacity>
-                        <Image source={require('../PetMate/AppPics/Password.png')} style={styles.imageStyle} />
+                        <Image source={require('../../AppPics/Password.png')} style={styles.imageStyle} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -59,11 +59,11 @@ const VetSignUp = ({ navigation })=>{
             </View>
             <View style={styles.imageContainer}>
                 <TouchableOpacity>
-                    <Image source={require('../PetMate/AppPics/FB.png')} style={styles.image} />
+                    <Image source={require('../../AppPics/FB.png')} style={styles.image} />
                 </TouchableOpacity>
                 <View style={styles.space} />
                 <TouchableOpacity>
-                    <Image source={require('../PetMate/AppPics/Google.png')} style={styles.image} />
+                    <Image source={require('../../AppPics/Google.png')} style={styles.image} />
                 </TouchableOpacity>
             </View>
             <View style={styles.container6}>

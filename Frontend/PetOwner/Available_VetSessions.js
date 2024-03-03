@@ -10,7 +10,7 @@ const Available_VetSessions = ({ navigation }) => {
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
@@ -20,7 +20,7 @@ const Available_VetSessions = ({ navigation }) => {
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
           <Image
-            source={require("../PetMate/AppPics/Setting.png")}
+            source={require("../../AppPics/Setting.png")}
             style={styles.settings}
           />
         </TouchableOpacity>
@@ -30,7 +30,7 @@ const Available_VetSessions = ({ navigation }) => {
         <View style={styles.abc_clinic}>
           <View style={styles.pic1}>
             <Image
-              source={require("../PetMate/AppPics/ABC_vet clinic.png")}
+              source={require("../../AppPics/ABC_vet clinic.png")}
               style={[styles.clinic1, , { marginBottom: 24 }]}
             />
           </View>
@@ -55,7 +55,7 @@ const Available_VetSessions = ({ navigation }) => {
         <View style={styles.def_clinic}>
           <View style={styles.pic2}>
             <Image
-              source={require("../PetMate/AppPics/DEF_vetClinic.png")}
+              source={require("../../AppPics/DEF_vetClinic.png")}
               style={[styles.clinic2, , { marginBottom: 24 }]}
             />
           </View>
@@ -80,7 +80,7 @@ const Available_VetSessions = ({ navigation }) => {
         <View style={styles.ghi_clinic}>
           <View style={styles.pic3}>
             <Image
-              source={require("../PetMate/AppPics/GHI_VetClinic.png")}
+              source={require("../../AppPics/GHI_VetClinic.png")}
               style={[styles.clinic3, { marginBottom: 24 }]}
             />
           </View>
@@ -105,7 +105,7 @@ const Available_VetSessions = ({ navigation }) => {
         <View style={styles.jkl_clinic}>
           <View style={styles.pic4}>
             <Image
-              source={require("../PetMate/AppPics/JKL_VetClinic.png")}
+              source={require("../../AppPics/JKL_VetClinic.png")}
               style={[styles.clinic4, { marginBottom: 24 }]}
             />
           </View>
@@ -129,31 +129,31 @@ const Available_VetSessions = ({ navigation }) => {
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>

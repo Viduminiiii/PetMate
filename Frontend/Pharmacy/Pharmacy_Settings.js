@@ -1,17 +1,24 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-const Petowner_Settings = ({ navigation }) => {
+const Pharmacy_Settings = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("PharmacyPrescription")}
+        >
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
@@ -20,7 +27,7 @@ const Petowner_Settings = ({ navigation }) => {
 
       <View style={styles.user}>
           <Image
-            source={require("../PetMate/AppPics/User_icon.png")}
+            source={require("../../AppPics/User_icon.png")}
             style={styles.image1}
           />
       </View>
@@ -33,14 +40,6 @@ const Petowner_Settings = ({ navigation }) => {
           <Text style={styles.email}>marshsmith@gmail.com</Text>
       </View>
 
-      <View style={styles.notification_btns}>
-      <View style={styles.container_1}>
-        <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Petowner_NotificationPage')}>
-          <Text style={styles.notification}>Notifications</Text>
-        </TouchableOpacity>
-      </View>
-      </View>
-
       <View style={styles.container_3}>
         <TouchableOpacity
           style={styles.signoutbutton}
@@ -51,35 +50,11 @@ const Petowner_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("LocateVetClinics")}
+          onPress={() => navigation.navigate("PharmacyPrescription")}
         >
           <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../../AppPics/PharFooter_Prescription.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -114,62 +89,44 @@ const styles = StyleSheet.create({
   },
   user: {
     marginBottom: 620,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image1: {
     width: 100,
     height: 100,
   },
   text1: {
-    marginTop: -650,
+    marginTop: -700,
     textAlign: "right",
   },
   username: {
     fontSize: 25,
     fontWeight: "bold",
   },
-  email: {
-    fontSize: 18,
-  },
   text2: {
-    marginTop: -25,
+    marginTop: -90,
     fontSize: 20,
   },
-  notification_btns: {
-    marginTop: -30,
-  },
-  container_1: {
-    backgroundColor: "white",
-    width: 300,
-    height: 50,
-    borderRadius: 20,
-    marginTop: 50,
-    justifyContent: "center",
-  },
-  notification: {
-    fontSize: 18,
-    textAlign: "left",
-    marginLeft: 30,
+  notifications_btns: {
+    margin: 20,
   },
   container_2: {
     backgroundColor: "white",
-    width: 300,
-    height: 50,
+    width: 350,
+    height: "25%",
     borderRadius: 20,
-    marginTop: 50,
     flexDirection: "row",
-    justifyContent: "center",
   },
   dark_mode: {
     fontSize: 18,
-    textAlign: "left",
     marginLeft: 30,
     marginTop: 12,
   },
   image_2: {
-    resizeMode: "contain",
     width: 55,
-    height: "90%",
-    marginLeft: 120,
+    height: "80%",
+    marginLeft: 150,
     marginTop: 3,
   },
   container_3: {
@@ -181,7 +138,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 55,
     borderRadius: 20,
-    marginTop: 20,
   },
   signout_buttonText: {
     color: "black",
@@ -197,9 +153,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   menu_img: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 55,
     margin: 15,
   },
 });
-export default Petowner_Settings;
+export default Pharmacy_Settings;
