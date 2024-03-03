@@ -85,9 +85,6 @@ const styles=StyleSheet.create({
         alignItems:'center',
         paddingTop:30,
     },
-    // scrollViewContent: {
-    //     color: 'red'
-    // },
     container1: {
         marginLeft: -150,
         paddingTop: 20,
@@ -184,7 +181,8 @@ const styles=StyleSheet.create({
     },
     container6: {
         flexDirection: 'row',
-        marginTop: -90
+        marginTop: -80,
+        marginBottom:50,
     }
 
 })
