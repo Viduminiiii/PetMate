@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import DatePicker from "react-native-date-picker";
 
-const Reminders = ({ navigation }) => {
+const VetReminder = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
-
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -14,18 +21,18 @@ const Reminders = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
         <View style={styles.nav_text_container}>
           <Text style={styles.nav_text}>REMINDERS</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Vet_Settings")}>
           <Image
-            source={require("../PetMate/AppPics/Setting.png")}
+            source={require("../../AppPics/Setting.png")}
             style={styles.settings}
           />
         </TouchableOpacity>
@@ -45,29 +52,6 @@ const Reminders = ({ navigation }) => {
               format="DD/MM/YYYY"
               minDate="01-01-1900"
               maxDate="01-01-2100"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: "absolute",
-                  right: -5,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  borderColor: "black",
-                  alignItems: "flex-start",
-                  borderWidth: 1,
-                  borderBottomWidth: 1,
-                },
-                placeholderText: {
-                  fontSize: 15,
-                  color: "black",
-                },
-                dateText: {
-                  fontSize: 15,
-                },
-              }}
               onDateChange={(date) => {
                 setDate(date);
               }}
@@ -114,7 +98,7 @@ const Reminders = ({ navigation }) => {
           </View>
 
           <View style={styles.view2}>
-            <Text style={styles.text2}>Vet appointmet for vaccine</Text>
+            <Text style={styles.text2}>Anne's appointment </Text>
           </View>
         </View>
       </View>
@@ -124,38 +108,44 @@ const Reminders = ({ navigation }) => {
         </View>
 
         <View style={styles.view4}>
-          <Text style={styles.text2}>Walk with Buddy</Text>
+          <Text style={styles.text2}>John's appointment</Text>
         </View>
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("ReceivedMessages")}
+        >
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('LocateVetClinics')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("VetPrescription")}
+        >
           <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            source={require("../../AppPics/PharFooter_Prescription.png")}
+            style={styles.prescription_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
+          <Image
+            source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("VetAvailability")}
+        >
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
-          <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../../AppPics/Footer_VetAvailability.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -207,7 +197,7 @@ const styles = StyleSheet.create({
   container5: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginLeft: 12
+    marginLeft: 12,
   },
   dates: {
     flexDirection: "row",
@@ -217,7 +207,7 @@ const styles = StyleSheet.create({
   container1: {
     alignItems: "center",
     marginTop: 20,
-    marginLeft: -30,   
+    marginLeft: -30,
   },
   text1: {
     fontSize: 25,
@@ -300,7 +290,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
-    marginLeft: 10
+    marginLeft: 10,
   },
   view3: {
     justifyContent: "center",
@@ -335,5 +325,10 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 15,
   },
+  prescription_img: {
+    width: 50,
+    height: 50,
+    margin: 15,
+  }
 });
-export default Reminders;
+export default VetReminder;

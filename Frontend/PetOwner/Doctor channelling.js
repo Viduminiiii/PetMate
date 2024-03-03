@@ -20,13 +20,13 @@ const DocChannelling = ({ navigation }) => {
        <View style = {styles.container}>
             <View style = {styles.nav_bar}>
                 <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-                    <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
+                    <Image source={require ('../../AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     DOCTOR CHANNELLING
                 </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
-                    <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
+                    <Image source={require ('../../AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
             <View style={styles.container1}>
@@ -35,7 +35,7 @@ const DocChannelling = ({ navigation }) => {
             <View style ={styles.search_page}>
                 <Text style={styles.text}>Type</Text>
                 <View style={styles.search_box}>
-                    <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
+                    <Image source={require ('../../AppPics/Search.png')} style={styles.search_img}/>
                         <Dropdown
                             style={[styles.dropdown]}
                             placeholderStyle={styles.placeholderStyle}
@@ -61,7 +61,7 @@ const DocChannelling = ({ navigation }) => {
                 </View>
                 <Text style={styles.text}>Doctor's Name</Text>
                 <View style={styles.search_box}>
-                <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
+                <Image source={require ('../../AppPics/Search.png')} style={styles.search_img}/>
                         <Dropdown
                             style={[styles.dropdown]}
                             placeholderStyle={styles.placeholderStyle}
@@ -89,7 +89,7 @@ const DocChannelling = ({ navigation }) => {
                 </View>
                 <Text style={styles.text}>Hospital's Name</Text>
                 <View style={styles.search_box}>
-                <Image source={require ('../PetMate/AppPics/Search.png')} style={styles.search_img}/>
+                <Image source={require ('../../AppPics/Search.png')} style={styles.search_img}/>
                         <Dropdown
                             style={[styles.dropdown]}
                             placeholderStyle={styles.placeholderStyle}
@@ -118,7 +118,7 @@ const DocChannelling = ({ navigation }) => {
                 </View>
                 <Text style={styles.text}>Appointment Date</Text>
                 <View style={styles.search_box}>
-                    <Image source={require ('../PetMate/AppPics/Calender.png')} style={styles.calendar_img}/>
+                    <Image source={require ('../../AppPics/Calender.png')} style={styles.calendar_img}/>
                     <View style={styles.date_container}>
                         <DatePicker
                         style={styles.datePickerStyle}
@@ -128,29 +128,6 @@ const DocChannelling = ({ navigation }) => {
                         format="DD/MM/YYYY"
                         minDate="01-01-1900"
                         maxDate="01-01-2100"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                            position: 'absolute',
-                            right: -5,
-                            top: 4,
-                            marginLeft: 0,
-                            },
-                            dateInput: {
-                            borderColor : "black",
-                            alignItems: "flex-start",
-                            borderWidth: 1,
-                            borderBottomWidth: 1,
-                            },
-                            placeholderText: {
-                            fontSize: 15,
-                            color: "black"
-                            },
-                            dateText: {
-                            fontSize: 15,
-                            }
-                        }}
                         onDateChange={(date) => {
                             setDate(date);
                         }}
@@ -165,19 +142,19 @@ const DocChannelling = ({ navigation }) => {
             </View>
             <View style ={styles.footer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-                    <Image source={require ('../PetMate/AppPics/Footer_Menu.png')} style={styles.menu_img}/>
+                    <Image source={require ('../../AppPics/Footer_Menu.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
-                    <Image source={require ('../PetMate/AppPics/Footer_Chat.png')} style={styles.menu_img}/>
+                    <Image source={require ('../../AppPics/Footer_Chat.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
-                    <Image source={require ('../PetMate/AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
+                    <Image source={require ('../../AppPics/Footer_VetClinic.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity  onPress={() => navigation.navigate('DocChannelling')}>
-                    <Image source={require ('../PetMate/AppPics/Footer_appointment.png')} style={styles.menu_img}/>
+                    <Image source={require ('../../AppPics/Footer_appointment.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
-                    <Image source={require ('../PetMate/AppPics/Footer_medicalRecords.png')} style={styles.menu_img}/>
+                    <Image source={require ('../../AppPics/Footer_medicalRecords.png')} style={styles.menu_img}/>
                 </TouchableOpacity>
             </View>
         </View>

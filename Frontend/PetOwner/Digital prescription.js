@@ -6,13 +6,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-date-picker";
 
-const VetPrescription = ({ navigation }) => {
+const Prescription = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
+  };
+  
+  state = { user: "" };
+  updateUser = (user) => {
+    this.setState({ user: user });
   };
 
   const [value, setValue] = useState(null);
@@ -22,9 +28,9 @@ const VetPrescription = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
@@ -124,58 +130,48 @@ const VetPrescription = ({ navigation }) => {
                 format="DD/MM/YYYY"
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    position: "absolute",
-                    right: -5,
-                    top: 4,
-                    marginLeft: 0,
-                  },
-                  dateInput: {
-                    borderColor: "black",
-                    alignItems: "flex-start",
-                    borderWidth: 1,
-                    borderBottomWidth: 1,
-                  },
-                  placeholderText: {
-                    fontSize: 15,
-                    color: "black",
-                  },
-                  dateText: {
-                    fontSize: 15,
-                  },
-                }}
                 onDateChange={(date) => {
                   setDate(date);
                 }}
               />
             </View>
+            
           </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('UserSearch')}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}>
           <View style={styles.button}>
-            <Text style={styles.search_btn}>Send</Text>
+            <Text style={styles.send_btn}>Send</Text>
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            source={require("../../AppPics/Footer_VetClinic.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+          <Image
+            source={require("../../AppPics/Footer_appointment.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+          <Image
+            source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -255,11 +251,6 @@ const styles = StyleSheet.create({
     marginTop: 23,
     borderRadius: 10,
   },
-  arrow_img: {
-    width: 20,
-    height: 20,
-    marginLeft: 90,
-  },
   ownerInfo: {
     marginTop: -30,
   },
@@ -320,7 +311,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: -5,
   },
-  search_btn: {
+  send_btn: {
     fontWeight: "bold",
     fontSize: 15,
   },
@@ -372,6 +363,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 15
   },
 });
-export default VetPrescription;
+export default Prescription;

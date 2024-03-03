@@ -9,13 +9,13 @@ const PetOwnerMenu = ({ navigation }) => {
         <View style={styles.page}>
             <View style = {styles.nav_bar}>
                 <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
-                    <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
+                    <Image source={require ('../../AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     MENU
                 </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Vet_Settings')}>
-                    <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
+                <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
+                    <Image source={require ('../../AppPics/Reminder.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
 
@@ -23,7 +23,7 @@ const PetOwnerMenu = ({ navigation }) => {
                <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')} style={styles.button}>
                   <View style={styles.chat}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                           <Image source={require('../PetMate/AppPics/Menu_ChatDoc.png')} style={styles.chatDoc_image} />
+                           <Image source={require('../../AppPics/Menu_ChatDoc.png')} style={styles.chatDoc_image} />
                      </View>
                      <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Chat</Text>
@@ -36,10 +36,23 @@ const PetOwnerMenu = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('VetPrescription')} style={styles.button}>
                   <View style={styles.vet}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                           <Image source={require('../PetMate/AppPics/Digital_Prescription.png')} style={styles.prescription_image} />
+                           <Image source={require('../../AppPics/Digital_Prescription.png')} style={styles.prescription_image} />
                      </View>
                      <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Digital prescription</Text>
+                     </View>
+                  </View>
+               </TouchableOpacity>
+            </View>
+
+            <View style={styles.menu_button3}>
+            <TouchableOpacity onPress={() => navigation.navigate('VetAvailability')} style={styles.button}>
+                  <View style={styles.vet}>
+                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
+                           <Image source={require('../../AppPics/VetMenu_Availability.png')} style={styles.prescription_image} />
+                     </View>
+                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
+                           <Text style={styles.text1}>Availability</Text>
                      </View>
                   </View>
                </TouchableOpacity>
@@ -91,6 +104,10 @@ const PetOwnerMenu = ({ navigation }) => {
     },
     menu_button2: {
         marginTop:-500,
+        height: '80%'
+    },
+    menu_button3: {
+        marginTop:-455,
         height: '80%'
     },
     vet:{

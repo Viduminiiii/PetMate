@@ -47,31 +47,31 @@ const Payment_1 = ({ navigation }) => {
             <View style = {styles.footer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image
-                        source={require("../PetMate/AppPics/Footer_Menu.png")}
+                        source={require("../../AppPics/Footer_Menu.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image
-                        source={require("../PetMate/AppPics/Footer_Chat.png")}
+                        source={require("../../AppPics/Footer_Chat.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
                     <Image
-                        source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+                        source={require("../../AppPics/Footer_VetClinic.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
-                        source={require("../PetMate/AppPics/Footer_appointment.png")}
+                        source={require("../../AppPics/Footer_appointment.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
-                        source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+                        source={require("../../AppPics/Footer_medicalRecords.png")}
                         style={styles.menu_img}
                     />
                 </TouchableOpacity>

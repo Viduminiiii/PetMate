@@ -10,7 +10,7 @@ const LocateVetClinics = ({ navigation }) => {
             <View style={styles.nav_bar}>
                 <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
                     <Image
-                        source={require("../PetMate/AppPics/Logo.png")}
+                        source={require("../../AppPics/Logo.png")}
                         style={styles.logo_img} 
                     />
                 </TouchableOpacity>
@@ -20,7 +20,7 @@ const LocateVetClinics = ({ navigation }) => {
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
                     <Image
-                        source={require("../PetMate/AppPics/Setting.png")}
+                        source={require("../../AppPics/Setting.png")}
                         style={styles.settings_img} 
                     />
                 </TouchableOpacity>
@@ -28,12 +28,12 @@ const LocateVetClinics = ({ navigation }) => {
             <Text style={styles.text}>Find the nearest</Text>
             <View style={styles.loc_search_bar}>
                 <Image
-                    source={require("../PetMate/AppPics/Search.png")}
+                    source={require("../../AppPics/Search.png")}
                     style={styles.search_img} 
                 />
                 <TextInput style={styles.search_bar_text} placeholder="Search"></TextInput>
                 <Image
-                    source={require("../PetMate/AppPics/Google_map.png")}
+                    source={require("../../AppPics/Google_map.png")}
                     style={styles.google_map_img} 
                 />
             </View>
@@ -42,21 +42,21 @@ const LocateVetClinics = ({ navigation }) => {
                 <TouchableOpacity onPress={() => handlePress("Vet Clinic")} style={styles.button}>
                 <View style={styles.button_1_2}>
                     <Image
-                        source={require("../PetMate/AppPics/VetClinic_PetVetclinic.jpg")}
+                        source={require("../../AppPics/VetClinic_PetVetclinic.jpg")}
                         style={styles.button_img_1} 
                     />
                     <View style={styles.button_half_view_column}>
                         <Text style={styles.button_text}>PetVet Clinic</Text>
                         <View style={styles.button_half_view_row}>
                             <Image
-                                source={require("../PetMate/AppPics/Time.png")}
+                                source={require("../../AppPics/Time.png")}
                                 style={styles.time_img} 
                             />
                             <Text style={styles.time}>9.30am - 5.00pm</Text>
                         </View>
                         <View style={styles.button_half_view_row}>
                             <Image
-                                source={require("../PetMate/AppPics/VetClinic_Location.png")}
+                                source={require("../../AppPics/VetClinic_Location.png")}
                                 style={styles.location_img} 
                             />
                             <Text style={styles.location_text}>Colombo</Text>
@@ -67,21 +67,21 @@ const LocateVetClinics = ({ navigation }) => {
                 <TouchableOpacity onPress={() => handlePress("Vet Clinic")} style={styles.button}>
                 <View style={styles.button_1_2}>
                     <Image
-                        source={require("../PetMate/AppPics/VetClinic_PetnDoc.jpg")}
+                        source={require("../../AppPics/VetClinic_PetnDoc.jpg")}
                         style={styles.button_img_2} 
                     />
                     <View style={styles.button_half_view_column}>
                         <Text style={styles.button_text}>Pet n Doc</Text>
                         <View style={styles.button_half_view_row}>
                             <Image
-                                source={require("../PetMate/AppPics/Time.png")}
+                                source={require("../../AppPics/Time.png")}
                                 style={styles.time_img} 
                             />
                             <Text style={styles.time}>9.30am - 5.00pm</Text>
                         </View>
                         <View style={styles.button_half_view_row}>
                             <Image
-                                source={require("../PetMate/AppPics/VetClinic_Location.png")}
+                                source={require("../../AppPics/VetClinic_Location.png")}
                                 style={styles.location_img} 
                             />
                             <Text style={styles.location_text}>Colombo</Text>
@@ -93,31 +93,31 @@ const LocateVetClinics = ({ navigation }) => {
             <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('LocateVetClinics')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>

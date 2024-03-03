@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState }  from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
   TouchableOpacity,
-  Switch,
+  Switch
 } from "react-native";
 
-const Vet_Notification = ({ navigation }) => {
+const Petowner_NotificationPage = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
-
   // State to manage switch value
   const [isEnabledReminder, setIsEnabledReminder] = useState(false);
   const [isEnabledAppReminder, setIsEnabledAppReminder] = useState(false);
@@ -25,9 +24,9 @@ const Vet_Notification = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
@@ -64,26 +63,34 @@ const Vet_Notification = ({ navigation }) => {
         </View>
       </View>
 
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
+        <View style={styles.footer}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Menu')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ReceivedMessages")}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
+        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            source={require("../../AppPics/Footer_VetClinic.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+          <Image
+            source={require("../../AppPics/Footer_appointment.png")}
+            style={styles.menu_img}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+          <Image
+            source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -190,4 +197,4 @@ const styles = StyleSheet.create({
     margin: 15,
   },
 });
-export default Vet_Notification;
+export default Petowner_NotificationPage;

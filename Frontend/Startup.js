@@ -10,7 +10,7 @@ const Startup = ({ navigation }) => {
     return(
         <View style={styles.container}>
             <Image
-                source={require("../PetMate/AppPics/Start up.jpg")}
+                source={require("../AppPics/Start up.jpg")}
                 style={styles.image}
             />
             <View style={styles.text}>
