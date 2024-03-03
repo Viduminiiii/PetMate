@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import {View,Text,StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
+import axios from "axios";
 
 const SignUp = ({ navigation })=>{
+    const [fullname, setFullname] = useState();
+    const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
+    const [petname, setPetName] = useState();
+    const [age, setAge] = useState();
+    const [password, setPassword] = useState();
+
     const handlePress = () => {
         console.log("Button pressed");
+        const userData ={
+            fullname,
+            username,
+            email,
+            petname,
+            age,
+            password
+        }
+        axios
+        .port("http://192.168.1.12:5000/register", userData)
+        .then(res=>{
+            console.log(res.data)
+            if (res.data.status==='ok')
+            navigation.navigate('Login')
+        })
+        .catch(e=>console.log(e));
       };
+
+
     return(
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
@@ -16,32 +42,34 @@ const SignUp = ({ navigation })=>{
                 <Text style={styles.text}>Pet Owner Information</Text>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput} placeholder="Full name" ></TextInput>
+                <TextInput style={styles.textInput} placeholder="Full name" onChangeText={(text) => setFullname(text)}>
+            
+          </TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput} placeholder="Username" ></TextInput>
+                <TextInput style={styles.textInput} placeholder="Username" onChangeText={(text) => setUsername(text)}></TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput} placeholder="Email" ></TextInput>
+                <TextInput style={styles.textInput} placeholder="Email" onChangeText={(text) => setEmail(text)}></TextInput>
             </View>
             <View style={styles.infoText_container}>
                 <Text style={styles.text}>Pet information</Text>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput} placeholder="Pet name"></TextInput>
+                <TextInput style={styles.textInput} placeholder="Pet name" onChangeText={(text) => setPetName(text)}></TextInput>
             </View>
             <View style={styles.container2}>
-                <TextInput style={styles.textInput} placeholder="Age"></TextInput>
+                <TextInput style={styles.textInput} placeholder="Age" onChangeText={(text) => setAge(text)}></TextInput>
             </View>
             <View style={styles.container3}>
                 <View style={styles.inputWithImage}>
-                    <TextInput style={styles.textInput} placeholder="Password"></TextInput>
+                    <TextInput style={styles.textInput} placeholder="Password" onChangeText={(text) => setPassword(text)}></TextInput>
                     <TouchableOpacity>
                         <Image source={require('../../AppPics/Password.png')} style={styles.imageStyle} />
                     </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('Menu')}>
+            <TouchableOpacity style={styles.signUpButton} onPress={()=>handlePress()}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
             <View style={styles.container5}>
