@@ -17,7 +17,7 @@ const LocatePharmacy = ({ navigation }) => {
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo_img}
           />
         </TouchableOpacity>
@@ -26,7 +26,7 @@ const LocatePharmacy = ({ navigation }) => {
           onPress={() => navigation.navigate("Petowner_Settings")}
         >
           <Image
-            source={require("../PetMate/AppPics/Setting.png")}
+            source={require("../../AppPics/Setting.png")}
             style={styles.settings_img}
           />
         </TouchableOpacity>
@@ -34,7 +34,7 @@ const LocatePharmacy = ({ navigation }) => {
       <Text style={styles.text}>Find the nearest</Text>
       <View style={styles.loc_search_bar}>
         <Image
-          source={require("../PetMate/AppPics/Search.png")}
+          source={require("../../AppPics/Search.png")}
           style={styles.search_img}
         />
         <TextInput
@@ -42,33 +42,25 @@ const LocatePharmacy = ({ navigation }) => {
           placeholder="Search"
         ></TextInput>
         <Image
-          source={require("../PetMate/AppPics/Google_map.png")}
+          source={require("../../AppPics/Google_map.png")}
           style={styles.google_map_img}
         />
       </View>
       <View style={styles.inside_container}>
-        {/* <TouchableOpacity
-          onPress={() => navigation.navigate('Medicalrecords')}
-          style={styles.prescription_button}
-        >
-          <Text style={styles.prescription_button_text}>
-            Digital Prescription
-          </Text>
-        </TouchableOpacity> */}
         <TouchableOpacity
           onPress={() => handlePress("Pharmacy")}
           style={styles.button}
         >
           <View style={styles.button_1_2}>
             <Image
-              source={require("../PetMate/AppPics/ABC_Pharmacy.jpg")}
+              source={require("../../AppPics/ABC_Pharmacy.jpg")}
               style={styles.button_img_1}
             />
             <View style={styles.button_half_view_column}>
               <Text style={styles.button_text}>ABC Pharmacy</Text>
               <View style={styles.button_half_view_row}>
                 <Image
-                  source={require("../PetMate/AppPics/VetClinic_Location.png")}
+                  source={require("../../AppPics/VetClinic_Location.png")}
                   style={styles.location_img}
                 />
                 <Text style={styles.location_text}>Colombo</Text>
@@ -82,14 +74,14 @@ const LocatePharmacy = ({ navigation }) => {
         >
           <View style={styles.button_1_2}>
             <Image
-              source={require("../PetMate/AppPics/CD_Pharmacy.jpg")}
+              source={require("../../AppPics/CD_Pharmacy.jpg")}
               style={styles.button_img_2}
             />
             <View style={styles.button_half_view_column}>
               <Text style={styles.button_text}>CD Pharmacy</Text>
               <View style={styles.button_half_view_row}>
                 <Image
-                  source={require("../PetMate/AppPics/VetClinic_Location.png")}
+                  source={require("../../AppPics/VetClinic_Location.png")}
                   style={styles.location_img}
                 />
                 <Text style={styles.location_text}>Colombo</Text>
@@ -103,14 +95,14 @@ const LocatePharmacy = ({ navigation }) => {
         >
           <View style={styles.button_1_2}>
             <Image
-              source={require("../PetMate/AppPics/DEF_Pharmacy.jpg")}
+              source={require("../../AppPics/DEF_Pharmacy.jpg")}
               style={styles.button_img_3}
             />
             <View style={styles.button_half_view_column}>
               <Text style={styles.button_text}>DEF Pharmacy</Text>
               <View style={styles.button_half_view_row}>
                 <Image
-                  source={require("../PetMate/AppPics/VetClinic_Location.png")}
+                  source={require("../../AppPics/VetClinic_Location.png")}
                   style={styles.location_img}
                 />
                 <Text style={styles.location_text}>Colombo</Text>
@@ -122,13 +114,13 @@ const LocatePharmacy = ({ navigation }) => {
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -136,19 +128,19 @@ const LocatePharmacy = ({ navigation }) => {
           onPress={() => navigation.navigate("LocateVetClinics")}
         >
           <Image
-            source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+            source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+            source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>

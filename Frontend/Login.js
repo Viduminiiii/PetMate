@@ -16,11 +16,11 @@ const Login = ({ navigation }) => {
   const handlePress = () => {
     // console.log("handlePress ----  " + username + " -  " + password);
     if (username === "pet" && password === "123") {
-      navigation.navigate("SignUp");
+      navigation.navigate("Menu");
     } else if (username === "vet" && password === "123") {
-      navigation.navigate("VetSignUp");
+      navigation.navigate("VetMenu");
     } else if (username === "pharmacy" && password === "123") {
-      navigation.navigate("PharmacySignUp");
+      navigation.navigate("PharmacyPrescription");
     }
   };
   const handlePressForgot = () => {
@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.loginpage1}>
       <Image
-        source={require("../PetMate/AppPics/Dog.png")}
+        source={require("../AppPics/Dog.png")}
         style={styles.image}
       />
 
@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
         ></TextInput>
         <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)} style={styles.button}>
           <Image
-            source={require("../PetMate/AppPics/Password.png")}
+            source={require("../AppPics/Password.png")}
             style={styles.password_eyeimage}
           />
         </TouchableOpacity>
@@ -78,14 +78,14 @@ const Login = ({ navigation }) => {
       <View style={styles.signup_imageContainer}>
         <TouchableOpacity>
           <Image
-            source={require("../PetMate/AppPics/FB.png")}
+            source={require("../AppPics/FB.png")}
             style={styles.image2}
           />
         </TouchableOpacity>
         <View style={styles.space} />
         <TouchableOpacity>
           <Image
-            source={require("../PetMate/AppPics/Google.png")}
+            source={require("../AppPics/Google.png")}
             style={styles.image2}
           />
         </TouchableOpacity>

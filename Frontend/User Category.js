@@ -8,7 +8,7 @@ const UserCategory = ({ navigation }) => {
     return (
         <View style={styles.page}>
             <Image
-                source={require('../PetMate/AppPics/Dog.png')}
+                source={require('../AppPics/Dog.png')}
                 style={styles.image}
             />
             <Text style={styles.text}>Select the user category: </Text>
@@ -16,7 +16,7 @@ const UserCategory = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.button}>
                 <View style={styles.petowner}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                        <Image source={require('../PetMate/AppPics/UC_PetOwner.png')} style={styles.owner_image} />
+                        <Image source={require('../AppPics/UC_PetOwner.png')} style={styles.owner_image} />
                     </View>
                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                         <Text style={styles.text1}>Pet Owner</Text>
@@ -27,7 +27,7 @@ const UserCategory = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('VetSignUp')} style={styles.button}>
                 <View style={styles.vet}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                        <Image source={require('../PetMate/AppPics/Menu_VetClinic.png')} style={styles.owner_image} />
+                        <Image source={require('../AppPics/Menu_VetClinic.png')} style={styles.owner_image} />
                     </View>
                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                         <Text style={styles.text1}>Vetenarian</Text>
@@ -38,7 +38,7 @@ const UserCategory = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('PharmacySignUp')} style={styles.button}>
                 <View style={styles.pharmacy}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                        <Image source={require('../PetMate/AppPics/UC_Pharmacy.png')} style={styles.phar_image} />
+                        <Image source={require('../AppPics/UC_Pharmacy.png')} style={styles.phar_image} />
                     </View>
                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                         <Text style={styles.text1}>Pharmacy</Text>

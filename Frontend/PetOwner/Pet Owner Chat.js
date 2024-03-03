@@ -9,13 +9,13 @@ const Chat = ({ navigation })=>{
         <View style={styles.container}>
             <View style = {styles.nav_bar}>
                 <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-                    <Image source={require ('../PetMate/AppPics/Logo.png')} style = {styles.logo}/>
+                    <Image source={require ('../../AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     CHAT
                 </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
-                    <Image source={require ('../PetMate/AppPics/Setting.png')} style = {styles.settings}/>
+                    <Image source={require ('../../AppPics/Setting.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
             
@@ -27,39 +27,39 @@ const Chat = ({ navigation })=>{
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} placeholder="Type your message here"/>
                     <TouchableOpacity>
-                        <Image source={require('../PetMate/AppPics/Chat_Mic.png')} style={styles.inputImage1} />
+                        <Image source={require('../../AppPics/Chat_Mic.png')} style={styles.inputImage1} />
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <Image source={require('../PetMate/AppPics/Chat_Send.png')} style={styles.inputImage} />
+                        <Image source={require('../../AppPics/Chat_Send.png')} style={styles.inputImage} />
                     </TouchableOpacity>
                 </View>
             </View>
 
             <View style={styles.footer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-                    <Image source={require("../PetMate/AppPics/Footer_Menu.png")}
+                    <Image source={require("../../AppPics/Footer_Menu.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                     <Image
-                    source={require("../PetMate/AppPics/Footer_Chat.png")}
+                    source={require("../../AppPics/Footer_Chat.png")}
                     style={styles.menu_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
                     <Image
-                    source={require("../PetMate/AppPics/Footer_VetClinic.png")}
+                    source={require("../../AppPics/Footer_VetClinic.png")}
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
                     <Image
-                    source={require("../PetMate/AppPics/Footer_appointment.png")}
+                    source={require("../../AppPics/Footer_appointment.png")}
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
                     <Image
-                    source={require("../PetMate/AppPics/Footer_medicalRecords.png")}
+                    source={require("../../AppPics/Footer_medicalRecords.png")}
                     style={styles.menu_img}
                     />
                 </TouchableOpacity>

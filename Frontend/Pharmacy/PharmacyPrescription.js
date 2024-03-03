@@ -12,7 +12,7 @@ const PharmacyPrescription = ({ navigation }) => {
           onPress={() => navigation.navigate("PharmacyPrescription")}
         >
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
@@ -21,7 +21,7 @@ const PharmacyPrescription = ({ navigation }) => {
           onPress={() => navigation.navigate("Pharmacy_Settings")}
         >
           <Image
-            source={require("../PetMate/AppPics/Setting.png")}
+            source={require("../../AppPics/Setting.png")}
             style={styles.settings}
           />
         </TouchableOpacity>
@@ -70,7 +70,7 @@ const PharmacyPrescription = ({ navigation }) => {
           onPress={() => navigation.navigate("PharmacyPrescription")}
         >
           <Image
-            source={require("../PetMate/AppPics/PharFooter_Prescription.png")}
+            source={require("../../AppPics/PharFooter_Prescription.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>

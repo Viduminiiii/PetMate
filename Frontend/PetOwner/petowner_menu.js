@@ -10,14 +10,14 @@ const PetOwnerMenu = ({ navigation }) => {
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>MENU</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Reminders")}>
           <Image
-            source={require("../PetMate/AppPics/Reminder.png")}
+            source={require("../../AppPics/Reminder.png")}
             style={styles.reminder}
           />
         </TouchableOpacity>
@@ -38,7 +38,7 @@ const PetOwnerMenu = ({ navigation }) => {
               ]}
             >
               <Image
-                source={require("../PetMate/AppPics/Menu_ChatDoc.png")}
+                source={require("../../AppPics/Menu_ChatDoc.png")}
                 style={styles.chatDoc_image}
               />
             </View>
@@ -69,7 +69,7 @@ const PetOwnerMenu = ({ navigation }) => {
               ]}
             >
               <Image
-                source={require("../PetMate/AppPics/Menu_VetClinic.png")}
+                source={require("../../AppPics/Menu_VetClinic.png")}
                 style={styles.owner_image}
               />
             </View>
@@ -100,7 +100,7 @@ const PetOwnerMenu = ({ navigation }) => {
               ]}
             >
               <Image
-                source={require("../PetMate/AppPics/Menu_Channeling.png")}
+                source={require("../../AppPics/Menu_Channeling.png")}
                 style={styles.channelling_image}
               />
             </View>
@@ -131,7 +131,7 @@ const PetOwnerMenu = ({ navigation }) => {
               ]}
             >
               <Image
-                source={require("../PetMate/AppPics/Menu_Pharmacy.png")}
+                source={require("../../AppPics/Menu_Pharmacy.png")}
                 style={styles.phar_image}
               />
             </View>

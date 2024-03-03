@@ -10,7 +10,7 @@ const Petowner_Settings = ({ navigation }) => {
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
-            source={require("../PetMate/AppPics/Logo.png")}
+            source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
@@ -19,7 +19,7 @@ const Petowner_Settings = ({ navigation }) => {
 
       <View style={styles.user}>
           <Image
-            source={require("../PetMate/AppPics/User_icon.png")}
+            source={require("../../AppPics/User_icon.png")}
             style={styles.image1}
           />
       </View>
@@ -50,24 +50,37 @@ const Petowner_Settings = ({ navigation }) => {
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Menu.png")}
+            source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("ReceivedMessages")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_Chat.png")}
+            source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-
+        <TouchableOpacity
+          onPress={() => navigation.navigate("VetPrescription")}
+        >
+          <Image
+            source={require("../../AppPics/PharFooter_Prescription.png")}
+            style={styles.prescription_img}
+          />
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
           <Image
-            source={require("../PetMate/AppPics/Footer_appointment.png")}
+            source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('VetAvailability')}>
+                    <Image
+                        source={require("../../AppPics/Footer_VetAvailability.png")}
+                        style={styles.menu_img} 
+                    />
+                </TouchableOpacity>
       </View>
     </View>
   );
@@ -187,5 +200,10 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 15,
   },
+  prescription_img: {
+    width: 50,
+    height: 50,
+    margin: 15,
+  }
 });
 export default Petowner_Settings;
