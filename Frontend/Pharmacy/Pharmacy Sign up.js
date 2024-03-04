@@ -178,7 +178,8 @@ const styles=StyleSheet.create({
     },
     container6: {
         flexDirection: 'row',
-        marginTop: -90
+        marginTop: -80,
+        marginBottom:50,
     }
 })
 
