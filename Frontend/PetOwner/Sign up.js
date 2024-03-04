@@ -21,7 +21,7 @@ const SignUp = ({ navigation })=>{
             password
         }
         axios
-        .port("http://192.168.1.12:5000/register", userData)
+        .port("http://192.168.1.7:5000/register", userData)
         .then(res=>{
             console.log(res.data)
             if (res.data.status==='ok')
