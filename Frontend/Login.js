@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import {
   View,
@@ -15,23 +16,31 @@ const Login = ({ navigation }) => {
 
   const handlePress = () => {
     // console.log("handlePress ----  " + username + " -  " + password);
-    if (username === "pet" && password === "123") {
-      navigation.navigate("Menu");
-    } else if (username === "vet" && password === "123") {
-      navigation.navigate("VetMenu");
-    } else if (username === "pharmacy" && password === "123") {
-      navigation.navigate("PharmacyPrescription");
-    }
+    const userData = { username, password };
+
+    console.log("userData:  " + JSON.stringify(userData));
+    axios
+      .post("http://192.168.1.7:5001/getOneUser", userData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.status === "ok") navigation.navigate("Menu");
+      })
+      .catch((e) => console.log(e));
+
+    // if (username === "pet" && password === "123") {
+    //   navigation.navigate("Menu");
+    // } else if (username === "vet" && password === "123") {
+    //   navigation.navigate("VetMenu");
+    // } else if (username === "pharmacy" && password === "123") {
+    //   navigation.navigate("PharmacyPrescription");
+    // }
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");
   };
   return (
     <View style={styles.loginpage1}>
-      <Image
-        source={require("../AppPics/Dog.png")}
-        style={styles.image}
-      />
+      <Image source={require("../AppPics/Dog.png")} style={styles.image} />
 
       <View id="username" style={styles.username}>
         <TextInput
@@ -48,7 +57,10 @@ const Login = ({ navigation }) => {
           secureTextEntry={!isPasswordVisible}
           onChangeText={(text) => setPassword(text)}
         ></TextInput>
-        <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          style={styles.button}
+        >
           <Image
             source={require("../AppPics/Password.png")}
             style={styles.password_eyeimage}
@@ -77,10 +89,7 @@ const Login = ({ navigation }) => {
 
       <View style={styles.signup_imageContainer}>
         <TouchableOpacity>
-          <Image
-            source={require("../AppPics/FB.png")}
-            style={styles.image2}
-          />
+          <Image source={require("../AppPics/FB.png")} style={styles.image2} />
         </TouchableOpacity>
         <View style={styles.space} />
         <TouchableOpacity>

@@ -1,7 +1,12 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-app.use(express.json())
+var cors=require('cors');
+
+app.use(cors());
+app.use(express.json());
+
+const port = process.env.port || 5001;
 
 const mongoUrl = 'mongodb+srv://admin:admin@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate'
 
@@ -11,59 +16,21 @@ mongoose.connect(mongoUrl).then(() => {
     console.log(e);
 })
 
-require ('./PetOwnerDetails')
-require ('./Users')
+require('./PetOwner').default
+require('./Users').default
+require('./Veternarian').default
+require('./Pharmacy').default
 const PetOwner=mongoose.model('PetOwner');
 const User=mongoose.model('Users');
-
+const Veternarian=mongoose.model('Veternarian')
+const Pharmacy=mongoose.model('Pharmacy')
+''
 app.get("/getTest", (req,res) => {
     res.send("success ---------------------------");
-})
-
-app.post("/register", async (req,res)=>{
-    const {fullname,email,password,petname,age,username}=req.body;
-    const oldUser = await PetOwner.findOne({email:email})
-
-    if(oldUser){
-        res.send({data: 'User already exists!!'})
-    }
-    else{
-        try{
-            const petowner = await PetOwner.create({
-                fullname,
-                email,
-                petname,
-                age,
-            });
-            const user = await User.create({
-                username,
-                password,
-                petOwner: petowner._id
-            });
-    
-            // if(user !== null) {
-            //     const updateField = { user: user._id };            
-            //     PetOwner.findByIdAndUpdate(petowner._id, updateField, { new: true })
-            //       .then(updatedUser => {
-            //         console.log('Updated PetOwner: ', updatedUser);
-            //       })
-            //       .catch(err => {
-            //         console.error(err);
-            //       });   
-            // }
-    
-            if(petowner !== null && user !== null)
-            {
-                res.send({status:'ok', data: 'User created'});
-            }
-        }catch (error){
-            res.send({status:'Error', data: error});
-        }
-    }  
-})
+});
 
 
-app.get("/getUser", async(req,res) => {
+app.get("/getAllUser", async(req,res) => {
     User.find()
     .populate('petOwner')
     .then((result) => {        
@@ -75,12 +42,161 @@ app.get("/getUser", async(req,res) => {
     .catch((err) => {        
         console.error(err);
     });
+});
+
+app.post("/register", async (req,res)=>{
+    console.log("req.body:   " + JSON.stringify(req.body));
+    const {fullname,email,password,petname,age,username}=req.body;
+    const oldPetEmail = await PetOwner.findOne({email:email});
+    const oldVetEmail = await Veternarian.findOne({email:email});
+    const oldPharEmail = await Pharmacy.findOne({email:email});
+    const oldUser = await User.findOne({username:username});
+
+    if(oldPetEmail !== null || oldVetEmail!== null || oldPharEmail!== null){
+        res.send({data: 'Email already exists!!'});
+    }
+    else if(oldUser!== null){
+        res.send({data: 'User already exists!!'});
+    }
+    else{
+        console.log("1");
+        try{
+            const objPet= await PetOwner.create({
+                fullname: fullname,
+                email: email,
+                petname: petname,
+                age,
+            });
+            const user = await User.create({
+                username: username,
+                password: password,
+                petOwner: objPet._id
+            });
+    
+            if(objPet !== null && user !== null)
+            {
+                res.send({status:'ok', data: 'User created'});
+            }
+        }catch (error){
+            res.send({status:'Error', data: error});
+        }
+    }  
+})
+
+app.post("/registerVet", async (req,res)=> {
+    console.log("req.body:   " + JSON.stringify(req.body));
+    const {fullname,username,email,password,veterinaryClinicName,veterinaryLicenseNumber,veterinaryClinicAddress}=req.body;
+    const oldPetEmail = await PetOwner.findOne({email:email});
+    const oldVetEmail = await Veternarian.findOne({email:email});
+    const oldPharEmail = await Pharmacy.findOne({email:email});
+    const oldUser = await User.findOne({username:username});
+    
+    if(oldPetEmail !== null || oldVetEmail!== null || oldPharEmail!== null){
+        res.send({data: 'Email already exists!!'});
+    }
+    else if(oldUser!== null){
+        res.send({data: 'User already exists!!'});
+    }
+    else{
+        try{
+            console.log("2");
+            const objVet = await Veternarian.create({
+                fullname: fullname,
+                email: email,
+                veterinaryClinicName: veterinaryClinicName,
+                veterinaryLicenseNumber:veterinaryLicenseNumber,
+                veterinaryClinicAddress: veterinaryClinicAddress
+            });
+            console.log("Veternarian:   "+Veternarian);
+            const user = await User.create({
+                username: username,
+                password: password,
+                Veternarian: objVet._id
+            });
+    
+            if(objVet !== null && user !== null)
+            {
+                res.send({status:'ok', data: 'User created'});
+            }
+        }catch (error){
+            res.send({status:'Error', data: error});
+        }
+    }  
+})
+
+app.post("/registerPharmacy", async (req,res)=> {
+    console.log("req.body:   " + JSON.stringify(req.body));
+    const {fullname,username,email,password,pharmacyName,pharmacyLicenseNumber,pharmacyAddress}=req.body;
+    const oldPetEmail = await PetOwner.findOne({email:email});
+    const oldVetEmail = await Veternarian.findOne({email:email});
+    const oldPharEmail = await Pharmacy.findOne({email:email});
+    const oldUser = await User.findOne({username:username});
+
+    if(oldPetEmail !== null || oldVetEmail!== null || oldPharEmail!== null){
+        res.send({data: 'Email already exists!!'});
+    }
+    else if(oldUser!== null){
+        res.send({data: 'User already exists!!'});
+    }
+    else{
+        try{
+            console.log("3");
+            const objPharmacy = await Pharmacy.create({
+                fullname: fullname,
+                email: email,
+                pharmacyName:pharmacyName,
+                pharmacyLicenseNumber:pharmacyLicenseNumber,
+                pharmacyAddress:pharmacyAddress
+            });
+            const user = await User.create({
+                username: username,
+                password: password,
+                Pharmacy: objPharmacy._id
+            });
+    
+            if(objPharmacy !== null && user !== null)
+            {
+                res.send({status:'ok', data: 'User created'});
+            }
+        }catch (error){
+            res.send({status:'Error', data: error});
+        }
+    }  
+})
+
+app.post("/getOneUser", async(req,res) => {
+    console.log("req.body:   " + JSON.stringify(req.body));
+    const {username,password}=req.body;
+    
+    await User.findOne({username:username})
+    .then(async (result) =>  {     
+        console.log("result:   " + JSON.stringify(result));  
+    if (result) {
+        console.log(result);
+        if(result !== null)
+        {
+            const match = result.password === password;    
+            console.log("match:  "+match);
+            if(match)
+            {
+                // res.send({status:'ok', data: 'User login success'});
+                res.send({status:"ok", data: "Login succeess."});
+            }
+        }
+        else{
+            res.send({status:'ok', data: 'User password did not matched.'});
+            
+        }
+    }
+    })
 })
 
 
 
-app.listen (5000, ()=>{
-    console.log ('Mongo DB connection successful');
+
+
+app.listen (port, ()=>{
+    console.log ('Mongo DB connection successful run in port: '+ port);
 })
 
 

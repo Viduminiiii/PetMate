@@ -1,7 +1,7 @@
 const mongoose =require('mongoose');
 const { Schema } = mongoose;
 
-const PetOwnerDetailsSchema=new Schema({
+const PetOwnerSchema=new Schema({
     fullname: { type: String, required: true },
     email: {type: String, unique: true},
     petname: { type: String, required: true },
@@ -10,4 +10,6 @@ const PetOwnerDetailsSchema=new Schema({
 },{
     collection: "PetOwner"
 })
-mongoose.model("PetOwner", PetOwnerDetailsSchema);
+const PetOwner = mongoose.model("PetOwner", PetOwnerSchema);
+
+module.exports = PetOwner;
