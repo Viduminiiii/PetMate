@@ -5,12 +5,36 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  TextInput,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
 import { Dropdown } from "react-native-element-dropdown";
+import axios from "axios";
 
 const VetAvailability = ({ navigation }) => {
+  const [date, setdate] = useState();
+  const [timefrom, setTimeFrom] = useState();
+  const [timeto, setTimeTo] = useState();
+  const [clinicname, setClinicName] = useState();
+  const [noofpatients, setNoOfPatients] = useState();
+
+  const handlePress = () => {
+    console.log("Button pressed");
+    const userData = {
+      date,
+      time,
+      clinicname,
+      noofpatients
+    };
+    console.log("userData:  " + JSON.stringify(userData));
+    axios
+      .post("http://192.168.1.7:5001/availability", userData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.status === "ok") navigation.navigate("Available_VetSessions");
+      })
+      .catch((e) => console.log(e));
+  };
+
   state = { user: "" };
   updateUser = (user) => {
     this.setState({ user: user });
@@ -20,8 +44,8 @@ const VetAvailability = ({ navigation }) => {
   const [isFocusClinic, setIsFocusClinic] = useState(false);
   const [valuePatient, setValuePatient] = useState(null);
   const [isFocusPatient, setIsFocusPatient] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
+  const [dateContainer, setDateContainer] = useState(new Date());
+  const [timeContainer, setTimeContainer] = useState(new Date());
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>
@@ -46,15 +70,16 @@ const VetAvailability = ({ navigation }) => {
             <View style={styles.date_container}>
               <DatePicker
                 style={styles.datePickerStyle}
-                date={date}
+                date={dateContainer}
                 mode="date"
                 placeholder="select date"
                 format="DD/MM/YYYY"
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
-                onDateChange={(date) => {
-                  setDate(date);
+                onDateChange={(dateContainer) => {
+                  setDateContainer(dateContainer);
                 }}
+                onChangeText={(text) => setdate(text)}
               />
             </View>
           </View>
@@ -64,9 +89,10 @@ const VetAvailability = ({ navigation }) => {
               <DatePicker
                 style={styles.timePickerStyleFrom}
                 mode="time" // Set mode to "time" for time picker
-                date={time} // Use the time state here
-                onDateChange={setTime} // Update the time state on change
-                is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale#
+                date={timeContainer} // Use the time state here
+                onDateChange={setTimeContainer} // Update the time state on change
+                is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
+                onChangeText={(text) => setTimeFrom(text)}
               />
               <View style={styles.container2}>
                 <Text style={styles.to_text}>TO</Text>
@@ -74,9 +100,10 @@ const VetAvailability = ({ navigation }) => {
               <DatePicker
                 style={styles.timePickerStyleTo}
                 mode="time" // Set mode to "time" for time picker
-                date={time} // Use the time state here
-                onDateChange={setTime} // Update the time state on change
+                dateContainer={timeContainer} // Use the time state here
+                onDateChange={setTimeContainer} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
+                onChangeText={(text) => setTimeTo(text)}
               />
             </View>
           </View>
@@ -107,6 +134,7 @@ const VetAvailability = ({ navigation }) => {
                   setValueClinic(item.value);
                   setIsFocusClinic(false);
                 }}
+                onChangeText={(text) => setClinicName(text)}
               />
             </View>
           </View>
@@ -142,12 +170,13 @@ const VetAvailability = ({ navigation }) => {
                   setValuePatient(item.value);
                   setIsFocusPatient(false);
                 }}
+                onChangeText={(text) => setNoOfPatients(text)}
               />
             </View>
           </View>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.button_text}>Done</Text>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress()}>
+          <Text style={styles.button_text}>Add</Text>
         </TouchableOpacity>
       </View>
 
@@ -335,7 +364,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button_text: {
-    fontSize: 25,
+    fontSize: 28,
     fontWeight: "bold",
   },
   footer: {

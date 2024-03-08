@@ -20,10 +20,13 @@ require('./PetOwner').default
 require('./Users').default
 require('./Veternarian').default
 require('./Pharmacy').default
+require('./Availability').default
+
 const PetOwner=mongoose.model('PetOwner');
 const User=mongoose.model('Users');
 const Veternarian=mongoose.model('Veternarian')
 const Pharmacy=mongoose.model('Pharmacy')
+const Availability=mongoose.model('Availability')
 ''
 app.get("/getTest", (req,res) => {
     res.send("success ---------------------------");
@@ -189,6 +192,40 @@ app.post("/getOneUser", async(req,res) => {
         }
     }
     })
+})
+
+app.post("/availability", async (req,res)=>{
+    console.log("req.body:   " + JSON.stringify(req.body));
+    const {date,timefrom,timeto,clinicname,noofpatients}=req.body;
+    // const oldPetEmail = await PetOwner.findOne({email:email});
+    // const oldVetEmail = await Veternarian.findOne({email:email});
+    // const oldPharEmail = await Pharmacy.findOne({email:email});
+    // const oldUser = await User.findOne({username:username});
+
+    // if(oldPetEmail !== null || oldVetEmail!== null || oldPharEmail!== null){
+    //     res.send({data: 'Email already exists!!'});
+    // }
+    // else if(oldUser!== null){
+    //     res.send({data: 'User already exists!!'});
+    // }
+
+        // console.log("1");
+        try{
+            const availability= await Availability.create({
+                date,
+                timefrom,
+                timeto,
+                clinicname,
+                noofpatients
+            });
+    
+            // if(objPet !== null && user !== null)
+            // {
+            //     res.send({status:'ok', data: 'User created'});
+            // }
+        }catch (error){
+            res.send({status:'Error', data: error});
+        }
 })
 
 
