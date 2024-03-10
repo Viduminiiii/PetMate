@@ -26,9 +26,9 @@ const Chat = ({ navigation })=>{
                 {/* <View style={{ flex: 1 }} />  */}
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} placeholder="Type your message here"/>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Image source={require('../../AppPics/Chat_Mic.png')} style={styles.inputImage1} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity>
                         <Image source={require('../../AppPics/Chat_Send.png')} style={styles.inputImage} />
                     </TouchableOpacity>
