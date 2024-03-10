@@ -2,13 +2,12 @@ const mongoose =require('mongoose');
 const { Schema } = mongoose;
 
 const AvailabilitySchema=new Schema({
-    // name: { type: String, required: true },
-    date: {type: Number, required: true},
-    timefrom: { type: Number, required: true },
-    timeto: { type: Number, required: true },
-    clinicname: { type: Number, required: true },
-    noofpatients: { type: Number, required: true },
-    // user: { type: Schema.Types.ObjectId, ref: 'Users' }
+    availableDate: {type: Date, required: true},
+    timeFrom: { type: Date, required: true },
+    timeTo: { type: Date, required: true },
+    clinicName: { type: String, required: true },
+    noofPatients: { type: Number, required: true },
+    veternarian: { type: Schema.Types.ObjectId, ref: 'Veternarian' }
 },{
     collection: "Availability"
 })

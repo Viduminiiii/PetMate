@@ -1,4 +1,6 @@
+const dbconfig = require('./config/db.config')
 var express = require('express');
+require("dotenv").config();
 var app = express();
 var mongoose = require('mongoose');
 var cors=require('cors');
@@ -6,9 +8,14 @@ var cors=require('cors');
 app.use(cors());
 app.use(express.json());
 
-const port = process.env.port || 5001;
+const port = process.env.PORT || 5001;
+const portenv = process.env.PORT;
+console.log("port:   " + portenv);
 
-const mongoUrl = 'mongodb+srv://admin:admin@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate'
+const mongoUrl = dbconfig.url;
+// const mongoUrl = 'mongodb+srv://admin:admin@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate'
+//                  'mongodb+srv://admin:admin@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate'
+console.log("configfile.url: " + mongoUrl);
 
 mongoose.connect(mongoUrl).then(() => {
     console.log("database connected.")
@@ -21,12 +28,16 @@ require('./Users').default
 require('./Veternarian').default
 require('./Pharmacy').default
 require('./Availability').default
+require('./Appointments').default
+require('./PrescriptionSendDetails').default
 
 const PetOwner=mongoose.model('PetOwner');
 const User=mongoose.model('Users');
 const Veternarian=mongoose.model('Veternarian')
 const Pharmacy=mongoose.model('Pharmacy')
 const Availability=mongoose.model('Availability')
+const Appointments=mongoose.model('Appointments')
+const PrescriptionSendDetails=mongoose.model('PrescriptionSendDetails')
 ''
 app.get("/getTest", (req,res) => {
     res.send("success ---------------------------");

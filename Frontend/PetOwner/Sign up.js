@@ -29,7 +29,7 @@ const SignUp = ({ navigation }) => {
     };
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/register", userData)
+      .post("http://192.168.8.102:5001/register", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Login");
