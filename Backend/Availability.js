@@ -7,6 +7,8 @@ const AvailabilitySchema=new Schema({
     timeTo: { type: Date, required: true },
     clinicName: { type: String, required: true },
     noofPatients: { type: Number, required: true },
+    doctorCharges: { type: Double, required: true },
+    serviceCharges: { type: Double, required: true },
     veternarian: { type: Schema.Types.ObjectId, ref: 'Veternarian' }
 },{
     collection: "Availability"

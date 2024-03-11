@@ -5,25 +5,31 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  TextInput,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
 import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 
 const VetAvailability = ({ navigation }) => {
-  const [date, setdate] = useState();
+  const [availableDate, setAvailableDate] = useState();
   const [timefrom, setTimeFrom] = useState();
   const [timeto, setTimeTo] = useState();
   const [clinicname, setClinicName] = useState();
   const [noofpatients, setNoOfPatients] = useState();
+  const [doctorCharges, setDoctorCharges] = useState();
+  const [serviceCharges, setServiceCharges] = useState();
 
   const handlePress = () => {
     console.log("Button pressed");
     const userData = {
-      date,
-      time,
+      availableDate,
+      timefrom,
+      timeto,
       clinicname,
-      noofpatients
+      noofpatients,
+      doctorCharges,
+      serviceCharges
     };
     console.log("userData:  " + JSON.stringify(userData));
     axios
@@ -44,8 +50,8 @@ const VetAvailability = ({ navigation }) => {
   const [isFocusClinic, setIsFocusClinic] = useState(false);
   const [valuePatient, setValuePatient] = useState(null);
   const [isFocusPatient, setIsFocusPatient] = useState(false);
-  const [dateContainer, setDateContainer] = useState(new Date());
-  const [timeContainer, setTimeContainer] = useState(new Date());
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>
@@ -68,31 +74,31 @@ const VetAvailability = ({ navigation }) => {
           <View style={styles.details}>
             <Text style={styles.details_text}>Date</Text>
             <View style={styles.date_container}>
-              <DatePicker
+            <DatePicker
                 style={styles.datePickerStyle}
-                date={dateContainer}
+                date={date}
                 mode="date"
                 placeholder="select date"
                 format="DD/MM/YYYY"
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
-                onDateChange={(dateContainer) => {
-                  setDateContainer(dateContainer);
+                onDateChange={(date) => {
+                  setDate(date);
                 }}
-                onChangeText={(text) => setdate(text)}
+                onChangeText={(text) => setAvailableDate(text)}
               />
             </View>
           </View>
           <View style={styles.details}>
             <Text style={styles.details_text}>Time</Text>
             <View style={styles.time_container}>
-              <DatePicker
-                style={styles.timePickerStyleFrom}
+            <DatePicker
+                style={styles.timePickerStyleTo}
                 mode="time" // Set mode to "time" for time picker
-                date={timeContainer} // Use the time state here
-                onDateChange={setTimeContainer} // Update the time state on change
+                date={time} // Use the time state here
+                onDateChange={setTime} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
-                onChangeText={(text) => setTimeFrom(text)}
+                onChangeText={(text) => setTimeTo(text)}
               />
               <View style={styles.container2}>
                 <Text style={styles.to_text}>TO</Text>
@@ -100,10 +106,10 @@ const VetAvailability = ({ navigation }) => {
               <DatePicker
                 style={styles.timePickerStyleTo}
                 mode="time" // Set mode to "time" for time picker
-                dateContainer={timeContainer} // Use the time state here
-                onDateChange={setTimeContainer} // Update the time state on change
+                date={time} // Use the time state here
+                onDateChange={setTime} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
-                onChangeText={(text) => setTimeTo(text)}
+                onChangeText={(text) => setTimeFrom(text)}
               />
             </View>
           </View>
@@ -172,6 +178,18 @@ const VetAvailability = ({ navigation }) => {
                 }}
                 onChangeText={(text) => setNoOfPatients(text)}
               />
+            </View>
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.details_text}>Doctor charges</Text>
+            <View style={styles.chargesContainer}>
+              <TextInput style={styles.charges} onChangeText={(text) => setDoctorCharges(text)}></TextInput>
+            </View>
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.details_text}>Service charges</Text>
+            <View style={styles.chargesContainer}>
+              <TextInput style={styles.charges} onChangeText={(text) => setServiceCharges(text)}></TextInput>
             </View>
           </View>
         </View>
@@ -270,20 +288,19 @@ const styles = StyleSheet.create({
   details: {
     flexDirection: "row",
     marginLeft: 35,
-    margin: 20,
+    margin: 10,
   },
   details_text: {
     fontSize: 20,
     fontWeight: "bold",
     marginRight: 20,
   },
-  details_textInput: {
-    backgroundColor: "white",
-    width: "72%",
-    height: "115%",
+  chargesContainer: {
+    height: 30,
+    width: 165,
     borderRadius: 15,
-    marginRight: 30,
-    paddingLeft: 15,
+    paddingHorizontal: 10,
+    backgroundColor: "white",
   },
   date_container: {
     flex: 1,
@@ -301,7 +318,7 @@ const styles = StyleSheet.create({
   time_container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -25,
+    marginTop: -45,
   },
   timePickerStyleFrom: {
     height: 30,
@@ -315,9 +332,9 @@ const styles = StyleSheet.create({
     height: "20%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 28,
     marginBottom: -10,
-    borderRadius: 15,
+    borderRadius: 18,
   },
   to_text: {
     fontSize: 15,
@@ -336,7 +353,7 @@ const styles = StyleSheet.create({
   dropdown: {
     // top: 0,
     height: 30,
-    width: 175,
+    width: 170,
     borderRadius: 15,
     paddingHorizontal: 10,
     backgroundColor: "white",

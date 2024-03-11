@@ -207,41 +207,21 @@ app.post("/getOneUser", async(req,res) => {
 
 app.post("/availability", async (req,res)=>{
     console.log("req.body:   " + JSON.stringify(req.body));
-    const {date,timefrom,timeto,clinicname,noofpatients}=req.body;
-    // const oldPetEmail = await PetOwner.findOne({email:email});
-    // const oldVetEmail = await Veternarian.findOne({email:email});
-    // const oldPharEmail = await Pharmacy.findOne({email:email});
-    // const oldUser = await User.findOne({username:username});
-
-    // if(oldPetEmail !== null || oldVetEmail!== null || oldPharEmail!== null){
-    //     res.send({data: 'Email already exists!!'});
-    // }
-    // else if(oldUser!== null){
-    //     res.send({data: 'User already exists!!'});
-    // }
-
-        // console.log("1");
+    const {availableDate,timefrom,timeto,clinicname,noofpatients,doctorCharges,serviceCharges}=req.body;
         try{
             const availability= await Availability.create({
-                date,
+                availableDate,
                 timefrom,
                 timeto,
                 clinicname,
-                noofpatients
+                noofpatients,
+                doctorCharges,
+                serviceCharges
             });
-    
-            // if(objPet !== null && user !== null)
-            // {
-            //     res.send({status:'ok', data: 'User created'});
-            // }
         }catch (error){
             res.send({status:'Error', data: error});
         }
 })
-
-
-
-
 
 app.listen (port, ()=>{
     console.log ('Mongo DB connection successful run in port: '+ port);
