@@ -9,6 +9,8 @@ const AppointmentsSchema=new Schema({
     paidDate: {type: Date},
     medications: { type: String, required: true },
     instructions: { type: String, required: true },
+    createdDate: {type: Date, required: true},
+    modifiedDate: {type: Date },
     availability: { type: Schema.Types.ObjectId, ref: 'Availability' }
 },{
     collection: "Appointments"

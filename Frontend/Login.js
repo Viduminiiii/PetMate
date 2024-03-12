@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-const config = require("./config/config")
+const config = require("./config/config");
 
 const Login = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
+
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -26,17 +27,19 @@ const Login = ({ navigation }) => {
       .post(baseURL + "/getOneUser", userData)
       .then((res) => {
         console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Menu");
+        if (res.data.status === "ok") {
+          if (res.data.user === "pet") {
+            navigation.navigate("Menu");
+          } else if (res.data.user === "vet") {
+            navigation.navigate("VetMenu");
+          } else if (res.data.user === "phar") {
+            navigation.navigate("PharmacyPrescription");
+          } else {
+            navigation.navigate("Login");
+          }
+        }
       })
       .catch((e) => console.log(e));
-
-    // if (username === "pet" && password === "123") {
-    //   navigation.navigate("Menu");
-    // } else if (username === "vet" && password === "123") {
-    //   navigation.navigate("VetMenu");
-    // } else if (username === "pharmacy" && password === "123") {
-    //   navigation.navigate("PharmacyPrescription");
-    // }
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");

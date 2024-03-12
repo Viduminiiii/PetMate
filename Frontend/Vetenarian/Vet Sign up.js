@@ -11,6 +11,9 @@ import {
 import axios from "axios";
 
 const VetSignUp = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  console.log("baseURL: " + baseURL);
+
   const [fullname, setFullname] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -32,7 +35,7 @@ const VetSignUp = ({ navigation }) => {
     };
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/registerVet", userData)
+      .post(baseURL + "/registerVet", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Login");

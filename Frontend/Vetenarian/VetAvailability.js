@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  View,
+  View,  
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -12,6 +12,9 @@ import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 
 const VetAvailability = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  console.log("baseURL: " + baseURL);
+
   const [availableDate, setAvailableDate] = useState();
   const [timefrom, setTimeFrom] = useState();
   const [timeto, setTimeTo] = useState();
@@ -33,7 +36,7 @@ const VetAvailability = ({ navigation }) => {
     };
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/availability", userData)
+      .post(baseURL + "/availability", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Available_VetSessions");
