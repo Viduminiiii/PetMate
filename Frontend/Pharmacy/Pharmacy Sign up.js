@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   View,
   Text,
@@ -7,7 +7,10 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Alert
 } from "react-native";
+import axios from "axios";
+
 
 const PharmacySignUp = ({ navigation }) => {
   const [fullname, setFullname] = useState();
@@ -17,6 +20,22 @@ const PharmacySignUp = ({ navigation }) => {
   const [pharmacyLicenseNumber, setpharmacyLicenseNumber] = useState();
   const [pharmacyAddress, setpharmacyAddress] = useState();
   const [password, setPassword] = useState();
+
+  const emailValidation = () => {
+    // Validate email using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return;
+    }
+  }
+
+  // const ageValidation = () => {
+  //   if (isNaN(age) || age <= 0) {
+  //     Alert.alert("Invalid Age", "Please enter a valid positive age");
+  //     return;
+  //   }
+  // }
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -118,7 +137,9 @@ const PharmacySignUp = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() => handlePress()}
+          onPress={() => 
+            {emailValidation();
+            handlePress()}}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
