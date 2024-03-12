@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Alert
 } from "react-native";
 import axios from "axios";
 
@@ -18,6 +19,16 @@ const VetSignUp = ({ navigation }) => {
   const [veterinaryLicenseNumber, setveterinaryLicenseNumber] = useState();
   const [veterinaryClinicAddress, setveterinaryClinicAddress] = useState();
   const [password, setPassword] = useState();
+
+  const emailValidation = () => {
+    // Validate email using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return;
+    }
+  }
+
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -120,7 +131,10 @@ const VetSignUp = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() => handlePress()}
+          onPress={() => 
+            {emailValidation();
+            handlePress()}
+          }
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
