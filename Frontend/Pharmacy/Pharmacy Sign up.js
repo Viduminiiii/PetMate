@@ -20,6 +20,7 @@ const PharmacySignUp = ({ navigation }) => {
   const [pharmacyLicenseNumber, setpharmacyLicenseNumber] = useState();
   const [pharmacyAddress, setpharmacyAddress] = useState();
   const [password, setPassword] = useState();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -133,14 +134,18 @@ const PharmacySignUp = ({ navigation }) => {
             <TextInput
               style={styles.textInput}
               placeholder="Password"
+              secureTextEntry={!isPasswordVisible}
               onChangeText={(text) => setPassword(text)}
             ></TextInput>
-            <TouchableOpacity>
-              <Image
-                source={require("../../AppPics/Password.png")}
-                style={styles.imageStyle}
-              />
-            </TouchableOpacity>
+            <TouchableOpacity
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          style={styles.button}
+        >
+          <Image
+            source={require("../../AppPics/Password.png")}
+            style={styles.password_eyeimage}
+          />
+        </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
@@ -277,6 +282,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
+  },
+  password_eyeimage: {
+    resizeMode: "contain",
+    width: 40,
+    height: 35,
+    marginLeft: 70,
   },
   container6: {
     flexDirection: "row",
