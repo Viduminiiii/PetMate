@@ -280,10 +280,6 @@ app.post("/availability", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log("Mongo DB connection successful run in port: " + port);
-});
-
 app.post("/searchAvailability", async (req, res) => {
   const { searchDate, searchDoctor, searchClinic } = req.body; // Assuming the date is passed as a query parameter
   console.log(
@@ -295,53 +291,169 @@ app.post("/searchAvailability", async (req, res) => {
       searchClinic
   );
   const date = new Date(searchDate);
+
   try {
-    if (date) {
-      const availabilities = await Availability.find({ availableDate: date });
-      console.log("availabilities: " + JSON.stringify(availabilities));
-      if (availabilities && availabilities.length > 0) {
-        res.send({ status: "ok", data: "Search success." });
-      } else {
-        res.status(404).send("Data not found.");
-      }
-    }
-    else if(searchDoctor){
-        const regex = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
-        const regexClinic = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
-        const docAvailabilities = await Availability.find().populate({
-          path: "veternarian",
-          match: { fullname: regex, regexClinic: regex },
-        });
-        if (docAvailabilities && docAvailabilities.length > 0) {
-          res.send({ status: "ok", data: "Doctor Search success." });
-        } else {
-          res.status(404).send("Data not found.");
-        }
+    const regexVet = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
+    const regexClinic = new RegExp(searchClinic, "i"); // 'i' flag for case-insensitive matching
+
+    
+    // const vetsName = await Veternarian.find({ fullname: { $regex: regexVet } });
+    // const vetsClinic = await Veternarian.find({ veterinaryClinicName: { $regex: regexClinic }});
+    const vets = await Veternarian.find({
+      $or: [
+        { fullname: regexVet },
+        { veterinaryClinicName: regexClinic }
+      ]
+    });
+
+    // console.log("vetsName:   "+JSON.stringify(vetsName));
+    // console.log("vetsClinic:   "+JSON.stringify(vetsClinic));
+    const vetIds = vets.map(vet => vet._id);
+    console.log("vetIds:   "+JSON.stringify(vetIds));
+    // const combinedVetIds = vetsName.concat(vetsClinic);
+    // console.log("combinedVetIds:   "+JSON.stringify(combinedVetIds));
+
+    // Step 2: Query availabilities by date or by veterinarian ID
+    const availabilities = await Availability.find({
+      $or: [
+        { availableDate: date },
+        { veternarian: { $in: vetIds } }
+      ]
+    }).populate('veternarian');
+
+    console.log("availabilities:   "+JSON.stringify(availabilities));
+
+    if (availabilities.length > 0) {
+      res.send({ status: "ok", data: availabilities });
+    } else {
+      res.status(404).send("Data not found.");
     }
 
+
+    // const availabilities = await Availability.aggregate([
+    //   {
+    //     $lookup: {
+    //       from: "Veternarian", // This should match your actual veterinarians collection name
+    //       localField: "fullname", // Ensure this is the correct field that references veterinarians in your Availability schema
+    //       foreignField: "_id",
+    //       as: "vetDetails"
+    //     }
+    //   },
+    //   { $unwind: "$vetDetails" }, // Flatten the array for easier querying
+    //   {
+    //     $match: {
+    //       $or: [
+    //         { availableDate: date }, // Matches documents by date
+    //         { "vetDetails.fullname": regexVet }, // Matches veterinarian name within populated details
+    //         { "vetDetails.veterinaryClinicName": regexClinic } // Matches clinic name within populated details
+    //       ]
+    //     }
+    //   }
+    // ]);
+
+    // console.log(availabilities);
+
+    // if (availabilities.length > 0) {
+    //   res.send({ status: "ok", data: availabilities });
+    // } else {
+    //   res.status(404).send("Data not found.");
+    // }
+
+
+    // const dateAvailabilities = await Availability.find({ availableDate: date });
+    // console.log("availabilities: " + JSON.stringify(dateAvailabilities));
+    // if (dateAvailabilities && dateAvailabilities.length > 0) {
+    //   const dateNameAvailabilities = await Availability.find({
+    //     availableDate: date,
+    //   }).populate({
+    //     path: "veternarian",
+    //     match: {
+    //       fullname: regexVet,
+    //       // veterinaryClinicName: regexClinic,
+    //     },
+    //   });
+
+    //   const filteredVet = dateNameAvailabilities.filter((a) => a.veternarian);
+
+    //   console.log(
+    //     "Filtered availabilities: ",
+    //     JSON.stringify(filteredVet)
+    //   );
+    //   if (filteredVet && filteredVet.length > 0) {
+    //     res.send({
+    //       status: "ok 1",
+    //       data: "dateNameAvailabilities Search success.",
+    //       data: JSON.stringify(filteredVet),
+    //     });
+    //   } else {
+    //     res.send({
+    //       status: "ok 2",
+    //       data: "Date Search success.",
+    //       data: "dateAvailabilities:  "+JSON.stringify(dateAvailabilities),
+    //     });
+    //   }
+    // } else {
+    //   res.status(404).send("Date Data not found.");
+    // }
+
+    // const availabilities = await Availability.find({
+    //   availableDate: date,
+    // }).populate({
+    //   path: "veternarian",
+    //   match: {
+    //     fullname: regexVet,
+    //     veterinaryClinicName: regexClinic,
+    //   },
+    // });
+    // const filteredAvailabilities = availabilities.filter(
+    //   (availability) => availability.veternarian
+    // );
+
+    // console.log(
+    //   "Filtered availabilities: ",
+    //   JSON.stringify(filteredAvailabilities)
+    // );
+
+    // if (filteredAvailabilities.length > 0) {
+    //   res.send({ status: "ok", data: filteredAvailabilities });
+    // } else {
+    //   res.status(404).send("Data not found.");
+    // }
+    // if (date) {
+    //   const availabilities = await Availability.find({ availableDate: date });
+    //   console.log("availabilities: " + JSON.stringify(availabilities));
+    //   if (availabilities && availabilities.length > 0) {
+    //     res.send({ status: "ok", data: "Search success." });
+    //   } else {
+    //     res.status(404).send("Data not found.");
+    //   }
+    // }
+    // if(availabilities && (searchDoctor || searchClinic)){
+    //   console.log("1");
+    //     const regexVet = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
+    //     const regexClinic = new RegExp(searchClinic, "i"); // 'i' flag for case-insensitive matching
+    //     const docAvailabilities = await Availability.find().populate({
+    //       path: "veternarian",
+    //       match: { fullname: regexVet, veterinaryClinicName: regexClinic },
+    //     });
+    //     console.log("2");
+    //     if (docAvailabilities && docAvailabilities.length > 0) {
+    //       res.send({ status: "ok", data: "Doctor Search success." });
+    //     }else if (docAvailabilities && docAvailabilities.length > 0) {
+    //       res.send({ status: "ok", data: "Clinic Search success." });
+    //     }
+    //     else {
+    //       res.status(404).send("Data not found.");
+    //     }
+    // }else {
+    //   res.status(404).send("Error.");
+    // }
   } catch (error) {
     console.error("Error during database query:", error);
     res.status(500).send({ status: "Error", data: error.message });
   }
 });
 
-// var Express = require('express');
-// // var Mongoclient = require('mongodb').MongoClient;
-// // var cors=require('cors');
-// // const multer = require('multer');
-
-// var app = Express();
-// app.use(cors());
-
-// var CONNECTION_STRING=
-// //'mongodb://localhost:27017';
-// 'mongodb://admin:admin@PetMate123@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate';
-// var DATABASENAME = 'dbpetmate';
-// var database;
-
-// app.listen (27017, ()=>{
-//     Mongoclient.connect(CONNECTION_STRING,(error,client)=>{
-//         database=client.db(DATABASENAME)
-//         console.log ('Mongo DB connection successful')
-//     })
-// })
+app.listen(port, () => {
+  console.log("Mongo DB connection successful run in port: " + port);
+});
