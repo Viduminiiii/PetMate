@@ -19,6 +19,7 @@ const VetSignUp = ({ navigation }) => {
   const [veterinaryLicenseNumber, setveterinaryLicenseNumber] = useState();
   const [veterinaryClinicAddress, setveterinaryClinicAddress] = useState();
   const [password, setPassword] = useState();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -132,14 +133,17 @@ const VetSignUp = ({ navigation }) => {
             <TextInput
               style={styles.textInput}
               placeholder="Password"
+              secureTextEntry={!isPasswordVisible}
               onChangeText={(text) => setPassword(text)}
             ></TextInput>
-            <TouchableOpacity>
-              <Image
-                source={require("../../AppPics/Password.png")}
-                style={styles.imageStyle}
-              />
-            </TouchableOpacity>
+            <TouchableOpacity
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+        >
+          <Image
+            source={require("../../AppPics/Password.png")}
+            style={styles.password_eyeimage}
+          />
+        </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
@@ -283,6 +287,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+  password_eyeimage: {
+    resizeMode: "contain",
+    width: 40,
+    height: 35,
+    marginLeft: 70,
+  },
+
   container6: {
     flexDirection: "row",
     marginTop: -90,
