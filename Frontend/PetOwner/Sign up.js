@@ -19,7 +19,7 @@ const SignUp = ({ navigation }) => {
   const [age, setAge] = useState();
   const [password, setPassword] = useState();
 
-  const emailValidation = () => {
+  /*const emailValidation = () => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -33,7 +33,8 @@ const SignUp = ({ navigation }) => {
       Alert.alert("Invalid Age", "Please enter a valid positive age");
       return;
     }
-  }
+  }*/
+
   const handlePress = () => {
     console.log("Button pressed");
     const userData = {
@@ -44,6 +45,20 @@ const SignUp = ({ navigation }) => {
       age,
       password,
     };
+    if (!validateFullName(fullname)) {
+      Alert.alert("Invalid Full Name", "Full name should not contain numbers");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return;
+    }
+
+    if (!validateAge(age)) {
+      Alert.alert("Invalid Age", "Please enter a valid positive age");
+      return;
+    }
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post("http://192.168.8.102:5001/register", userData)
@@ -52,6 +67,22 @@ const SignUp = ({ navigation }) => {
         if (res.data.status === "ok") navigation.navigate("Login");
       })
       .catch((e) => console.log(e));
+  };
+  const validateFullName = (fullName) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(fullName);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
+  };
+  
+  const validateEmail = (email) => {
+    // Validate email using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateAge = (age) => {
+    // Check if age is a positive number
+    return !isNaN(age) && parseInt(age) > 0;
   };
 
   return (
@@ -118,8 +149,9 @@ const SignUp = ({ navigation }) => {
       <TouchableOpacity
         style={styles.signUpButton}
         onPress={() => {
-          emailValidation();
-          ageValidation();
+          //validateFullName();
+          //validateEmail;
+          //validateAge();
           handlePress()
         }}
       >
