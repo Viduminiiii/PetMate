@@ -21,22 +21,6 @@ const PharmacySignUp = ({ navigation }) => {
   const [pharmacyAddress, setpharmacyAddress] = useState();
   const [password, setPassword] = useState();
 
-  const emailValidation = () => {
-    // Validate email using regular expression
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      Alert.alert("Invalid Email", "Please enter a valid email address");
-      return;
-    }
-  }
-
-  // const ageValidation = () => {
-  //   if (isNaN(age) || age <= 0) {
-  //     Alert.alert("Invalid Age", "Please enter a valid positive age");
-  //     return;
-  //   }
-  // }
-
   const handlePress = () => {
     console.log("Button pressed");
     const userData = {
@@ -48,6 +32,17 @@ const PharmacySignUp = ({ navigation }) => {
       pharmacyAddress,
       password,
     };
+
+    if (!validateFullName(fullname)) {
+      Alert.alert("Invalid Full Name", "Full name should not contain numbers");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return;
+    }
+
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post("http://192.168.1.7:5001/registerPharmacy", userData)
@@ -57,6 +52,19 @@ const PharmacySignUp = ({ navigation }) => {
       })
       .catch((e) => console.log(e));
   };
+
+  const validateFullName = (fullName) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(fullName);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
+  };
+  
+  const validateEmail = (email) => {
+    // Validate email using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
@@ -137,9 +145,8 @@ const PharmacySignUp = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() => 
-            {emailValidation();
-            handlePress()}}
+          onPress={() =>
+            handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
