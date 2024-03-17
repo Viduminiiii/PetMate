@@ -47,7 +47,7 @@ const PetOwnerMenu = ({ navigation }) => {
 
             <View style={styles.menu_button3}>
             <TouchableOpacity onPress={() => navigation.navigate('VetAvailability')} style={styles.button}>
-                  <View style={styles.vet}>
+                  <View style={styles.vet1}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/VetMenu_Availability.png')} style={styles.prescription_image} />
                      </View>
@@ -60,9 +60,9 @@ const PetOwnerMenu = ({ navigation }) => {
 
             <View style={styles.menu_button4}>
                 <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
-                    <View style ={styles.vet}>
+                    <View style ={styles.vet2}>
                         <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
-                           <Image source={require('../../AppPics/VetClinic_PetVetclinic.png')} style={styles.prescription_image} />
+                           <Image source={require('../../AppPics/VetClinic_PetVetclinic.jpg')} style={styles.prescription_image} />
                         </View>
                         <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Appointment </Text>
@@ -114,7 +114,8 @@ const PetOwnerMenu = ({ navigation }) => {
   },
     chat: {
         flexDirection: 'row', // Use 'column' for vertical split
-        height: '40%', 
+        //height: '40%',
+        height:'38%', 
         width: '90%', 
     },
     menu_button2: {
@@ -125,11 +126,29 @@ const PetOwnerMenu = ({ navigation }) => {
         marginTop:-455,
         height: '80%'
     },
+    menu_button4: {
+        marginTop:-455,
+        height: '80%',
+        
+
+    },
     vet:{
         flexDirection: 'row', // Use 'column' for vertical split
         height: '38%', 
         width: '90%', 
-        marginTop: 40,
+        marginTop: 1,
+    },
+    vet1:{
+        flexDirection: 'row', // Use 'column' for vertical split
+        height: '40%',
+        width: '90%', 
+        marginTop: -40,
+    },
+    vet2:{
+        flexDirection: 'row', // Use 'column' for vertical split
+        height: '43%', 
+        width: '90%', 
+        marginTop: -80,
     },
     halfView1: {
         justifyContent: 'center',
@@ -169,6 +188,7 @@ const PetOwnerMenu = ({ navigation }) => {
         width: '90%',
         // height: '50%', 
         marginVertical: -100,
+        
     }
   });
   
