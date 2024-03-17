@@ -60,6 +60,14 @@ const PetOwnerMenu = ({ navigation }) => {
 
             <View style={styles.menu_button4}>
                 <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
+                    <View style ={styles.vet}>
+                        <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
+                           <Image source={require('../../AppPics/VetClinic_PetVetclinic.png')} style={styles.prescription_image} />
+                        </View>
+                        <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
+                           <Text style={styles.text1}>Appointment </Text>
+                        </View>
+                    </View>
                 </TouchableOpacity>
             </View>
 
