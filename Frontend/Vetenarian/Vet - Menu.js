@@ -20,7 +20,7 @@ const PetOwnerMenu = ({ navigation }) => {
             </View>
 
             <View style ={styles.menu_button1}>
-               <TouchableOpacity onPress={() => navigation.navigate('ReceivedMessages')} style={styles.button}>
+               <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
                   <View style={styles.chat}>
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/Menu_ChatDoc.png')} style={styles.chatDoc_image} />

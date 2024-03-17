@@ -1,14 +1,124 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView
+} from "react-native";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../config/AuthContext";
+import axios from "axios";
+const config = require("./../config/config");
 
 const Available_VetSessions = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  // console.log("baseURL: " + baseURL);
+
+  const { user } = useAuth();
+  // const [user, setUser] = useState();
+  // const [userLevel, setUserLevel] = useState();
+  const [appData, setAppData] = useState([]);
+
+  useEffect(() => {
+    console.log("---------user 1:  " + user);
+
+    const userObject = JSON.parse(user);
+    const userLevelId = userObject.userLevelId;
+    console.log("---userID 2:  " + userLevelId);
+    const userData = { vet_id: userLevelId };
+
+    axios
+      .post(baseURL + "/vetAvailability", userData)
+      .then((response) => {
+        console.log("---userID 4:  " + JSON.stringify(response.data));
+        setAppData(response.data);
+      })
+      .catch((error) => console.error(error));
+
+    // getAppData();
+    // console.log("----------------appData:   "+ appData);
+    // const getUserData = async () => {
+    //   try {
+    //     console.log("----------------useEffect -----  1");
+    //     const loggedInUser = await AsyncStorage.getItem("user");
+    //     const loggedInUserLevel = await AsyncStorage.getItem("userLevel");
+    //     console.log(
+    //       "----------------loggedInUser:  " +
+    //         loggedInUser +
+    //         "  loggedInUserLevel:   " +
+    //         loggedInUserLevel
+    //     );
+    //     if (loggedInUser && loggedInUserLevel) {
+    //       const foundUser = JSON.parse(loggedInUser);
+    //       const foundUserLevel = JSON.parse(loggedInUserLevel);
+    //       console.log("----foundUser:  "+JSON.stringify(foundUser));
+    //       console.log("----foundUserLevel:   "+JSON.stringify(foundUserLevel));
+    //       setUser(foundUser);
+    //       setUserLevel(foundUserLevel);
+    //       getAppData(foundUser._id);
+    //     }
+    //   } catch (e) {
+    //     console.log("error:  " + e);
+    //   }
+    // };
+    // getUserData();
+    // // if(user !== undefined)
+    // // {getAppData();}
+  }, []);
+
+  function formatDateToYYYYMMDD(dateStr) {
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function formatTimeToHHMM(timeStr) {
+    const date = new Date(timeStr);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+
+  const getAppData = () => {
+    console.log("---- getApp User2:  " + user);
+    const userObject = JSON.parse(user);
+    const userLevelId = userObject.userLevelId;
+    console.log("---userID 111:  " + userLevelId);
+    const userData = { vet_id: userLevelId };
+
+    // console.log("userData:  " + JSON.stringify(userData));
+    const vetAvailabilities = axios
+      .post(baseURL + "/vetAvailability", userData)
+      .then((res) => {
+        console.log("---------------res:   " + JSON.stringify(res));
+        setAppData(res.data);
+        // console.log("---------------res.data:   " + JSON.stringify(res.data.data));
+        // if (res.data.status === "ok") {
+        //   console.log("OK");
+        //   const parsedata = JSON.parse(JSON.stringify(res.data.data));
+        //   console.log("JSON.parse(res.data.data):   " + parsedata);
+        //   return parsedata;
+        // }
+      })
+      .catch((e) => console.log(e));
+    // if(vetAvailabilities){
+    //   console.log("vetAvailabilities:   " + vetAvailabilities);
+    //   setAppData(vetAvailabilities);
+    // }
+  };
+
   const handlePress = () => {
     console.log("Button pressed");
   };
   return (
     <View style={styles.container}>
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo}
@@ -18,7 +128,9 @@ const Available_VetSessions = ({ navigation }) => {
           <Text style={styles.nav_text}>AVAILABLE</Text>
           <Text style={styles.nav_text}>SESSIONS</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Petowner_Settings")}
+        >
           <Image
             source={require("../../AppPics/Setting.png")}
             style={styles.settings}
@@ -26,132 +138,146 @@ const Available_VetSessions = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.abc_container1}>
-        <View style={styles.abc_clinic}>
-          <View style={styles.pic1}>
-            <Image
-              source={require("../../AppPics/ABC_vet clinic.png")}
-              style={[styles.clinic1, , { marginBottom: 24 }]}
-            />
-          </View>
+      {/* <View>
+        {appData &&
+          appData.map((post) => (
+            <View key={post._id}>
+              <Text>
+                availableDate: {formatDateToYYYYMMDD(post.availableDate)}{" "}
+                {formatTimeToHHMM(post.timeFrom)}
+              </Text>
+              <Text>timeFrom: {formatTimeToHHMM(post.timeFrom)}</Text>
+              <Text>noofPatients: {post.noofPatients}</Text>
+              <Text>doctorCharges: {post.doctorCharges}</Text>
+              <Text>serviceCharges: {post.serviceCharges}</Text>
+              <Text>
+                veterinaryClinicName: {post.veternarian.veterinaryClinicName}
+              </Text>
+              <Text>
+                veterinaryClinicAddress:{" "}
+                {post.veternarian.veterinaryClinicAddress}
+              </Text>
+              <Text>--------------------</Text>
+            </View>
+          ))}
+      </View> */}
 
-          <View style={styles.content2}>
-            <Text style={styles.text1}>ABC Vet Clinic</Text>
-            <Text style={styles.text1_1}>Colombo</Text>
-            <Text style={styles.text1_1}>7.00 P.M (Evening)</Text>
-            <View style={styles.container2}>
-              <TouchableOpacity
-                style={styles.book_button}
-                onPress={() => navigation.navigate('Payment_1')}
-              >
-                <Text style={styles.bookButtonText}>BOOK NOW</Text>
-              </TouchableOpacity>
+      <ScrollView style={styles.screen}>
+          {appData &&
+            appData.map((post) => (
+              <View key={post._id}>
+                <View style={styles.summary}>
+                  <View style={styles.abc_clinic}>
+                    <View style={styles.pic1}>
+                      <Image
+                        source={require("../../AppPics/ABC_vet clinic.png")}
+                        style={[styles.clinic1, , { marginBottom: 0 }]}
+                      />
+                    </View>
+                    <View style={styles.content2}>
+                      <Text style={styles.text1}>
+                        {post.veternarian.veterinaryClinicName}
+                      </Text>
+                      <Text style={styles.text1_1}>
+                        {post.veternarian.veterinaryClinicAddress}
+                      </Text>
+                      <Text style={styles.text1_1}>
+                        {formatDateToYYYYMMDD(post.availableDate)}{" "}
+                        {formatTimeToHHMM(post.timeFrom)}
+                      </Text>
+                      {/* <Text style={styles.text1_1}>{formatTimeToHHMM(post.timeFrom)}</Text> */}
+                      <Text style={styles.text1_1}>{post.noofPatients}</Text>
+                      <Text style={styles.text1_1}>
+                        Doctor Fee: {post.doctorCharges}
+                      </Text>
+                      <Text style={styles.text1_1}>
+                        Service Fee: {post.serviceCharges}
+                      </Text>
+                      <View style={styles.container2}>
+                        <TouchableOpacity
+                          style={styles.book_button}
+                          onPress={() => navigation.navigate("Payment_1")}
+                        >
+                          <Text style={styles.bookButtonText}>BOOK NOW</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            ))}
+      </ScrollView>
+
+      {/* <View>
+        {appData && appData.map(item => (
+          <View key={item._id}>
+            <View style={styles.abc_container1}>
+              <View style={styles.abc_clinic}>
+                <View style={styles.pic1}>
+                  <Image
+                    source={require("../../AppPics/ABC_vet clinic.png")}
+                    style={[styles.clinic1, , { marginBottom: 24 }]}
+                  />
+                </View>
+                <View style={styles.content2}>
+                  <Text style={styles.text1}>
+                    {item.veternarian.veterinaryClinicName}
+                  </Text>
+                  <Text style={styles.text1_1}>
+                    {item.veternarian.veterinaryClinicAddress}
+                  </Text>
+                  <Text style={styles.text1_1}>
+                    {new Date(item.availableDate).toString("yyyy-MM-dd")}
+                  </Text>
+                  <Text style={styles.text1_1}>
+                    {new Date(item.timeFrom).getTime().toString("hh:mm")}
+                  </Text>
+                  <Text style={styles.text1_1}>item.noofPatients</Text>
+                  <Text style={styles.text1_1}>item.doctorCharges</Text>
+                  <Text style={styles.text1_1}>item.serviceCharges</Text>
+                  <View style={styles.container2}>
+                    <TouchableOpacity
+                      style={styles.book_button}
+                      onPress={() => navigation.navigate("Payment_1")}
+                    >
+                      <Text style={styles.bookButtonText}>BOOK NOW</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
-
-      <View style={styles.def_container3}>
-        <View style={styles.def_clinic}>
-          <View style={styles.pic2}>
-            <Image
-              source={require("../../AppPics/DEF_vetClinic.png")}
-              style={[styles.clinic2, , { marginBottom: 24 }]}
-            />
-          </View>
-
-          <View style={styles.content3}>
-            <Text style={styles.text2}>DEF Vet Clinic</Text>
-            <Text style={styles.text2_1}>Gampaha</Text>
-            <Text style={styles.text2_1}>10.00 A.M (Morning)</Text>
-            <View style={styles.container4}>
-              <TouchableOpacity
-                style={styles.book_button}
-                onPress={() => navigation.navigate('Payment_1')}
-              >
-                <Text style={styles.bookButtonText}>BOOK NOW</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.ghi_container4}>
-        <View style={styles.ghi_clinic}>
-          <View style={styles.pic3}>
-            <Image
-              source={require("../../AppPics/GHI_VetClinic.png")}
-              style={[styles.clinic3, { marginBottom: 24 }]}
-            />
-          </View>
-
-          <View style={styles.content4}>
-            <Text style={styles.text3}>GHI Vet Clinic</Text>
-            <Text style={styles.text3_1}>Colombo</Text>
-            <Text style={styles.text3_1}>8.00 p.M (Evening)</Text>
-            <View style={styles.container5}>
-              <TouchableOpacity
-                style={styles.book_button}
-                onPress={() => navigation.navigate('Payment_1')}
-              >
-                <Text style={styles.bookButtonText}>BOOK NOW</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.jkl_container4}>
-        <View style={styles.jkl_clinic}>
-          <View style={styles.pic4}>
-            <Image
-              source={require("../../AppPics/JKL_VetClinic.png")}
-              style={[styles.clinic4, { marginBottom: 24 }]}
-            />
-          </View>
-
-          <View style={styles.content5}>
-            <Text style={styles.text4}>JKL Vet Clinic</Text>
-            <Text style={styles.text4_1}>Negambo</Text>
-            <Text style={styles.text4_1}>8.00 p.M (Evening)</Text>
-            <View style={styles.container6}>
-              <TouchableOpacity
-                style={styles.book_button}
-                onPress={() => navigation.navigate('Payment_1')}
-              >
-                <Text style={styles.bookButtonText}>BOOK NOW</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
+        ))}
+      </View> */}
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LocateVetClinics")}
+        >
           <Image
             source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
           <Image
             source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -202,29 +328,23 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
   },
-  abc_container1: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
   abc_clinic: {
     flexDirection: "row",
-    height: "44%",
-    width: "110%",
+    height: "60%",
+    width: "100%",
   },
   pic1: {
     justifyContent: "center",
     alignItems: "center",
     width: "40%",
-  },
-  clinic2: {
-    width: "100%",
-    height: "85%",
+    height: "100%",
+    marginTop:30
   },
   content2: {
     justifyContent: "center",
     alignItems: "center",
     width: "60%",
-    height: "85%",
+    height: "165%",
     backgroundColor: "#E6B4EB",
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
@@ -236,7 +356,7 @@ const styles = StyleSheet.create({
   },
   text1_1: {
     color: "black",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
   container2: {
@@ -255,132 +375,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-
-  def_container3: {
-    marginTop: -200,
-    paddingHorizontal: 20,
-  },
-  def_clinic: {
-    flexDirection: "row",
-    height: "40%",
-    width: "110%",
-  },
-  pic2: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "40%",
-  },
   clinic1: {
     width: "100%",
-    height: "85%",
-  },
-  content3: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "60%",
-    height: "85%",
-    backgroundColor: "#E6B4EB",
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  text2: {
-    color: "black",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  text2_1: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  container4: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  ghi_container4: {
-    marginTop: -250,
-    paddingHorizontal: 20,
-  },
-  ghi_clinic: {
-    flexDirection: "row",
-    height: "40%",
-    width: "110%",
-  },
-  pic3: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "40%",
-  },
-  clinic3: {
-    width: "100%",
-    height: "85%",
-  },
-  content4: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "60%",
-    height: "85%",
-    backgroundColor: "#E6B4EB",
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  text3: {
-    color: "black",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  text3_1: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  container5: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  jkl_container4: {
-    marginTop: -260,
-    paddingHorizontal: 20,
-  },
-  jkl_clinic: {
-    flexDirection: "row",
-    height: "40%",
-    width: "110%",
-  },
-  pic4: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "40%",
-  },
-  clinic4: {
-    width: "100%",
-    height: "85%",
-  },
-  content5: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "60%",
-    height: "85%",
-    backgroundColor: "#E6B4EB",
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-  },
-  text4: {
-    color: "black",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  text4_1: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  container6: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    height: "100%",
+  },  
   footer: {
     position: "absolute",
     bottom: 0,
@@ -396,6 +394,25 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     margin: 15,
+  },
+  screen: {
+    margin: 1,
+    // backgroundColor: "#E6B4EB",
+    marginBottom: 67,
+  },
+  summary: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    padding: 1,
+    shadowColor: "black",
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 5,
+    borderRadius: 10,
+    backgroundColor: "white",
   },
 });
 export default Available_VetSessions;

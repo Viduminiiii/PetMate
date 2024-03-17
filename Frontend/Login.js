@@ -8,12 +8,17 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuth } from './config/AuthContext';
 const config = require("./config/config");
 
 const Login = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
 
+  const { login } = useAuth();
+  const [user, setUser] = useState();
+  // const [userLevel, setUserLevel] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -28,11 +33,25 @@ const Login = ({ navigation }) => {
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") {
-          if (res.data.user === "pet") {
+          console.log("res.data.data:   "+ JSON.stringify(res.data.data));
+          login(JSON.stringify(res.data.data));
+          // setUser(res.data.user);
+          // setUserLevel(res.data.userLevel);
+
+          // const storeData = async (value) => {
+          //   try {
+          //     await AsyncStorage.setItem('user', JSON.stringify(res.data.user))
+          //     await AsyncStorage.setItem("userLevel", JSON.stringify(res.data.userLevel))
+          //   } catch (e) {
+          //     console.log("error:  "+e);
+          //   }
+          // }
+          // storeData();
+          if (res.data.data.userLevel === "1") {
             navigation.navigate("Menu");
-          } else if (res.data.user === "vet") {
+          } else if (res.data.data.userLevel === "2") {
             navigation.navigate("VetMenu");
-          } else if (res.data.user === "phar") {
+          } else if (res.data.data.userLevel === "3") {
             navigation.navigate("PharmacyPrescription");
           } else {
             navigation.navigate("Login");

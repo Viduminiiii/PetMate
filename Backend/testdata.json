@@ -1,0 +1,45 @@
+[
+    {
+        "_id":"65f4a1ef89962e94036a5f88",
+        "availableDate":"2023-03-14T00:00:00.000Z",
+        "timeFrom":"2024-03-18T12:00:00.000Z",
+        "timeTo":"2024-03-18T18:00:00.000Z",
+        "noofPatients":5,"doctorCharges":2000,
+        "serviceCharges":1000,
+        "createdDate":"2024-03-15T19:30:55.425Z",
+        "veternarian":
+        {
+            "_id":"65f4a01fcb90355cdc1f8c18",
+            "fullname":"chanumi Eeeeeee",
+            "email":"chanumi1@gmail.com",
+            "veterinaryClinicName":"chanumi vet clininc 1",
+            "veterinaryLicenseNumber":"LIC001",
+            "veterinaryClinicAddress":"Adrs1",
+            "createdDate":"2024-03-15T19:23:11.750Z",
+            "__v":0
+        },
+        "__v":0
+    },
+    {
+        "_id":"65f4a26f89962e94036a5f8b",
+        "availableDate":"2023-03-14T00:00:00.000Z",
+        "timeFrom":"2024-03-18T13:00:00.000Z",
+        "timeTo":"2024-03-18T18:00:00.000Z",
+        "noofPatients":15,
+        "doctorCharges":2000,
+        "serviceCharges":1000,
+        "createdDate":"2024-03-15T19:33:03.838Z",
+        "veternarian":
+        {
+            "_id":"65f4a01fcb90355cdc1f8c18",
+            "fullname":"chanumi Eeeeeee",
+            "email":"chanumi1@gmail.com",
+            "veterinaryClinicName":"chanumi vet clininc 1",
+            "veterinaryLicenseNumber":"LIC001",
+            "veterinaryClinicAddress":"Adrs1",
+            "createdDate":"2024-03-15T19:23:11.750Z",
+            "__v":0
+        },
+        "__v":0
+    }
+]
