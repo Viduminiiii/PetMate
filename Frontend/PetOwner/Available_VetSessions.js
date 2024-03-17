@@ -8,7 +8,6 @@ import {
   ScrollView,
   SafeAreaView
 } from "react-native";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../config/AuthContext";
 import axios from "axios";
 const config = require("./../config/config");
@@ -18,8 +17,6 @@ const Available_VetSessions = ({ navigation }) => {
   // console.log("baseURL: " + baseURL);
 
   const { user } = useAuth();
-  // const [user, setUser] = useState();
-  // const [userLevel, setUserLevel] = useState();
   const [appData, setAppData] = useState([]);
 
   useEffect(() => {
@@ -33,40 +30,10 @@ const Available_VetSessions = ({ navigation }) => {
     axios
       .post(baseURL + "/vetAvailability", userData)
       .then((response) => {
-        console.log("---userID 4:  " + JSON.stringify(response.data));
+        // console.log("---userID 4:  " + JSON.stringify(response.data));
         setAppData(response.data);
       })
       .catch((error) => console.error(error));
-
-    // getAppData();
-    // console.log("----------------appData:   "+ appData);
-    // const getUserData = async () => {
-    //   try {
-    //     console.log("----------------useEffect -----  1");
-    //     const loggedInUser = await AsyncStorage.getItem("user");
-    //     const loggedInUserLevel = await AsyncStorage.getItem("userLevel");
-    //     console.log(
-    //       "----------------loggedInUser:  " +
-    //         loggedInUser +
-    //         "  loggedInUserLevel:   " +
-    //         loggedInUserLevel
-    //     );
-    //     if (loggedInUser && loggedInUserLevel) {
-    //       const foundUser = JSON.parse(loggedInUser);
-    //       const foundUserLevel = JSON.parse(loggedInUserLevel);
-    //       console.log("----foundUser:  "+JSON.stringify(foundUser));
-    //       console.log("----foundUserLevel:   "+JSON.stringify(foundUserLevel));
-    //       setUser(foundUser);
-    //       setUserLevel(foundUserLevel);
-    //       getAppData(foundUser._id);
-    //     }
-    //   } catch (e) {
-    //     console.log("error:  " + e);
-    //   }
-    // };
-    // getUserData();
-    // // if(user !== undefined)
-    // // {getAppData();}
   }, []);
 
   function formatDateToYYYYMMDD(dateStr) {
@@ -97,19 +64,8 @@ const Available_VetSessions = ({ navigation }) => {
       .then((res) => {
         console.log("---------------res:   " + JSON.stringify(res));
         setAppData(res.data);
-        // console.log("---------------res.data:   " + JSON.stringify(res.data.data));
-        // if (res.data.status === "ok") {
-        //   console.log("OK");
-        //   const parsedata = JSON.parse(JSON.stringify(res.data.data));
-        //   console.log("JSON.parse(res.data.data):   " + parsedata);
-        //   return parsedata;
-        // }
       })
       .catch((e) => console.log(e));
-    // if(vetAvailabilities){
-    //   console.log("vetAvailabilities:   " + vetAvailabilities);
-    //   setAppData(vetAvailabilities);
-    // }
   };
 
   const handlePress = () => {
@@ -137,30 +93,6 @@ const Available_VetSessions = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-
-      {/* <View>
-        {appData &&
-          appData.map((post) => (
-            <View key={post._id}>
-              <Text>
-                availableDate: {formatDateToYYYYMMDD(post.availableDate)}{" "}
-                {formatTimeToHHMM(post.timeFrom)}
-              </Text>
-              <Text>timeFrom: {formatTimeToHHMM(post.timeFrom)}</Text>
-              <Text>noofPatients: {post.noofPatients}</Text>
-              <Text>doctorCharges: {post.doctorCharges}</Text>
-              <Text>serviceCharges: {post.serviceCharges}</Text>
-              <Text>
-                veterinaryClinicName: {post.veternarian.veterinaryClinicName}
-              </Text>
-              <Text>
-                veterinaryClinicAddress:{" "}
-                {post.veternarian.veterinaryClinicAddress}
-              </Text>
-              <Text>--------------------</Text>
-            </View>
-          ))}
-      </View> */}
 
       <ScrollView style={styles.screen}>
           {appData &&
@@ -207,48 +139,6 @@ const Available_VetSessions = ({ navigation }) => {
               </View>
             ))}
       </ScrollView>
-
-      {/* <View>
-        {appData && appData.map(item => (
-          <View key={item._id}>
-            <View style={styles.abc_container1}>
-              <View style={styles.abc_clinic}>
-                <View style={styles.pic1}>
-                  <Image
-                    source={require("../../AppPics/ABC_vet clinic.png")}
-                    style={[styles.clinic1, , { marginBottom: 24 }]}
-                  />
-                </View>
-                <View style={styles.content2}>
-                  <Text style={styles.text1}>
-                    {item.veternarian.veterinaryClinicName}
-                  </Text>
-                  <Text style={styles.text1_1}>
-                    {item.veternarian.veterinaryClinicAddress}
-                  </Text>
-                  <Text style={styles.text1_1}>
-                    {new Date(item.availableDate).toString("yyyy-MM-dd")}
-                  </Text>
-                  <Text style={styles.text1_1}>
-                    {new Date(item.timeFrom).getTime().toString("hh:mm")}
-                  </Text>
-                  <Text style={styles.text1_1}>item.noofPatients</Text>
-                  <Text style={styles.text1_1}>item.doctorCharges</Text>
-                  <Text style={styles.text1_1}>item.serviceCharges</Text>
-                  <View style={styles.container2}>
-                    <TouchableOpacity
-                      style={styles.book_button}
-                      onPress={() => navigation.navigate("Payment_1")}
-                    >
-                      <Text style={styles.bookButtonText}>BOOK NOW</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        ))}
-      </View> */}
 
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>

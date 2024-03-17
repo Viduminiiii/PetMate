@@ -10,7 +10,6 @@ import {
 import DatePicker from "react-native-date-picker";
 import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../config/AuthContext";
 const config = require("./../config/config");
 
@@ -19,38 +18,12 @@ const VetAvailability = ({ navigation }) => {
   // console.log("baseURL: " + baseURL);
 
   const { user } = useAuth();
-  // const [user, setUser] = useState();
-  // const [userLevel, setUserLevel] = useState();
   const [availableDate, setAvailableDate] = useState(new Date());
   const [timeFrom, setTimeFrom] = useState(new Date());
   const [timeTo, setTimeTo] = useState(new Date());
   const [noofPatients, setNoOfPatients] = useState();
   const [doctorCharges, setDoctorCharges] = useState();
   const [serviceCharges, setServiceCharges] = useState();
-
-  useEffect(() => {
-    console.log("---------user2:  " + user);
-    // console.log("----------------useEffect");
-    // const getData = async () => {
-    //   try {
-    //     // console.log("----------------useEffect -----  1");
-    //     const loggedInUser = await AsyncStorage.getItem("user");
-    //     const loggedInUserLevel = await AsyncStorage.getItem("userLevel");
-    //     // console.log("----------------loggedInUser:  " + loggedInUser + "  loggedInUserLevel:   " + loggedInUserLevel);
-    //     if (loggedInUser && loggedInUserLevel) {
-    //       const foundUser = JSON.parse(loggedInUser);
-    //       const foundUserLevel = JSON.parse(loggedInUserLevel);
-    //       console.log(JSON.stringify(foundUser));
-    //       console.log(JSON.stringify(foundUserLevel));
-    //       setUser(foundUser);
-    //       setUserLevel(foundUserLevel);
-    //     }
-    //   } catch (e) {
-    //     console.log("error:  "+ e);
-    //   }
-    // };
-    // getData();
-  }, []);
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -63,13 +36,13 @@ const VetAvailability = ({ navigation }) => {
       serviceCharges,
       vet_id: (JSON.parse(user)).userLevelId,
     };
-    console.log("userData:  " + JSON.stringify(userData));
+    // console.log("userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/availability", userData)
       .then((res) => {
         // console.log("---------------res.data:   " + JSON.stringify(res.data));
         if (res.data.status === "ok")        
-    console.log("---------ok------------:  ");
+    // console.log("---------ok------------:  ");
           navigation.navigate("Available_VetSessions");
       })
       .catch((e) => console.log(e));

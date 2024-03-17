@@ -29,7 +29,6 @@ import VetReminder from "./Frontend/Vetenarian/Vet_Reminder";
 import VetSignUp from "./Frontend/Vetenarian/Vet Sign up";
 import Vet_Settings from "./Frontend/Vetenarian/Vet_Settings";
 import Vet_Notification from "./Frontend/Vetenarian/Vet_Notification";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -38,53 +37,10 @@ import { AuthProvider } from "./Frontend/config/AuthContext";
 const Stack = createNativeStackNavigator();
 
 function App() {
-  // const { user } = useAuth();
-  // const [user, setUser] = useState();
-  // const [userLevel, setUserLevel] = useState();
-
-  // useEffect(() => {  
-  //   async () => {
-  //     try {
-  //       const loggedInUser = await AsyncStorage.getItem("user");
-  //       const loggedInUserLevel = await AsyncStorage.getItem("userLevel");
-  //       console.log(
-  //         "loggedInUser:  " +
-  //           loggedInUser +
-  //           "  loggedInUserLevel:   " +
-  //           loggedInUserLevel
-  //       );
-  //       if (loggedInUser && loggedInUserLevel) {
-  //         const foundUser = JSON.parse(loggedInUser);
-  //         const foundUserLevel = JSON.parse(loggedInUserLevel);
-  //         console.log(JSON.stringify(foundUser));
-  //         console.log(JSON.stringify(foundUserLevel));
-  //         setUser(foundUser);
-  //         setUserLevel(foundUserLevel);
-  //       }
-  //     } catch (e) {
-  //       console.log("error:  " + e);
-  //     }
-  //   };
-  // }, []);
-
-  // console.log("---------user:  " + user);
   return (
     <AuthProvider>
       <NavigationContainer initialRouteName="Startup">
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* {user == null && <Stack.Screen name="Startup" component={Startup} />} */}
-
-          {/* <Stack.Screen name="Root" component={Root} /> */}
-
-          {/* {user && userLevel == 1 && (
-          <Stack.Screen name="PetOwner" component={PetOwner} />
-        )}
-        {user && userLevel == 2 && (
-          <Stack.Screen name="Vetenarian" component={Vetenarian} />
-        )}
-        {user && userLevel == 3 && (
-          <Stack.Screen name="Pharmacy" component={Pharmacy} />
-        )} */}
 
           <Stack.Screen name="Startup" component={Startup} />
           <Stack.Screen name="Login" component={Login} />

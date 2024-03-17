@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from './config/AuthContext';
 const config = require("./config/config");
 
@@ -17,8 +16,6 @@ const Login = ({ navigation }) => {
   // console.log("baseURL: " + baseURL);
 
   const { login } = useAuth();
-  const [user, setUser] = useState();
-  // const [userLevel, setUserLevel] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -27,26 +24,14 @@ const Login = ({ navigation }) => {
     // console.log("handlePress ----  " + username + " -  " + password);
     const userData = { username, password };
 
-    console.log("userData:  " + JSON.stringify(userData));
+    // console.log("userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/getOneUser", userData)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.status === "ok") {
-          console.log("res.data.data:   "+ JSON.stringify(res.data.data));
+          // console.log("res.data.data:   "+ JSON.stringify(res.data.data));
           login(JSON.stringify(res.data.data));
-          // setUser(res.data.user);
-          // setUserLevel(res.data.userLevel);
-
-          // const storeData = async (value) => {
-          //   try {
-          //     await AsyncStorage.setItem('user', JSON.stringify(res.data.user))
-          //     await AsyncStorage.setItem("userLevel", JSON.stringify(res.data.userLevel))
-          //   } catch (e) {
-          //     console.log("error:  "+e);
-          //   }
-          // }
-          // storeData();
           if (res.data.data.userLevel === "1") {
             navigation.navigate("Menu");
           } else if (res.data.data.userLevel === "2") {

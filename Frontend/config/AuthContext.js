@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     // Perform login logic
-    console.log("----login user:"+ JSON.stringify(userData));
+    // console.log("----login user:"+ JSON.stringify(userData));
     setUser(userData);
   };
 
