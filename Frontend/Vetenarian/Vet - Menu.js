@@ -57,6 +57,13 @@ const PetOwnerMenu = ({ navigation }) => {
                   </View>
                </TouchableOpacity>
             </View>
+
+            <View style={styles.menu_button4}>
+                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
+                </TouchableOpacity>
+            </View>
+
+
         </View>
     );
   };
