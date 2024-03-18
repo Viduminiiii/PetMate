@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Alert
 } from "react-native";
 import axios from "axios";
 
@@ -18,6 +19,7 @@ const VetSignUp = ({ navigation }) => {
   const [veterinaryLicenseNumber, setveterinaryLicenseNumber] = useState();
   const [veterinaryClinicAddress, setveterinaryClinicAddress] = useState();
   const [password, setPassword] = useState();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -30,6 +32,17 @@ const VetSignUp = ({ navigation }) => {
       veterinaryClinicAddress,
       password,
     };
+
+    if (!validateFullName(fullname)) {
+      Alert.alert("Invalid Full Name", "Full name should not contain numbers");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return;
+    }
+
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post("http://192.168.1.7:5001/registerVet", userData)
@@ -38,6 +51,18 @@ const VetSignUp = ({ navigation }) => {
         if (res.data.status === "ok") navigation.navigate("Login");
       })
       .catch((e) => console.log(e));
+  };
+
+  const validateFullName = (fullName) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(fullName);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
+  };
+  
+  const validateEmail = (email) => {
+    // Validate email using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
@@ -108,19 +133,24 @@ const VetSignUp = ({ navigation }) => {
             <TextInput
               style={styles.textInput}
               placeholder="Password"
+              secureTextEntry={!isPasswordVisible}
               onChangeText={(text) => setPassword(text)}
             ></TextInput>
-            <TouchableOpacity>
-              <Image
-                source={require("../../AppPics/Password.png")}
-                style={styles.imageStyle}
-              />
-            </TouchableOpacity>
+            <TouchableOpacity
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+        >
+          <Image
+            source={require("../../AppPics/Password.png")}
+            style={styles.password_eyeimage}
+          />
+        </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() => handlePress()}
+          onPress={() => 
+            handlePress()
+          }
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
@@ -257,6 +287,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+  password_eyeimage: {
+    resizeMode: "contain",
+    width: 40,
+    height: 35,
+    marginLeft: 70,
+  },
+
   container6: {
     flexDirection: "row",
     marginTop: -90,
