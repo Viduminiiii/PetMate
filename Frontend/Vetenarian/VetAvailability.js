@@ -1,51 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   Image,
+  TextInput,
+  Alert,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
-import { Dropdown } from "react-native-element-dropdown";
+// import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
+// import { useAuth } from "../config/AuthContext";
+// const config = require("./../config/config");
 
 const VetAvailability = ({ navigation }) => {
-  const [date, setdate] = useState();
-  const [timefrom, setTimeFrom] = useState();
-  const [timeto, setTimeTo] = useState();
-  const [clinicname, setClinicName] = useState();
-  const [noofpatients, setNoOfPatients] = useState();
+  // const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  // console.log("baseURL: " + baseURL);
+
+  // const { user } = useAuth();
+  const [availableDate, setAvailableDate] = useState(new Date());
+  const [timeFrom, setTimeFrom] = useState(new Date());
+  const [timeTo, setTimeTo] = useState(new Date());
+  const [noofPatients, setNoOfPatients] = useState();
+  const [doctorCharges, setDoctorCharges] = useState();
+  const [serviceCharges, setServiceCharges] = useState();
 
   const handlePress = () => {
-    console.log("Button pressed");
+    if (!validateInputs()) return;
+
     const userData = {
-      date,
-      time,
-      clinicname,
-      noofpatients
+      availableDate,
+      timeFrom,
+      timeTo,
+      noofPatients: parseInt(noofPatients), // Ensure number of patients is an integer.
+      doctorCharges: parseFloat(doctorCharges), // Convert the doctor charges input to a floating point number.
+      serviceCharges: parseFloat(serviceCharges), // Convert the service charge input to a floating point number.
+      vet_id: JSON.parse(user).userLevelId,
     };
-    console.log("userData:  " + JSON.stringify(userData));
+    // console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/availability", userData)
+      .post(baseURL + "/availability", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Available_VetSessions");
+        // console.log("---------------res.data:   " + JSON.stringify(res.data));
+        if (res.data.status === "ok")
+          // console.log("---------ok------------:  ");
+          navigation.navigate("Available_VetSessions");
       })
       .catch((e) => console.log(e));
   };
 
-  state = { user: "" };
-  updateUser = (user) => {
-    this.setState({ user: user });
+  // Method to validate user inputs
+  const validateInputs = () => {
+    // Only allow the user to input integers for the number of patients.
+    if (!/^\d+$/.test(noofPatients)) {
+      Alert.alert("Invalid Input", "Number of patients must be an integer.");
+      return false;
+    }
+
+    // Only allow the user to input integers or floats for doctor charges and service charges.
+    if (
+      !/^\d+(\.\d+)?$/.test(doctorCharges) ||
+      !/^\d+(\.\d+)?$/.test(serviceCharges)
+    ) {
+      Alert.alert("Invalid Input", "Enter an integer or float.");
+      return false;
+    }
+
+    return true;
   };
 
-  const [valueClinic, setValueClinic] = useState(null);
-  const [isFocusClinic, setIsFocusClinic] = useState(false);
-  const [valuePatient, setValuePatient] = useState(null);
-  const [isFocusPatient, setIsFocusPatient] = useState(false);
-  const [dateContainer, setDateContainer] = useState(new Date());
-  const [timeContainer, setTimeContainer] = useState(new Date());
   return (
     <View style={styles.page}>
       <View style={styles.nav_bar}>
@@ -70,16 +94,16 @@ const VetAvailability = ({ navigation }) => {
             <View style={styles.date_container}>
               <DatePicker
                 style={styles.datePickerStyle}
-                date={dateContainer}
+                date={availableDate}
                 mode="date"
                 placeholder="select date"
                 format="DD/MM/YYYY"
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
-                onDateChange={(dateContainer) => {
-                  setDateContainer(dateContainer);
+                onDateChange={(date) => {
+                  setAvailableDate(date);
                 }}
-                onChangeText={(text) => setdate(text)}
+                onChangeText={(text) => setAvailableDate(text)}
               />
             </View>
           </View>
@@ -87,10 +111,10 @@ const VetAvailability = ({ navigation }) => {
             <Text style={styles.details_text}>Time</Text>
             <View style={styles.time_container}>
               <DatePicker
-                style={styles.timePickerStyleFrom}
+                style={styles.timePickerStyleTo}
                 mode="time" // Set mode to "time" for time picker
-                date={timeContainer} // Use the time state here
-                onDateChange={setTimeContainer} // Update the time state on change
+                date={timeFrom} // Use the time state here
+                onDateChange={setTimeFrom} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
                 onChangeText={(text) => setTimeFrom(text)}
               />
@@ -100,78 +124,41 @@ const VetAvailability = ({ navigation }) => {
               <DatePicker
                 style={styles.timePickerStyleTo}
                 mode="time" // Set mode to "time" for time picker
-                dateContainer={timeContainer} // Use the time state here
-                onDateChange={setTimeContainer} // Update the time state on change
+                date={timeTo} // Use the time state here
+                onDateChange={setTimeTo} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
-                onChangeText={(text) => setTimeTo(text)}
-              />
-            </View>
-          </View>
-          <View style={styles.details}>
-            <Text style={styles.details_text}>Clinic's name</Text>
-            <View>
-              <Dropdown
-                style={[styles.dropdown]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={[
-                  { label: "ABC Vet Clinic", value: "1" },
-                  { label: "DEF Vet Clinic", value: "2" },
-                  { label: "GHI Vet Clinic", value: "3" },
-                  { label: "JKL Vet Clinic", value: "4" },
-                ]}
-                maxHeight={200}
-                labelField="label"
-                valueField="value"
-                placeholder={!isFocusClinic ? "Select" : "..."}
-                searchPlaceholder="Search..."
-                value={valueClinic}
-                onFocus={() => setIsFocusClinic(true)}
-                onBlur={() => setIsFocusClinic(false)}
-                onChange={(item) => {
-                  setValueClinic(item.value);
-                  setIsFocusClinic(false);
-                }}
-                onChangeText={(text) => setClinicName(text)}
+                onChangeText={(text) => setTimeFrom(text)}
               />
             </View>
           </View>
           <View style={styles.details}>
             <Text style={styles.details_text}>No. of patients</Text>
-            <View>
-              <Dropdown
-                style={[styles.dropdown]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={[
-                  { label: "2", value: "1" },
-                  { label: "3", value: "2" },
-                  { label: "4", value: "3" },
-                  { label: "5", value: "4" },
-                  { label: "6", value: "5" },
-                  { label: "7", value: "6" },
-                  { label: "8", value: "7" },
-                  { label: "9", value: "8" },
-                  { label: "10", value: "9" },
-                ]}
-                maxHeight={200}
-                labelField="label"
-                valueField="value"
-                placeholder={!isFocusPatient ? "Select" : "..."}
-                searchPlaceholder="Search..."
-                value={valuePatient}
-                onFocus={() => setIsFocusPatient(true)}
-                onBlur={() => setIsFocusPatient(false)}
-                onChange={(item) => {
-                  setValuePatient(item.value);
-                  setIsFocusPatient(false);
-                }}
+            <View style={styles.chargesContainer}>
+              <TextInput
+                style={styles.charges}
                 onChangeText={(text) => setNoOfPatients(text)}
-              />
+                keyboardType="numeric" // Adding numeric keyboard for input field.
+              ></TextInput>
+            </View>
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.details_text}>Doctor charges</Text>
+            <View style={styles.chargesContainer}>
+              <TextInput
+                style={styles.charges}
+                onChangeText={(text) => setDoctorCharges(text)}
+                keyboardType="numeric" // Adding numeric keyboard for input field.
+              ></TextInput>
+            </View>
+          </View>
+          <View style={styles.details}>
+            <Text style={styles.details_text}>Service charges</Text>
+            <View style={styles.chargesContainer}>
+              <TextInput
+                style={styles.charges}
+                onChangeText={(text) => setServiceCharges(text)}
+                keyboardType="numeric" // Adding numeric keyboard for input field.
+              ></TextInput>
             </View>
           </View>
         </View>
@@ -270,20 +257,19 @@ const styles = StyleSheet.create({
   details: {
     flexDirection: "row",
     marginLeft: 35,
-    margin: 20,
+    margin: 10,
   },
   details_text: {
     fontSize: 20,
     fontWeight: "bold",
     marginRight: 20,
   },
-  details_textInput: {
-    backgroundColor: "white",
-    width: "72%",
-    height: "115%",
+  chargesContainer: {
+    height: 30,
+    width: 165,
     borderRadius: 15,
-    marginRight: 30,
-    paddingLeft: 15,
+    paddingHorizontal: 10,
+    backgroundColor: "white",
   },
   date_container: {
     flex: 1,
@@ -301,7 +287,7 @@ const styles = StyleSheet.create({
   time_container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: -25,
+    marginTop: -45,
   },
   timePickerStyleFrom: {
     height: 30,
@@ -315,9 +301,9 @@ const styles = StyleSheet.create({
     height: "20%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 28,
     marginBottom: -10,
-    borderRadius: 15,
+    borderRadius: 18,
   },
   to_text: {
     fontSize: 15,
@@ -336,7 +322,7 @@ const styles = StyleSheet.create({
   dropdown: {
     // top: 0,
     height: 30,
-    width: 175,
+    width: 170,
     borderRadius: 15,
     paddingHorizontal: 10,
     backgroundColor: "white",
@@ -384,6 +370,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     margin: 15,
-  }
+  },
 });
 export default VetAvailability;
