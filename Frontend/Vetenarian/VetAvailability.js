@@ -28,6 +28,11 @@ const VetAvailability = ({ navigation }) => {
 
   const handlePress = () => {
     console.log("Button pressed");
+    // Validate number of patients, this ensure that only integer numbers are accepted as input from the user.
+    if (!Number.isInteger(parseInt(noofPatients))) {
+      Alert.alert("Invalid Input", "Number of patients must be an integer.");
+      return;
+    }
 
     const userData = {
       availableDate,
