@@ -1,0 +1,10 @@
+.hide {
+    display:none !important;
+}
+.spinner-container {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
