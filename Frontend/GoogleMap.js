@@ -20,16 +20,18 @@ const GoogleMap = () => {
           longitudeDelta: 0.02, // Indicates the zoom level of the map along the longitude axis.
         }}
       />
-      <GooglePlacesAutocomplete
-        placeholder="Search"
-        onPress={(data, details = null) => {
-          console.log(data.details);
-        }}
-        query={{
-          key: "AIzaSyBoVi87Vq42Lj9ZdkJpEdSMGahP9pWFvwY", // Include Google Map API key for the application.
-          language: "en",
-        }}
-      />
+      <View style={styles.google_map_places}>
+        <GooglePlacesAutocomplete
+          placeholder="Search"
+          onPress={(data, details = null) => {
+            console.log(data.details);
+          }}
+          query={{
+            key: "AIzaSyBoVi87Vq42Lj9ZdkJpEdSMGahP9pWFvwY", // Include Google Map API key for the application.
+            language: "en",
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -51,6 +53,12 @@ const styles = StyleSheet.create({
     properties to 0 for effectively cover the entire map.
     */
     ...StyleSheet.absoluteFillObject,
+  },
+  google_map_places: {
+    top: 20,
+    width: "85%",
+    position: "absolute",
+    elevation: 10, // Add shadow to the search bar.
   },
 });
 
