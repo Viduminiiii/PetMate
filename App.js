@@ -37,9 +37,8 @@ const Stack = createNativeStackNavigator();
 
 function App() {
    return (
-      <NavigationContainer initialRouteName="VetMenu">
+      <NavigationContainer initialRouteName="Startup">
          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="VetMenu" component={VetMenu} />
             <Stack.Screen name="Startup" component={Startup} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="UserCategory" component={UserCategory} />
@@ -49,6 +48,7 @@ function App() {
             <Stack.Screen name="Menu" component={PetOwnerMenu} />
             <Stack.Screen name="Chat" component={Chat} />
             <Stack.Screen name="DocChannelling" component={DocChannelling} />
+            <Stack.Screen name="VetMenu" component={VetMenu} />
             <Stack.Screen name="VetChat" component={VetChat} />
             <Stack.Screen name="VetPrescription" component={VetPrescription} />
             <Stack.Screen name="Vet_Settings" component={Vet_Settings} />
