@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 /*
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
@@ -18,7 +19,17 @@ const GoogleMap = () => {
           latitudeDelta: 0.02, // Indicates the zoom level of the map along the latitude axis.
           longitudeDelta: 0.02, // Indicates the zoom level of the map along the longitude axis.
         }}
-      ></MapView>
+      />
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        onPress={(data, details = null) => {
+          console.log(data.details);
+        }}
+        query={{
+          key: "AIzaSyBoVi87Vq42Lj9ZdkJpEdSMGahP9pWFvwY", // Include Google Map API key for the application.
+          language: "en",
+        }}
+      />
     </View>
   );
 };
