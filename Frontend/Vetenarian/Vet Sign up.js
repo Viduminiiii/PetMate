@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
 import axios from "axios";
 
@@ -58,7 +58,7 @@ const VetSignUp = ({ navigation }) => {
     const containsNumbers = /\d/.test(fullName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
-  
+
   const validateEmail = (email) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -122,7 +122,7 @@ const VetSignUp = ({ navigation }) => {
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Clinic Location</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("GoogleMap")}>
           <Image
             source={require("../../AppPics/Google_map.png")}
             style={styles.image}
@@ -137,20 +137,18 @@ const VetSignUp = ({ navigation }) => {
               onChangeText={(text) => setPassword(text)}
             ></TextInput>
             <TouchableOpacity
-          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-        >
-          <Image
-            source={require("../../AppPics/Password.png")}
-            style={styles.password_eyeimage}
-          />
-        </TouchableOpacity>
+              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+              <Image
+                source={require("../../AppPics/Password.png")}
+                style={styles.password_eyeimage}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() => 
-            handlePress()
-          }
+          onPress={() => handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
