@@ -206,13 +206,27 @@ app.post("/getOneUser", async (req, res) => {
         if (result !== null) {
           const match = result.password === password;
           console.log("match:  " + match);
-          if (match) {            
-            const resultData ={
+          if (match) {
+            const resultData = {
               userID: result._id,
-              username:result.username,
-              userLevel: (result.petOwner !== undefined ? "1" : result.Veternarian !== undefined ? "2" : result.Pharmacy !== undefined ? "3" : "0"),
-              userLevelId: (result.petOwner !== undefined ? result.petOwner._id : result.Veternarian !== undefined ? result.Veternarian._id : result.Pharmacy !== undefined ? result.Pharmacy._id : "0")
-            }
+              username: result.username,
+              userLevel:
+                result.petOwner !== undefined
+                  ? "1"
+                  : result.Veternarian !== undefined
+                  ? "2"
+                  : result.Pharmacy !== undefined
+                  ? "3"
+                  : "0",
+              userLevelId:
+                result.petOwner !== undefined
+                  ? result.petOwner._id
+                  : result.Veternarian !== undefined
+                  ? result.Veternarian._id
+                  : result.Pharmacy !== undefined
+                  ? result.Pharmacy._id
+                  : "0",
+            };
 
             res.send({
               status: "ok",
@@ -272,7 +286,7 @@ app.post("/availability", async (req, res) => {
     noofPatients,
     doctorCharges,
     serviceCharges,
-    vet_id
+    vet_id,
   } = req.body;
   try {
     const availability = await Availability.create({
@@ -295,35 +309,27 @@ app.post("/availability", async (req, res) => {
   }
 });
 
-
 app.post("/vetAvailability", async (req, res) => {
-  console.log("-------------REQ BODY"+JSON.stringify(req.body));
+  console.log("-------------REQ BODY" + JSON.stringify(req.body));
   const { vet_id } = req.body; // Assuming vet ID is passed as a query parameter
   console.log("vet_id:   " + vet_id);
-  try {    
-    
-    const vetAvailabilities = (
-      await Availability.find({ veternarian: vet_id })
-      .select('_id availableDate timeFrom timeTo noofPatients doctorCharges serviceCharges') 
-    .populate({
-      path:'veternarian',
-      select:"fullname veterinaryClinicName veterinaryClinicAddress"
-    })
-    );
+  try {
+    const vetAvailabilities = await Availability.find({ veternarian: vet_id })
+      .select(
+        "_id availableDate timeFrom timeTo noofPatients doctorCharges serviceCharges"
+      )
+      .populate({
+        path: "veternarian",
+        select: "fullname veterinaryClinicName veterinaryClinicAddress",
+      });
     // const vetAvailabilities = (await Availability.find({ veternarian: vet_id }).populate('veternarian'));
     console.log("availabilities: " + JSON.stringify(vetAvailabilities));
     if (vetAvailabilities && vetAvailabilities.length > 0) {
-      // res.send({
-      //   status: "ok",
-      //   msg: "Vet Appointments success.",
-      //   data: JSON.stringify(vetAvailabilities),
-      // });
       res.send(JSON.stringify(vetAvailabilities));
     } else {
-      console.log("Status:    "+res.status);
+      console.log("Status:    " + res.status);
       res.status(404).send("Date Data not found.");
     }
-
   } catch (error) {
     console.error("Error during database query:", error);
     res.status(500).send({ status: "Error", data: error.message });
@@ -340,51 +346,68 @@ app.post("/searchAvailability", async (req, res) => {
       " searchClinic- " +
       searchClinic
   );
-  const date = new Date(searchDate);
 
   try {
+    const date = searchDate !== "" ? new Date(searchDate) : null;
     const regexVet = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
     const regexClinic = new RegExp(searchClinic, "i"); // 'i' flag for case-insensitive matching
 
-    
+    console.log("regexVet:   " + regexVet);
+    console.log("regexClinic:   " + regexClinic);
+
+    // const availabilities = await Availability.find();
+
+    // Step 2: Query availabilities by date or by veterinarian ID
+    // const availabilities = await Availability.find({
+    //   $or: [
+    //     { availableDate: date },
+    //     { 'veternarian.fullname': { $regex: regexVet} },
+    //     { 'veternarian.veterinaryClinicName':  { $regex: regexClinic} }
+    //   ]
+    // }).populate('veternarian');
+
     // const vetsName = await Veternarian.find({ fullname: { $regex: regexVet } });
     // const vetsClinic = await Veternarian.find({ veterinaryClinicName: { $regex: regexClinic }});
-    const vets = await Veternarian.find({
-      $or: [
-        { fullname: regexVet },
-        { veterinaryClinicName: regexClinic }
-      ]
-    });
+    // const vets = await Veternarian.find({
+    //   $or: [
+    //     { fullname: { $regex: regexVet} },
+    //     { veterinaryClinicName: { $regex: regexClinic} }
+    //   ]
+    // });
 
     // console.log("vetsName:   "+JSON.stringify(vetsName));
     // console.log("vetsClinic:   "+JSON.stringify(vetsClinic));
-    const vetIds = vets.map(vet => vet._id);
-    console.log("vetIds:   "+JSON.stringify(vetIds) + " - " + vetIds.length);
+    // const vetIds = vets.map(vet => vet._id);
+    // console.log("vetIds:   "+JSON.stringify(vetIds) + " - " + vetIds.length);
     // const combinedVetIds = vetsName.concat(vetsClinic);
     // console.log("combinedVetIds:   "+JSON.stringify(combinedVetIds));
 
     // Step 2: Query availabilities by date or by veterinarian ID
-    const availabilities = await Availability.find({
-      $or: [
-        { availableDate: date },
-        { veternarian: { $in: vetIds } }
-      ]
-    }).populate('veternarian');
+    // const availabilities = await Availability.find({
+    //   $or: [
+    //     { availableDate: date },
+    //     { veternarian: { $in: vetIds } }
+    //   ]
+    // }).populate('veternarian');
 
-    console.log("availabilities:   "+JSON.stringify(availabilities) + " - " + availabilities.length);
+    // console.log("availabilities:   "+JSON.stringify(availabilities) + " - " + availabilities.length);
 
-    if (vetIds.length > 0 && availabilities.length > 0) {
-      res.send({ status: "ok vet avl", data: "------Availabilities:   " + JSON.stringify(availabilities) + "  -vetid:   " +   JSON.stringify(vetIds)});
-    }
-    else if (vetIds.length > 0) {
-      res.send({ status: "ok vet", data: "-------vetid:   " +   JSON.stringify(vetIds)});
-    } 
-    else if (availabilities.length > 0) {
-      res.send({ status: "ok avl", data: "------Availabilities:   " + JSON.stringify(availabilities)});
-    } else {
-      res.status(404).send("Data not found.");
-    }
-
+    // if (availabilities && availabilities.length > 0) {
+    //   console.log("OK---------");
+    //   res.send({ status: "ok vet avl", data: "------Availabilities:   " + JSON.stringify(availabilities) });
+    // }
+    // if (vetIds.length > 0 && availabilities.length > 0) {
+    //   res.send({ status: "ok vet avl", data: "------Availabilities:   " + JSON.stringify(availabilities) + "  -vetid:   " +   JSON.stringify(vetIds)});
+    // }
+    // else if (vetIds.length > 0) {
+    //   res.send({ status: "ok vet", data: "-------vetid:   " +   JSON.stringify(vetIds)});
+    // }
+    // else if (availabilities.length > 0) {
+    //   res.send({ status: "ok avl", data: "------Availabilities:   " + JSON.stringify(availabilities)});
+    // }
+    // else {
+    //   res.status(404).send("Data not found.");
+    // }
 
     // const availabilities = await Availability.aggregate([
     //   {
@@ -415,43 +438,78 @@ app.post("/searchAvailability", async (req, res) => {
     //   res.status(404).send("Data not found.");
     // }
 
+    console.log("date--------------  " + /^T/i + " ------ " + date);
+    let dateAvailabilities;
+    if (date !== null) {
+      console.log("DATE------------------");
+      dateAvailabilities = await Availability.find({
+        availableDate: {
+          $gte: new Date(new Date(date).setHours(0, 0, 0)),
+          $lt: new Date(new Date(date).setHours(23, 59, 59)),
+        },
+      })
+        .populate({
+          path: "veternarian",
+          match: { fullname: regexVet, veterinaryClinicName: regexClinic },
+          // match: { fullname: /^T/i },
+          select: "fullname",
+        })
+        .exec();
+    } else {
+      console.log("NO DATE------------------");
+      const filterAvailabilities = await Availability.find()
+        .populate({
+          path: "veternarian",
+          match: { fullname: regexVet, veterinaryClinicName: regexClinic },
+          // match: { fullname: /^T/i },
+          select: "fullname",
+        })
+        .exec();
+        
+      dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian);
+    }
 
     // const dateAvailabilities = await Availability.find({ availableDate: date });
-    // console.log("availabilities: " + JSON.stringify(dateAvailabilities));
-    // if (dateAvailabilities && dateAvailabilities.length > 0) {
-    //   const dateNameAvailabilities = await Availability.find({
-    //     availableDate: date,
-    //   }).populate({
-    //     path: "veternarian",
-    //     match: {
-    //       fullname: regexVet,
-    //       // veterinaryClinicName: regexClinic,
-    //     },
-    //   });
+    console.log("availabilities: " + JSON.stringify(dateAvailabilities));
 
-    //   const filteredVet = dateNameAvailabilities.filter((a) => a.veternarian);
+    if (dateAvailabilities && dateAvailabilities.length > 0) {
+      console.log("OK-------------------");
+      res.send({
+        status: "ok 1",
+        data: "dateNameAvailabilities Search success. "  + dateAvailabilities.length,
+      });
+      // const dateNameAvailabilities = await Availability.find({
+      //   availableDate: date,
+      // }).populate({
+      //   path: "veternarian",
+      //   match: {
+      //     fullname: regexVet,
+      //     // veterinaryClinicName: regexClinic,
+      //   },
+      // });
 
-    //   console.log(
-    //     "Filtered availabilities: ",
-    //     JSON.stringify(filteredVet)
-    //   );
-    //   if (filteredVet && filteredVet.length > 0) {
-    //     res.send({
-    //       status: "ok 1",
-    //       data: "dateNameAvailabilities Search success.",
-    //       data: JSON.stringify(filteredVet),
-    //     });
-    //   } else {
-    //     res.send({
-    //       status: "ok 2",
-    //       data: "Date Search success.",
-    //       data: "dateAvailabilities:  "+JSON.stringify(dateAvailabilities),
-    //     });
-    //   }
-    // } else {
-    //   res.status(404).send("Date Data not found.");
-    // }
+      // const filteredVet = dateNameAvailabilities.filter((a) => a.veternarian);
 
+      // console.log(
+      //   "Filtered availabilities: ",
+      //   JSON.stringify(filteredVet)
+      // );
+      // if (filteredVet && filteredVet.length > 0) {
+      //   res.send({
+      //     status: "ok 1",
+      //     data: "dateNameAvailabilities Search success.",
+      //     data: JSON.stringify(filteredVet),
+      //   });
+      // } else {
+      //   res.send({
+      //     status: "ok 2",
+      //     data: "Date Search success.",
+      //     data: "dateAvailabilities:  "+JSON.stringify(dateAvailabilities),
+      //   });
+      // }
+    } else {
+      res.status(404).send("Date Data not found.");
+    }
   } catch (error) {
     console.error("Error during database query:", error);
     res.status(500).send({ status: "Error", data: error.message });
