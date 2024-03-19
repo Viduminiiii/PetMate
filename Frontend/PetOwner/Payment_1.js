@@ -2,8 +2,22 @@ import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image} from "react-native";
 
 const Payment_1 = ({ navigation }) => {
+
+    const { user } = useAuth();
+    const [doctorFee, setDoctorFee] = useState(null);
+    const [serviceCharge, setServiceCharge] = useState(false);
+    const [totalFee, setTotalFee] = useState(false);
+
+
     const handlePress = () => {
         console.log("Button pressed");
+        const userData = {
+            doctorFee: doctorFee,
+            serviceCharge: serviceCharge,
+            totalFee: totalFee,
+          };
+        
+      console.log("----------------------userData:   "+JSON.stringify(userData));
       };
     return (
         <View style={styles.page}>
@@ -23,13 +37,13 @@ const Payment_1 = ({ navigation }) => {
                     <TextInput style={styles.Text_box}></TextInput>
                 </View>
                 <View style={styles.eachDetail}>
-                    <Text style={styles.name}>eChannelling Fee</Text>
+                    <Text style={styles.name}>Service Charges</Text>
                     <TextInput style={styles.Channel_Text_box}></TextInput>
                 </View>
-                <View style={styles.eachDetail}>
+                {/* <View style={styles.eachDetail}>
                     <Text style={styles.name}>Discount</Text>
                     <TextInput style={styles.Text_box}></TextInput>
-                </View>
+                </View> */}
                 <View style={styles.eachDetail}>
                     <Text style={styles.name}>Total Fee</Text>
                     <TextInput style={styles.Text_box}></TextInput>

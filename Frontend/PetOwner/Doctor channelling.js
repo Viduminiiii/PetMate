@@ -7,53 +7,136 @@ import {
   TouchableOpacity,
   DatePickerAndriod,
   Button,
+  TextInput,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
+import SearchableDropdown from "react-native-searchable-dropdown";
 import DatePicker from "react-native-date-picker";
 import axios from "axios";
+const config = require("../config/config");
 
 const DocChannelling = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+
+  const [searchDate, setSearchDate] = useState(new Date());
+  const [docClinicItem, setDocClinicItem] = useState(null);
+  const [isDateChanges, setIsDateChanges] = useState(false);
+  // const [valueDoc, setValueDoc] = useState(null);
+  // const [isFocusDoc, setIsFocusDoc] = useState(false);
+  // const [valueHosp, setValueHosp] = useState(null);
+  // const [isFocusHosp, setIsFocusHosp] = useState(false);
+
   const handlePress = () => {
-    console.log("Button pressed");
-    const userData = {
-      availableDate,
-    };
-    console.log("userData:  " + JSON.stringify(userData));
-    axios
-      .post(baseURL + "/searchAvailability", userData)
+    // try {
+      console.log("----------------searchDate:   "+searchDate);
+      console.log("----------------------isDateChanges:   "+isDateChanges);
+      const userData = {
+        searchDate: isDateChanges ? searchDate : "",
+        searchDoctor: docClinicItem,
+        searchClinic: docClinicItem,
+      };
+    //   const response = axios.post(baseURL + "/searchAvailability", userData);
+    //   console.log("----response:   "+JSON.stringify(response.data));
+    //   if(response.data){
+    //     if (response.data.status === "ok") {
+    //       console.log("get Availabilities:", response.data.data);
+    //       // Do something with the availabilities, e.g., navigate to another screen and pass them as props
+    //       if (res.data.status === "ok")
+    //         navigation.navigate("Available_VetSessions");
+    //     } else {
+    //       console.error("Error fetching availabilities:", response.data.msg);
+    //       alert("Error fetching availabilities:", response.data.msg);
+    //     }
+    //   }
+    //   else{alert("response unsuccess..")}
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+
+
+    // console.log("Button pressed");
+    // const userData = {
+    //   searchDate: searchDate,
+    //   searchDoctor: docClinicItem,
+    //   searchClinic: docClinicItem,
+    // };
+    // console.log("userData:  " + JSON.stringify(userData));
+    axios.post(baseURL + "/searchAvailability", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok")
+        console.log("----res.data.data------:   "+res.data.data);
+        if (res.data.status === "ok") {
+          console.log(("Available_VetSessions--------------"));
           navigation.navigate("Available_VetSessions");
+        } else {
+          console.error("Error fetching availabilities:", response.data.msg);
+          alert("Error fetching availabilities:", response.data.msg);
+        }
       })
       .catch((e) => console.log(e));
   };
 
-  const [valueType, setValueType] = useState(null);
-  const [isFocusType, setIsFocusType] = useState(false);
-  const [valueDoc, setValueDoc] = useState(null);
-  const [isFocusDoc, setIsFocusDoc] = useState(false);
-  const [valueHosp, setValueHosp] = useState(null);
-  const [isFocusHosp, setIsFocusHosp] = useState(false);
-  const [date, setDate] = useState(new Date());
+  // var itemList = [
+  //   {
+  //     id: 1,
+  //     name: "JavaScript",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Java",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Ruby",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "React Native",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "PHP",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Python",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Go",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "Swift",
+  //   },
+  // ];
 
-  // const searchAvailability = async () => {
-  //     try {
-  //         // Format the date as required by your backend, e.g., ISO string
-  //         const formattedDate = date.toISOString().split('T')[0];
+  const searchAvailability = async () => {
+    try {
+      // Format the date as required by your backend, e.g., ISO string
+      // const formattedDate = date.toISOString().split('T')[0];
 
-  //         const response = await axios.get(`http://10.31.5.59/searchAvailability?date=${formattedDate}`);
-  //         if (response.data.status === 'ok') {
-  //             console.log('Availabilities:', response.data.data);
-  //             // Do something with the availabilities, e.g., navigate to another screen and pass them as props
-  //             if (res.data.status === "ok") navigation.navigate("Available_VetSessions");
-  //         } else {
-  //             console.error('Error fetching availabilities:', response.data.data);
-  //         }
-  //     } catch (error) {
-  //         console.error('Error:', error);
-  //     }
-  // };
+      const userData = {
+        searchDate: searchDate,
+        searchDoctor: docClinicItem,
+        searchClinic: docClinicItem,
+      };
+      const response = await axios.post(
+        baseURL + "/searchAvailability",
+        userData
+      );
+      if (response.data.status === "ok") {
+        console.log("get Availabilities:", response.data.data);
+        // Do something with the availabilities, e.g., navigate to another screen and pass them as props
+        if (res.data.status === "ok")
+          navigation.navigate("Available_VetSessions");
+      } else {
+        console.error("Error fetching availabilities:", response.data.msg);
+        alert("Error fetching availabilities:", response.data.msg);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -78,42 +161,50 @@ const DocChannelling = ({ navigation }) => {
         <Text style={styles.schedule_text}>Schedule an appointment</Text>
       </View>
       <View style={styles.search_page}>
-        <Text style={styles.text}>Type</Text>
-        <View style={styles.search_box}>
-          <Image
-            source={require("../../AppPics/Search.png")}
-            style={styles.search_img}
-          />
-          <Dropdown
-            style={[styles.dropdown]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={[
-              { label: "Doctor", value: "1" },
-              { label: "Hospital", value: "2" },
-            ]}
-            labelField="label"
-            valueField="value"
-            placeholder={!isFocusType ? "Select type" : "..."}
-            searchPlaceholder="Search..."
-            value={valueType}
-            onFocus={() => setIsFocusType(true)}
-            onBlur={() => setIsFocusType(false)}
-            onChange={(item) => {
-              setValueType(item.value);
-              setIsFocusType(false);
-            }}
-          />
-        </View>
         <Text style={styles.text}>Doctor's Name</Text>
         <View style={styles.search_box}>
           <Image
             source={require("../../AppPics/Search.png")}
             style={styles.search_img}
           />
-          <Dropdown
+          <TextInput
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            placeholder="Search Doctor/ Clinic"
+            onChangeText={(text) => setDocClinicItem(text)}
+          ></TextInput>
+
+          {/* <SearchableDropdown
+            containerStyle={{ padding: 5 }}
+            style={[styles.dropdown]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}            
+            items={itemList}
+            defaultIndex={0}
+            // chip={true}
+            // resetValue={false}
+            textInputProps={{
+              placeholder: "Search Doctor/ Clinic",
+              underlineColorAndroid: "transparent",
+              // style: {
+              //   padding: 12,
+              //   borderWidth: 1,
+              //   borderColor: "#ccc",
+              //   borderRadius: 5,
+              // },
+              onTextChange: (text) => alert(text),
+            }}            
+            onChange={(item) => {
+              setDocClinicItem(item.value);
+            }}
+            listProps={{
+              nestedScrollEnabled: true,
+            }}
+          /> */}
+
+          {/* <SearchableDropdown
             style={[styles.dropdown]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
@@ -136,39 +227,7 @@ const DocChannelling = ({ navigation }) => {
               setValueDoc(item.value);
               setIsFocusDoc(false);
             }}
-          />
-        </View>
-        <Text style={styles.text}>Hospital's Name</Text>
-        <View style={styles.search_box}>
-          <Image
-            source={require("../../AppPics/Search.png")}
-            style={styles.search_img}
-          />
-          <Dropdown
-            style={[styles.dropdown]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={[
-              { label: "ABC hospital", value: "1" },
-              { label: "DEF hospital", value: "2" },
-              { label: "GHI hospital", value: "3" },
-              { label: "JKL hospital", value: "4" },
-              { label: "MNO hospital", value: "5" },
-            ]}
-            labelField="label"
-            valueField="value"
-            placeholder={!isFocusHosp ? "Select hospital" : "..."}
-            searchPlaceholder="Search..."
-            value={valueHosp}
-            onFocus={() => setIsFocusHosp(true)}
-            onBlur={() => setIsFocusHosp(false)}
-            onChange={(item) => {
-              setValueHosp(item.value);
-              setIsFocusHosp(false);
-            }}
-          />
+          /> */}
         </View>
         <Text style={styles.text}>Appointment Date</Text>
         <View style={styles.search_box}>
@@ -179,14 +238,16 @@ const DocChannelling = ({ navigation }) => {
           <View style={styles.date_container}>
             <DatePicker
               style={styles.datePickerStyle}
-              date={date}
+              date={searchDate}
               mode="date"
               placeholder="select date"
               format="DD/MM/YYYY"
               minDate="01-01-1900"
               maxDate="01-01-2100"
               onDateChange={(date) => {
-                setDate(date);
+                setSearchDate(date);
+                setIsDateChanges(true);
+                console.log("setSearchDate-------------:    "+date);
               }}
             />
           </View>

@@ -337,6 +337,7 @@ app.post("/vetAvailability", async (req, res) => {
 });
 
 app.post("/searchAvailability", async (req, res) => {
+  console.log("searchAvailability response-----------------------");
   const { searchDate, searchDoctor, searchClinic } = req.body; // Assuming the date is passed as a query parameter
 
   try {
@@ -344,8 +345,10 @@ app.post("/searchAvailability", async (req, res) => {
     const regexVet = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
     const regexClinic = new RegExp(searchClinic, "i"); // 'i' flag for case-insensitive matching
 
+    console.log("----------- response----------------------- 1");
     let dateAvailabilities;
     if (date !== null) {
+      console.log("----------- response----------------------- 2");
       dateAvailabilities = await Availability.find({
         availableDate: {
           $gte: new Date(new Date(date).setHours(0, 0, 0)),
@@ -359,6 +362,8 @@ app.post("/searchAvailability", async (req, res) => {
         })
         .exec();
     } else {
+      
+    console.log("----------- response----------------------- 3");
       const filterAvailabilities = await Availability.find()
         .populate({
           path: "veternarian",
@@ -367,20 +372,23 @@ app.post("/searchAvailability", async (req, res) => {
         })
         .exec();
 
-      dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian);
+        if(filterAvailabilities && filterAvailabilities.length)
+        { dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian); }
     }
 
     // console.log("availabilities: " + JSON.stringify(dateAvailabilities));
 
     if (dateAvailabilities && dateAvailabilities.length > 0) {
-      console.log("OK-------------------");
+      console.log("OK-------------------" + JSON.stringify(dateAvailabilities));
       res.send({
         status: "ok",
-        msg: "Availability search success.",
+        msg: "Search success.",
         data: JSON.stringify(dateAvailabilities),
       });
     } else {
-      res.status(404).send("Date Data not found.");
+      res.send({
+        status: "No Data found.",
+        msg: "Data not found."});
     }
   } catch (error) {
     console.error("Error during database query:", error);

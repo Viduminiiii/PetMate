@@ -97,7 +97,7 @@ const VetAvailability = ({ navigation }) => {
                 date={availableDate}
                 mode="date"
                 placeholder="select date"
-                format="DD/MM/YYYY"
+                format="DD-MM-YYYY"
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
                 onDateChange={(date) => {

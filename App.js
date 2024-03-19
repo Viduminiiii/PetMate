@@ -29,6 +29,7 @@ import VetReminder from "./Frontend/Vetenarian/Vet_Reminder";
 import VetSignUp from "./Frontend/Vetenarian/Vet Sign up";
 import Vet_Settings from "./Frontend/Vetenarian/Vet_Settings";
 import Vet_Notification from "./Frontend/Vetenarian/Vet_Notification";
+import GoogleMap from "./Frontend/GoogleMap";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
