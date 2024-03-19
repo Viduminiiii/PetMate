@@ -38,9 +38,8 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer initialRouteName="GoogleMap">
+    <NavigationContainer initialRouteName="Startup">
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="GoogleMap" component={GoogleMap} />
         <Stack.Screen name="Startup" component={Startup} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="UserCategory" component={UserCategory} />
@@ -80,6 +79,7 @@ function App() {
         <Stack.Screen name="ReceivedMessages" component={ReceivedMessages} />
         <Stack.Screen name="AvailableMedicine" component={AvailableMedicine} />
         <Stack.Screen name="VetAvailability" component={VetAvailability} />
+        <Stack.Screen name="GoogleMap" component={GoogleMap} />
       </Stack.Navigator>
     </NavigationContainer>
   );
