@@ -50,20 +50,11 @@ function App() {
           <Stack.Screen name="Menu" component={PetOwnerMenu} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="DocChannelling" component={DocChannelling} />
-          <Stack.Screen
-            name="Petowner_Settings"
-            component={Petowner_Settings}
-          />
+          <Stack.Screen name="Petowner_Settings" component={Petowner_Settings} />
           <Stack.Screen name="Medicalrecords" component={Medicalrecords} />
-          <Stack.Screen
-            name="Available_VetSessions"
-            component={Available_VetSessions}
-          />
+          <Stack.Screen name="Available_VetSessions" component={Available_VetSessions} />
           <Stack.Screen name="Payment_1" component={Payment_1} />
-          <Stack.Screen
-            name="Petowner_NotificationPage"
-            component={Petowner_NotificationPage}
-          />
+          <Stack.Screen name="Petowner_NotificationPage" component={Petowner_NotificationPage} />
           <Stack.Screen name="Prescription" component={Prescription} />
           <Stack.Screen name="Reminders" component={Reminders} />
           <Stack.Screen name="LocateVetClinics" component={LocateVetClinics} />
@@ -81,18 +72,10 @@ function App() {
           <Stack.Screen name="VetAvailability" component={VetAvailability} />
 
           <Stack.Screen name="PharmacySignUp" component={PharmacySignUp} />
-          <Stack.Screen
-            name="PharmacyPrescription"
-            component={PharmacyPrescription}
-          />
-          <Stack.Screen
-            name="Pharmacy_Settings"
-            component={Pharmacy_Settings}
-          />
-          <Stack.Screen
-            name="AvailableMedicine"
-            component={AvailableMedicine}
-          />
+          <Stack.Screen name="PharmacyPrescription" component={PharmacyPrescription} />
+          <Stack.Screen name="Pharmacy_Settings" component={Pharmacy_Settings} />
+          <Stack.Screen name="AvailableMedicine" component={AvailableMedicine} />
+          <Stack.Screen name="GoogleMap" component={GoogleMap} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

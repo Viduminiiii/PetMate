@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
-import { Dropdown } from "react-native-element-dropdown";
+// import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 import { useAuth } from "../config/AuthContext";
 const config = require("./../config/config");
@@ -26,15 +27,16 @@ const VetAvailability = ({ navigation }) => {
   const [serviceCharges, setServiceCharges] = useState();
 
   const handlePress = () => {
-    console.log("Button pressed");
+    if (!validateInputs()) return;
+
     const userData = {
       availableDate,
       timeFrom,
       timeTo,
-      noofPatients,
-      doctorCharges,
-      serviceCharges,
-      vet_id: (JSON.parse(user)).userLevelId,
+      noofPatients: parseInt(noofPatients), // Ensure number of patients is an integer.
+      doctorCharges: parseFloat(doctorCharges), // Convert the doctor charges input to a floating point number.
+      serviceCharges: parseFloat(serviceCharges), // Convert the service charge input to a floating point number.
+      vet_id: JSON.parse(user).userLevelId,
     };
     // console.log("userData:  " + JSON.stringify(userData));
     axios
@@ -46,6 +48,26 @@ const VetAvailability = ({ navigation }) => {
           navigation.navigate("Available_VetSessions");
       })
       .catch((e) => console.log(e));
+  };
+
+  // Method to validate user inputs
+  const validateInputs = () => {
+    // Only allow the user to input integers for the number of patients.
+    if (!/^\d+$/.test(noofPatients)) {
+      Alert.alert("Invalid Input", "Number of patients must be an integer.");
+      return false;
+    }
+
+    // Only allow the user to input integers or floats for doctor charges and service charges.
+    if (
+      !/^\d+(\.\d+)?$/.test(doctorCharges) ||
+      !/^\d+(\.\d+)?$/.test(serviceCharges)
+    ) {
+      Alert.alert("Invalid Input", "Enter an integer or float.");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -115,6 +137,7 @@ const VetAvailability = ({ navigation }) => {
               <TextInput
                 style={styles.charges}
                 onChangeText={(text) => setNoOfPatients(text)}
+                keyboardType="numeric" // Adding numeric keyboard for input field.
               ></TextInput>
             </View>
           </View>
@@ -124,6 +147,7 @@ const VetAvailability = ({ navigation }) => {
               <TextInput
                 style={styles.charges}
                 onChangeText={(text) => setDoctorCharges(text)}
+                keyboardType="numeric" // Adding numeric keyboard for input field.
               ></TextInput>
             </View>
           </View>
@@ -133,9 +157,10 @@ const VetAvailability = ({ navigation }) => {
               <TextInput
                 style={styles.charges}
                 onChangeText={(text) => setServiceCharges(text)}
+                keyboardType="numeric" // Adding numeric keyboard for input field.
               ></TextInput>
             </View>
-          </View>
+          </View>          
         </View>
         <TouchableOpacity style={styles.button} onPress={() => handlePress()}>
           <Text style={styles.button_text}>Add</Text>
