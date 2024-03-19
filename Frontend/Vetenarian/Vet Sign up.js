@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -97,7 +97,7 @@ const VetSignUp = ({ navigation }) => {
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Clinic Location</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("GoogleMap")}>
           <Image
             source={require("../../AppPics/Google_map.png")}
             style={styles.image}
