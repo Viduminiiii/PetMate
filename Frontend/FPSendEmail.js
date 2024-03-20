@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,11 +9,12 @@ import {
 } from "react-native";
 
 const FPSendEmail = () => {
+  const [email, setEmail] = useState();
   const handlePress = () => {
     console.log("Button Pressed");
   };
   return (
-    <View style={styles.loginpage1}>
+    <View style={styles.main_container}>
       <Image source={require("../AppPics/Dog.png")} style={styles.image} />
       <Text style={styles.forgot_password_text}>Forgot Password ?</Text>
       <View style={styles.enter_your_email_text_container}>
@@ -22,12 +23,22 @@ const FPSendEmail = () => {
         </Text>
         <Text style={styles.enter_your_email_text_2}>password</Text>
       </View>
+      <View style={styles.email_input_text_field}>
+        <TextInput
+          style={styles.email_text_input}
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+        ></TextInput>
+      </View>
+      <TouchableOpacity style={styles.submit_button} onPress={handlePress}>
+        <Text style={styles.submit_button_text}>SUBMIT</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  loginpage1: {
+  main_container: {
     flex: 1, //fill the whole screen
     backgroundColor: "#CEEFA3",
     justifyContent: "flex-start", //start from the top
@@ -40,6 +51,7 @@ const styles = StyleSheet.create({
     alignSelf: "center", // Center the image horizontally
   },
   forgot_password_text: {
+    paddingTop: 10,
     fontSize: 30,
     fontWeight: "900",
   },
@@ -52,6 +64,36 @@ const styles = StyleSheet.create({
   enter_your_email_text_2: {
     fontSize: 18,
     paddingLeft: 135,
+  },
+  email_input_text_field: {
+    backgroundColor: "white",
+    width: "85%",
+    height: 45,
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 2,
+    marginTop: 30,
+    justifyContent: "center",
+  },
+  email_text_input: {
+    flex: 1,
+    paddingLeft: 20, // Padding placeholder to left inside the text field.
+    textAlign: "left", // Align placeholder text to the left inside the text field.
+    fontWeight: "900",
+  },
+  submit_button: {
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginTop: 60,
+    height: 50,
+    width: 150,
+  },
+  submit_button_text: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
