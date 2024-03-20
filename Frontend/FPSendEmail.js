@@ -8,10 +8,11 @@ import {
   TextInput,
 } from "react-native";
 
-const FPSendEmail = () => {
+const FPSendEmail = ({ navigation }) => {
   const [email, setEmail] = useState();
   const handlePress = () => {
     console.log("Button Pressed");
+    navigation.navigate("FPVerification");
   };
   return (
     <View style={styles.main_container}>
@@ -33,7 +34,7 @@ const FPSendEmail = () => {
       <TouchableOpacity style={styles.submit_button} onPress={handlePress}>
         <Text style={styles.submit_button_text}>SUBMIT</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handlePress}>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={styles.back_to_login_button_text}>Back to Login</Text>
       </TouchableOpacity>
     </View>
