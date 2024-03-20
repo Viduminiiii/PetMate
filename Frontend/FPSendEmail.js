@@ -33,6 +33,9 @@ const FPSendEmail = () => {
       <TouchableOpacity style={styles.submit_button} onPress={handlePress}>
         <Text style={styles.submit_button_text}>SUBMIT</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={handlePress}>
+        <Text style={styles.back_to_login_button_text}>Back to Login</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     fontWeight: "900",
   },
   submit_button: {
-    backgroundColor: "white",
+    backgroundColor: "#3366ff",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
@@ -93,6 +96,12 @@ const styles = StyleSheet.create({
   submit_button_text: {
     color: "black",
     fontSize: 20,
+    fontWeight: "bold",
+  },
+  back_to_login_button_text: {
+    paddingTop: 30,
+    color: "black",
+    fontSize: 18,
     fontWeight: "bold",
   },
 });
