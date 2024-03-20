@@ -33,6 +33,11 @@ const VetSignUp = ({ navigation }) => {
       password,
     };
 
+    if (!fullname || !username || !email || !pharmacyName || !pharmacyLicenseNumber || !pharmacyAddress || !password) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
@@ -43,6 +48,7 @@ const VetSignUp = ({ navigation }) => {
       return;
     }
 
+    console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post("http://192.168.1.7:5001/registerVet", userData)
@@ -116,6 +122,13 @@ const VetSignUp = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             placeholder="Veterinary Clinic Address"
+            onChangeText={(text) => setveterinaryClinicAddress(text)}
+          ></TextInput>
+        </View>
+        <View style={styles.container2}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Main city the clinic located"
             onChangeText={(text) => setveterinaryClinicAddress(text)}
           ></TextInput>
         </View>
