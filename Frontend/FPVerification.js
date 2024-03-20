@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 const FPVerification = () => {
+  const [code, setCode] = useState();
   const handlePress = () => {
     console.log("Button Pressed");
   };
@@ -24,6 +25,14 @@ const FPVerification = () => {
           just send you on your email
         </Text>
         <Text style={styles.enter_the_verification_text_3}>address</Text>
+        <View style={styles.code_input_text_field}>
+          <TextInput
+            style={styles.code_text_input}
+            placeholder="Enter your 4 digit code here"
+            keyboardType="numeric"
+            onChangeText={(text) => setCode(text)}
+          ></TextInput>
+        </View>
       </View>
     </View>
   );
@@ -60,6 +69,22 @@ const styles = StyleSheet.create({
   enter_the_verification_text_3: {
     fontSize: 19,
     paddingLeft: 90,
+  },
+  code_input_text_field: {
+    backgroundColor: "white",
+    width: 250,
+    height: 45,
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 2,
+    marginTop: 30,
+    justifyContent: "center",
+  },
+  code_text_input: {
+    flex: 1,
+    paddingLeft: 20, // Padding placeholder to left inside the text field.
+    textAlign: "left", // Align placeholder text to the left inside the text field.
+    fontWeight: "900",
   },
 });
 
