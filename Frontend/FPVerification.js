@@ -29,10 +29,17 @@ const FPVerification = () => {
           <TextInput
             style={styles.code_text_input}
             placeholder="Enter your 4 digit code here"
-            keyboardType="numeric"
+            keyboardType="numeric" // Adding numeric keyboard for input field.
             onChangeText={(text) => setCode(text)}
+            maxLength={4} // Allow user to only input maximum 4 characters.
           ></TextInput>
         </View>
+        <TouchableOpacity style={styles.verify_button} onPress={handlePress}>
+          <Text style={styles.verification_button_text}>Verify Code</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.resend_the_code_button_text}>Resend Code ?</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -81,10 +88,33 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   code_text_input: {
+    fontSize: 15,
     flex: 1,
     paddingLeft: 20, // Padding placeholder to left inside the text field.
     textAlign: "left", // Align placeholder text to the left inside the text field.
     fontWeight: "900",
+  },
+  verify_button: {
+    backgroundColor: "#3366ff",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginTop: 30,
+    marginLeft: 50,
+    height: 50,
+    width: 150,
+  },
+  verification_button_text: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  resend_the_code_button_text: {
+    paddingTop: 30,
+    marginLeft: 70,
+    color: "black",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 
