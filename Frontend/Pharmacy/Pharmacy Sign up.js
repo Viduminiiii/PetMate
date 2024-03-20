@@ -46,6 +46,11 @@ const PharmacySignUp = ({ navigation }) => {
       return;
     }
 
+    if (!validatepharmacyName(pharmacyName)) {
+      Alert.alert("Invalid Pharmacy Name", "Pharmacy Name should not contain numbers");
+      return;
+    }
+
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
@@ -69,6 +74,12 @@ const PharmacySignUp = ({ navigation }) => {
   const validateFullName = (fullName) => {
     // Check if full name contains numbers
     const containsNumbers = /\d/.test(fullName);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
+  };
+
+  const validatepharmacyName = (pharmacyName) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(pharmacyName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
   
