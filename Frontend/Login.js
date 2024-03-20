@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-const config = require("./config/config")
+const config = require("./config/config");
 
 const Login = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
