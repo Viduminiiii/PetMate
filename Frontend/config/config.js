@@ -1,4 +1,4 @@
 module.exports={
-    DB_HOST: "http://192.168.8.105",
+    DB_HOST: "http://10.31.5.59",
     DB_PORT: "5001",
 };
