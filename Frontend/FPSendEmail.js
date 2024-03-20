@@ -6,14 +6,34 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert
 } from "react-native";
 
 const FPSendEmail = ({ navigation }) => {
   const [email, setEmail] = useState();
   const handlePress = () => {
+
+    if (!email) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address");
+      return;
+    }
+
+    console.log("All fields filled, proceed with registration.");
     console.log("Button Pressed");
     navigation.navigate("FPVerification");
   };
+
+  const validateEmail = (email) => {
+    // Validate email using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
   return (
     <View style={styles.main_container}>
       <Image source={require("../AppPics/Dog.png")} style={styles.image} />
