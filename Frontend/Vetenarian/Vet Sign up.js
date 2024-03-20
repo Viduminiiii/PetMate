@@ -33,13 +33,18 @@ const VetSignUp = ({ navigation }) => {
       password,
     };
 
-    if (!fullname || !username || !email || !pharmacyName || !pharmacyLicenseNumber || !pharmacyAddress || !password) {
+    if (!fullname || !username || !email || !veterinaryClinicName || !veterinaryLicenseNumber || !veterinaryClinicAddress || !password) {
       Alert.alert("Missing Information", "Please fill in all mandatory fields.");
       return;
     }
 
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
+      return;
+    }
+
+    if (!validateClinicName(veterinaryClinicName)) {
+      Alert.alert("Invalid Clinic Name", "Clinic Name should not contain numbers");
       return;
     }
 
@@ -62,6 +67,12 @@ const VetSignUp = ({ navigation }) => {
   const validateFullName = (fullName) => {
     // Check if full name contains numbers
     const containsNumbers = /\d/.test(fullName);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
+  };
+
+  const validateClinicName = (veterinaryClinicName) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(veterinaryClinicName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
 
