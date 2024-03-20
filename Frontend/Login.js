@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+const config = require("./config/config")
 
 const Login = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  console.log("baseURL: " + baseURL);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -20,7 +23,7 @@ const Login = ({ navigation }) => {
 
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/getOneUser", userData)
+      .post(baseURL + "/getOneUser", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Menu");

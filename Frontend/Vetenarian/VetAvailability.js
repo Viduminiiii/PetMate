@@ -15,7 +15,7 @@ import axios from "axios";
 // const config = require("./../config/config");
 
 const VetAvailability = ({ navigation }) => {
-  // const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
 
   // const { user } = useAuth();
@@ -92,7 +92,7 @@ const VetAvailability = ({ navigation }) => {
           <View style={styles.details}>
             <Text style={styles.details_text}>Date</Text>
             <View style={styles.date_container}>
-              <DatePicker
+            <DatePicker
                 style={styles.datePickerStyle}
                 date={availableDate}
                 mode="date"
@@ -116,7 +116,7 @@ const VetAvailability = ({ navigation }) => {
                 date={timeFrom} // Use the time state here
                 onDateChange={setTimeFrom} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
-                onChangeText={(text) => setTimeFrom(text)}
+                onChangeText={(text) => setTimeTo(text)}
               />
               <View style={styles.container2}>
                 <Text style={styles.to_text}>TO</Text>
@@ -160,7 +160,7 @@ const VetAvailability = ({ navigation }) => {
                 keyboardType="numeric" // Adding numeric keyboard for input field.
               ></TextInput>
             </View>
-          </View>
+          </View>          
         </View>
         <TouchableOpacity style={styles.button} onPress={() => handlePress()}>
           <Text style={styles.button_text}>Add</Text>
