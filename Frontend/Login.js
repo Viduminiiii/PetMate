@@ -40,6 +40,7 @@ const Login = ({ navigation }) => {
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");
+    navigation.navigate("FPSendEmail");
   };
   return (
     <View style={styles.loginpage1}>
