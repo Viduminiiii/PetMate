@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert
 } from "react-native";
 const config = require("./config/config");
 
@@ -21,6 +22,12 @@ const Login = ({ navigation }) => {
     // console.log("handlePress ----  " + username + " -  " + password);
     const userData = { username, password };
 
+    if (!username || !password) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+
+    console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/getOneUser", userData)

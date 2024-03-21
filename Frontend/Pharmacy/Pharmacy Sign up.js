@@ -19,6 +19,7 @@ const PharmacySignUp = ({ navigation }) => {
   const [pharmacyName, setpharmacyName] = useState();
   const [pharmacyLicenseNumber, setpharmacyLicenseNumber] = useState();
   const [pharmacyAddress, setpharmacyAddress] = useState();
+  const [mainCity, setmainCity] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -31,11 +32,22 @@ const PharmacySignUp = ({ navigation }) => {
       pharmacyName,
       pharmacyLicenseNumber,
       pharmacyAddress,
+      mainCity,
       password,
     };
 
+    if (!fullname || !username || !email || !pharmacyName || !pharmacyLicenseNumber || !pharmacyAddress || !mainCity || !password) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
+      return;
+    }
+
+    if (!validatepharmacyName(pharmacyName)) {
+      Alert.alert("Invalid Pharmacy Name", "Pharmacy Name should not contain numbers");
       return;
     }
 
@@ -43,7 +55,12 @@ const PharmacySignUp = ({ navigation }) => {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
     }
+    if (!validateMainCity(mainCity)) {
+      Alert.alert("Invalid City", "Please enter a valid City");
+      return;
+    }
 
+    console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post("http://192.168.1.7:5001/registerPharmacy", userData)
@@ -59,11 +76,23 @@ const PharmacySignUp = ({ navigation }) => {
     const containsNumbers = /\d/.test(fullName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
+
+  const validatepharmacyName = (pharmacyName) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(pharmacyName);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
+  };
   
   const validateEmail = (email) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const validateMainCity = (mainCity) => {
+    // Check if city contains numbers
+    const containsNumbers = /\d/.test(mainCity);
+    return !containsNumbers; // Return true if City doesn't contain numbers
   };
 
   return (
@@ -118,6 +147,13 @@ const PharmacySignUp = ({ navigation }) => {
             style={styles.textInput}
             placeholder="Pharmacy Address"
             onChangeText={(text) => setpharmacyAddress(text)}
+          ></TextInput>
+        </View>
+        <View style={styles.container2}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Main city the pharmacy located"
+            onChangeText={(text) => setmainCity(text)}
           ></TextInput>
         </View>
         <View style={styles.container4}>
