@@ -30,6 +30,12 @@ const SignUp = ({ navigation }) => {
       age,
       password,
     };
+
+    if (!fullname || !username || !email || !petname || !age || !password) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
@@ -44,6 +50,7 @@ const SignUp = ({ navigation }) => {
       Alert.alert("Invalid Age", "Please enter a valid positive age");
       return;
     }
+    console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post("http://192.168.8.102:5001/register", userData)
@@ -113,6 +120,7 @@ const SignUp = ({ navigation }) => {
         <TextInput
           style={styles.textInput}
           placeholder="Age"
+          keyboardType="numeric"
           onChangeText={(text) => setAge(text)}
         ></TextInput>
       </View>
