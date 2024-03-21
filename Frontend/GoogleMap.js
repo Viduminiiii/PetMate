@@ -5,7 +5,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
 */
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 const GoogleMap = () => {
   const mapRef = useRef(null);
@@ -48,7 +48,15 @@ const GoogleMap = () => {
           longitudeDelta: 0.07, // Indicates the zoom level of the map along the longitude axis.
         }}
         onPress={handleMapPress}
-      ></MapView>
+      >
+        {marker.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker}
+            image={require("../AppPics/location_marker.png")}
+          ></Marker>
+        ))}
+      </MapView>
       <View style={styles.google_map_places}>
         <GooglePlacesAutocomplete
           placeholder="Search"
