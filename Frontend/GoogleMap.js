@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 /*
@@ -9,6 +9,12 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 const GoogleMap = () => {
   const mapRef = useRef(null);
+  /*
+  This state is use to keep track of the markers placed on the map.
+  When pressing on the map its coordinates are added to the "markers" array using "setMarkers".
+  This is reset the map component with the updated marker position.
+  */
+  const [markers, setMarkers] = useState([]);
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
