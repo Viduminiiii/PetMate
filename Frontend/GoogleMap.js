@@ -15,6 +15,9 @@ const GoogleMap = () => {
   This is reset the map component with the updated marker position.
   */
   const [marker, setMarker] = useState([]);
+
+  const customMarkerImage = require("../AppPics/location_marker.png");
+
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
@@ -57,7 +60,8 @@ const GoogleMap = () => {
           <Marker
             key={index}
             coordinate={marker}
-            image={require("../AppPics/location_marker.png")}
+            image={customMarkerImage}
+            // style={styles.markerImage}
           ></Marker>
         ))}
       </MapView>
@@ -108,6 +112,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     elevation: 10, // Add shadow to the search bar.
   },
+  // markerImage: {
+  //   width: 50,
+  //   height: 50,
+  // },
 });
 
 export default GoogleMap;
