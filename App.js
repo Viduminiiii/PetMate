@@ -32,9 +32,10 @@ import Vet_Settings from "./Frontend/Vetenarian/Vet_Settings";
 import Vet_Notification from "./Frontend/Vetenarian/Vet_Notification";
 import FPSendEmail from "./Frontend/FPSendEmail";
 import FPVerification from "./Frontend/FPVerification";
-
+import FPResetPassword from "./Frontend/FPResetPassword";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -84,6 +85,8 @@ function App() {
         <Stack.Screen name="GoogleMap" component={GoogleMap} />
         <Stack.Screen name="FPSendEmail" component={FPSendEmail} />
         <Stack.Screen name="FPVerification" component={FPVerification} />
+        <Stack.Screen name="FPResetPassword" component={FPResetPassword} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

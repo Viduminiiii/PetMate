@@ -10,9 +10,9 @@ import {
 
 const FPVerification = () => {
   const [code, setCode] = useState();
-  const handlePress = () => {
-    console.log("Button Pressed");
-  };
+  // const handlePress = () => {
+  //   console.log("Button Pressed");
+  // };
   return (
     <View style={styles.main_container}>
       <Image source={require("../AppPics/Dog.png")} style={styles.image} />
@@ -34,10 +34,10 @@ const FPVerification = () => {
             maxLength={4} // Allow user to only input maximum 4 characters.
           ></TextInput>
         </View>
-        <TouchableOpacity style={styles.verify_button} onPress={handlePress}>
+        <TouchableOpacity style={styles.verify_button} onPress={() => navigation.navigate("FPResetPassword")}>
           <Text style={styles.verification_button_text}>Verify Code</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity >
           <Text style={styles.resend_the_code_button_text}>Resend Code ?</Text>
         </TouchableOpacity>
       </View>
