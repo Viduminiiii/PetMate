@@ -9,8 +9,9 @@ import {
   Alert
 } from "react-native";
 
-const FPVerification = () => {
-  const [code, setCode] = useState();
+const FPResetPassword = () => {
+  const [password, setPassword] = useState();
+  const [confirmpassword, setconfirmPassword] = useState();
   const handlePress = () => {
 
     if (!code) {
@@ -23,29 +24,25 @@ const FPVerification = () => {
   return (
     <View style={styles.main_container}>
       <Image source={require("../AppPics/Dog.png")} style={styles.image} />
-      <Text style={styles.verification_text}>Verification</Text>
+      <Text style={styles.verification_text}>Reset Password</Text>
       <View style={styles.enter_the_verification_text_container}>
-        <Text style={styles.enter_the_verification_text_1}>
-          Enter the verification code we
-        </Text>
-        <Text style={styles.enter_the_verification_text_2}>
-          just send you on your email
-        </Text>
-        <Text style={styles.enter_the_verification_text_3}>address</Text>
+      <View style={styles.code_input_text_field}>
+          <TextInput
+            style={styles.code_text_input}
+            placeholder="Enter your new password"
+            onChangeText={(text) => setCode(text)}
+          ></TextInput>
+        </View>
+  
         <View style={styles.code_input_text_field}>
           <TextInput
             style={styles.code_text_input}
-            placeholder="Enter your 4 digit code here"
-            keyboardType="numeric" // Adding numeric keyboard for input field.
+            placeholder="Re-enter your new password"
             onChangeText={(text) => setCode(text)}
-            maxLength={4} // Allow user to only input maximum 4 characters.
           ></TextInput>
         </View>
         <TouchableOpacity style={styles.verify_button} onPress={handlePress}>
-          <Text style={styles.verification_button_text}>Verify Code</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.resend_the_code_button_text}>Resend Code ?</Text>
+          <Text style={styles.verification_button_text}>Confirm</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -106,7 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    marginTop: 30,
+    marginTop: 60,
     marginLeft: 50,
     height: 50,
     width: 150,
@@ -125,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FPVerification;
+export default FPResetPassword;
