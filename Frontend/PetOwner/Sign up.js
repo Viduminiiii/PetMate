@@ -46,6 +46,11 @@ const SignUp = ({ navigation }) => {
       return;
     }
 
+    if (!validatepetname(petname)) {
+      Alert.alert("Invalid Pet Name", "Pet name should not contain numbers");
+      return;
+    }
+
     if (!validateAge(age)) {
       Alert.alert("Invalid Age", "Please enter a valid positive age");
       return;
@@ -70,6 +75,12 @@ const SignUp = ({ navigation }) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const validatepetname = (petname) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(petname);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
   };
 
   const validateAge = (age) => {
