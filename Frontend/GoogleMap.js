@@ -48,7 +48,7 @@ const GoogleMap = () => {
           longitudeDelta: 0.07, // Indicates the zoom level of the map along the longitude axis.
         }}
         onPress={handleMapPress}
-      />
+      ></MapView>
       <View style={styles.google_map_places}>
         <GooglePlacesAutocomplete
           placeholder="Search"
