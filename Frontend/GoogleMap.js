@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 /*
 Use to embed interactive maps into the application
@@ -30,10 +30,14 @@ const GoogleMap = () => {
       2000 // The duration of the animation is set to 2000 milliseconds (2 seconds)
     );
   };
+  /*
+  This function is an event handling.
+  This function is call when user presses on the map.
+  */
   const handleMapPress = (event) => {
-    const { coordinate } = event.nativeEvent;
-    console.log("Clicked Location's Coordinate:", coordinate);
-    setMarker([coordinate]);
+    const { coordinate } = event.nativeEvent; // Use to get the coordinate of the user pressed location on the map.
+    console.log("Clicked Location's Coordinate:", coordinate); // Use to display the lat and long in the console.
+    setMarker([coordinate]); // Use to clear the previous marker and add the new marker's coordinate.
   };
   return (
     <View style={styles.container}>
