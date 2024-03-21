@@ -14,7 +14,7 @@ const GoogleMap = () => {
   When pressing on the map its coordinates are added to the "markers" array using "setMarkers".
   This is reset the map component with the updated marker position.
   */
-  const [markers, setMarkers] = useState([]);
+  const [marker, setMarker] = useState([]);
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
@@ -30,6 +30,11 @@ const GoogleMap = () => {
       2000 // The duration of the animation is set to 2000 milliseconds (2 seconds)
     );
   };
+  const handleMapPress = (event) => {
+    const { coordinate } = event.nativeEvent;
+    console.log("Clicked Location's Coordinate:", coordinate);
+    setMarker([coordinate]);
+  };
   return (
     <View style={styles.container}>
       <MapView
@@ -42,6 +47,7 @@ const GoogleMap = () => {
           latitudeDelta: 0.07, // Indicates the zoom level of the map along the latitude axis.
           longitudeDelta: 0.07, // Indicates the zoom level of the map along the longitude axis.
         }}
+        onPress={handleMapPress}
       />
       <View style={styles.google_map_places}>
         <GooglePlacesAutocomplete
