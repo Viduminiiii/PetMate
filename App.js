@@ -82,6 +82,7 @@ function App() {
         <Stack.Screen name="AvailableMedicine" component={AvailableMedicine} />
         <Stack.Screen name="VetAvailability" component={VetAvailability} />
         <Stack.Screen name="GoogleMap" component={GoogleMap} />
+
         <Stack.Screen name="FPSendEmail" component={FPSendEmail} />
         <Stack.Screen name="FPVerification" component={FPVerification} />
       </Stack.Navigator>
