@@ -9,11 +9,14 @@ import {
   TextInput,
   Alert
 } from "react-native";
+import { useAuth } from './config/AuthContext';
 const config = require("./config/config");
 
 const Login = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
+
+  const { login } = useAuth();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -28,22 +31,26 @@ const Login = ({ navigation }) => {
     }
 
     console.log("All fields filled, proceed with registration.");
-    console.log("userData:  " + JSON.stringify(userData));
+    // console.log("userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/getOneUser", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Menu");
+        // console.log(res.data);
+        if (res.data.status === "ok") {
+          // console.log("res.data.data:   "+ JSON.stringify(res.data.data));
+          login(JSON.stringify(res.data.data));
+          if (res.data.data.userLevel === "1") {
+            navigation.navigate("Menu");
+          } else if (res.data.data.userLevel === "2") {
+            navigation.navigate("VetMenu");
+          } else if (res.data.data.userLevel === "3") {
+            navigation.navigate("PharmacyPrescription");
+          } else {
+            navigation.navigate("Login");
+          }
+        }
       })
       .catch((e) => console.log(e));
-
-    // if (username === "pet" && password === "123") {
-    //   navigation.navigate("Menu");
-    // } else if (username === "vet" && password === "123") {
-    //   navigation.navigate("VetMenu");
-    // } else if (username === "pharmacy" && password === "123") {
-    //   navigation.navigate("PharmacyPrescription");
-    // }
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");

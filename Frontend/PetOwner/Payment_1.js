@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,35 +7,34 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
+import { useAuth } from "../config/AuthContext";
 
 const Payment_1 = ({ navigation }) => {
+  const { user } = useAuth();
+  const [doctorFee, setDoctorFee] = useState(null);
+  const [serviceCharge, setServiceCharge] = useState(false);
+  const [totalFee, setTotalFee] = useState(false);
+
+  useEffect(() => {
+    if (doctorFee !== null && serviceCharge !== null) {
+      const total = parseFloat(doctorFee) + parseFloat(serviceCharge);
+    //   console.log(`Total Fee calculated: ${total}`);
+      setTotalFee(total.toString());
+    }
+  }, [doctorFee, serviceCharge]);
+
   const handlePress = () => {
-    const { user } = useAuth();
-    const [doctorFee, setDoctorFee] = useState(null);
-    const [serviceCharge, setServiceCharge] = useState(false);
-    const [totalFee, setTotalFee] = useState(false);
-
-    useEffect(() => {
-      if (doctorFee !== null && serviceCharge !== null) {
-        const total = parseFloat(doctorFee) + parseFloat(serviceCharge);
-        //   console.log(`Total Fee calculated: ${total}`);
-        setTotalFee(total.toString());
-      }
-    }, [doctorFee, serviceCharge]);
-
-    const handlePress = () => {
-      console.log("Button pressed");
-      const userData = {
-        doctorFee: doctorFee,
-        serviceCharge: serviceCharge,
-        totalFee: totalFee,
-      };
-
-      console.log(
-        "----------------------userData:   " + JSON.stringify(userData)
-      );
-      navigation.navigate("PaymentGateway");
+    console.log("Button pressed");
+    const userData = {
+      doctorFee: doctorFee,
+      serviceCharge: serviceCharge,
+      totalFee: totalFee,
     };
+
+    console.log(
+      "----------------------userData:   " + JSON.stringify(userData)
+    );
+    navigation.navigate("PaymentGateway")
   };
   return (
     <View style={styles.page}>
@@ -55,7 +54,7 @@ const Payment_1 = ({ navigation }) => {
           ></TextInput>
         </View>
         <View style={styles.eachDetail}>
-          <Text style={styles.name}>Service Charge</Text>
+          <Text style={styles.name}>Service Charges</Text>
           <TextInput
             style={styles.Channel_Text_box}
             onChangeText={(text) => setServiceCharge(text)}
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
     //flex: 1,
     //alignItems: "flex-start",
     marginRight: "0%",
-    marginBottom: "30%",
+    marginBottom: 105,
   },
   detailContainer: {
     //flexDirection: "row",
@@ -204,8 +203,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    height: 43,
-    width: 120,
+    height: 45,
+    width: 140,
     backgroundColor: "#F2E5E5",
     borderRadius: 10,
     justifyContent: "center",

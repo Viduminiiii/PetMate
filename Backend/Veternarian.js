@@ -7,6 +7,8 @@ const VeternarianSchema=new Schema({
     veterinaryClinicName: { type: String, required: true },
     veterinaryLicenseNumber: { type: String, required: true },
     veterinaryClinicAddress: { type: String, required: true },
+    createdDate: {type: Date, required: true},
+    modifiedDate: {type: Date },
 },{
     collection: "Veternarian"
 })
