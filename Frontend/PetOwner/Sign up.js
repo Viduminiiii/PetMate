@@ -33,6 +33,12 @@ const SignUp = ({ navigation }) => {
       age,
       password,
     };
+
+    if (!fullname || !username || !email || !petname || !age || !password) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
@@ -43,10 +49,16 @@ const SignUp = ({ navigation }) => {
       return;
     }
 
+    if (!validatepetname(petname)) {
+      Alert.alert("Invalid Pet Name", "Pet name should not contain numbers");
+      return;
+    }
+
     if (!validateAge(age)) {
       Alert.alert("Invalid Age", "Please enter a valid positive age");
       return;
     }
+    console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/register", userData)
@@ -66,6 +78,12 @@ const SignUp = ({ navigation }) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const validatepetname = (petname) => {
+    // Check if full name contains numbers
+    const containsNumbers = /\d/.test(petname);
+    return !containsNumbers; // Return true if full name doesn't contain numbers
   };
 
   const validateAge = (age) => {
@@ -116,6 +134,7 @@ const SignUp = ({ navigation }) => {
         <TextInput
           style={styles.textInput}
           placeholder="Age"
+          keyboardType="numeric"
           onChangeText={(text) => setAge(text)}
         ></TextInput>
       </View>

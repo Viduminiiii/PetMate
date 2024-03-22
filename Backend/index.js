@@ -1,5 +1,7 @@
 const dbconfig = require("./config/db.config");
 var express = require("express");
+const dbconfig = require("./config/db.config");
+var express = require("express");
 require("dotenv").config();
 var app = express();
 var mongoose = require("mongoose");
@@ -411,7 +413,7 @@ const generateAccessToken = async () => {
       throw new Error("MISSING_API_CREDENTIALS");
     }
     const auth = Buffer.from(
-      PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET,
+      PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET
     ).toString("base64");
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
@@ -436,7 +438,7 @@ const createOrder = async (cart) => {
   // use the cart information passed from the front-end to calculate the purchase unit details
   console.log(
     "shopping cart information passed from the frontend createOrder() callback:",
-    cart,
+    cart
   );
 
   const accessToken = await generateAccessToken();

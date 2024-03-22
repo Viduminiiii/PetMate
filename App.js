@@ -30,6 +30,8 @@ import VetSignUp from "./Frontend/Vetenarian/Vet Sign up";
 import Vet_Settings from "./Frontend/Vetenarian/Vet_Settings";
 import Vet_Notification from "./Frontend/Vetenarian/Vet_Notification";
 import GoogleMap from "./Frontend/GoogleMap";
+import FPSendEmail from "./Frontend/FPSendEmail";
+import FPVerification from "./Frontend/FPVerification";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -42,7 +44,6 @@ function App() {
     <AuthProvider>
       <NavigationContainer initialRouteName="Startup">
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-
           <Stack.Screen name="Startup" component={Startup} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserCategory" component={UserCategory} />
@@ -51,11 +52,20 @@ function App() {
           <Stack.Screen name="Menu" component={PetOwnerMenu} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="DocChannelling" component={DocChannelling} />
-          <Stack.Screen name="Petowner_Settings" component={Petowner_Settings} />
+          <Stack.Screen
+            name="Petowner_Settings"
+            component={Petowner_Settings}
+          />
           <Stack.Screen name="Medicalrecords" component={Medicalrecords} />
-          <Stack.Screen name="Available_VetSessions" component={Available_VetSessions} />
+          <Stack.Screen
+            name="Available_VetSessions"
+            component={Available_VetSessions}
+          />
           <Stack.Screen name="Payment_1" component={Payment_1} />
-          <Stack.Screen name="Petowner_NotificationPage" component={Petowner_NotificationPage} />
+          <Stack.Screen
+            name="Petowner_NotificationPage"
+            component={Petowner_NotificationPage}
+          />
           <Stack.Screen name="Prescription" component={Prescription} />
           <Stack.Screen name="Reminders" component={Reminders} />
           <Stack.Screen name="LocateVetClinics" component={LocateVetClinics} />
@@ -73,10 +83,21 @@ function App() {
           <Stack.Screen name="VetAvailability" component={VetAvailability} />
 
           <Stack.Screen name="PharmacySignUp" component={PharmacySignUp} />
-          <Stack.Screen name="PharmacyPrescription" component={PharmacyPrescription} />
-          <Stack.Screen name="Pharmacy_Settings" component={Pharmacy_Settings} />
-          <Stack.Screen name="AvailableMedicine" component={AvailableMedicine} />
+          <Stack.Screen
+            name="PharmacyPrescription"
+            component={PharmacyPrescription}
+          />
+          <Stack.Screen
+            name="Pharmacy_Settings"
+            component={Pharmacy_Settings}
+          />
+          <Stack.Screen
+            name="AvailableMedicine"
+            component={AvailableMedicine}
+          />
           <Stack.Screen name="GoogleMap" component={GoogleMap} />
+          <Stack.Screen name="FPSendEmail" component={FPSendEmail} />
+          <Stack.Screen name="FPVerification" component={FPVerification} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
