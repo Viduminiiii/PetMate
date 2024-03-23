@@ -1,3 +1,4 @@
+//import necessary components from react native
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -7,49 +8,54 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { useAuth } from "../config/AuthContext";
+import { useAuth } from "../config/AuthContext"; //importing the useAuth hook from the AuthContext module located in the  "../config" directory
 
 const Payment_1 = ({ navigation }) => {
-  const { user } = useAuth();
-  const [doctorFee, setDoctorFee] = useState(null);
-  const [serviceCharge, setServiceCharge] = useState(false);
-  const [totalFee, setTotalFee] = useState(false);
+  const { user } = useAuth(); //getting user information from the authentication context using the userAuth hook
+  const [doctorFee, setDoctorFee] = useState(null); //storing the doctor's fee, initialized to null
+  const [serviceCharge, setServiceCharge] = useState(false); //storing the service charge, initialized to false
+  const [totalFee, setTotalFee] = useState(false); //storing the total fee,initialized to false
 
+  //runs whenever the doctorFee and the serviceCharge are not null
   useEffect(() => {
     if (doctorFee !== null && serviceCharge !== null) {
       const total = parseFloat(doctorFee) + parseFloat(serviceCharge);
-    //   console.log(`Total Fee calculated: ${total}`);
-      setTotalFee(total.toString());
+      //   console.log(`Total Fee calculated: ${total}`);
+      setTotalFee(total.toString()); //Sets the totalFee state variable to the calculated total as a string
     }
   }, [doctorFee, serviceCharge]);
 
   const handlePress = () => {
     console.log("Button pressed");
+    //constructs userData object with doctorFee, serviceCharge, and totalFee
     const userData = {
       doctorFee: doctorFee,
       serviceCharge: serviceCharge,
       totalFee: totalFee,
     };
-
+    //logs the userData object after converting it to a string
     console.log(
       "----------------------userData:   " + JSON.stringify(userData)
     );
-    navigation.navigate("PaymentGateway")
+    navigation.navigate("PaymentGateway"); //navigates to the payment gateway screen
   };
   return (
     <View style={styles.page}>
+      {/* main container which contains all the components*/}
       <View style={styles.nav_bar}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
         <Text style={styles.nav_text}>PAYMENT SUMMARY</Text>
       </View>
       <View style={styles.container1}>
         <Text style={styles.topic}>Payment Details</Text>
+        {/*adding a text to display*/}
       </View>
       <View style={styles.detailContainer}>
         <View style={styles.eachDetail}>
           <Text style={styles.name}>Doctor Fee</Text>
           <TextInput
             style={styles.Text_box}
-            onChangeText={(text) => setDoctorFee(text)}
+            onChangeText={(text) => setDoctorFee(text)} //Function called when the text changes to update the doctorFee state
             keyboardType="numeric"
           ></TextInput>
         </View>
@@ -58,7 +64,7 @@ const Payment_1 = ({ navigation }) => {
           <TextInput
             style={styles.Channel_Text_box}
             onChangeText={(text) => setServiceCharge(text)}
-            keyboardType="numeric"
+            keyboardType="numeric" //allowing only numeric input for the keyboard
           ></TextInput>
         </View>
         <View style={styles.eachDetail}>
@@ -80,6 +86,7 @@ const Payment_1 = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
+        {/*creating the footer*/}
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}
