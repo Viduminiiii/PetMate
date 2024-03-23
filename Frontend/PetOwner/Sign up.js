@@ -1,3 +1,4 @@
+//importing necessary components from react native
 import React, { useState } from "react";
 import {
   View,
@@ -6,11 +7,12 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Alert
+  Alert,
 } from "react-native";
-import axios from "axios";
+import axios from "axios"; // importing axios for making HTTP requests
 
 const SignUp = ({ navigation }) => {
+  //base URL for API requests
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   console.log("baseURL: " + baseURL);
 
@@ -25,6 +27,7 @@ const SignUp = ({ navigation }) => {
 
   const handlePress = () => {
     console.log("Button pressed");
+    //creating userData object
     const userData = {
       fullname,
       username,
@@ -34,37 +37,47 @@ const SignUp = ({ navigation }) => {
       password,
     };
 
+    //validation checks for mandatory fields
     if (!fullname || !username || !email || !petname || !age || !password) {
-      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      Alert.alert(
+        "Missing Information",
+        "Please fill in all mandatory fields."
+      );
       return;
     }
 
+    //validating the full name
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
     }
 
+    //validating the email
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
     }
 
+    //validating the pet name
     if (!validatepetname(petname)) {
       Alert.alert("Invalid Pet Name", "Pet name should not contain numbers");
       return;
     }
 
+    //validating the age
     if (!validateAge(age)) {
       Alert.alert("Invalid Age", "Please enter a valid positive age");
       return;
     }
+    //log message indicating all fields are filled and registration is proceeding
     console.log("All fields filled, proceed with registration.");
-    console.log("userData:  " + JSON.stringify(userData));
+    console.log("userData:  " + JSON.stringify(userData)); //logging the user data after converting it to a JSON string.
+    //sending a POST request to register the user with provided data
     axios
       .post(baseURL + "/register", userData)
       .then((res) => {
         console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Login");
+        if (res.data.status === "ok") navigation.navigate("Login"); //navigating to the Login screen if registration is successful
       })
       .catch((e) => console.log(e));
   };
@@ -73,7 +86,7 @@ const SignUp = ({ navigation }) => {
     const containsNumbers = /\d/.test(fullName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
-  
+
   const validateEmail = (email) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -93,17 +106,20 @@ const SignUp = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
         <Text style={styles.nav_text}>PET OWNER REGISTRATION</Text>
       </View>
       <View style={styles.container1}>
         <Text style={styles.text}>Pet Owner Information</Text>
+        {/*adding a text to display*/}
       </View>
       <View style={styles.container2}>
         <TextInput
           style={styles.textInput}
           placeholder="Full name"
-          onChangeText={(text) => setFullname(text)}
+          onChangeText={(text) => setFullname(text)} //function to update 'fullname' state when input changes
         ></TextInput>
       </View>
       <View style={styles.container2}>
@@ -134,7 +150,7 @@ const SignUp = ({ navigation }) => {
         <TextInput
           style={styles.textInput}
           placeholder="Age"
-          keyboardType="numeric"
+          keyboardType="numeric" //allowing only numeric input for the keyboard
           onChangeText={(text) => setAge(text)}
         ></TextInput>
       </View>
@@ -147,14 +163,14 @@ const SignUp = ({ navigation }) => {
             onChangeText={(text) => setPassword(text)}
           ></TextInput>
           <TouchableOpacity
-          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-          style={styles.button}
-        >
-          <Image
-            source={require("../../AppPics/Password.png")}
-            style={styles.password_eyeimage}
-          />
-        </TouchableOpacity>
+            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+            style={styles.button}
+          >
+            <Image
+              source={require("../../AppPics/Password.png")}
+              style={styles.password_eyeimage}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
@@ -163,7 +179,7 @@ const SignUp = ({ navigation }) => {
           //validateFullName();
           //validateEmail;
           //validateAge();
-          handlePress()
+          handlePress();
         }}
       >
         <Text style={styles.signUpButtonText}>Sign Up</Text>
@@ -189,6 +205,7 @@ const SignUp = ({ navigation }) => {
       <View style={styles.container4}>
         <Text style={styles.text}>Do you have an account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          {/*creating the login button*/}
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
       </View>
