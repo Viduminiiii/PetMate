@@ -1,13 +1,15 @@
-import React, { useState }  from "react";
+//importing necessary components from react native
+import React, { useState } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
   TouchableOpacity,
-  Switch
+  Switch,
 } from "react-native";
 
+//Petowner_NotificationPage component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Petowner_NotificationPage = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
@@ -20,17 +22,20 @@ const Petowner_NotificationPage = ({ navigation }) => {
     setIsEnabledReminder((previousState) => !previousState);
   const toggleSwitchAppReminder = () =>
     setIsEnabledAppReminder((previousState) => !previousState);
-    
+
   return (
     <View style={styles.container}>
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>NOTIFICATIONS</Text>
+        {/*adding a text to display*/}
       </View>
 
       <View style={styles.notifications}>
@@ -39,12 +44,9 @@ const Petowner_NotificationPage = ({ navigation }) => {
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
             thumbColor={isEnabledReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
-            onValueChange={toggleSwitchReminder}
-            value={isEnabledReminder}
-            style={[
-              styles.switch,
-              { marginLeft: 120,},
-            ]}
+            onValueChange={toggleSwitchReminder} //function called when switch value changes
+            value={isEnabledReminder} //value determining the state of the switch
+            style={[styles.switch, { marginLeft: 120 }]}
           />
         </View>
 
@@ -55,40 +57,40 @@ const Petowner_NotificationPage = ({ navigation }) => {
             thumbColor={isEnabledAppReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
             onValueChange={toggleSwitchAppReminder}
             value={isEnabledAppReminder}
-            style={[
-              styles.switch,
-              { marginLeft: 20,},
-            ]}
+            style={[styles.switch, { marginLeft: 20 }]}
           />
         </View>
       </View>
 
-        <View style={styles.footer}>
-        <TouchableOpacity  onPress={() => navigation.navigate('Menu')}>
+      <View style={styles.footer}>
+        {/*creating the footer*/}
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LocateVetClinics")}
+        >
           <Image
             source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
           <Image
             source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 50,
     borderRadius: 20,
-    flexDirection: "row",
+    flexDirection: "row", //aligning items horizontally
   },
   reminders: {
     fontSize: 18,
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 65,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center", //aligning items at center vertically
   },
   menu_img: {
     width: 40,
