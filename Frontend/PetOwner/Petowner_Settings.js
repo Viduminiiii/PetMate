@@ -1,6 +1,8 @@
+//importing necessary components from react native
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
+//Petowner_Settings component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Petowner_Settings = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
@@ -8,7 +10,9 @@ const Petowner_Settings = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -16,29 +20,34 @@ const Petowner_Settings = ({ navigation }) => {
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>SETTINGS</Text>
+        {/*adding a text to display*/}
       </View>
 
       <View style={styles.user}>
-          <Image
-            source={require("../../AppPics/User_icon.png")}
-            style={styles.image1}
-          />
+        <Image
+          source={require("../../AppPics/User_icon.png")}
+          style={styles.image1}
+        />
+        {/*inserting an image*/}
       </View>
 
       <View style={styles.text1}>
-          <Text style={styles.username}>Marsh Smith</Text>
+        <Text style={styles.username}>Marsh Smith</Text>
       </View>
 
       <View style={styles.text2}>
-          <Text style={styles.email}>marshsmith@gmail.com</Text>
+        <Text style={styles.email}>marshsmith@gmail.com</Text>
       </View>
 
       <View style={styles.notification_btns}>
-      <View style={styles.container_1}>
-        <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Petowner_NotificationPage')}>
-          <Text style={styles.notification}>Notifications</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.container_1}>
+          <TouchableOpacity
+            style={styles.text_input3}
+            onPress={() => navigation.navigate("Petowner_NotificationPage")}
+          >
+            <Text style={styles.notification}>Notifications</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.container_3}>
@@ -50,6 +59,7 @@ const Petowner_Settings = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
@@ -194,7 +204,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 65,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center", //aligning items at center vertically
   },
   menu_img: {
     width: 40,
