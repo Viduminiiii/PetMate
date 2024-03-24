@@ -12,9 +12,11 @@ import {
 import axios from "axios";
 
 const VetSignUp = ({ navigation }) => {
+  // Base URL for the backend API
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   console.log("baseURL: " + baseURL);
 
+  // State variables for user input fields and password visibility
   const [fullname, setFullname] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -24,8 +26,10 @@ const VetSignUp = ({ navigation }) => {
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  // Function to handle sign up button press
   const handlePress = () => {
     console.log("Button pressed");
+    // Construct user data object
     const userData = {
       fullname,
       username,
@@ -36,26 +40,31 @@ const VetSignUp = ({ navigation }) => {
       password,
     };
 
+    // Check for missing information in the form
     if (!fullname || !username || !email || !veterinaryClinicName || !veterinaryLicenseNumber || !veterinaryClinicAddress || !password) {
       Alert.alert("Missing Information", "Please fill in all mandatory fields.");
       return;
     }
 
+    // Validate full name
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
     }
 
+    // Validate clinic name
     if (!validateClinicName(veterinaryClinicName)) {
       Alert.alert("Invalid Clinic Name", "Clinic Name should not contain numbers");
       return;
     }
 
+    // Validate email address
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
     }
-
+    
+    // If all validations pass, proceed with registration
     console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios

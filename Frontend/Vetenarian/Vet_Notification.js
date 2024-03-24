@@ -8,6 +8,7 @@ import {
   Switch,
 } from "react-native";
 
+// Functional component for managing vet notifications
 const Vet_Notification = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
@@ -19,11 +20,14 @@ const Vet_Notification = ({ navigation }) => {
   // Function to toggle the switch
   const toggleSwitchReminder = () =>
     setIsEnabledReminder((previousState) => !previousState);
+
+  // Function to toggle the switch for appointment reminders
   const toggleSwitchAppReminder = () =>
     setIsEnabledAppReminder((previousState) => !previousState);
 
   return (
     <View style={styles.container}>
+       {/* Navigation Bar */}
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
@@ -58,6 +62,8 @@ const Vet_Notification = ({ navigation }) => {
         </View>
       </View>
 
+
+      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image

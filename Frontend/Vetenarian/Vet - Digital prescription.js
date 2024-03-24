@@ -7,14 +7,15 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
-import DatePicker from "react-native-date-picker";
+import { Dropdown } from "react-native-element-dropdown";// Importing Dropdown component
+import DatePicker from "react-native-date-picker";// Importing DatePicker component
 
 const VetPrescription = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
 
+  // State variables for dropdown value, focus state, and date
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -30,6 +31,7 @@ const VetPrescription = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.nav_text}>DIGITAL PRESCRIPTION</Text>
       </View>
+      {/* Prescription details */}
       <View style={styles.details_box}>
         <View style={styles.petInfo}>
           <Text style={styles.heading}>Pet Information</Text>
@@ -73,6 +75,7 @@ const VetPrescription = ({ navigation }) => {
           </View>
         </View>
 
+        {/* Owner Information */}
         <View style={styles.ownerInfo}>
           <Text style={styles.heading}>Owner Information</Text>
           <View style={styles.info}>
@@ -91,6 +94,7 @@ const VetPrescription = ({ navigation }) => {
           </View>
         </View>
 
+        {/* Medication Information */}
         <View style={styles.medInfo}>
           <Text style={styles.heading}>Medication Information</Text>
           <View style={styles.info_med}>
@@ -103,6 +107,7 @@ const VetPrescription = ({ navigation }) => {
           </View>
         </View>
 
+        {/* Doctor Information */}
         <View style={styles.docInfo}>
           <View style={styles.info}>
             <Text style={styles.name}>Doctor's Name</Text>
@@ -131,12 +136,14 @@ const VetPrescription = ({ navigation }) => {
             </View>
           </View>
         </View>
+        {/* Send button */}
         <TouchableOpacity onPress={() => navigation.navigate("UserSearch")}>
           <View style={styles.button}>
             <Text style={styles.search_btn}>Send</Text>
           </View>
         </TouchableOpacity>
       </View>
+      {/* Footer navigation */}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
