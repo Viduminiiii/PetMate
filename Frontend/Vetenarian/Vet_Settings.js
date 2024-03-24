@@ -7,6 +7,7 @@ const Petowner_Settings = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
+      {/* Navigation Bar */}
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
@@ -17,13 +18,14 @@ const Petowner_Settings = ({ navigation }) => {
         <Text style={styles.nav_text}>SETTINGS</Text>
       </View>
 
+      {/* User Profile Section */}
       <View style={styles.user}>
           <Image
             source={require("../../AppPics/User_icon.png")}
             style={styles.image1}
           />
       </View>
-
+      {/* User Details */}
       <View style={styles.text1}>
           <Text style={styles.username}>Marsh Smith</Text>
       </View>
@@ -32,6 +34,7 @@ const Petowner_Settings = ({ navigation }) => {
           <Text style={styles.email}>marshsmith@gmail.com</Text>
       </View>
 
+      {/* Notification Buttons */}
       <View style={styles.notification_btns}>
       <View style={styles.container_1}>
         <TouchableOpacity style={styles.text_input3} onPress={() => navigation.navigate('Vet_Notification')}>
@@ -41,12 +44,14 @@ const Petowner_Settings = ({ navigation }) => {
 
       </View>
 
+      {/* Sign Out Button */}
       <View style={styles.container_3}>
         <TouchableOpacity style={styles.signoutbutton} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
+      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
           <Image
