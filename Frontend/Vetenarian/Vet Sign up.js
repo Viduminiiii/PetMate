@@ -12,6 +12,11 @@ import {
 import axios from "axios";
 
 const VetSignUp = ({ navigation }) => {
+  // Base URL for the backend API
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  console.log("baseURL: " + baseURL);
+
+  // State variables for user input fields and password visibility
   const [fullname, setFullname] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -21,8 +26,10 @@ const VetSignUp = ({ navigation }) => {
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  // Function to handle sign up button press
   const handlePress = () => {
     console.log("Button pressed");
+    // Construct user data object
     const userData = {
       fullname,
       username,
@@ -33,30 +40,35 @@ const VetSignUp = ({ navigation }) => {
       password,
     };
 
+    // Check for missing information in the form
     if (!fullname || !username || !email || !veterinaryClinicName || !veterinaryLicenseNumber || !veterinaryClinicAddress || !password) {
       Alert.alert("Missing Information", "Please fill in all mandatory fields.");
       return;
     }
 
+    // Validate full name
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
     }
 
+    // Validate clinic name
     if (!validateClinicName(veterinaryClinicName)) {
       Alert.alert("Invalid Clinic Name", "Clinic Name should not contain numbers");
       return;
     }
 
+    // Validate email address
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
     }
-
+    
+    // If all validations pass, proceed with registration
     console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/registerVet", userData)
+      .post(baseURL + "/registerVet", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Login");
@@ -70,8 +82,8 @@ const VetSignUp = ({ navigation }) => {
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
 
+  // Function to validate clinic name (should not contain numbers)
   const validateClinicName = (veterinaryClinicName) => {
-    // Check if full name contains numbers
     const containsNumbers = /\d/.test(veterinaryClinicName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
@@ -85,9 +97,11 @@ const VetSignUp = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
+        {/* Navigation Bar */}
         <View style={styles.nav_bar}>
           <Text style={styles.nav_text}>VETERINARY REGISTRATION</Text>
         </View>
+        {/* Veterinary Information */}
         <View style={styles.container1}>
           <Text style={styles.text}>Veterinary Information</Text>
         </View>
@@ -112,6 +126,7 @@ const VetSignUp = ({ navigation }) => {
             onChangeText={(text) => setEmail(text)}
           ></TextInput>
         </View>
+        {/* Clinic Information */}
         <View style={styles.infoText_container}>
           <Text style={styles.text}>Clinic Information</Text>
         </View>
@@ -143,6 +158,7 @@ const VetSignUp = ({ navigation }) => {
             onChangeText={(text) => setveterinaryClinicAddress(text)}
           ></TextInput>
         </View>
+        {/* Clinic Location */}
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Clinic Location</Text>
         </View>
@@ -152,6 +168,7 @@ const VetSignUp = ({ navigation }) => {
             style={styles.image}
           />
         </TouchableOpacity>
+        {/* Password */}
         <View style={styles.container3}>
           <View style={styles.inputWithImage}>
             <TextInput
@@ -170,12 +187,14 @@ const VetSignUp = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+        {/* Sign Up Button */}
         <TouchableOpacity
           style={styles.signUpButton}
           onPress={() => handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
+        {/* Continue with Social Media */}
         <View style={styles.container5}>
           <Text style={styles.text}>or continue with</Text>
         </View>

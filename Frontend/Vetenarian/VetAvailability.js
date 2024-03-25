@@ -11,14 +11,14 @@ import {
 import DatePicker from "react-native-date-picker";
 // import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
-// import { useAuth } from "../config/AuthContext";
-// const config = require("./../config/config");
+import { useAuth } from "../config/AuthContext";
+const config = require("./../config/config");
 
 const VetAvailability = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
 
-  // const { user } = useAuth();
+  const { user } = useAuth();
   const [availableDate, setAvailableDate] = useState(new Date());
   const [timeFrom, setTimeFrom] = useState(new Date());
   const [timeTo, setTimeTo] = useState(new Date());
@@ -43,8 +43,8 @@ const VetAvailability = ({ navigation }) => {
       .post(baseURL + "/availability", userData)
       .then((res) => {
         // console.log("---------------res.data:   " + JSON.stringify(res.data));
-        if (res.data.status === "ok")
-          // console.log("---------ok------------:  ");
+        if (res.data.status === "ok")        
+    // console.log("---------ok------------:  ");
           navigation.navigate("Available_VetSessions");
       })
       .catch((e) => console.log(e));
@@ -92,12 +92,12 @@ const VetAvailability = ({ navigation }) => {
           <View style={styles.details}>
             <Text style={styles.details_text}>Date</Text>
             <View style={styles.date_container}>
-            <DatePicker
+              <DatePicker
                 style={styles.datePickerStyle}
                 date={availableDate}
                 mode="date"
                 placeholder="select date"
-                format="DD/MM/YYYY"
+                format="DD-MM-YYYY"
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
                 onDateChange={(date) => {
@@ -116,7 +116,7 @@ const VetAvailability = ({ navigation }) => {
                 date={timeFrom} // Use the time state here
                 onDateChange={setTimeFrom} // Update the time state on change
                 is24hourSource="locale" // Optionally, use 24-hour or 12-hour format based on locale
-                onChangeText={(text) => setTimeTo(text)}
+                onChangeText={(text) => setTimeFrom(text)}
               />
               <View style={styles.container2}>
                 <Text style={styles.to_text}>TO</Text>

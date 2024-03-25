@@ -11,6 +11,9 @@ import {
 import axios from "axios";
 
 const SignUp = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  console.log("baseURL: " + baseURL);
+
   const [fullname, setFullname] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -58,7 +61,7 @@ const SignUp = ({ navigation }) => {
     console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.8.102:5001/register", userData)
+      .post(baseURL + "/register", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Login");

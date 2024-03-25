@@ -7,14 +7,18 @@ const ReceivedMessages = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
+      {/* Navigation bar */}
       <View style={styles.nav_bar}>
+        {/* Logo */}
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo_img}
           />
         </TouchableOpacity>
+        {/* Title */}
         <Text style={styles.nav_text}>CHAT</Text>
+        {/* Settings */}
         <TouchableOpacity onPress={() => navigation.navigate("Vet_Settings")}>
           <Image
             source={require("../../AppPics/Setting.png")}
@@ -23,6 +27,7 @@ const ReceivedMessages = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.inside_container}>
+        {/* Message items */}
         <View style={styles.user_and_message_buttons}>
           <TouchableOpacity onPress={() => navigation.navigate("VetChat")}>
             <Image
@@ -108,6 +113,8 @@ const ReceivedMessages = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+
+      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
@@ -205,7 +212,6 @@ const styles = StyleSheet.create({
   },
   message_button_text: {
     fontSize: 17,
-    // fontWeight: "bold",
     alignSelf: "flex-start",
     paddingLeft: 15,
   },
@@ -227,14 +233,7 @@ const styles = StyleSheet.create({
     height: 50,
     margin: 15,
   },
-  // footer_chat_img:{
-  //     width: 40,
-  //     height: 40,
-  // },
-  // footer_appointment_img:{
-  //     width: 40,
-  //     height: 40,
-  // },
+  
 });
 
 export default ReceivedMessages;
