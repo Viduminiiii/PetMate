@@ -16,20 +16,23 @@ import { PermissionsAndroid } from "react-native";
 import Geolocation from "react-native-get-location";
 
 const GoogleMap = () => {
-  const mapRef = useRef(null);
+  const mapRef = useRef(null); // Reference for access the MapView component methods
   /*
   This state is use to keep track of the markers placed on the map.
   When pressing on the map its coordinates are added to the "markers" array using "setMarkers".
   This is reset the map component with the updated marker position.
   */
   const [marker, setMarker] = useState([]);
-
+  /*
+  This state is used to track if the location permission is granted or not
+  by the user.
+  */
   const [permissionGranter, setPermissionGranter] = useState(false);
-
+  // This useEffect hook is use to perform side effects.
   useEffect(() => {
     getLocationPermission();
     getCurrentLocation();
-  }, []);
+  }, []); // The empty array indicates this effect is runs only once after the initial render.
 
   const customMarkerImage = require("../AppPics/location_marker.png");
 
@@ -49,7 +52,7 @@ const GoogleMap = () => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           setPermissionGranter(true);
         } else {
-          console.log("Camera permission denied");
+          console.log("Location permission denied");
         }
       } catch (err) {
         console.warn(err);
