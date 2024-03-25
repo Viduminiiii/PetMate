@@ -16,6 +16,12 @@ const GoogleMap = () => {
   */
   const [marker, setMarker] = useState([]);
 
+  const [permissionGranter, setPermissionGranter] = useState(false);
+
+  useEffect(() => {
+    getLocationPermission();
+  }, []);
+
   const customMarkerImage = require("../AppPics/location_marker.png");
   /*
   This function is use to animating the map view to specific location
@@ -41,6 +47,12 @@ const GoogleMap = () => {
     console.log("Clicked Location's Coordinate:", coordinate); // Use to display the lat and long in the console.
     setMarker([coordinate]); // Use to clear the previous marker and add the new marker's coordinate.
   };
+  if (!permissionGranter)
+    return (
+      <View>
+        <Text>Please allow location permission to continue</Text>
+      </View>
+    );
   return (
     <View style={styles.container}>
       <MapView
