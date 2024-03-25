@@ -9,6 +9,8 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 import { PermissionsAndroid } from "react-native";
 
+import Geolocation from "react-native-get-location";
+
 const GoogleMap = () => {
   const mapRef = useRef(null);
   /*
@@ -22,6 +24,7 @@ const GoogleMap = () => {
 
   useEffect(() => {
     getLocationPermission();
+    getCurrentLocation();
   }, []);
 
   const customMarkerImage = require("../AppPics/location_marker.png");
@@ -49,6 +52,19 @@ const GoogleMap = () => {
       }
     }
   }
+  const getCurrentLocation = () => {
+    // Retrieve the current location of the device.
+    Geolocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 60000,
+    })
+      .then((location) => {
+        console.log("My current location is: ", location); // Display the current location data on the console.
+      })
+      .catch((error) => {
+        "Error getting current location:", error;
+      });
+  };
 
   /*
   This function is use to animating the map view to specific location
