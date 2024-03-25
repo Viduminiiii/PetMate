@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 /*
 Use to embed interactive maps into the application
@@ -17,7 +17,6 @@ const GoogleMap = () => {
   const [marker, setMarker] = useState([]);
 
   const customMarkerImage = require("../AppPics/location_marker.png");
-
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
@@ -112,10 +111,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     elevation: 10, // Add shadow to the search bar.
   },
-  // markerImage: {
-  //   width: 50,
-  //   height: 50,
-  // },
 });
 
 export default GoogleMap;
