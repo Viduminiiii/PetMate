@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios";
+import config from "../config/config";
 
 const VetSignUp = ({ navigation }) => {
   // Base URL for the backend API
@@ -41,8 +42,19 @@ const VetSignUp = ({ navigation }) => {
     };
 
     // Check for missing information in the form
-    if (!fullname || !username || !email || !veterinaryClinicName || !veterinaryLicenseNumber || !veterinaryClinicAddress || !password) {
-      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+    if (
+      !fullname ||
+      !username ||
+      !email ||
+      !veterinaryClinicName ||
+      !veterinaryLicenseNumber ||
+      !veterinaryClinicAddress ||
+      !password
+    ) {
+      Alert.alert(
+        "Missing Information",
+        "Please fill in all mandatory fields."
+      );
       return;
     }
 
@@ -54,7 +66,10 @@ const VetSignUp = ({ navigation }) => {
 
     // Validate clinic name
     if (!validateClinicName(veterinaryClinicName)) {
-      Alert.alert("Invalid Clinic Name", "Clinic Name should not contain numbers");
+      Alert.alert(
+        "Invalid Clinic Name",
+        "Clinic Name should not contain numbers"
+      );
       return;
     }
 
@@ -63,7 +78,7 @@ const VetSignUp = ({ navigation }) => {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
     }
-    
+
     // If all validations pass, proceed with registration
     console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
