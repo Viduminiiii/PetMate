@@ -35,7 +35,11 @@ const GoogleMap = () => {
   }, []); // The empty array indicates this effect is runs only once after the initial render.
 
   const customMarkerImage = require("../AppPics/location_marker.png");
-
+  /*
+  This function is use to get location permission from the user and
+  call the specific functions to continue the process.
+  "await" can be only use functions with the "async".
+  */
   async function getLocationPermission() {
     if (Platform.OS === "android") {
       try {
@@ -50,7 +54,10 @@ const GoogleMap = () => {
           }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Update the state to true when permission is granted.
           setPermissionGranter(true);
+          // If permission is granted, then call the getCurrentLocation() function.
+          getCurrentLocation();
         } else {
           console.log("Location permission denied");
         }
