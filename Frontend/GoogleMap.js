@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useRef, useState, useEffect } from "react";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 /*
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
 */
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+
+import { PermissionsAndroid } from "react-native";
 
 const GoogleMap = () => {
   const mapRef = useRef(null);
@@ -23,6 +25,31 @@ const GoogleMap = () => {
   }, []);
 
   const customMarkerImage = require("../AppPics/location_marker.png");
+
+  async function getLocationPermission() {
+    if (Platform.OS === "android") {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Permission",
+            message: "Please allow location permission to continue",
+            buttonNeutral: "Ask Me Later",
+            buttonNegative: "Cancel",
+            buttonPositive: "OK",
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          setPermissionGranter(true);
+        } else {
+          console.log("Camera permission denied");
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+  }
+
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
