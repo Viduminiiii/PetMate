@@ -111,7 +111,7 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/registerVet", async (req, res) => {
-  console.log("req.body:   " + JSON.stringify(req.body));
+  console.log("--------------req.body:   " + JSON.stringify(req.body));
   const {
     fullname,
     username,
@@ -120,6 +120,8 @@ app.post("/registerVet", async (req, res) => {
     veterinaryClinicName,
     veterinaryLicenseNumber,
     veterinaryClinicAddress,
+    mainCity,
+    location,
   } = req.body;
   const oldPetEmail = await PetOwner.findOne({ email: email });
   const oldVetEmail = await Veternarian.findOne({ email: email });
@@ -139,6 +141,8 @@ app.post("/registerVet", async (req, res) => {
         veterinaryClinicName: veterinaryClinicName,
         veterinaryLicenseNumber: veterinaryLicenseNumber,
         veterinaryClinicAddress: veterinaryClinicAddress,
+        mainCity: mainCity,
+        location: location,
         createdDate: new Date(),
       });
       console.log("Veternarian:   " + Veternarian);
@@ -150,6 +154,7 @@ app.post("/registerVet", async (req, res) => {
       });
 
       if (objVet !== null && user !== null) {
+        console.log("user created");
         res.send({ status: "ok", data: "User created" });
       }
     } catch (error) {
@@ -373,8 +378,7 @@ app.post("/searchAvailability", async (req, res) => {
         })
         .exec();
     } else {
-      
-    console.log("----------- response----------------------- 3");
+      console.log("----------- response----------------------- 3");
       const filterAvailabilities = await Availability.find()
         .populate({
           path: "veternarian",
@@ -383,8 +387,9 @@ app.post("/searchAvailability", async (req, res) => {
         })
         .exec();
 
-        if(filterAvailabilities && filterAvailabilities.length)
-        { dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian); }
+      if (filterAvailabilities && filterAvailabilities.length) {
+        dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian);
+      }
     }
 
     // console.log("availabilities: " + JSON.stringify(dateAvailabilities));
@@ -399,7 +404,8 @@ app.post("/searchAvailability", async (req, res) => {
     } else {
       res.send({
         status: "No Data found.",
-        msg: "Data not found."});
+        msg: "Data not found.",
+      });
     }
   } catch (error) {
     console.error("Error during database query:", error);
@@ -531,7 +537,6 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
     res.status(500).json({ error: "Failed to capture order." });
   }
 });
-
 
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);
