@@ -66,6 +66,7 @@ const GoogleMap = () => {
       }
     }
   }
+  // Function to get the current location.
   const getCurrentLocation = () => {
     // Retrieve the current location of the device.
     Geolocation.getCurrentPosition({
@@ -79,7 +80,6 @@ const GoogleMap = () => {
         "Error getting current location:", error;
       });
   };
-
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
@@ -104,6 +104,7 @@ const GoogleMap = () => {
     console.log("Clicked Location's Coordinate:", coordinate); // Use to display the lat and long in the console.
     setMarker([coordinate]); // Use to clear the previous marker and add the new marker's coordinate.
   };
+  //Use to display a messsage if the permissionGranter state is false.
   if (!permissionGranter)
     return (
       <View>
