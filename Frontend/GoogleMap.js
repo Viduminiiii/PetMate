@@ -1,14 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 /*
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
 */
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-
+//Use to provide Google places auto complete functionality.
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+/*
+This provides a set of methods that allow to request runtime permissions from the user on
+Android devices.
+*/
 import { PermissionsAndroid } from "react-native";
-
+// This allow to retrieve the device's location using the specific methods.
 import Geolocation from "react-native-get-location";
 
 const GoogleMap = () => {
