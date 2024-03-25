@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
+import { Button } from "react-native-elements";
+import { useRoute } from "@react-navigation/native";
 /*
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
@@ -15,7 +17,8 @@ import { PermissionsAndroid } from "react-native";
 // This allow to retrieve the device's location using the specific methods.
 import Geolocation from "react-native-get-location";
 
-const GoogleMap = () => {
+const GoogleMap = ({ navigation }) => {
+  const route = useRoute();
   const mapRef = useRef(null); // Reference for access the MapView component methods
   /*
   This state is use to keep track of the markers placed on the map.
@@ -104,6 +107,12 @@ const GoogleMap = () => {
     console.log("Clicked Location's Coordinate:", coordinate); // Use to display the lat and long in the console.
     setMarker([coordinate]); // Use to clear the previous marker and add the new marker's coordinate.
   };
+  const sendLocationToSignup = () => {
+    // Pass location back to Signup
+    route.params?.onDataReceived(marker);
+    navigation.goBack();
+  };
+
   //Use to display a messsage if the permissionGranter state is false.
   if (!permissionGranter)
     return (
@@ -153,6 +162,7 @@ const GoogleMap = () => {
           }}
         />
       </View>
+      <Button title="Set Location" onPress={sendLocationToSignup} />
     </View>
   );
 };
