@@ -16,6 +16,7 @@ const Vet_Notification = ({ navigation }) => {
 
   // State to manage switch value
   const [isEnabledReminder, setIsEnabledReminder] = useState(false);
+  // State to manage switch value 
   const [isEnabledAppReminder, setIsEnabledAppReminder] = useState(false);
   // Function to toggle the switch
   const toggleSwitchReminder = () =>
@@ -29,6 +30,7 @@ const Vet_Notification = ({ navigation }) => {
     <View style={styles.container}>
        {/* Navigation Bar */}
       <View style={styles.nav_bar}>
+        {/* Button to navigate back to VetMenu */}
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -38,9 +40,12 @@ const Vet_Notification = ({ navigation }) => {
         <Text style={styles.nav_text}>NOTIFICATIONS</Text>
       </View>
 
+      {/* Container for notification settings */}
       <View style={styles.notifications}>
+         {/* Container for general reminders */}
         <View style={styles.container_1}>
           <Text style={styles.reminders}>Reminders</Text>
+          {/* Switch for toggling general reminders */}
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
             thumbColor={isEnabledReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
@@ -50,8 +55,10 @@ const Vet_Notification = ({ navigation }) => {
           />
         </View>
 
+        {/* Container for appointment reminders */}
         <View style={styles.container_2}>
           <Text style={styles.reminders_2}>Appointment Reminders</Text>
+          {/* Switch for toggling appointment reminders */}
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }} // Optional: Customize track color
             thumbColor={isEnabledAppReminder ? "#f5dd4b" : "#f4f3f4"} // Optional: Customize thumb color
@@ -71,7 +78,7 @@ const Vet_Notification = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-
+        {/* Button to navigate to ReceivedMessages */}
         <TouchableOpacity
           onPress={() => navigation.navigate("ReceivedMessages")}
         >
@@ -80,6 +87,7 @@ const Vet_Notification = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
+        {/* Button to navigate to VetPrescription */}
         <TouchableOpacity
           onPress={() => navigation.navigate("VetPrescription")}
         >
@@ -88,12 +96,14 @@ const Vet_Notification = ({ navigation }) => {
             style={styles.prescription_img}
           />
         </TouchableOpacity>
+        {/* Button to navigate to VetReminder */}
         <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
           <Image
             source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
+        {/* Button to navigate to VetAvailability */}
         <TouchableOpacity
           onPress={() => navigation.navigate("VetAvailability")}
         >

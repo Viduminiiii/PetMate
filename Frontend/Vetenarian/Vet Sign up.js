@@ -82,8 +82,8 @@ const VetSignUp = ({ navigation }) => {
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
 
+  // Function to validate clinic name (should not contain numbers)
   const validateClinicName = (veterinaryClinicName) => {
-    // Check if full name contains numbers
     const containsNumbers = /\d/.test(veterinaryClinicName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
@@ -97,9 +97,11 @@ const VetSignUp = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
+        {/* Navigation Bar */}
         <View style={styles.nav_bar}>
           <Text style={styles.nav_text}>VETERINARY REGISTRATION</Text>
         </View>
+        {/* Veterinary Information */}
         <View style={styles.container1}>
           <Text style={styles.text}>Veterinary Information</Text>
         </View>
@@ -124,6 +126,7 @@ const VetSignUp = ({ navigation }) => {
             onChangeText={(text) => setEmail(text)}
           ></TextInput>
         </View>
+        {/* Clinic Information */}
         <View style={styles.infoText_container}>
           <Text style={styles.text}>Clinic Information</Text>
         </View>
@@ -155,6 +158,7 @@ const VetSignUp = ({ navigation }) => {
             onChangeText={(text) => setveterinaryClinicAddress(text)}
           ></TextInput>
         </View>
+        {/* Clinic Location */}
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Clinic Location</Text>
         </View>
@@ -164,6 +168,7 @@ const VetSignUp = ({ navigation }) => {
             style={styles.image}
           />
         </TouchableOpacity>
+        {/* Password */}
         <View style={styles.container3}>
           <View style={styles.inputWithImage}>
             <TextInput
@@ -182,12 +187,14 @@ const VetSignUp = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+        {/* Sign Up Button */}
         <TouchableOpacity
           style={styles.signUpButton}
           onPress={() => handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
+        {/* Continue with Social Media */}
         <View style={styles.container5}>
           <Text style={styles.text}>or continue with</Text>
         </View>
