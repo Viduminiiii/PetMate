@@ -48,7 +48,7 @@ const GoogleMap = ({ navigation }) => {
 
   const sendLocationToSignup = () => {
     // Pass location back to Signup
-    console.log("Done!!!");
+
     route.params?.onDataReceived(marker);
     navigation.goBack();
   };
