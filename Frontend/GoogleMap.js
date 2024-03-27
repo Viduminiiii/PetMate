@@ -95,7 +95,7 @@ const GoogleMap = ({ navigation }) => {
           }}
         />
       </View>
-      <Button title="Send Data to Screen A" onPress={sendLocationToSignup} />
+      <Button title="Save Location" onPress={sendLocationToSignup} />
     </View>
   );
 };
