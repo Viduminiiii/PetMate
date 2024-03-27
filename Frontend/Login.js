@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import axios from "axios"; // Import Axios for making HTTP requests
+import React, { useState } from "react"; // Import React and useState 
 import {
   View,
   Text,
@@ -9,45 +9,52 @@ import {
   TextInput,
   Alert
 } from "react-native";
-const config = require("./config/config");
+import { useAuth } from './config/AuthContext';// Import useAuth hook from AuthContext
+const config = require("./config/config");// Import configuration file
 
 const Login = ({ navigation }) => {
-  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  console.log("baseURL: " + baseURL);
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;// Construct base URL using configuration
+  // console.log("baseURL: " + baseURL);
+
+  const { login } = useAuth();// Destructure login function from useAuth hook
+  const [username, setUsername] = useState();// State for username
+  const [password, setPassword] = useState();// State for password
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);// State for password visibility
 
   const handlePress = () => {
     // console.log("handlePress ----  " + username + " -  " + password);
-    const userData = { username, password };
+    const userData = { username, password };// Prepare user data object
 
-    if (!username || !password) {
+    if (!username || !password) {  // Validate if username and password are provided
       Alert.alert("Missing Information", "Please fill in all mandatory fields.");
       return;
     }
 
     console.log("All fields filled, proceed with registration.");
-    console.log("userData:  " + JSON.stringify(userData));
-    axios
+    // console.log("userData:  " + JSON.stringify(userData));
+    axios // Send HTTP POST request to server with user data
       .post(baseURL + "/getOneUser", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Menu");
+        // console.log(res.data);
+        if (res.data.status === "ok") {
+          // console.log("res.data.data:   "+ JSON.stringify(res.data.data));
+          login(JSON.stringify(res.data.data));
+          if (res.data.data.userLevel === "1") {
+            navigation.navigate("Menu");
+          } else if (res.data.data.userLevel === "2") {
+            navigation.navigate("VetMenu");
+          } else if (res.data.data.userLevel === "3") {
+            navigation.navigate("PharmacyPrescription");
+          } else {
+            navigation.navigate("Login");
+          }
+        }
       })
-      .catch((e) => console.log(e));
-
-    // if (username === "pet" && password === "123") {
-    //   navigation.navigate("Menu");
-    // } else if (username === "vet" && password === "123") {
-    //   navigation.navigate("VetMenu");
-    // } else if (username === "pharmacy" && password === "123") {
-    //   navigation.navigate("PharmacyPrescription");
-    // }
+      .catch((e) => console.log(e));// Log error if any
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");
-    navigation.navigate("FPSendEmail");
+    navigation.navigate("FPSendEmail"); 
   };
   return (
     <View style={styles.loginpage1}>

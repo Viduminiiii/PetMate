@@ -10,16 +10,23 @@ import {
 } from "react-native";
 import DatePicker from "react-native-date-picker";
 
+// Functional component for managing vet reminders
 const VetReminder = ({ navigation }) => {
+  // Function to handle button press
   const handlePress = () => {
     console.log("Button pressed");
   };
+
+  // State to manage text input value
   const [value, setValue] = useState(null);
+  // State to manage focus state of text input
   const [isFocus, setIsFocus] = useState(false);
+  // State to manage selected date
   const [date, setDate] = useState(new Date());
 
   return (
     <View style={styles.container}>
+      {/* Navigation Bar */}
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
@@ -37,6 +44,7 @@ const VetReminder = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
+      {/* Today's Date */}
       <View style={styles.container5}>
         <View style={styles.container1}>
           <Text style={styles.text1}>TODAY</Text>
@@ -60,6 +68,7 @@ const VetReminder = ({ navigation }) => {
         </View>
       </View>
 
+      {/* Dates */}
       <View style={styles.dates}>
         <View style={styles.container3}>
           <TouchableOpacity style={styles.date_button} onPress={handlePress}>
@@ -112,6 +121,7 @@ const VetReminder = ({ navigation }) => {
         </View>
       </View>
 
+      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image

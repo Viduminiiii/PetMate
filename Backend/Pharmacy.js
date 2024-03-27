@@ -7,6 +7,8 @@ const PharmacySchema=new Schema({
     pharmacyName: { type: String, required: true },
     pharmacyLicenseNumber: { type: String, required: true },
     pharmacyAddress: { type: String, required: true },
+    createdDate: {type: Date, required: true},
+    modifiedDate: {type: Date }
 },{
     collection: "Pharmacy"
 })

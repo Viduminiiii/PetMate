@@ -13,6 +13,9 @@ import axios from "axios";
 
 
 const PharmacySignUp = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  console.log("baseURL: " + baseURL);
+
   const [fullname, setFullname] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -63,7 +66,7 @@ const PharmacySignUp = ({ navigation }) => {
     console.log("All fields filled, proceed with registration.");
     console.log("userData:  " + JSON.stringify(userData));
     axios
-      .post("http://192.168.1.7:5001/registerPharmacy", userData)
+      .post(baseURL + "/registerPharmacy", userData)
       .then((res) => {
         console.log(res.data);
         if (res.data.status === "ok") navigation.navigate("Login");

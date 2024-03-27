@@ -6,7 +6,9 @@ const UsersSchema = new Schema({
     password: { type: String, required: true },
     petOwner: { type: Schema.Types.ObjectId, ref: 'PetOwner' },
     Veternarian: { type: Schema.Types.ObjectId, ref: 'Veternarian' },
-    Pharmacy: { type: Schema.Types.ObjectId, ref: 'Pharmacy' }
+    Pharmacy: { type: Schema.Types.ObjectId, ref: 'Pharmacy' },
+    createdDate: {type: Date, required: true},
+    modifiedDate: {type: Date },
 }, {
     collection: "Users"
 });

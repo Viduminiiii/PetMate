@@ -23,7 +23,7 @@ const Available_VetSessions = ({ navigation }) => {
     console.log("---------user 1:  " + user);
 
     const userObject = JSON.parse(user);
-    const userLevelId = '65f4a034cb90355cdc1f8c20';//userObject.userLevelId;
+    const userLevelId = userObject.userLevelId;
     console.log("---userID 2:  " + userLevelId);
     const userData = { vet_id: userLevelId };
 
@@ -50,23 +50,6 @@ const Available_VetSessions = ({ navigation }) => {
     const minutes = String(date.getMinutes()).padStart(2, "0");
     return `${hours}:${minutes}`;
   }
-
-  const getAppData = () => {
-    console.log("---- getApp User2:  " + user);
-    const userObject = JSON.parse(user);
-    const userLevelId = userObject.userLevelId;
-    console.log("---userID 111:  " + userLevelId);
-    const userData = { vet_id: userLevelId };
-
-    // console.log("userData:  " + JSON.stringify(userData));
-    const vetAvailabilities = axios
-      .post(baseURL + "/vetAvailability", userData)
-      .then((res) => {
-        console.log("---------------res:   " + JSON.stringify(res));
-        setAppData(res.data);
-      })
-      .catch((e) => console.log(e));
-  };
 
   const handlePress = () => {
     console.log("Button pressed");
