@@ -1,6 +1,6 @@
 const dbconfig = require("../Backend/config/db.config");
 var express = require("express");
-// const dbconfig = require("../Backend/config/db.config");
+// const dbconfig = require("./config/db.config");
 var express = require("express");
 require("dotenv").config();
 var app = express();

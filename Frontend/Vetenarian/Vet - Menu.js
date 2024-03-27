@@ -7,24 +7,31 @@ const PetOwnerMenu = ({ navigation }) => {
       };
     return (
         <View style={styles.page}>
+            {/* Navigation bar */}
             <View style = {styles.nav_bar}>
+                {/* Logo */}
                 <TouchableOpacity onPress={() => navigation.navigate('VetMenu')}>
                     <Image source={require ('../../AppPics/Logo.png')} style = {styles.logo}/>
                 </TouchableOpacity>
                 <Text style = {styles.nav_text}>
                     MENU
                 </Text>
+                {/* Reminder Icon */}
                 <TouchableOpacity onPress={() => navigation.navigate('VetReminder')}>
                     <Image source={require ('../../AppPics/Reminder.png')} style = {styles.settings}/>
                 </TouchableOpacity>
             </View>
 
+            {/* Menu buttons */}
             <View style ={styles.menu_button1}>
+                {/* Button for chat */}
                 <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
                   <View style={styles.chat}>
+                    {/* Half view for icon */}
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/Menu_ChatDoc.png')} style={styles.chatDoc_image} />
                      </View>
+                     {/* Half view for text */}
                      <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Chat</Text>
                      </View>
@@ -32,12 +39,15 @@ const PetOwnerMenu = ({ navigation }) => {
                </TouchableOpacity>
             </View> 
 
+            {/* Button for digital prescription */}
             <View style={styles.menu_button2}>
             <TouchableOpacity onPress={() => navigation.navigate('VetPrescription')} style={styles.button}>
                   <View style={styles.vet}>
+                    {/* Half view for icon */}
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/Digital_Prescription.png')} style={styles.prescription_image} />
                      </View>
+                     {/* Half view for text */}
                      <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Digital prescription</Text>
                      </View>
@@ -45,12 +55,15 @@ const PetOwnerMenu = ({ navigation }) => {
                </TouchableOpacity>
             </View>
 
+            {/* Button for vet availability */}
             <View style={styles.menu_button3}>
             <TouchableOpacity onPress={() => navigation.navigate('VetAvailability')} style={styles.button}>
                   <View style={styles.vet1}>
+                    {/* Half view for icon */}
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/VetMenu_Availability.png')} style={styles.prescription_image} />
                      </View>
+                     {/* Half view for text */}
                      <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Availability</Text>
                      </View>
@@ -58,12 +71,15 @@ const PetOwnerMenu = ({ navigation }) => {
                </TouchableOpacity>
             </View>
 
+            {/* Button for appointments */}
             <View style={styles.menu_button4}>
                 <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
                     <View style ={styles.vet2}>
+                        {/* Half view for icon */}
                         <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/VetMenu_Appointments.png')} style={styles.appointments_image} />
                         </View>
+                        {/* Half view for text */}
                         <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Appointment </Text>
                         </View>
