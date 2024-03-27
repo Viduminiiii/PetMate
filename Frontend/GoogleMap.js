@@ -1,88 +1,26 @@
-import React, { useRef, useState, useEffect } from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import React, { useRef, useState } from "react";
+import { View, Image, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useRoute } from "@react-navigation/native";
 /*
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
 */
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-//Use to provide Google places auto complete functionality.
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-/*
-This provides a set of methods that allow to request runtime permissions from the user on
-Android devices.
-*/
-import { PermissionsAndroid } from "react-native";
-// This allow to retrieve the device's location using the specific methods.
-import Geolocation from "react-native-get-location";
 
 const GoogleMap = ({ navigation }) => {
+  const mapRef = useRef(null);
   const route = useRoute();
-  const mapRef = useRef(null); // Reference for access the MapView component methods
   /*
   This state is use to keep track of the markers placed on the map.
   When pressing on the map its coordinates are added to the "markers" array using "setMarkers".
   This is reset the map component with the updated marker position.
   */
   const [marker, setMarker] = useState([]);
-  /*
-  This state is used to track if the location permission is granted or not
-  by the user.
-  */
-  const [permissionGranter, setPermissionGranter] = useState(false);
-  // This useEffect hook is use to perform side effects.
-  useEffect(() => {
-    getLocationPermission();
-    getCurrentLocation();
-  }, []); // The empty array indicates this effect is runs only once after the initial render.
 
   const customMarkerImage = require("../AppPics/location_marker.png");
-  /*
-  This function is use to get location permission from the user and
-  call the specific functions to continue the process.
-  "await" can be only use functions with the "async".
-  */
-  async function getLocationPermission() {
-    if (Platform.OS === "android") {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: "Location Permission",
-            message: "Please allow location permission to continue",
-            buttonNeutral: "Ask Me Later",
-            buttonNegative: "Cancel",
-            buttonPositive: "OK",
-          }
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          // Update the state to true when permission is granted.
-          setPermissionGranter(true);
-          // If permission is granted, then call the getCurrentLocation() function.
-          getCurrentLocation();
-        } else {
-          console.log("Location permission denied");
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-  }
-  // Function to get the current location.
-  const getCurrentLocation = () => {
-    // Retrieve the current location of the device.
-    Geolocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 60000,
-    })
-      .then((location) => {
-        console.log("My current location is: ", location); // Display the current location data on the console.
-      })
-      .catch((error) => {
-        "Error getting current location:", error;
-      });
-  };
+
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
@@ -107,19 +45,14 @@ const GoogleMap = ({ navigation }) => {
     console.log("Clicked Location's Coordinate:", coordinate); // Use to display the lat and long in the console.
     setMarker([coordinate]); // Use to clear the previous marker and add the new marker's coordinate.
   };
+
   const sendLocationToSignup = () => {
     // Pass location back to Signup
+    console.log("Done!!!");
     route.params?.onDataReceived(marker);
     navigation.goBack();
   };
 
-  //Use to display a messsage if the permissionGranter state is false.
-  if (!permissionGranter)
-    return (
-      <View>
-        <Text>Please allow location permission to continue</Text>
-      </View>
-    );
   return (
     <View style={styles.container}>
       <MapView
@@ -162,7 +95,7 @@ const GoogleMap = ({ navigation }) => {
           }}
         />
       </View>
-      <Button title="Set Location" onPress={sendLocationToSignup} />
+      <Button title="Send Data to Screen A" onPress={sendLocationToSignup} />
     </View>
   );
 };
@@ -191,6 +124,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     elevation: 10, // Add shadow to the search bar.
   },
+  // markerImage: {
+  //   width: 50,
+  //   height: 50,
+  // },
 });
 
 export default GoogleMap;
