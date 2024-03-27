@@ -1,6 +1,4 @@
-const dbconfig = require("../Backend/config/db.config");
-var express = require("express");
-// const dbconfig = require("./config/db.config");
+const dbconfig = require("./config/db.config");
 var express = require("express");
 require("dotenv").config();
 var app = express();
@@ -10,7 +8,9 @@ var cors = require("cors");
 //const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT } = process.env;
 const { PUBLISHABLE_KEY, CLIENT_SECRET_KEY, PORT } = process.env;
 // const stripe = require('stripe')(PUBLISHABLE_KEY);
-const stripe = require('stripe')('sk_test_51OwpvSSDj3zXuJENZB9N0Iru93O4s5BW0Hv5HawCnqFgYhcYPFoIHmjLferh6CdjDqqWeh6NoDGIbBWuhDqvFXBK00eVLJ8Djp');
+const stripe = require("stripe")(
+  "sk_test_51OwpvSSDj3zXuJENZB9N0Iru93O4s5BW0Hv5HawCnqFgYhcYPFoIHmjLferh6CdjDqqWeh6NoDGIbBWuhDqvFXBK00eVLJ8Djp"
+);
 
 // const stripe = require('stripe')(PUBLISHABLE_KEY, {
 //   apiVersion: "2023-10-16"});
@@ -124,7 +124,7 @@ app.post("/registerVet", async (req, res) => {
     veterinaryLicenseNumber,
     veterinaryClinicAddress,
     mainCity,
-    location
+    location,
   } = req.body;
   const oldPetEmail = await PetOwner.findOne({ email: email });
   const oldVetEmail = await Veternarian.findOne({ email: email });
@@ -483,7 +483,7 @@ app.post("/create-payment-intent", async (req, res) => {
     console.log("----4----  " + JSON.stringify(paymentIntent));
     // Send publishable key and PaymentIntent details to client
     res.send({
-      clientSecret: paymentIntent.client_secret
+      clientSecret: paymentIntent.client_secret,
     });
   } catch (e) {
     return res.status(400).send({
@@ -673,6 +673,27 @@ app.post("/create-payment-intent", async (req, res) => {
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);
 });
+
+// var Express = require('express');
+// // var Mongoclient = require('mongodb').MongoClient;
+// // var cors=require('cors');
+// // const multer = require('multer');
+
+// var app = Express();
+// app.use(cors());
+
+// var CONNECTION_STRING=
+// //'mongodb://localhost:27017';
+// 'mongodb://admin:admin@PetMate123@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate';
+// var DATABASENAME = 'dbpetmate';
+// var database;
+
+// app.listen (27017, ()=>{
+//     Mongoclient.connect(CONNECTION_STRING,(error,client)=>{
+//         database=client.db(DATABASENAME)
+//         console.log ('Mongo DB connection successful')
+//     })
+// })
 
 // var Express = require('express');
 // // var Mongoclient = require('mongodb').MongoClient;

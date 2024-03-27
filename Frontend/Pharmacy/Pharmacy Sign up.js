@@ -1,5 +1,5 @@
 //importing necessary components from react native
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   Image,
   TextInput,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
 import axios from "axios"; //importing axios library for making HTTP requests
 
@@ -25,10 +25,23 @@ const PharmacySignUp = ({ navigation }) => {
   const [pharmacyAddress, setpharmacyAddress] = useState();
   const [mainCity, setmainCity] = useState();
   const [password, setPassword] = useState();
+  const [location, setLocation] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   //function to handle sign up button pressed
   const handlePress = () => {
+    // console.log("Button pressed");
+    // console.log("JSON.stringify(location):      " + JSON.stringify(location));
+
+    const objLoc = JSON.parse(JSON.stringify(location));
+    console.log("objLoc:   " + JSON.stringify(objLoc));
+    // console.log("Longitude:", longitude);
+    // console.log("Latitude:", latitude);
+    const objLocation = {
+      type: "Point",
+      coordinates: [objLoc[0].longitude, objLoc[0].latitude],
+    };
+
     console.log("Button pressed");
     const userData = {
       fullname,
@@ -41,8 +54,20 @@ const PharmacySignUp = ({ navigation }) => {
       password,
     };
 
-    if (!fullname || !username || !email || !pharmacyName || !pharmacyLicenseNumber || !pharmacyAddress || !mainCity || !password) {
-      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+    if (
+      !fullname ||
+      !username ||
+      !email ||
+      !pharmacyName ||
+      !pharmacyLicenseNumber ||
+      !pharmacyAddress ||
+      !mainCity ||
+      !password
+    ) {
+      Alert.alert(
+        "Missing Information",
+        "Please fill in all mandatory fields."
+      );
       return;
     }
     //validating the input full name
@@ -52,7 +77,10 @@ const PharmacySignUp = ({ navigation }) => {
     }
 
     if (!validatepharmacyName(pharmacyName)) {
-      Alert.alert("Invalid Pharmacy Name", "Pharmacy Name should not contain numbers");
+      Alert.alert(
+        "Invalid Pharmacy Name",
+        "Pharmacy Name should not contain numbers"
+      );
       return;
     }
     //validating input email
@@ -87,7 +115,7 @@ const PharmacySignUp = ({ navigation }) => {
     const containsNumbers = /\d/.test(pharmacyName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
-  
+
   const validateEmail = (email) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -100,10 +128,17 @@ const PharmacySignUp = ({ navigation }) => {
     return !containsNumbers; // Return true if City doesn't contain numbers
   };
 
+  const navigateToGetLocation = () => {
+    // navigation.navigate('GoogleMap');
+    navigation.navigate("GoogleMap", {
+      onDataReceived: (locationFromMap) => setLocation(locationFromMap),
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
-         {/*main container for the whole component*/}
+        {/*main container for the whole component*/}
         <View style={styles.nav_bar}>
           <Text style={styles.nav_text}>PHARMACY REGISTRATION</Text>
         </View>
@@ -166,7 +201,13 @@ const PharmacySignUp = ({ navigation }) => {
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Pharmacy Location</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={
+            () => navigateToGetLocation()
+            // setModalVisible(true)
+            // navigation.navigate("GoogleMap")
+          }
+        >
           <Image
             source={require("../../AppPics/Google_map.png")}
             style={styles.image}
@@ -182,22 +223,22 @@ const PharmacySignUp = ({ navigation }) => {
               onChangeText={(text) => setPassword(text)}
             ></TextInput>
             <TouchableOpacity
-          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-          style={styles.button}
-        >
-          <Image
-            source={require("../../AppPics/Password.png")}
-            style={styles.password_eyeimage}
-          />
-        </TouchableOpacity>
+              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+              style={styles.button}
+            >
+              <Image
+                source={require("../../AppPics/Password.png")}
+                style={styles.password_eyeimage}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() =>
-            handlePress()}
+          onPress={() => handlePress()}
         >
-          <Text style={styles.signUpButtonText}>Sign Up</Text> {/*creating the  sign up button*/}
+          <Text style={styles.signUpButtonText}>Sign Up</Text>{" "}
+          {/*creating the  sign up button*/}
         </TouchableOpacity>
         <View style={styles.container5}>
           <Text style={styles.text}>or continue with</Text>
