@@ -8,117 +8,239 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { useAuth } from "../config/AuthContext"; //importing the useAuth hook from the AuthContext module located in the  "../config" directory
+import { useAuth } from "../config/AuthContext";
+import {
+  StripeProvider,
+  useConfirmPayment,
+  CardField,
+} from "@stripe/stripe-react-native";
+import axios from "axios";
+const helper = require("../config/helper");
+const config = require("../config/config");
 
 const Payment_1 = ({ navigation }) => {
-  const { user } = useAuth(); //getting user information from the authentication context using the userAuth hook
-  const [doctorFee, setDoctorFee] = useState(null); //storing the doctor's fee, initialized to null
-  const [serviceCharge, setServiceCharge] = useState(false); //storing the service charge, initialized to false
-  const [totalFee, setTotalFee] = useState(false); //storing the total fee,initialized to false
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  // const pub_key = helper.fetchPublishableKey('pubKey');
+  // const sec_key = helper.fetchPublishableKey('secKey');
 
-  //runs whenever the doctorFee and the serviceCharge are not null
+  const { user } = useAuth();
+  const [pub_key, setPub_key] = useState(null);
+  const [doctorFee, setDoctorFee] = useState(null);
+  const [serviceCharge, setServiceCharge] = useState(false);
+  const [totalFee, setTotalFee] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  const { confirmPayment, loading } = useConfirmPayment();
+
   useEffect(() => {
+    const pubKey = getPublishableKey("pubKey");
+    // const pubKey = helper.fetchPublishableKey("pubKey");
+    console.log("public Key1:    " + (pubKey));
+    if (pubKey) {
+      console.log("public Key:    " + (pubKey));
+    }
     if (doctorFee !== null && serviceCharge !== null) {
       const total = parseFloat(doctorFee) + parseFloat(serviceCharge);
-      //   console.log(`Total Fee calculated: ${total}`);
-      setTotalFee(total.toString()); //Sets the totalFee state variable to the calculated total as a string
+      console.log(`Total Fee calculated: ${total}`);
+      setTotalFee(total.toString());
     }
+    // initialisePaymentSheet();
   }, [doctorFee, serviceCharge]);
 
-  const handlePress = () => {
-    console.log("Button pressed");
-    //constructs userData object with doctorFee, serviceCharge, and totalFee
-    const userData = {
-      doctorFee: doctorFee,
-      serviceCharge: serviceCharge,
-      totalFee: totalFee,
-    };
-    //logs the userData object after converting it to a string
-    console.log(
-      "----------------------userData:   " + JSON.stringify(userData)
-    );
-    navigation.navigate("PaymentGateway"); //navigates to the payment gateway screen
+
+  const getPublishableKey = async (type) => {
+    console.log("----1----  " + type);
+    try {
+      await axios.get(baseURL + "/stripe-key", type)
+      .then((result) => {
+        console.log("----1   ");
+        if (result) {
+          const obj = JSON.parse(JSON.stringify(result.data))
+          console.log("----2 ----obj  "+ obj.data);
+          setPub_key(obj.data)
+          // console.log(result);
+          return JSON.stringify(result.data.data);
+        }
+      })
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const fetchPaymentIntentClientSecret = async () => {
+    console.log("----1----  " + totalFee);
+    try {
+      params = {
+        paymentMethodType: "card",
+        orderAmount: totalFee,
+        currency: 'lkr',
+      };
+      const response = await axios.post(baseURL + "/create-payment-intent",params);
+      if(response)
+      {
+        console.log("----clientSecret:    "+JSON.stringify(response));
+        const obj = JSON.parse(JSON.stringify(response.data));
+        const clientSecret = obj.clientSecret;
+        console.log("----clientSecret 2:    "+clientSecret);
+        return clientSecret;
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle the error as needed
+      throw error; // Rethrow the error to propagate it further if necessary
+    }
+  };
+
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  //   const userData = {
+  //     doctorFee: doctorFee,
+  //     serviceCharge: serviceCharge,
+  //     totalFee: totalFee,
+  //   };
+  //   console.log("----------------------userData:   " + JSON.stringify(userData));
+  //   navigation.navigate("PaymentGateway");
+  // };
+
+  async function buy() {    
+    navigation.navigate("PaymentScreen", { orderAmount: totalFee });
+
+
+
+    // console.log("----2----  ");
+    // // Gather the customer's billing information (for example, email)
+    // const billingDetails = {
+    //   email: "vidu@example.com",
+    // };
+    // // Fetch the intent client secret from the backend.
+    // const clientSecret = await fetchPaymentIntentClientSecret();
+    // console.log("----clientSecret 3:    "+clientSecret);
+    
+
+    // // Confirm the payment with the card details
+    // const { paymentIntent, error } = await confirmPayment(clientSecret, {
+    //   paymentMethodType: "Card",
+    //   paymentMethodData: {
+    //     billingDetails,
+    //   },
+    // });
+
+    // if (error) {
+    //   console.log("Payment confirmation error", error);
+    // } else if (paymentIntent) {
+    //   console.log("Success from promise", paymentIntent);
+    // }
+  }
+
   return (
-    <View style={styles.page}>
-      {/* main container which contains all the components*/}
-      <View style={styles.nav_bar}>
-        {/*nav_bar container which contains the components related to create the navbar*/}
-        <Text style={styles.nav_text}>PAYMENT SUMMARY</Text>
-      </View>
-      <View style={styles.container1}>
-        <Text style={styles.topic}>Payment Details</Text>
-        {/*adding a text to display*/}
-      </View>
-      <View style={styles.detailContainer}>
-        <View style={styles.eachDetail}>
-          <Text style={styles.name}>Doctor Fee</Text>
-          <TextInput
-            style={styles.Text_box}
-            onChangeText={(text) => setDoctorFee(text)} //Function called when the text changes to update the doctorFee state
-            keyboardType="numeric"
-          ></TextInput>
+    <StripeProvider
+      publishableKey={pub_key}
+      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      merchantIdentifier="merchant.com.petmate" // required for Apple Pay
+    >
+      <View style={styles.page}>
+        <View style={styles.nav_bar}>
+          <Text style={styles.nav_text}>PAYMENT SUMMARY</Text>
         </View>
-        <View style={styles.eachDetail}>
-          <Text style={styles.name}>Service Charges</Text>
-          <TextInput
-            style={styles.Channel_Text_box}
-            onChangeText={(text) => setServiceCharge(text)}
-            keyboardType="numeric" //allowing only numeric input for the keyboard
-          ></TextInput>
+        <View style={styles.container1}>
+          <Text style={styles.topic}>Payment Details</Text>
         </View>
-        <View style={styles.eachDetail}>
-          <Text style={styles.name}>Total Fee</Text>
-          <TextInput
-            style={styles.Text_box}
-            value={totalFee ? totalFee.toString() : ""}
-            editable={false}
-          ></TextInput>
-        </View>
-      </View>
-
-      <View style={styles.container2}>
-        <TouchableOpacity onPress={() => handlePress}>
-          <View style={styles.button}>
-            <Text style={styles.proceed_btn}>Proceed</Text>
+        <View style={styles.detailContainer}>
+          <View style={styles.eachDetail}>
+            <Text style={styles.name}>Doctor Fee</Text>
+            <TextInput
+              style={styles.Text_box}
+              onChangeText={(text) => setDoctorFee(text)}
+              keyboardType="numeric"
+            ></TextInput>
           </View>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.eachDetail}>
+            <Text style={styles.name}>Service Charge</Text>
+            <TextInput
+              style={styles.Channel_Text_box}
+              onChangeText={(text) => setServiceCharge(text)}
+              keyboardType="numeric"
+            ></TextInput>
+          </View>
+          <View style={styles.eachDetail}>
+            <Text style={styles.name}>Total Fee</Text>
+            <TextInput
+              style={styles.Text_box}
+              value={totalFee ? totalFee.toString() : ""}
+              editable={false}
+            ></TextInput>
+          </View>
+        </View>
 
-      <View style={styles.footer}>
-        {/*creating the footer*/}
-        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
-          <Image
-            source={require("../../AppPics/Footer_Menu.png")}
-            style={styles.menu_img}
+        <View style={styles.container2}>
+          <TouchableOpacity onPress={buy} disabled={loading}>
+            <View style={styles.button}>
+              <Text style={styles.proceed_btn}>Proceed</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <CardField
+            postalCodeEnabled={true}
+            placeholders={{
+              number: "4242 4242 4242 4242",
+            }}
+            cardStyle={{
+              backgroundColor: "#FFFFFF",
+              textColor: "#000000",
+            }}
+            style={{
+              width: "100%",
+              height: 50,
+              marginVertical: 30,
+            }}
+            onCardChange={(cardDetails) => {
+              console.log("cardDetails", cardDetails);
+            }}
+            onFocus={(focusedField) => {
+              console.log("focusField", focusedField);
+            }}
           />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-          <Image
-            source={require("../../AppPics/Footer_Chat.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
-          <Image
-            source={require("../../AppPics/Footer_VetClinic.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
-          <Image
-            source={require("../../AppPics/Footer_appointment.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
-          <Image
-            source={require("../../AppPics/Footer_medicalRecords.png")}
-            style={styles.menu_img}
-          />
-        </TouchableOpacity>
+        </View>
+
+        <View style={styles.footer}>
+          <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
+            <Image
+              source={require("../../AppPics/Footer_Menu.png")}
+              style={styles.menu_img}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+            <Image
+              source={require("../../AppPics/Footer_Chat.png")}
+              style={styles.menu_img}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handlePress("Vet Clinic")}>
+            <Image
+              source={require("../../AppPics/Footer_VetClinic.png")}
+              style={styles.menu_img}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("DocChannelling")}
+          >
+            <Image
+              source={require("../../AppPics/Footer_appointment.png")}
+              style={styles.menu_img}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Medicalrecords")}
+          >
+            <Image
+              source={require("../../AppPics/Footer_medicalRecords.png")}
+              style={styles.menu_img}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </StripeProvider>
   );
 };
 
@@ -154,7 +276,7 @@ const styles = StyleSheet.create({
     //flex: 1,
     //alignItems: "flex-start",
     marginRight: "0%",
-    marginBottom: 105,
+    marginBottom: 5,
   },
   detailContainer: {
     //flexDirection: "row",
