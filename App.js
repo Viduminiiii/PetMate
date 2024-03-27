@@ -32,6 +32,7 @@ import Vet_Notification from "./Frontend/Vetenarian/Vet_Notification";
 import GoogleMap from "./Frontend/GoogleMap";
 import FPSendEmail from "./Frontend/FPSendEmail";
 import FPVerification from "./Frontend/FPVerification";
+import PaymentScreen from "./Frontend/PetOwner/PaymentScreen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -98,6 +99,7 @@ function App() {
           <Stack.Screen name="GoogleMap" component={GoogleMap} />
           <Stack.Screen name="FPSendEmail" component={FPSendEmail} />
           <Stack.Screen name="FPVerification" component={FPVerification} />
+          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
