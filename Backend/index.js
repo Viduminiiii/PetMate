@@ -694,3 +694,24 @@ app.listen(port, () => {
 //         console.log ('Mongo DB connection successful')
 //     })
 // })
+
+// var Express = require('express');
+// // var Mongoclient = require('mongodb').MongoClient;
+// // var cors=require('cors');
+// // const multer = require('multer');
+
+// var app = Express();
+// app.use(cors());
+
+// var CONNECTION_STRING=
+// //'mongodb://localhost:27017';
+// 'mongodb://admin:admin@PetMate123@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate';
+// var DATABASENAME = 'dbpetmate';
+// var database;
+
+// app.listen (27017, ()=>{
+//     Mongoclient.connect(CONNECTION_STRING,(error,client)=>{
+//         database=client.db(DATABASENAME)
+//         console.log ('Mongo DB connection successful')
+//     })
+// })

@@ -1,19 +1,25 @@
+//importing necessary components from react native
 import React from "react";
 import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
 
+//UserCategory component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const UserCategory = ({ navigation }) => {
     const handlePress = () => {
         console.log("Button pressed");
       };
     return (
         <View style={styles.page}>
+        {/*main container for the whole component*/}
             <Image
                 source={require('../AppPics/Dog.png')}
                 style={styles.image}
             />
+            {/*adding an image*/}
             <Text style={styles.text}>Select the user category: </Text>
+            {/*adding a text to display*/}
 
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.button}>
+                {/*navigates to the SignUp screen*/}
                 <View style={styles.petowner}>
                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                         <Image source={require('../AppPics/UC_PetOwner.png')} style={styles.owner_image} />

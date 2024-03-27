@@ -1,7 +1,9 @@
+//importing necessary components from react native
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import DatePicker from "react-native-date-picker";
 
+//Reminders component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Reminders = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
@@ -13,7 +15,9 @@ const Reminders = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -24,10 +28,12 @@ const Reminders = ({ navigation }) => {
           <Text style={styles.nav_text}>REMINDERS</Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Petowner_Settings')}>
+         {/*TouchableOpacity component naviagets to the 'Petowner_Settings' screen on press*/}
           <Image
             source={require("../../AppPics/Setting.png")}
             style={styles.settings}
           />
+          {/*inserting teh settings icon image*/}
         </TouchableOpacity>
       </View>
       <View style={styles.container5}>
@@ -37,6 +43,7 @@ const Reminders = ({ navigation }) => {
 
         <View style={styles.container2}>
           <View style={styles.date_container}>
+            {/* adding datepicker component to select the date*/}
             <DatePicker
               style={styles.datePickerStyle}
               date={date}
@@ -46,7 +53,8 @@ const Reminders = ({ navigation }) => {
               minDate="01-01-1900"
               maxDate="01-01-2100"
               onDateChange={(date) => {
-                setDate(date);
+                //function called when the date is changed
+                setDate(date); //updating the slected date
               }}
             />
           </View>
@@ -57,6 +65,7 @@ const Reminders = ({ navigation }) => {
         <View style={styles.container3}>
           <TouchableOpacity style={styles.date_button} onPress={handlePress}>
             <Text style={styles.dateButtonText}>THU</Text>
+            {/*adding texts to display*/}
             <Text style={styles.dateButtonText}> 22</Text>
           </TouchableOpacity>
         </View>
@@ -106,6 +115,7 @@ const Reminders = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
+        {/*creating the footer*/}
         <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}

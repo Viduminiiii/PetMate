@@ -1,3 +1,4 @@
+//importing necessary components from react native
 import React, { useState } from "react";
 import {
   View,
@@ -9,16 +10,16 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import axios from "axios";
-import config from "../config/config";
+import axios from "axios"; //importing axios library for making HTTP requests
 
+//PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
-  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
   console.log("baseURL: " + baseURL);
 
-  const [fullname, setFullname] = useState();
+  const [fullname, setFullname] = useState(); //state variable for storing the input value of the full name field in the form
   const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(); //state variable for storing the inpput value of the email filed in the form
   const [pharmacyName, setpharmacyName] = useState();
   const [pharmacyLicenseNumber, setpharmacyLicenseNumber] = useState();
   const [pharmacyAddress, setpharmacyAddress] = useState();
@@ -27,6 +28,7 @@ const PharmacySignUp = ({ navigation }) => {
   const [location, setLocation] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  //function to handle sign up button pressed
   const handlePress = () => {
     // console.log("Button pressed");
     // console.log("JSON.stringify(location):      " + JSON.stringify(location));
@@ -68,7 +70,7 @@ const PharmacySignUp = ({ navigation }) => {
       );
       return;
     }
-
+    //validating the input full name
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
@@ -81,7 +83,7 @@ const PharmacySignUp = ({ navigation }) => {
       );
       return;
     }
-
+    //validating input email
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
@@ -136,6 +138,7 @@ const PharmacySignUp = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
+        {/*main container for the whole component*/}
         <View style={styles.nav_bar}>
           <Text style={styles.nav_text}>PHARMACY REGISTRATION</Text>
         </View>
@@ -148,6 +151,7 @@ const PharmacySignUp = ({ navigation }) => {
             placeholder="Full name"
             onChangeText={(text) => setFullname(text)}
           ></TextInput>
+          {/*TextInput component is used to input full name by the user*/}
         </View>
         <View style={styles.container2}>
           <TextInput
@@ -177,7 +181,7 @@ const PharmacySignUp = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             placeholder="Pharmacy License Number"
-            onChangeText={(text) => setpharmacyLicenseNumber(text)}
+            onChangeText={(text) => setpharmacyLicenseNumber(text)} //update the pharmacy license number state with the entered text
           ></TextInput>
         </View>
         <View style={styles.container2}>
@@ -208,6 +212,7 @@ const PharmacySignUp = ({ navigation }) => {
             source={require("../../AppPics/Google_map.png")}
             style={styles.image}
           />
+          {/*inserting an image*/}
         </TouchableOpacity>
         <View style={styles.container3}>
           <View style={styles.inputWithImage}>
@@ -232,7 +237,8 @@ const PharmacySignUp = ({ navigation }) => {
           style={styles.signUpButton}
           onPress={() => handlePress()}
         >
-          <Text style={styles.signUpButtonText}>Sign Up</Text>
+          <Text style={styles.signUpButtonText}>Sign Up</Text>{" "}
+          {/*creating the  sign up button*/}
         </TouchableOpacity>
         <View style={styles.container5}>
           <Text style={styles.text}>or continue with</Text>
@@ -255,6 +261,7 @@ const PharmacySignUp = ({ navigation }) => {
         <View style={styles.container6}>
           <Text style={styles.text}>Do you have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            {/*TouchableOpacity component naviagets to the 'Login' screen on press*/}
             <Text style={styles.loginText}>LOGIN</Text>
           </TouchableOpacity>
         </View>
