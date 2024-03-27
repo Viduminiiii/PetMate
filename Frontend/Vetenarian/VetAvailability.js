@@ -18,7 +18,8 @@ const VetAvailability = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
 
-  const { user } = useAuth();
+  const { user, userID, userType } = useAuth();
+
   const [availableDate, setAvailableDate] = useState(new Date());
   const [timeFrom, setTimeFrom] = useState(new Date());
   const [timeTo, setTimeTo] = useState(new Date());
@@ -27,6 +28,7 @@ const VetAvailability = ({ navigation }) => {
   const [serviceCharges, setServiceCharges] = useState();
 
   const handlePress = () => {
+    const userObject = JSON.parse(JSON.stringify(user));
     if (!validateInputs()) return;
 
     const userData = {
@@ -36,7 +38,7 @@ const VetAvailability = ({ navigation }) => {
       noofPatients: parseInt(noofPatients), // Ensure number of patients is an integer.
       doctorCharges: parseFloat(doctorCharges), // Convert the doctor charges input to a floating point number.
       serviceCharges: parseFloat(serviceCharges), // Convert the service charge input to a floating point number.
-      vet_id: JSON.parse(user).userLevelId,
+      vet_id: userObject.userLevelId,
     };
     // console.log("userData:  " + JSON.stringify(userData));
     axios
