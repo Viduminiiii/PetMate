@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -8,14 +8,18 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Button,
+  Modal,
 } from "react-native";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import axios from "axios";
 import config from "../config/config";
 
 const VetSignUp = ({ navigation }) => {
   // Base URL for the backend API
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  console.log("baseURL: " + baseURL);
+  //console.log("baseURL: " + baseURL);
 
   // State variables for user input fields and password visibility
   const [fullname, setFullname] = useState();
@@ -24,13 +28,22 @@ const VetSignUp = ({ navigation }) => {
   const [veterinaryClinicName, setveterinaryClinicName] = useState();
   const [veterinaryLicenseNumber, setveterinaryLicenseNumber] = useState();
   const [veterinaryClinicAddress, setveterinaryClinicAddress] = useState();
+  const [mainCity, setMainCity] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [location, setLocation] = useState(false);
 
   // Function to handle sign up button press
   const handlePress = () => {
-    console.log("Button pressed");
+    //console.log("Button pressed");
     // Construct user data object
+    const objLoc = JSON.parse(JSON.stringify(location));
+    console.log("objLoc:   " + JSON.stringify(objLoc));
+
+    const objLocation = {
+      type: "Point",
+      coordinates: [objLoc[0].longitude, objLoc[0].latitude],
+    };
     const userData = {
       fullname,
       username,
@@ -38,7 +51,9 @@ const VetSignUp = ({ navigation }) => {
       veterinaryClinicName,
       veterinaryLicenseNumber,
       veterinaryClinicAddress,
+      mainCity,
       password,
+      location: objLocation,
     };
 
     // Check for missing information in the form
