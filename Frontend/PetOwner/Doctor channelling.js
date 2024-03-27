@@ -1,3 +1,4 @@
+//import necessary components from react native
 import React, { useState } from "react";
 import {
   View,
@@ -11,16 +12,16 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import SearchableDropdown from "react-native-searchable-dropdown";
-import DatePicker from "react-native-date-picker";
-import axios from "axios";
-const config = require("../config/config");
+import DatePicker from "react-native-date-picker"; //importing date-picker component
+import axios from "axios"; //importing axios library for HTTP requests
+const config = require("../config/config"); //importing configuration file
 
 const DocChannelling = ({ navigation }) => {
-  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT; //base URL for the database connection
 
   const [searchDate, setSearchDate] = useState(new Date());
   const [docClinicItem, setDocClinicItem] = useState(null);
-  const [isDateChanges, setIsDateChanges] = useState(false);
+  const [isDateChanges, setIsDateChanges] = useState(false); //used to track if the date changes
   // const [valueDoc, setValueDoc] = useState(null);
   // const [isFocusDoc, setIsFocusDoc] = useState(false);
   // const [valueHosp, setValueHosp] = useState(null);
@@ -28,13 +29,15 @@ const DocChannelling = ({ navigation }) => {
 
   const handlePress = () => {
     // try {
-      console.log("----------------searchDate:   "+searchDate);
-      console.log("----------------------isDateChanges:   "+isDateChanges);
-      const userData = {
-        searchDate: isDateChanges ? searchDate : "",
-        searchDoctor: docClinicItem,
-        searchClinic: docClinicItem,
-      };
+    //printing searchDate and isDateChanges to console for debugging
+    console.log("----------------searchDate:   " + searchDate);
+    console.log("----------------------isDateChanges:   " + isDateChanges);
+    //constructing userData object based on the state values
+    const userData = {
+      searchDate: isDateChanges ? searchDate : "",
+      searchDoctor: docClinicItem,
+      searchClinic: docClinicItem,
+    };
     //   const response = axios.post(baseURL + "/searchAvailability", userData);
     //   console.log("----response:   "+JSON.stringify(response.data));
     //   if(response.data){
@@ -53,7 +56,6 @@ const DocChannelling = ({ navigation }) => {
     //   console.error("Error:", error);
     // }
 
-
     // console.log("Button pressed");
     // const userData = {
     //   searchDate: searchDate,
@@ -61,13 +63,18 @@ const DocChannelling = ({ navigation }) => {
     //   searchClinic: docClinicItem,
     // };
     // console.log("userData:  " + JSON.stringify(userData));
-    axios.post(baseURL + "/searchAvailability", userData)
+
+    //sending a POST request to search for availability using axios
+    axios
+      .post(baseURL + "/searchAvailability", userData)
       .then((res) => {
-        console.log("----res.data.data------:   "+res.data.data);
+        console.log("----res.data.data------:   " + res.data.data); //outputting response data to the console to understand its contents and structure fro debugging purpose
         if (res.data.status === "ok") {
-          console.log(("Available_VetSessions--------------"));
+          //navigating to the "Available_VetSessions" screen if availablilities are found
+          console.log("Available_VetSessions--------------");
           navigation.navigate("Available_VetSessions");
         } else {
+          //handling error if status if not "ok"
           console.error("Error fetching availabilities:", response.data.msg);
           alert("Error fetching availabilities:", response.data.msg);
         }
@@ -80,14 +87,16 @@ const DocChannelling = ({ navigation }) => {
       // Format the date as required by your backend, e.g., ISO string
       // const formattedDate = date.toISOString().split('T')[0];
 
+      //constructing userData object with search criteria
       const userData = {
-        searchDate: searchDate,
-        searchDoctor: docClinicItem,
+        searchDate: searchDate, //date to search for availability
+        searchDoctor: docClinicItem, //selected doctor search
         searchClinic: docClinicItem,
       };
+      //sending a POST  request to search for availability
       const response = await axios.post(
-        baseURL + "/searchAvailability",
-        userData
+        baseURL + "/searchAvailability", //API endpoint for searching availability
+        userData //data to be sent in the request body
       );
       if (response.data.status === "ok") {
         console.log("get Availabilities:", response.data.data);
@@ -99,6 +108,7 @@ const DocChannelling = ({ navigation }) => {
         alert("Error fetching availabilities:", response.data.msg);
       }
     } catch (error) {
+      //loging any errors that occurs during the search process
       console.error("Error:", error);
     }
   };
@@ -201,6 +211,7 @@ const DocChannelling = ({ navigation }) => {
             style={styles.calendar_img}
           />
           <View style={styles.date_container}>
+            {/* adding datepicker component to select the date*/}
             <DatePicker
               style={styles.datePickerStyle}
               date={searchDate}
@@ -210,15 +221,18 @@ const DocChannelling = ({ navigation }) => {
               minDate="01-01-1900"
               maxDate="01-01-2100"
               onDateChange={(date) => {
+                //function called when the date changes
                 setSearchDate(date);
                 setIsDateChanges(true);
-                console.log("setSearchDate-------------:    "+date);
+                console.log("setSearchDate-------------:    " + date);
               }}
             />
           </View>
         </View>
+        {/*creating the search button*/}
         <TouchableOpacity onPress={handlePress}>
           <View style={styles.button}>
+            {/*adding a text on the button*/}
             <Text style={styles.search_btn}>Search</Text>
           </View>
         </TouchableOpacity>
@@ -373,7 +387,7 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 20,
-    marginLeft: 10
+    marginLeft: 10,
   },
   selectedTextStyle: {
     fontSize: 20,

@@ -1,3 +1,4 @@
+//import necessary components from react native
 import React from "react";
 import {
   Text,
@@ -7,14 +8,17 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-
+//locatePharmacy component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const LocatePharmacy = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
   return (
     <View style={styles.container}>
+      
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
+        {/*TouchableOpacity component naviagets to the Menu screen on press*/}
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -29,6 +33,7 @@ const LocatePharmacy = ({ navigation }) => {
             source={require("../../AppPics/Setting.png")}
             style={styles.settings_img}
           />
+          {/*adding the settings logo pic*/}
         </TouchableOpacity>
       </View>
       <Text style={styles.text}>Find the nearest</Text>
@@ -39,7 +44,7 @@ const LocatePharmacy = ({ navigation }) => {
         />
         <TextInput
           style={styles.search_bar_text}
-          placeholder="Search"
+          placeholder="Search" //placeholder text for the search input field
         ></TextInput>
         <Image
           source={require("../../AppPics/Google_map.png")}
@@ -111,6 +116,7 @@ const LocatePharmacy = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
+      {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
@@ -127,6 +133,7 @@ const LocatePharmacy = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate("LocateVetClinics")}
         >
+          {/*navigating to the LocateVetClinics screen by clicking on the icon*/}
           <Image
             source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#CEEFA3",
     alignItems: "center",
     justifyContent: "space-between",
-    position: 'relative'
+    position: "relative",
   },
   nav_bar: {
     flexDirection: "row", // This style is used to arrange the items of the container horizontally, from left to right.

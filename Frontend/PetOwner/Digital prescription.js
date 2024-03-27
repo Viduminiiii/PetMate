@@ -1,3 +1,4 @@
+//import necessary components from react native
 import React, { useState } from "react";
 import {
   View,
@@ -8,37 +9,44 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
-import DatePicker from "react-native-date-picker";
+import { Dropdown } from "react-native-element-dropdown"; //importing dropdown component
+import DatePicker from "react-native-date-picker"; //importing date-picker component
 
+//prescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Prescription = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
-  
+
   state = { user: "" };
   updateUser = (user) => {
     this.setState({ user: user });
   };
 
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [value, setValue] = useState(null); //'value' state initialized with null to hold selected input from the UI
+  const [isFocus, setIsFocus] = useState(false); //'isFocus' state initialized with false to track input focus in UI
+  const [date, setDate] = useState(new Date()); //'date' state initialized with the current date to manage date selection in the UI
 
   return (
     <View style={styles.container}>
+      {" "}
+      {/* main container for the whole component*/}
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
+          {" "}
+          {/*TouchableOpacity component naviagets to the Menu screen on press*/}
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo}
-          />
+          />{" "}
+          {/*adding the logo picture*/}
         </TouchableOpacity>
         <Text style={styles.nav_text}>DIGITAL PRESCRIPTION</Text>
       </View>
       <View style={styles.details_box}>
         <View style={styles.petInfo}>
-          <Text style={styles.heading}>Pet Information</Text>
+          <Text style={styles.heading}>Pet Information</Text>{" "}
+          {/*adding a text*/}
           <View style={styles.info}>
             <Text style={styles.name}>Name</Text>
             <TextInput style={styles.petText_box}></TextInput>
@@ -52,24 +60,25 @@ const Prescription = ({ navigation }) => {
           <View style={styles.info}>
             <Text style={styles.name}>Gender</Text>
             <View>
+              {/*dropdown component for the gender selection*/}
               <Dropdown
                 style={[styles.dropdown]}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
+                inputSearchStyle={styles.inputSearchStyle} //adding styles to the search input
                 iconStyle={styles.iconStyle}
                 data={[
-                  { label: "Male", value: "1" },
+                  { label: "Male", value: "1" }, //option for 'Male'
                   { label: "Female", value: "2" },
                 ]}
-                maxHeight={200}
+                maxHeight={200} //setting the max height for the dropdown
                 labelField="label"
                 valueField="value"
                 placeholder={!isFocus ? "Select" : "..."}
                 searchPlaceholder="Search..."
                 value={value}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
+                onFocus={() => setIsFocus(true)} //indicating that the dropdown component has been selected or clicked on by the user and is currently the active element in the UI
+                onBlur={() => setIsFocus(false)} // indicates that the dropdown component is no longer selected by the user.
                 onChange={(item) => {
                   setValue(item.value);
                   setIsFocus(false);
@@ -131,11 +140,11 @@ const Prescription = ({ navigation }) => {
                 minDate="01-01-1900"
                 maxDate="01-01-2100"
                 onDateChange={(date) => {
-                  setDate(date);
+                  //function called when the date is changed
+                  setDate(date); //updating the slected date
                 }}
               />
             </View>
-            
           </View>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}>
@@ -145,31 +154,35 @@ const Prescription = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+        {" "}
+        {/*creating the footer*/}
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("LocateVetClinics")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LocateVetClinics")}
+        >
           <Image
             source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('DocChannelling')}>
+        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
           <Image
             source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Medicalrecords')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -363,7 +376,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 15
+    marginTop: 15,
   },
 });
 export default Prescription;

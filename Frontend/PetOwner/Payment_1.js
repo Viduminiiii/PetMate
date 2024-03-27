@@ -1,3 +1,4 @@
+//import necessary components from react native
 import React, { useState, useEffect } from "react";
 import {
   View,
