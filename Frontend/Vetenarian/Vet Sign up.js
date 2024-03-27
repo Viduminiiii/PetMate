@@ -96,12 +96,14 @@ const VetSignUp = ({ navigation }) => {
 
     // If all validations pass, proceed with registration
     console.log("All fields filled, proceed with registration.");
-    console.log("userData:  " + JSON.stringify(userData));
+    console.log("---------- pass ----userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/registerVet", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Login");
+        console.log("res.data:   " + JSON.stringify(res.data));
+        if (res.data.status === "ok") {
+          navigation.navigate("Login");
+        }
       })
       .catch((e) => console.log(e));
   };
@@ -122,6 +124,13 @@ const VetSignUp = ({ navigation }) => {
     // Validate email using regular expression
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const navigateToGetLocation = () => {
+    // navigation.navigate('GoogleMap');
+    navigation.navigate("GoogleMap", {
+      onDataReceived: (locationFromMap) => setLocation(locationFromMap),
+    });
   };
 
   return (
@@ -185,14 +194,14 @@ const VetSignUp = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             placeholder="Main city the clinic located"
-            onChangeText={(text) => setveterinaryClinicAddress(text)}
+            onChangeText={(text) => setMainCity(text)}
           ></TextInput>
         </View>
         {/* Clinic Location */}
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Clinic Location</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("GoogleMap")}>
+        <TouchableOpacity onPress={() => navigateToGetLocation()}>
           <Image
             source={require("../../AppPics/Google_map.png")}
             style={styles.image}
