@@ -31,7 +31,7 @@ const PetOwnerMenu = ({ navigation }) => {
 
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Chat")}
+          onPress={() => navigation.navigate("ChatScreen")}
           style={styles.button}
         >
           <View style={styles.chat}>
