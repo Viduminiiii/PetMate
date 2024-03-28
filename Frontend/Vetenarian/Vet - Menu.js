@@ -25,7 +25,7 @@ const PetOwnerMenu = ({ navigation }) => {
             {/* Menu buttons */}
             <View style ={styles.menu_button1}>
                 {/* Button for chat */}
-                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
+                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions', {searchVetID : 1})} style={styles.button}>
                   <View style={styles.chat}>
                     {/* Half view for icon */}
                      <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
@@ -73,7 +73,7 @@ const PetOwnerMenu = ({ navigation }) => {
 
             {/* Button for appointments */}
             <View style={styles.menu_button4}>
-                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions')} style={styles.button}>
+                <TouchableOpacity onPress={() => navigation.navigate('Available_VetSessions', {searchVetID : 1})} style={styles.button}>
                     <View style ={styles.vet2}>
                         {/* Half view for icon */}
                         <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>

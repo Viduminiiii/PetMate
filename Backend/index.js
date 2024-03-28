@@ -307,7 +307,7 @@ app.post("/availability", async (req, res) => {
 });
 
 app.post("/vetAvailability", async (req, res) => {
-  console.log("-------------REQ BODY" + JSON.stringify(req.body));
+  console.log("-------------vetAvailability" + JSON.stringify(req.body));
   const { vet_id } = req.body; // Assuming vet ID is passed as a query parameter
   console.log("vet_id:   " + vet_id);
   try {
@@ -319,9 +319,11 @@ app.post("/vetAvailability", async (req, res) => {
         path: "veternarian",
         select: "fullname veterinaryClinicName veterinaryClinicAddress",
       });
+
     // const vetAvailabilities = (await Availability.find({ veternarian: vet_id }).populate('veternarian'));
-    console.log("availabilities: " + JSON.stringify(vetAvailabilities));
+
     if (vetAvailabilities && vetAvailabilities.length > 0) {
+      console.log("availabilities: " + JSON.stringify(vetAvailabilities));
       res.send(JSON.stringify(vetAvailabilities));
     } else {
       console.log("Status:    " + res.status);
@@ -337,6 +339,9 @@ app.post("/searchAvailability", async (req, res) => {
   console.log("searchAvailability response-----------------------");
   const { searchDate, searchDoctor, searchClinic } = req.body; // Assuming the date is passed as a query parameter
 
+  console.log(
+    "searchAvailability response-----------    " + JSON.stringify(req.body)
+  );
   try {
     const date = searchDate !== "" ? new Date(searchDate) : null;
     const regexVet = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
@@ -352,33 +357,55 @@ app.post("/searchAvailability", async (req, res) => {
           $lt: new Date(new Date(date).setHours(23, 59, 59)),
         },
       })
+        .select("_id availableDate")
         .populate({
           path: "veternarian",
           match: { fullname: regexVet, veterinaryClinicName: regexClinic },
-          select: "fullname",
+          select: "_id fullname",
         })
         .exec();
     } else {
       console.log("----------- response----------------------- 3");
       const filterAvailabilities = await Availability.find()
+        .select("_id availableDate")
         .populate({
           path: "veternarian",
           match: { fullname: regexVet, veterinaryClinicName: regexClinic },
-          select: "fullname",
         })
         .exec();
 
       if (filterAvailabilities && filterAvailabilities.length) {
+        console.log("----------- response----------------------- 4");
+        // console.log("filterAvailabilities length:   " + filterAvailabilities.length);
+        // console.log("filterAvailabilities:   " + JSON.stringify(filterAvailabilities));
         dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian);
+        // console.log("dateAvailabilities length:   " + dateAvailabilities.length);
       }
     }
-    // console.log("availabilities: " + JSON.stringify(dateAvailabilities));
+    // console.log("\n --- availabilities:   " + (dateAvailabilities));
     if (dateAvailabilities && dateAvailabilities.length > 0) {
-      console.log("OK-------------------" + JSON.stringify(dateAvailabilities));
+      console.log("----------- response----------------------- 5");
+      // const vetIds =
+      console.log("\n  -----OK-----" + JSON.stringify(dateAvailabilities));
+
+      const availIDList = JSON.parse(JSON.stringify(dateAvailabilities));
+      // const vetIds = availIDList.map(appointment => appointment.veternarian._id);
+      const vetIds = [
+        ...new Set(
+          availIDList.map((appointment) => appointment.veternarian._id)
+        ),
+      ];
+
+      console.log(vetIds);
+
       res.send({
         status: "ok",
         msg: "Search success.",
-        data: JSON.stringify(dateAvailabilities),
+        data: {
+          isAvailable: true,
+          vetIDs: vetIds,
+          date: date !== null ? date : "",
+        },
       });
     } else {
       res.send({

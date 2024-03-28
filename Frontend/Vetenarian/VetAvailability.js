@@ -28,7 +28,7 @@ const VetAvailability = ({ navigation }) => {
   const [serviceCharges, setServiceCharges] = useState();
 
   const handlePress = () => {
-    const userObject = JSON.parse(JSON.stringify(user));
+    const userObject = JSON.parse(user);
     if (!validateInputs()) return;
 
     const userData = {
@@ -47,7 +47,7 @@ const VetAvailability = ({ navigation }) => {
         // console.log("---------------res.data:   " + JSON.stringify(res.data));
         if (res.data.status === "ok")        
     // console.log("---------ok------------:  ");
-          navigation.navigate("Available_VetSessions");
+          navigation.navigate("Available_VetSessions", {searchVetID : 1});
       })
       .catch((e) => console.log(e));
   };
