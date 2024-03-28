@@ -1,13 +1,17 @@
+//importing necessary components from react native
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
+//PharmacyPrescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacyPrescription = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
   return (
     <View style={styles.maincontainer}>
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
         <TouchableOpacity
           onPress={() => navigation.navigate("PharmacyPrescription")}
         >
@@ -17,9 +21,11 @@ const PharmacyPrescription = ({ navigation }) => {
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>PHARMACY</Text>
+        {/*adding a text to display*/}
         <TouchableOpacity
           onPress={() => navigation.navigate("Pharmacy_Settings")}
         >
+          {/*navigating to the Pharmacy_Settings screen by clicking*/}
           <Image
             source={require("../../AppPics/Setting.png")}
             style={styles.settings}
@@ -65,6 +71,7 @@ const PharmacyPrescription = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity
           onPress={() => navigation.navigate("PharmacyPrescription")}
@@ -86,7 +93,7 @@ const PharmacyPrescription = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   nav_bar: {
-    flexDirection: "row",
+    flexDirection: "row", //arranging items of the container horizontally
     justifyContent: "center",
     alignItems: "center",
   },
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
   nav_text2: {
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: -450,
+    marginTop: -450, //adjust margin from the top
   },
   settings: {
     resizeMode: "contain",
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
     top: 170,
     //left: 20,
     width: 365,
-    height: '66%',
+    height: "66%",
     borderRadius: 20,
   },
   topic_text: {

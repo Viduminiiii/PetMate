@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -8,28 +8,42 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Button,
+  Modal,
 } from "react-native";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import axios from "axios";
+const config = require("../config/config");
 
 const VetSignUp = ({ navigation }) => {
-  // Base URL for the backend API
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
 
-  // State variables for user input fields and password visibility
   const [fullname, setFullname] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [veterinaryClinicName, setveterinaryClinicName] = useState();
   const [veterinaryLicenseNumber, setveterinaryLicenseNumber] = useState();
   const [veterinaryClinicAddress, setveterinaryClinicAddress] = useState();
+  const [mainCity, setMainCity] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [location, setLocation] = useState(false);
 
-  // Function to handle sign up button press
   const handlePress = () => {
-    console.log("Button pressed");
-    // Construct user data object
+    // console.log("Button pressed");
+    // console.log("JSON.stringify(location):      " + JSON.stringify(location));
+
+    const objLoc = JSON.parse(JSON.stringify(location));
+    console.log("objLoc:   " + JSON.stringify(objLoc));
+    // console.log("Longitude:", longitude);
+    // console.log("Latitude:", latitude);
+    const objLocation = {
+      type: "Point",
+      coordinates: [objLoc[0].longitude, objLoc[0].latitude],
+    };
+    // console.log("objLocation:   " + JSON.stringify(objLocation));
     const userData = {
       fullname,
       username,
@@ -37,41 +51,54 @@ const VetSignUp = ({ navigation }) => {
       veterinaryClinicName,
       veterinaryLicenseNumber,
       veterinaryClinicAddress,
+      mainCity,
       password,
+      location: objLocation,
     };
 
-    // Check for missing information in the form
-    if (!fullname || !username || !email || !veterinaryClinicName || !veterinaryLicenseNumber || !veterinaryClinicAddress || !password) {
-      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+    if (
+      !fullname ||
+      !username ||
+      !email ||
+      !veterinaryClinicName ||
+      !veterinaryLicenseNumber ||
+      !veterinaryClinicAddress ||
+      !password
+    ) {
+      Alert.alert(
+        "Missing Information",
+        "Please fill in all mandatory fields."
+      );
       return;
     }
 
-    // Validate full name
     if (!validateFullName(fullname)) {
       Alert.alert("Invalid Full Name", "Full name should not contain numbers");
       return;
     }
 
-    // Validate clinic name
     if (!validateClinicName(veterinaryClinicName)) {
-      Alert.alert("Invalid Clinic Name", "Clinic Name should not contain numbers");
+      Alert.alert(
+        "Invalid Clinic Name",
+        "Clinic Name should not contain numbers"
+      );
       return;
     }
 
-    // Validate email address
     if (!validateEmail(email)) {
       Alert.alert("Invalid Email", "Please enter a valid email address");
       return;
     }
-    
-    // If all validations pass, proceed with registration
+
     console.log("All fields filled, proceed with registration.");
-    console.log("userData:  " + JSON.stringify(userData));
+    console.log("---------- pass ----userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/registerVet", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Login");
+        console.log("res.data:   " + JSON.stringify(res.data));
+        if (res.data.status === "ok") {
+          navigation.navigate("Login");
+        }
       })
       .catch((e) => console.log(e));
   };
@@ -82,8 +109,8 @@ const VetSignUp = ({ navigation }) => {
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
 
-  // Function to validate clinic name (should not contain numbers)
   const validateClinicName = (veterinaryClinicName) => {
+    // Check if full name contains numbers
     const containsNumbers = /\d/.test(veterinaryClinicName);
     return !containsNumbers; // Return true if full name doesn't contain numbers
   };
@@ -94,14 +121,19 @@ const VetSignUp = ({ navigation }) => {
     return emailRegex.test(email);
   };
 
+  const navigateToGetLocation = () => {
+    // navigation.navigate('GoogleMap');
+    navigation.navigate("GoogleMap", {
+      onDataReceived: (locationFromMap) => setLocation(locationFromMap),
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
-        {/* Navigation Bar */}
         <View style={styles.nav_bar}>
           <Text style={styles.nav_text}>VETERINARY REGISTRATION</Text>
         </View>
-        {/* Veterinary Information */}
         <View style={styles.container1}>
           <Text style={styles.text}>Veterinary Information</Text>
         </View>
@@ -126,7 +158,6 @@ const VetSignUp = ({ navigation }) => {
             onChangeText={(text) => setEmail(text)}
           ></TextInput>
         </View>
-        {/* Clinic Information */}
         <View style={styles.infoText_container}>
           <Text style={styles.text}>Clinic Information</Text>
         </View>
@@ -155,20 +186,29 @@ const VetSignUp = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             placeholder="Main city the clinic located"
-            onChangeText={(text) => setveterinaryClinicAddress(text)}
+            onChangeText={(text) => setMainCity(text)}
           ></TextInput>
         </View>
-        {/* Clinic Location */}
         <View style={styles.container4}>
           <Text style={styles.text}>Pin Your Clinic Location</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("GoogleMap")}>
+        {/* <GoogleMap
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onDataSubmit={handleDataSubmit}
+        /> */}
+        <TouchableOpacity
+          onPress={
+            () => navigateToGetLocation()
+            // setModalVisible(true)
+            // navigation.navigate("GoogleMap")
+          }
+        >
           <Image
             source={require("../../AppPics/Google_map.png")}
             style={styles.image}
           />
         </TouchableOpacity>
-        {/* Password */}
         <View style={styles.container3}>
           <View style={styles.inputWithImage}>
             <TextInput
@@ -187,14 +227,12 @@ const VetSignUp = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        {/* Sign Up Button */}
         <TouchableOpacity
           style={styles.signUpButton}
           onPress={() => handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
-        {/* Continue with Social Media */}
         <View style={styles.container5}>
           <Text style={styles.text}>or continue with</Text>
         </View>
