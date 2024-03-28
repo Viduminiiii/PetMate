@@ -43,13 +43,14 @@ mongoose
     console.log(e);
   });
 
-require("./PetOwner").default;
-require("./Users").default;
-require("./Veternarian").default;
-require("./Pharmacy").default;
-require("./Availability").default;
-require("./Appointments").default;
-require("./PrescriptionSendDetails").default;
+require("./Models/PetOwner").default;
+require("./Models/Users").default;
+require("./Models/Veternarian").default;
+require("./Models/Pharmacy").default;
+require("./Models/Availability").default;
+require("./Models/Appointments").default;
+require("./Models/PrescriptionSendDetails").default;
+require("./Models/Messages").default;
 
 const PetOwner = mongoose.model("PetOwner");
 const User = mongoose.model("Users");
@@ -58,6 +59,7 @@ const Pharmacy = mongoose.model("Pharmacy");
 const Availability = mongoose.model("Availability");
 const Appointments = mongoose.model("Appointments");
 const PrescriptionSendDetails = mongoose.model("PrescriptionSendDetails");
+const Messages = mongoose.model("Messages");
 ("");
 app.get("/getTest", (req, res) => {
   res.send("success ---------------------------");

@@ -34,6 +34,7 @@ import FPSendEmail from "./Frontend/FPSendEmail";
 import FPVerification from "./Frontend/FPVerification";
 import PaymentScreen from "./Frontend/PetOwner/PaymentScreen";
 
+import FPResetPassword from "./Frontend/FPResetPassword";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthProvider } from "./Frontend/config/AuthContext";

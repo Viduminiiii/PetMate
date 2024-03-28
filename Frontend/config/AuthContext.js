@@ -1,16 +1,24 @@
 // AuthContext.js
 
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [userID, setUserID] = useState();
+  const [userType, setUserType] = useState();
 
   const login = (userData) => {
     // Perform login logic
-    // console.log("----login user:"+ JSON.stringify(userData));
+    console.log("----login user:" + userData);
+
+    const parsedData = JSON.parse(userData);
+    // const userId = parsedData.userLevel;
+    // console.log("userLevel:  "+userId);
     setUser(userData);
+    setUserID(parsedData.userID);
+    setUserType(parsedData.userLevel)
   };
 
   const logout = () => {
@@ -19,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, userID, userType, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
