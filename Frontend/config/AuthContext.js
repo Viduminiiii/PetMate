@@ -1,7 +1,7 @@
 // AuthContext.js
 
 import React, { createContext, useState, useContext } from "react";
-import React, { createContext, useState, useContext } from "react";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     // console.log("userLevel:  "+userId);
     setUser(userData);
     setUserID(parsedData.userID);
-    setUserType(parsedData.userLevel)
+    setUserType(parsedData.userLevel);
   };
 
   const logout = () => {

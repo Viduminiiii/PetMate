@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios"; //importing axios library for making HTTP requests
-
+import config from "../config/config";
 //PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
@@ -237,8 +237,7 @@ const PharmacySignUp = ({ navigation }) => {
           style={styles.signUpButton}
           onPress={() => handlePress()}
         >
-          <Text style={styles.signUpButtonText}>Sign Up</Text>{" "}
-          {/*creating the  sign up button*/}
+          <Text style={styles.signUpButtonText}>Sign Up</Text>
         </TouchableOpacity>
         <View style={styles.container5}>
           <Text style={styles.text}>or continue with</Text>
@@ -261,7 +260,6 @@ const PharmacySignUp = ({ navigation }) => {
         <View style={styles.container6}>
           <Text style={styles.text}>Do you have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            {/*TouchableOpacity component naviagets to the 'Login' screen on press*/}
             <Text style={styles.loginText}>LOGIN</Text>
           </TouchableOpacity>
         </View>
