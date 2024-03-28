@@ -368,6 +368,45 @@ app.post("/messages", upload.single("imageFile"), async (req, res) => {
 });
 
 
+///endpoint to get the userDetails to design the chat Room header
+app.get("/user/:userId", async (req, res) => {
+  console.log("\n\n -------user  params---:  " + JSON.stringify(req.params));
+  try {
+    const { userId } = req.params;
+
+    //fetch the user data from the user ID
+    const recepientId = await User.findById(userId);
+
+    // res.json(recepientId);
+    res.send(recepientId);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//endpoint to fetch the messages between two users in the chatRoom
+app.get("/messages/:senderId/:recepientId", async (req, res) => {
+  console.log("\n\n -------params---:  " + JSON.stringify(req.params));
+  try {
+    const { senderId, recepientId } = req.params;
+
+    const messages = await Messages.find({
+      $or: [
+        { senderId: senderId, recepientId: recepientId },
+        { senderId: recepientId, recepientId: senderId },
+      ],
+    }).populate("senderId", "_id name");
+
+    res.send(messages);
+    // res.json(messages);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 app.post("/availability", async (req, res) => {
   console.log("-------- req.body availability:   " + JSON.stringify(req.body));
   const {

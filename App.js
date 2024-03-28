@@ -33,6 +33,8 @@ import GoogleMap from "./Frontend/GoogleMap";
 import FPSendEmail from "./Frontend/FPSendEmail";
 import FPVerification from "./Frontend/FPVerification";
 import PaymentScreen from "./Frontend/PetOwner/PaymentScreen";
+import ChatScreen from "./Frontend/ChatScreen";
+import ChatMessages from "./Frontend/components/ChatMessage";
 
 import FPResetPassword from "./Frontend/FPResetPassword";
 import { NavigationContainer } from "@react-navigation/native";
@@ -49,8 +51,8 @@ function App() {
           <Stack.Screen name="Startup" component={Startup} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserCategory" component={UserCategory} />
-          {/* <Stack.Screen name="ChatScreen" component={ChatScreen} /> */}
-          {/* <Stack.Screen name="ChatMessages" component={ChatMessages} /> */}
+          <Stack.Screen name="ChatScreen" component={ChatScreen} />
+          <Stack.Screen name="ChatMessages" component={ChatMessages} />
 
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Menu" component={PetOwnerMenu} />
