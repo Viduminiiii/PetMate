@@ -1,3 +1,4 @@
+//importing necessary components from react native
 import React from "react";
 import {
   View,
@@ -7,13 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+//Pharmacy_Settings component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Pharmacy_Settings = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
   return (
     <View style={styles.container}>
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
+         {/*nav_bar container which contains the components related to create the navbar*/}
         <TouchableOpacity
           onPress={() => navigation.navigate("PharmacyPrescription")}
         >
@@ -34,6 +38,7 @@ const Pharmacy_Settings = ({ navigation }) => {
 
       <View style={styles.text1}>
           <Text style={styles.username}>Marsh Smith</Text>
+          {/*adding a text to display*/}
       </View>
 
       <View style={styles.text2}>
@@ -41,15 +46,18 @@ const Pharmacy_Settings = ({ navigation }) => {
       </View>
 
       <View style={styles.container_3}>
+        {/*creating the sign out button*/}
         <TouchableOpacity
           style={styles.signoutbutton}
           onPress={() => navigation.navigate("Login")}
         >
+          {/*naviagting to the login screen by clicking*/}
           <Text style={styles.signout_buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.footer}>
+      {/*creating the footer*/}
         <TouchableOpacity
           onPress={() => navigation.navigate("PharmacyPrescription")}
         >
@@ -68,10 +76,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#CEEFA3",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 30,
+    paddingTop: 30, //adds padding from the top of the container 
   },
   nav_bar: {
-    flexDirection: "row",
+    flexDirection: "row", //arranges items of the container horizontally to place in a row
     justifyContent: "center",
     alignItems: "center",
   },
@@ -150,7 +158,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 65,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center", //aligning items at center vertically
   },
   menu_img: {
     width: 50,

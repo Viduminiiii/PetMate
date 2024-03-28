@@ -6,7 +6,8 @@ const PetOwnerSchema=new Schema({
     email: {type: String, unique: true},
     petname: { type: String, required: true },
     age: { type: Number, required: true },
-    // user: { type: Schema.Types.ObjectId, ref: 'Users' }
+    createdDate: {type: Date, required: true},
+    modifiedDate: {type: Date }
 },{
     collection: "PetOwner"
 })

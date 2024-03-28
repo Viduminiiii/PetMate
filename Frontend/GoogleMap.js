@@ -1,14 +1,26 @@
-import React, { useRef } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useRef, useState } from "react";
+import { View, Image, StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { useRoute } from "@react-navigation/native";
 /*
 Use to embed interactive maps into the application
 PROVIDER_GOOGLE - Specifies that the Google Maps API is use as the map provider
 */
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
-const GoogleMap = () => {
+const GoogleMap = ({ navigation }) => {
   const mapRef = useRef(null);
+  const route = useRoute();
+  /*
+  This state is use to keep track of the markers placed on the map.
+  When pressing on the map its coordinates are added to the "markers" array using "setMarkers".
+  This is reset the map component with the updated marker position.
+  */
+  const [marker, setMarker] = useState([]);
+
+  const customMarkerImage = require("../AppPics/location_marker.png");
+
   /*
   This function is use to animating the map view to specific location
   defined by the provided latitude and longitude.
@@ -24,6 +36,23 @@ const GoogleMap = () => {
       2000 // The duration of the animation is set to 2000 milliseconds (2 seconds)
     );
   };
+  /*
+  This function is an event handling.
+  This function is call when user presses on the map.
+  */
+  const handleMapPress = (event) => {
+    const { coordinate } = event.nativeEvent; // Use to get the coordinate of the user pressed location on the map.
+    console.log("Clicked Location's Coordinate:", coordinate); // Use to display the lat and long in the console.
+    setMarker([coordinate]); // Use to clear the previous marker and add the new marker's coordinate.
+  };
+
+  const sendLocationToSignup = () => {
+    // Pass location back to Signup
+
+    route.params?.onDataReceived(marker);
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -36,7 +65,17 @@ const GoogleMap = () => {
           latitudeDelta: 0.07, // Indicates the zoom level of the map along the latitude axis.
           longitudeDelta: 0.07, // Indicates the zoom level of the map along the longitude axis.
         }}
-      />
+        onPress={handleMapPress}
+      >
+        {marker.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker}
+            image={customMarkerImage}
+            // style={styles.markerImage}
+          ></Marker>
+        ))}
+      </MapView>
       <View style={styles.google_map_places}>
         <GooglePlacesAutocomplete
           placeholder="Search"
@@ -56,6 +95,7 @@ const GoogleMap = () => {
           }}
         />
       </View>
+      <Button title="Save Location" onPress={sendLocationToSignup} />
     </View>
   );
 };
@@ -84,6 +124,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     elevation: 10, // Add shadow to the search bar.
   },
+  // markerImage: {
+  //   width: 50,
+  //   height: 50,
+  // },
 });
 
 export default GoogleMap;

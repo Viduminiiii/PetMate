@@ -8,6 +8,8 @@ const PrescriptionSendDetailsSchema=new Schema({
     drugsAvailability: {type: Boolean, default: false },
     pharmacyComment: {type: String, required: true }, 
     isMedicineBought: {type: Boolean, default: false },
+    createdDate: {type: Date, required: true},
+    modifiedDate: {type: Date },
 },{
     collection: "PrescriptionSendDetails"
 })

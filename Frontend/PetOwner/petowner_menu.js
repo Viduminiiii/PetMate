@@ -1,13 +1,17 @@
+//importing necessary components from react native
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
+//PetOwnerMenu component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PetOwnerMenu = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
   };
   return (
     <View style={styles.page}>
+      {/*main container which contains all the components*/}
       <View style={styles.nav_bar}>
+        {/*nav_bar container which contains the components related to create the navbar*/}
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -16,10 +20,12 @@ const PetOwnerMenu = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.nav_text}>MENU</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Reminders")}>
+          {/*navigating to the Reminders screen by clicking on the reminder image*/}
           <Image
             source={require("../../AppPics/Reminder.png")}
             style={styles.reminder}
           />
+          {/*adding an image*/}
         </TouchableOpacity>
       </View>
 

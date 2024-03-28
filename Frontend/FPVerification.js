@@ -6,13 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert
 } from "react-native";
 
 const FPVerification = () => {
   const [code, setCode] = useState();
-  // const handlePress = () => {
-  //   console.log("Button Pressed");
-  // };
+  const handlePress = () => {
+
+    if (!code) {
+      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+      return;
+    }
+    console.log("All fields filled, proceed with registration.");
+    console.log("Button Pressed");
+  };
   return (
     <View style={styles.main_container}>
       <Image source={require("../AppPics/Dog.png")} style={styles.image} />

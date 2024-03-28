@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,36 +7,76 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
+import { useAuth } from "./config/AuthContext";
 const config = require("./config/config");
 
 const Login = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
+
+  const { login, user, userID, userType } = useAuth();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        console.log("user Login:  "+JSON.stringify(user));
+        if (user) {
+          const userObject = JSON.parse(user);
+          const token = userObject.token;
+          console.log("---token login:  " + token);
+
+          if (token) {
+            console.log("Token exist..");
+          } else {
+            // token not found , show the login screen itself
+          }
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   const handlePress = () => {
     // console.log("handlePress ----  " + username + " -  " + password);
     const userData = { username, password };
 
-    console.log("userData:  " + JSON.stringify(userData));
+    if (!username || !password) {
+      Alert.alert(
+        "Missing Information",
+        "Please fill in all mandatory fields."
+      );
+      return;
+    }
+
+    console.log("All fields filled, proceed with registration.");
+    // console.log("userData:  " + JSON.stringify(userData));
     axios
       .post(baseURL + "/getOneUser", userData)
       .then((res) => {
-        console.log(res.data);
-        if (res.data.status === "ok") navigation.navigate("Menu");
+        // console.log(res.data);
+        if (res.data.status === "ok") {
+          // console.log("res.data.data:   "+ JSON.stringify(res.data.data));
+          login(JSON.stringify(res.data.data));
+          if (res.data.data.userLevel === "1") {
+            navigation.navigate("Menu");
+          } else if (res.data.data.userLevel === "2") {
+            navigation.navigate("VetMenu");
+          } else if (res.data.data.userLevel === "3") {
+            navigation.navigate("PharmacyPrescription");
+          } else {
+            navigation.navigate("Login");
+          }
+        }
       })
       .catch((e) => console.log(e));
-
-    // if (username === "pet" && password === "123") {
-    //   navigation.navigate("Menu");
-    // } else if (username === "vet" && password === "123") {
-    //   navigation.navigate("VetMenu");
-    // } else if (username === "pharmacy" && password === "123") {
-    //   navigation.navigate("PharmacyPrescription");
-    // }
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");

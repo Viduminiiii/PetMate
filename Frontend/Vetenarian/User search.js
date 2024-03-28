@@ -7,7 +7,9 @@ const UserSearch = ({ navigation }) => {
   };
   return (
     <View style={styles.page}>
+      {/* Navigation bar */}
       <View style={styles.nav_bar}>
+        {/* Logo */}
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -23,6 +25,7 @@ const UserSearch = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View>
+        {/* List of users */}
         <TouchableOpacity
           onPress={() => navigation.navigate("Medicalrecordss")}
         >
@@ -66,14 +69,16 @@ const UserSearch = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
-      
+      {/* Footer navigation */}
       <View style={styles.footer}>
+        {/* Menu button */}
         <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
+        {/* Chat button */}
         <TouchableOpacity
           onPress={() => navigation.navigate("ReceivedMessages")}
         >
@@ -82,6 +87,7 @@ const UserSearch = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
+        {/* Prescription button */}
         <TouchableOpacity
           onPress={() => navigation.navigate("VetPrescription")}
         >
@@ -90,13 +96,14 @@ const UserSearch = ({ navigation }) => {
             style={styles.prescription_img}
           />
         </TouchableOpacity>
-
+        {/* Appointment button */}
         <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
           <Image
             source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
+        {/* Vet availability button */}
         <TouchableOpacity
           onPress={() => navigation.navigate("VetAvailability")}
         >

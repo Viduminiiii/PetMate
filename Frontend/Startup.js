@@ -1,7 +1,9 @@
+//importing necessary components from react native
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 // This is a functional component named "Startup" which is call in "App.js".
+//Startup component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Startup = ({ navigation }) => {
     // A function to handle events or perform actions in response to user triggers.
     const handlePress = () => {
@@ -9,17 +11,21 @@ const Startup = ({ navigation }) => {
     }
     return(
         <View style={styles.container}>
+            {/*main container for the whole component*/}
             <Image
                 source={require("../AppPics/Start up.jpg")}
                 style={styles.image}
             />
+            {/*adding an image*/}
             <View style={styles.text}>
                 <Text style={[styles.textItem, {paddingLeft: 10}]}>Your furry friend</Text>
                 <Text style={styles.textItem}>deserves the best</Text>
+                {/*adding a text to display*/}
                 <Text style={[styles.textItem, {paddingLeft: 60}]}>and now,</Text>
                 <Text style={styles.textItem}>it's just a tap away!</Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.button}>
+                {/*naviagets to the Login screen by clicking*/}
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('UserCategory')} style={styles.button}>
