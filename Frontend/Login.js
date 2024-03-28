@@ -1,5 +1,5 @@
-import axios from "axios"; // Import Axios for making HTTP requests
-import React, { useState } from "react"; // Import React and useState 
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,32 +7,58 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Alert
+  Alert,
 } from "react-native";
-import { useAuth } from './config/AuthContext';// Import useAuth hook from AuthContext
-const config = require("./config/config");// Import configuration file
+import { useAuth } from "./config/AuthContext";
+const config = require("./config/config");
 
 const Login = ({ navigation }) => {
-  const baseURL = config.DB_HOST + ":" + config.DB_PORT;// Construct base URL using configuration
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
 
-  const { login } = useAuth();// Destructure login function from useAuth hook
-  const [username, setUsername] = useState();// State for username
-  const [password, setPassword] = useState();// State for password
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);// State for password visibility
+  const { login, user, userID, userType } = useAuth();
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        console.log("user Login:  "+JSON.stringify(user));
+        if (user) {
+          const userObject = JSON.parse(user);
+          const token = userObject.token;
+          console.log("---token login:  " + token);
+
+          if (token) {
+            console.log("Token exist..");
+          } else {
+            // token not found , show the login screen itself
+          }
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   const handlePress = () => {
     // console.log("handlePress ----  " + username + " -  " + password);
-    const userData = { username, password };// Prepare user data object
+    const userData = { username, password };
 
-    if (!username || !password) {  // Validate if username and password are provided
-      Alert.alert("Missing Information", "Please fill in all mandatory fields.");
+    if (!username || !password) {
+      Alert.alert(
+        "Missing Information",
+        "Please fill in all mandatory fields."
+      );
       return;
     }
 
     console.log("All fields filled, proceed with registration.");
     // console.log("userData:  " + JSON.stringify(userData));
-    axios // Send HTTP POST request to server with user data
+    axios
       .post(baseURL + "/getOneUser", userData)
       .then((res) => {
         // console.log(res.data);
@@ -50,11 +76,11 @@ const Login = ({ navigation }) => {
           }
         }
       })
-      .catch((e) => console.log(e));// Log error if any
+      .catch((e) => console.log(e));
   };
   const handlePressForgot = () => {
     console.log("Forgot Button pressed");
-    navigation.navigate("FPSendEmail"); 
+    navigation.navigate("FPSendEmail");
   };
   return (
     <View style={styles.loginpage1}>
