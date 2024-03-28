@@ -325,6 +325,49 @@ app.get("/users/:userId/:usertype", (req, res) => {
   }
 });
 
+const multer = require("multer");
+
+// Configure multer for handling file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "files/"); // Specify the desired destination folder
+  },
+  filename: function (req, file, cb) {
+    // Generate a unique filename for the uploaded file
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+//endpoint to post Messages and store it in the backend
+app.post("/messages", upload.single("imageFile"), async (req, res) => {
+  try {
+    // console.log("\n\n -------messages---:  " + JSON.stringify(req.body));
+    const { senderId, recepientId, messageType, messageText } = req.body;
+
+    const newMessage = {
+      senderId: senderId,
+      recepientId: recepientId,
+      messageType: messageType,
+      message: messageText,
+      imageUrl: messageType === "image" ? req.file.path : null,
+      timestamp: new Date(),
+    };
+    const objMessages = await Messages.create(newMessage);
+
+    if (objMessages !== null) {
+      console.log("Message sent Successfully");
+      res.send({ status: 200, data: "Message sent Successfully" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 app.post("/availability", async (req, res) => {
   console.log("-------- req.body availability:   " + JSON.stringify(req.body));
   const {
