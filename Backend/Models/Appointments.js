@@ -1,10 +1,13 @@
+// Importing mongoose library
 const mongoose =require('mongoose');
+// Destructuring Schema from mongoose
 const { Schema } = mongoose;
 
+// Defining schema for appointments
 const AppointmentsSchema=new Schema({
-    appointmentDate: {type: Date, required: true},
-    appointmentTime: { type: Date, required: true },
-    appointmentNo: { type: Number, required: true },
+    appointmentDate: {type: Date, required: true}, // Date of the appointment
+    appointmentTime: { type: Date, required: true }, // Time of the appointment
+    appointmentNo: { type: Number, required: true }, // Appointment number
     isPaid: {type: Boolean, required: true, default: false },
     paidDate: {type: Date},
     medications: { type: String, required: true },
