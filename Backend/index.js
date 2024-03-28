@@ -272,6 +272,59 @@ app.post("/getOneUser", async (req, res) => {
   });
 });
 
+app.get("/users/:userId/:usertype", (req, res) => {
+  console.log("users------------------------");
+  const loggedInUserId = req.params.userId;
+  const loggedInUserType = req.params.usertype;
+
+  const query = {
+    _id: { $ne: loggedInUserId },
+    Veternarian: { $ne: null },
+  };
+  const query2 = {
+    _id: { $ne: loggedInUserId },
+    petOwner: { $ne: null },
+  };
+
+  console.log("-----------loggedInUserType:   " + loggedInUserType);
+
+  if (loggedInUserType === "1") {
+    console.log("-----------1--------------");
+    User.find(query)
+      .select("_id username")
+      .populate({
+        path: "Veternarian",
+        select: "fullname veterinaryClinicName email",
+      })
+      .then((users) => {
+        console.log("users:   " + JSON.stringify(users));
+        res.send(JSON.stringify(users));
+        // res.status(200).json(users);
+      })
+      .catch((err) => {
+        console.log("Error retrieving users", err);
+        res.send({ status: 500, message: "Error retrieving users" });
+      });
+  } else {
+    // console.log("-----------2--------------");
+    User.find(query2)
+      .select("_id username")
+      .populate({
+        path: "petOwner",
+        select: "fullname petname email",
+      })
+      .then((users) => {
+        console.log("users:   " + JSON.stringify(users));
+        res.send(JSON.stringify(users));
+        // res.status(200).json(users);
+      })
+      .catch((err) => {
+        console.log("Error retrieving users", err);
+        res.send({ status: 500, message: "Error retrieving users" });
+      });
+  }
+});
+
 app.post("/availability", async (req, res) => {
   console.log("-------- req.body availability:   " + JSON.stringify(req.body));
   const {
