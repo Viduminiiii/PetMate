@@ -48,6 +48,8 @@ function App() {
           <Stack.Screen name="Startup" component={Startup} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserCategory" component={UserCategory} />
+          <Stack.Screen name="ChatScreen" component={ChatScreen} />
+          <Stack.Screen name="ChatMessages" component={ChatMessages} />
 
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Menu" component={PetOwnerMenu} />

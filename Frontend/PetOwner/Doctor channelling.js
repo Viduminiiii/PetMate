@@ -69,6 +69,8 @@ const DocChannelling = ({ navigation }) => {
       .post(baseURL + "/searchAvailability", userData)
       .then((res) => {
         console.log("----res.data.data------:   " + res.data.data); //outputting response data to the console to understand its contents and structure fro debugging purpose
+        const vetData = JSON.parse(res.data.data);
+        console.log("\n ---vet id -----" + JSON.stringify(vetData.veternarian));
         if (res.data.status === "ok") {
           //navigating to the "Available_VetSessions" screen if availablilities are found
           console.log("Available_VetSessions--------------");
