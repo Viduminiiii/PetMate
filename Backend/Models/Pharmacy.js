@@ -1,6 +1,9 @@
+// Importing mongoose library
 const mongoose = require("mongoose");
+// Destructuring Schema from mongoose
 const { Schema } = mongoose;
 
+// Defining schema for pharmacies
 const PharmacySchema = new Schema(
   {
     fullname: { type: String, required: true },
@@ -12,22 +15,23 @@ const PharmacySchema = new Schema(
     location: {
       type: {
         type: String,
-        enum: ["Point"],
+        enum: ["Point"], // GeoJSON type indicating a point
         default: "Point",
         required: true,
       },
       coordinates: {
-        type: [Number],
+        type: [Number], // Longitude and latitude coordinates
         required: true,
       },
     },
-    createdDate: { type: Date, required: true },
-    modifiedDate: { type: Date },
+    createdDate: { type: Date, required: true }, // Date when the pharmacy record was created
+    modifiedDate: { type: Date }, // Date when the pharmacy record was last modified
   },
   {
-    collection: "Pharmacy",
+    collection: "Pharmacy", // Setting the collection name explicitly to "Pharmacy"
   }
 );
+// Creating a model named "Pharmacy" based on the schema
 const Pharmacy = mongoose.model("Pharmacy", PharmacySchema);
 // After defining PharmacySchema
-module.exports = Pharmacy;
+module.exports = Pharmacy; //exporting the model
