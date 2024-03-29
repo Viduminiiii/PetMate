@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { Button } from "react-native-elements";
 import { useRoute } from "@react-navigation/native";
-/*
 
 /*
 Use to embed interactive maps into the application
@@ -13,7 +12,6 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 //Use to provide Google places auto complete functionality.
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-//5
 /*
 This provides a set of methods that allow to request runtime permissions from the user on
 Android devices.
@@ -35,7 +33,6 @@ const GoogleMap = ({ navigation }) => {
   This is reset the map component with the updated marker position.
   */
   const [marker, setMarker] = useState([]);
-  //1
   /*
   This state is used to track if the location permission is granted or not
   by the user.
@@ -44,13 +41,11 @@ const GoogleMap = ({ navigation }) => {
 
   const [mapInitialized, setMapInitialized] = useState(false);
 
-  //3
   // This useEffect hook is use to perform side effects.
   useEffect(() => {
     getLocationPermission();
   }, []); // The empty array indicates this effect is runs only once after the initial render.
 
-  //4
   /*
   This function is use to get location permission from the user and
   call the specific functions to continue the process.
@@ -70,21 +65,18 @@ const GoogleMap = ({ navigation }) => {
           }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          //8
           // Update the state to true when permission is granted.
           setPermissionGranter(true);
-          //6
           // If permission is granted, then call the getCurrentLocation() function.
           getCurrentLocation();
         } else {
-          console.log("Camera permission denied");
+          console.log("Permission denied");
         }
       } catch (err) {
         console.warn(err);
       }
     }
   }
-  //7
   // Function to get the current location.
   const getCurrentLocation = () => {
     // Retrieve the current location of the device.
@@ -130,7 +122,6 @@ const GoogleMap = ({ navigation }) => {
     setMapInitialized(true);
   };
 
-  //2
   //Use to display a messsage if the permissionGranter state is false.
   if (!permissionGranter)
     return (
@@ -140,8 +131,11 @@ const GoogleMap = ({ navigation }) => {
     );
 
   const sendLocationToSignup = () => {
-    // Pass location back to Signup
-    route.params?.onDataReceived(marker);
+    // Pass location data back to the Signup
+    route.params?.onDataReceived(marker); // marker contains the coordinates of the selected function.
+    /*Use to navigate the previous screen automatically after user clicked on the
+      save location button
+    */
     navigation.goBack();
   };
 
@@ -152,8 +146,8 @@ const GoogleMap = ({ navigation }) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={{
-          latitude: 6.9265707279464,
-          longitude: 79.86142018841134,
+          latitude: 6.900346246480022,
+          longitude: 79.85295250778287,
           latitudeDelta: 0.007, // Indicates the zoom level of the map along the latitude axis.
           longitudeDelta: 0.007, // Indicates the zoom level of the map along the longitude axis.
         }}

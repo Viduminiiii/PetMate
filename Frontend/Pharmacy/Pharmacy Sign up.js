@@ -15,7 +15,7 @@ import config from "../config/config";
 //PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
 
   const [fullname, setFullname] = useState(); //state variable for storing the input value of the full name field in the form
   const [username, setUsername] = useState();
@@ -52,6 +52,7 @@ const PharmacySignUp = ({ navigation }) => {
       pharmacyAddress,
       mainCity,
       password,
+      location: objLocation,
     };
 
     if (
@@ -238,25 +239,9 @@ const PharmacySignUp = ({ navigation }) => {
           onPress={() => handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <View style={styles.container5}>
-          <Text style={styles.text}>or continue with</Text>
-        </View>
-        <View style={styles.imageContainer}>
-          <TouchableOpacity>
-            <Image
-              source={require("../../AppPics/FB.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-          <View style={styles.space} />
-          <TouchableOpacity>
-            <Image
-              source={require("../../AppPics/Google.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity> 
+        
+        
         <View style={styles.container6}>
           <Text style={styles.text}>Do you have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
