@@ -23,7 +23,8 @@ const Payment_1 = ({ navigation }) => {
   // const pub_key = helper.fetchPublishableKey('pubKey');
   // const sec_key = helper.fetchPublishableKey('secKey');
 
-  const { user } = useAuth();
+ 
+  const { user, userID, userType } = useAuth();
   const [pub_key, setPub_key] = useState(null);
   const [doctorFee, setDoctorFee] = useState(null);
   const [serviceCharge, setServiceCharge] = useState(false);
@@ -33,6 +34,7 @@ const Payment_1 = ({ navigation }) => {
   const { confirmPayment, loading } = useConfirmPayment();
 
   useEffect(() => {
+    const userObject = JSON.parse(JSON.stringify(user));
     const pubKey = getPublishableKey("pubKey");
     // const pubKey = helper.fetchPublishableKey("pubKey");
     console.log("public Key1:    " + (pubKey));
@@ -210,7 +212,7 @@ const Payment_1 = ({ navigation }) => {
               style={styles.menu_img}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+          <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
             <Image
               source={require("../../AppPics/Footer_Chat.png")}
               style={styles.menu_img}

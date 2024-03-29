@@ -38,41 +38,19 @@ const DocChannelling = ({ navigation }) => {
       searchDoctor: docClinicItem,
       searchClinic: docClinicItem,
     };
-    //   const response = axios.post(baseURL + "/searchAvailability", userData);
-    //   console.log("----response:   "+JSON.stringify(response.data));
-    //   if(response.data){
-    //     if (response.data.status === "ok") {
-    //       console.log("get Availabilities:", response.data.data);
-    //       // Do something with the availabilities, e.g., navigate to another screen and pass them as props
-    //       if (res.data.status === "ok")
-    //         navigation.navigate("Available_VetSessions");
-    //     } else {
-    //       console.error("Error fetching availabilities:", response.data.msg);
-    //       alert("Error fetching availabilities:", response.data.msg);
-    //     }
-    //   }
-    //   else{alert("response unsuccess..")}
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
-
-    // console.log("Button pressed");
-    // const userData = {
-    //   searchDate: searchDate,
-    //   searchDoctor: docClinicItem,
-    //   searchClinic: docClinicItem,
-    // };
-    // console.log("userData:  " + JSON.stringify(userData));
-
-    //sending a POST request to search for availability using axios
+    
     axios
       .post(baseURL + "/searchAvailability", userData)
       .then((res) => {
-        console.log("----res.data.data------:   " + res.data.data); //outputting response data to the console to understand its contents and structure fro debugging purpose
+        console.log("----res.data.data------:   " + JSON.stringify(res.data.data)); //outputting response data to the console to understand its contents and structure fro debugging purpose
         if (res.data.status === "ok") {
+          const resultData = JSON.parse(JSON.stringify(res.data.data));
+          console.log("isAvailable:  " + resultData.isAvailable + " - date:  " + resultData.date + "  vetIDs:  " + resultData.vetIDs);
+          if(resultData.isAvailable === true){
+            console.log("Available_VetSessions--------------");
+            navigation.navigate("Available_VetSessions", {searchVetID : resultData.vetIDs});            
+          }
           //navigating to the "Available_VetSessions" screen if availablilities are found
-          console.log("Available_VetSessions--------------");
-          navigation.navigate("Available_VetSessions");
         } else {
           //handling error if status if not "ok"
           console.error("Error fetching availabilities:", response.data.msg);
@@ -244,7 +222,7 @@ const DocChannelling = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}

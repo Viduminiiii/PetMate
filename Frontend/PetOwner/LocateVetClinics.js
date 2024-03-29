@@ -1,5 +1,5 @@
 //import necessary components from react native
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -7,19 +7,43 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
+import axios from "axios"; //importing axios library for HTTP requests
+const config = require("../config/config"); //importing configuration file
 
 //LocateVetClinics component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const LocateVetClinics = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT; //base URL for the database connection
+
+  const [searchClinic, setSearchClinic] = useState();
+  const [appData, setAppData] = useState([]);
+
   const handlePress = () => {
     console.log("Button pressed");
+    //constructing userData object based on the state values
+    const userData = { searchClinic: searchClinic };
+    //sending a POST request to search for availability using axios
+    axios
+      .post(baseURL + "/searchClinic", userData)
+      .then((res) => {
+        console.log("----res.data.searchClinic------:   " + res.data); //outputting response data to the console to understand its contents and structure fro debugging purpose
+        if (res.data) {
+          setAppData(res.data);
+        } else {
+          //handling error if status if not "ok"
+          console.error("Error fetching clinics:", response.data.msg);
+          alert("Error fetching clinics:", response.data.msg);
+        }
+      })
+      .catch((e) => console.log(e));
   };
   return (
     <View style={styles.container}>
-    {/*main container for the whole component*/}
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
-        {/*TouchableOpacity component naviagets to the Menu screen on press*/}
+          {/*TouchableOpacity component naviagets to the Menu screen on press*/}
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo_img}
@@ -49,73 +73,43 @@ const LocateVetClinics = ({ navigation }) => {
         <TextInput
           style={styles.search_bar_text}
           placeholder="Search"
+          onChangeText={(text) => setSearchClinic(text)}
         ></TextInput>
         {/*this line allows to add a TextInput component so that the user could type a text*/}
-        <Image
-          source={require("../../AppPics/Google_map.png")}
-          style={styles.google_map_img}
-        />
         {/*adds the image*/}
       </View>
-      <View style={styles.inside_container}>
-        <Text style={styles.explore_text}>Explore</Text>
-        <TouchableOpacity
-          onPress={() => handlePress("Vet Clinic")}
-          style={styles.button}
-        >
-          <View style={styles.button_1_2}>
-            <Image
-              source={require("../../AppPics/VetClinic_PetVetclinic.jpg")}
-              style={styles.button_img_1}
-            />
-            <View style={styles.button_half_view_column}>
-              <Text style={styles.button_text}>PetVet Clinic</Text>
-              <View style={styles.button_half_view_row}>
-                <Image
-                  source={require("../../AppPics/Time.png")}
-                  style={styles.time_img}
-                />
-                <Text style={styles.time}>9.30am - 5.00pm</Text>
-              </View>
-              <View style={styles.button_half_view_row}>
-                <Image
-                  source={require("../../AppPics/VetClinic_Location.png")}
-                  style={styles.location_img}
-                />
-                <Text style={styles.location_text}>Colombo</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => handlePress("Vet Clinic")}
-          style={styles.button}
-        >
-          <View style={styles.button_1_2}>
-            <Image
-              source={require("../../AppPics/VetClinic_PetnDoc.jpg")}
-              style={styles.button_img_2}
-            />
-            <View style={styles.button_half_view_column}>
-              <Text style={styles.button_text}>Pet n Doc</Text>
-              <View style={styles.button_half_view_row}>
-                <Image
-                  source={require("../../AppPics/Time.png")}
-                  style={styles.time_img}
-                />
-                <Text style={styles.time}>9.30am - 5.00pm</Text>
-              </View>
-              <View style={styles.button_half_view_row}>
-                <Image
-                  source={require("../../AppPics/VetClinic_Location.png")}
-                  style={styles.location_img}
-                />
-                <Text style={styles.location_text}>Colombo</Text>
+      <TouchableOpacity style={styles.search_button} onPress={handlePress}>
+        <Text style={styles.searchButtonText}>SEARCH</Text>
+      </TouchableOpacity>
+
+      <ScrollView style={styles.screen}>
+        {appData &&
+          appData.map((post) => (
+            <View key={post._id}>
+              <View style={styles.summary}>
+                <View style={styles.button_1_2}>
+                  <Image
+                    source={require("../../AppPics/VetClinic_PetnDoc.jpg")}
+                    style={styles.button_img_2}
+                  />
+                  <View style={styles.button_half_view_column}>
+                    <Text style={styles.button_text}>
+                      {post.veterinaryClinicName}
+                    </Text>
+                    <View style={styles.button_half_view_row}>
+                      <Image
+                        source={require("../../AppPics/VetClinic_Location.png")}
+                        style={styles.location_img}
+                      />
+                      <Text style={styles.location_text}>{post.mainCity}</Text>
+                    </View>
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </View>
+          ))}
+      </ScrollView>
+      
       {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
@@ -124,7 +118,7 @@ const LocateVetClinics = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
@@ -307,6 +301,40 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginRight: 20,
+  },
+  search_button: {
+    backgroundColor: "#E6B4EB",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    marginTop: 20,
+    height: 40,
+    width: 200,
+  },
+  searchButtonText: {
+    color: "black",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  screen: {
+    margin: 1,
+    // backgroundColor: "#E6B4EB",
+    marginBottom: 10,
+    marginTop: 25
+  },
+  summary: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    padding: 1,
+    shadowColor: "black",
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 5,
+    borderRadius: 10,
+    backgroundColor: "white",
   },
 });
 

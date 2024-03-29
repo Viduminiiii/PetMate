@@ -11,11 +11,11 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios"; //importing axios library for making HTTP requests
-
+import config from "../config/config";
 //PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
 
   const [fullname, setFullname] = useState(); //state variable for storing the input value of the full name field in the form
   const [username, setUsername] = useState();
@@ -52,6 +52,7 @@ const PharmacySignUp = ({ navigation }) => {
       pharmacyAddress,
       mainCity,
       password,
+      location: objLocation,
     };
 
     if (
@@ -237,31 +238,13 @@ const PharmacySignUp = ({ navigation }) => {
           style={styles.signUpButton}
           onPress={() => handlePress()}
         >
-          <Text style={styles.signUpButtonText}>Sign Up</Text>{" "}
-          {/*creating the  sign up button*/}
-        </TouchableOpacity>
-        <View style={styles.container5}>
-          <Text style={styles.text}>or continue with</Text>
-        </View>
-        <View style={styles.imageContainer}>
-          <TouchableOpacity>
-            <Image
-              source={require("../../AppPics/FB.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-          <View style={styles.space} />
-          <TouchableOpacity>
-            <Image
-              source={require("../../AppPics/Google.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.signUpButtonText}>Sign Up</Text>
+        </TouchableOpacity> 
+        
+        
         <View style={styles.container6}>
           <Text style={styles.text}>Do you have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            {/*TouchableOpacity component naviagets to the 'Login' screen on press*/}
             <Text style={styles.loginText}>LOGIN</Text>
           </TouchableOpacity>
         </View>
