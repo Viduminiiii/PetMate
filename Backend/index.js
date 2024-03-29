@@ -554,6 +554,82 @@ app.post("/searchAvailability", async (req, res) => {
   }
 });
 
+function isValidSearchRegExp(search) {
+  // Check if search is a string
+  if (typeof search !== "string") {
+    return false;
+  }
+
+  // Check if search is empty
+  if (search.trim() === "") {
+    return false;
+  }
+
+  // Check if search contains only letters, numbers, and spaces
+  if (!/^[a-zA-Z0-9\s]+$/.test(search)) {
+    return false;
+  }
+
+  return true;
+}
+
+app.post("/searchClinic", async (req, res) => {
+  console.log("-------------REQ BODY" + JSON.stringify(req.body));
+  const { searchClinic } = req.body; // Assuming vet ID is passed as a query parameter
+  try {
+    if (isValidSearchRegExp(searchClinic)) {
+      const regexClin = new RegExp(searchClinic, "i");
+      // console.log("RegExp: ", regexClin);
+
+      const veternarians = await Veternarian.find({
+        mainCity: { $regex: regexClin },
+      }).select(
+        "_id fullname veterinaryClinicName mainCity veterinaryClinicAddress"
+      );
+      console.log("veternarians: " + JSON.stringify(veternarians));
+
+      if (veternarians && veternarians.length > 0) {
+        res.send(JSON.stringify(veternarians));
+      } else {
+        console.log("Status:    " + res.status);
+        res.status(404).send("Date Data not found.");
+      }
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
+
+app.post("/searchPharmacy", async (req, res) => {
+  console.log("------searchPharmacy-------REQ BODY" + JSON.stringify(req.body));
+  const { searchPharmacy } = req.body; // Assuming vet ID is passed as a query parameter
+  try {
+    if (isValidSearchRegExp(searchPharmacy)) {
+      const regexPhar = new RegExp(searchPharmacy, "i");
+      console.log("RegExp: ", regexPhar);
+
+      const pharmacies = await Pharmacy.find({
+        mainCity: { $regex: regexPhar },
+      }).select(
+        "_id fullname pharmacyName mainCity pharmacyAddress"
+      );
+      console.log("pharmacies: " + JSON.stringify(pharmacies));
+
+      if (pharmacies && pharmacies.length > 0) {
+        res.send(JSON.stringify(pharmacies));
+      } else {
+        console.log("Status:    " + res.status);
+        res.status(404).send("Date Data not found.");
+      }
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
 ///// STRIPE Start
 
 function getKeys(keyType) {
@@ -581,21 +657,6 @@ app.get("/stripe-key", (req, res) => {
   return res.send({ data: publishable_key });
 });
 
-// const userID = async (username, res) => {
-//   console.log("username:   " + username);
-//   try {
-//     const result = await User.findOne({ username: username });
-//     console.log("result:   " + JSON.stringify(result._id));
-//     if (result) {
-//       res.send({ data: result._id });
-//     } else {
-//       res.send({ error: "User did not match." });
-//     }
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//     res.send({ error: "An error occurred while fetching user data." });
-//   }
-// };
 
 async function GetUserID(username) {
   console.log("username:   " + username);
@@ -631,11 +692,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
   try {
     console.log("----3----  " + orderAmount + " - " + currency);
-    // const paymentIntent = await stripe.paymentIntents.create(params)
-    // .then((res) => {
-    //   if(res)
-    //   {console.log("res");}
-    // });
+    
     const paymentIntent = await stripe.paymentIntents.create({
       amount: orderAmount,
       currency: currency,
