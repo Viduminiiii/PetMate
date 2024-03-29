@@ -554,6 +554,25 @@ app.post("/searchAvailability", async (req, res) => {
   }
 });
 
+function isValidSearchRegExp(search) {
+  // Check if search is a string
+  if (typeof search !== "string") {
+    return false;
+  }
+
+  // Check if search is empty
+  if (search.trim() === "") {
+    return false;
+  }
+
+  // Check if search contains only letters, numbers, and spaces
+  if (!/^[a-zA-Z0-9\s]+$/.test(search)) {
+    return false;
+  }
+
+  return true;
+}
+
 app.post("/searchClinic", async (req, res) => {
   console.log("-------------REQ BODY" + JSON.stringify(req.body));
   const { searchClinic } = req.body; // Assuming vet ID is passed as a query parameter
@@ -581,6 +600,7 @@ app.post("/searchClinic", async (req, res) => {
     res.status(500).send({ status: "Error", data: error.message });
   }
 });
+
 
 app.post("/searchPharmacy", async (req, res) => {
   console.log("------searchPharmacy-------REQ BODY" + JSON.stringify(req.body));
