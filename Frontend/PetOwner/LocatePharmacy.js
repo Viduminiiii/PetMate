@@ -42,9 +42,9 @@ const LocatePharmacy = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/main container for the whole component/}
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
-        {/TouchableOpacity component naviagets to the Menu screen on press/}
+        {/*TouchableOpacity component naviagets to the Menu screen on press*/}
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Logo.png")}
@@ -59,7 +59,7 @@ const LocatePharmacy = ({ navigation }) => {
             source={require("../../AppPics/Setting.png")}
             style={styles.settings_img}
           />
-          {/adding the settings logo pic/}
+          {/*adding the settings logo pic*/}
         </TouchableOpacity>
       </View>
       <Text style={styles.text}>Find the nearest</Text>
@@ -106,7 +106,7 @@ const LocatePharmacy = ({ navigation }) => {
           ))}
       </ScrollView>
 
-      {/creating the footer/}
+      {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
@@ -123,7 +123,7 @@ const LocatePharmacy = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate("LocateVetClinics")}
         >
-          {/navigating to the LocateVetClinics screen by clicking on the icon/}
+          {/*navigating to the LocateVetClinics screen by clicking on the icon*/}
           <Image
             source={require("../../AppPics/Footer_VetClinic.png")}
             style={styles.menu_img}
