@@ -238,25 +238,9 @@ const PharmacySignUp = ({ navigation }) => {
           onPress={() => handlePress()}
         >
           <Text style={styles.signUpButtonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <View style={styles.container5}>
-          <Text style={styles.text}>or continue with</Text>
-        </View>
-        <View style={styles.imageContainer}>
-          <TouchableOpacity>
-            <Image
-              source={require("../../AppPics/FB.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-          <View style={styles.space} />
-          <TouchableOpacity>
-            <Image
-              source={require("../../AppPics/Google.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity> 
+        
+        
         <View style={styles.container6}>
           <Text style={styles.text}>Do you have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
