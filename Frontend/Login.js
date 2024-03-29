@@ -127,7 +127,7 @@ const Login = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.log4}>
+      {/*<View style={styles.log4}>
         <Text style={styles.text2}>or continue with</Text>
       </View>
 
@@ -142,14 +142,14 @@ const Login = ({ navigation }) => {
             style={styles.image2}
           />
         </TouchableOpacity>
-      </View>
+      </View>*/}
 
       <View style={styles.log5}>
         <Text style={styles.no_account}>Don't have an account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("UserCategory")}>
           <Text style={styles.signUpText}>SIGN UP</Text>
         </TouchableOpacity>
-      </View>
+  </View>
     </View>
   );
 };

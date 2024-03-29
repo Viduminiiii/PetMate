@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AvailableMedicine from "./Frontend/Pharmacy/AvailableMedicine";
 import Available_VetSessions from "./Frontend/PetOwner/Available_VetSessions";
-import Chat from "./Frontend/PetOwner/Pet Owner Chat";
+import Chat from "./Frontend/PetOwner/Chat";
 import DocChannelling from "./Frontend/PetOwner/Doctor channelling";
 import LocatePharmacy from "./Frontend/PetOwner/LocatePharmacy";
 import LocateVetClinics from "./Frontend/PetOwner/LocateVetClinics";

@@ -130,7 +130,7 @@ const VetReminder = ({ navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("ReceivedMessages")}
+          onPress={() => navigation.navigate("ChatScreen")}
         >
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
