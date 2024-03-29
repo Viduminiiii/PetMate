@@ -80,7 +80,7 @@ const Vet_Notification = ({ navigation }) => {
         </TouchableOpacity>
         {/* Button to navigate to ReceivedMessages */}
         <TouchableOpacity
-          onPress={() => navigation.navigate("ReceivedMessages")}
+          onPress={() => navigation.navigate("ChatScreen")}
         >
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
