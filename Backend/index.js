@@ -178,6 +178,8 @@ app.post("/registerPharmacy", async (req, res) => {
     pharmacyName,
     pharmacyLicenseNumber,
     pharmacyAddress,
+    mainCity,
+    location,
   } = req.body;
   const oldPetEmail = await PetOwner.findOne({ email: email });
   const oldVetEmail = await Veternarian.findOne({ email: email });
@@ -197,6 +199,8 @@ app.post("/registerPharmacy", async (req, res) => {
         pharmacyName: pharmacyName,
         pharmacyLicenseNumber: pharmacyLicenseNumber,
         pharmacyAddress: pharmacyAddress,
+        mainCity: mainCity,
+        location: location,
         createdDate: new Date(),
       });
       const user = await User.create({
@@ -367,7 +371,6 @@ app.post("/messages", upload.single("imageFile"), async (req, res) => {
   }
 });
 
-
 ///endpoint to get the userDetails to design the chat Room header
 app.get("/user/:userId", async (req, res) => {
   console.log("\n\n -------user  params---:  " + JSON.stringify(req.params));
@@ -405,7 +408,6 @@ app.get("/messages/:senderId/:recepientId", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 app.post("/availability", async (req, res) => {
   console.log("-------- req.body availability:   " + JSON.stringify(req.body));
@@ -601,7 +603,6 @@ app.post("/searchClinic", async (req, res) => {
   }
 });
 
-
 app.post("/searchPharmacy", async (req, res) => {
   console.log("------searchPharmacy-------REQ BODY" + JSON.stringify(req.body));
   const { searchPharmacy } = req.body; // Assuming vet ID is passed as a query parameter
@@ -612,9 +613,7 @@ app.post("/searchPharmacy", async (req, res) => {
 
       const pharmacies = await Pharmacy.find({
         mainCity: { $regex: regexPhar },
-      }).select(
-        "_id fullname pharmacyName mainCity pharmacyAddress"
-      );
+      }).select("_id fullname pharmacyName mainCity pharmacyAddress");
       console.log("pharmacies: " + JSON.stringify(pharmacies));
 
       if (pharmacies && pharmacies.length > 0) {
@@ -657,7 +656,6 @@ app.get("/stripe-key", (req, res) => {
   return res.send({ data: publishable_key });
 });
 
-
 async function GetUserID(username) {
   console.log("username:   " + username);
   try {
@@ -692,7 +690,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
   try {
     console.log("----3----  " + orderAmount + " - " + currency);
-    
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount: orderAmount,
       currency: currency,
@@ -714,7 +712,6 @@ app.post("/create-payment-intent", async (req, res) => {
     });
   }
 });
-
 
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);
