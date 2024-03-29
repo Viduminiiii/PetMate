@@ -9,21 +9,25 @@ import {
   SafeAreaView
 } from "react-native";
 import { useAuth } from "../config/AuthContext";
+import { useRoute } from "@react-navigation/native";
 import axios from "axios";
 const config = require("./../config/config");
 
 const Available_VetSessions = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
+  const route = useRoute();
+  const { searchVetID } = route.params;
 
-  const { user } = useAuth();
+  const { user, userID, userType } = useAuth();
   const [appData, setAppData] = useState([]);
 
   useEffect(() => {
-    console.log("---------user 1:  " + user);
+    console.log("---------user 1:  " + user + " -- userType:  " + userType + " - searchVetID: " + (searchVetID));
 
     const userObject = JSON.parse(user); 
-    const userLevelId = userObject.userLevelId; //'65f4a034cb90355cdc1f8c20';
+    console.log("userObject.userLevelId:  " + userObject.userLevelId);
+    const userLevelId = (userType == 2 ? userObject.userLevelId : searchVetID); //'65f4a034cb90355cdc1f8c20';
     console.log("---userID 2:  " + userLevelId);
     const userData = { vet_id: userLevelId };
 
