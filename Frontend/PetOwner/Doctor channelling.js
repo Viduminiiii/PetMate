@@ -246,7 +246,7 @@ const DocChannelling = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
