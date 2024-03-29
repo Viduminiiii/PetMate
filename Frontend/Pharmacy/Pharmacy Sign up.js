@@ -15,7 +15,7 @@ import config from "../config/config";
 //PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
-  console.log("baseURL: " + baseURL);
+  // console.log("baseURL: " + baseURL);
 
   const [fullname, setFullname] = useState(); //state variable for storing the input value of the full name field in the form
   const [username, setUsername] = useState();
@@ -52,6 +52,7 @@ const PharmacySignUp = ({ navigation }) => {
       pharmacyAddress,
       mainCity,
       password,
+      location: objLocation,
     };
 
     if (

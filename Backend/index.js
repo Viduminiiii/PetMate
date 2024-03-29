@@ -178,6 +178,8 @@ app.post("/registerPharmacy", async (req, res) => {
     pharmacyName,
     pharmacyLicenseNumber,
     pharmacyAddress,
+    mainCity,
+    location,
   } = req.body;
   const oldPetEmail = await PetOwner.findOne({ email: email });
   const oldVetEmail = await Veternarian.findOne({ email: email });
@@ -197,6 +199,8 @@ app.post("/registerPharmacy", async (req, res) => {
         pharmacyName: pharmacyName,
         pharmacyLicenseNumber: pharmacyLicenseNumber,
         pharmacyAddress: pharmacyAddress,
+        mainCity: mainCity,
+        location: location,
         createdDate: new Date(),
       });
       const user = await User.create({
@@ -367,7 +371,6 @@ app.post("/messages", upload.single("imageFile"), async (req, res) => {
   }
 });
 
-
 ///endpoint to get the userDetails to design the chat Room header
 app.get("/user/:userId", async (req, res) => {
   console.log("\n\n -------user  params---:  " + JSON.stringify(req.params));
@@ -406,7 +409,6 @@ app.get("/messages/:senderId/:recepientId", async (req, res) => {
   }
 });
 
-
 app.post("/availability", async (req, res) => {
   console.log("-------- req.body availability:   " + JSON.stringify(req.body));
   const {
@@ -442,7 +444,7 @@ app.post("/availability", async (req, res) => {
 });
 
 app.post("/vetAvailability", async (req, res) => {
-  console.log("-------------REQ BODY" + JSON.stringify(req.body));
+  console.log("-------------vetAvailability" + JSON.stringify(req.body));
   const { vet_id } = req.body; // Assuming vet ID is passed as a query parameter
   console.log("vet_id:   " + vet_id);
   try {
@@ -454,9 +456,11 @@ app.post("/vetAvailability", async (req, res) => {
         path: "veternarian",
         select: "fullname veterinaryClinicName veterinaryClinicAddress",
       });
+
     // const vetAvailabilities = (await Availability.find({ veternarian: vet_id }).populate('veternarian'));
-    console.log("availabilities: " + JSON.stringify(vetAvailabilities));
+
     if (vetAvailabilities && vetAvailabilities.length > 0) {
+      console.log("availabilities: " + JSON.stringify(vetAvailabilities));
       res.send(JSON.stringify(vetAvailabilities));
     } else {
       console.log("Status:    " + res.status);
@@ -472,6 +476,9 @@ app.post("/searchAvailability", async (req, res) => {
   console.log("searchAvailability response-----------------------");
   const { searchDate, searchDoctor, searchClinic } = req.body; // Assuming the date is passed as a query parameter
 
+  console.log(
+    "searchAvailability response-----------    " + JSON.stringify(req.body)
+  );
   try {
     const date = searchDate !== "" ? new Date(searchDate) : null;
     const regexVet = new RegExp(searchDoctor, "i"); // 'i' flag for case-insensitive matching
@@ -487,39 +494,134 @@ app.post("/searchAvailability", async (req, res) => {
           $lt: new Date(new Date(date).setHours(23, 59, 59)),
         },
       })
+        .select("_id availableDate")
         .populate({
           path: "veternarian",
           match: { fullname: regexVet, veterinaryClinicName: regexClinic },
-          select: "fullname",
+          select: "_id fullname",
         })
         .exec();
     } else {
       console.log("----------- response----------------------- 3");
       const filterAvailabilities = await Availability.find()
+        .select("_id availableDate")
         .populate({
           path: "veternarian",
           match: { fullname: regexVet, veterinaryClinicName: regexClinic },
-          select: "fullname",
         })
         .exec();
 
       if (filterAvailabilities && filterAvailabilities.length) {
+        console.log("----------- response----------------------- 4");
+        // console.log("filterAvailabilities length:   " + filterAvailabilities.length);
+        // console.log("filterAvailabilities:   " + JSON.stringify(filterAvailabilities));
         dateAvailabilities = filterAvailabilities.filter((a) => a.veternarian);
+        // console.log("dateAvailabilities length:   " + dateAvailabilities.length);
       }
     }
-    // console.log("availabilities: " + JSON.stringify(dateAvailabilities));
+    // console.log("\n --- availabilities:   " + (dateAvailabilities));
     if (dateAvailabilities && dateAvailabilities.length > 0) {
-      console.log("OK-------------------" + JSON.stringify(dateAvailabilities));
+      console.log("----------- response----------------------- 5");
+      // const vetIds =
+      console.log("\n  -----OK-----" + JSON.stringify(dateAvailabilities));
+
+      const availIDList = JSON.parse(JSON.stringify(dateAvailabilities));
+      // const vetIds = availIDList.map(appointment => appointment.veternarian._id);
+      const vetIds = [
+        ...new Set(
+          availIDList.map((appointment) => appointment.veternarian._id)
+        ),
+      ];
+
+      console.log(vetIds);
+
       res.send({
         status: "ok",
         msg: "Search success.",
-        data: JSON.stringify(dateAvailabilities),
+        data: {
+          isAvailable: true,
+          vetIDs: vetIds,
+          date: date !== null ? date : "",
+        },
       });
     } else {
       res.send({
         status: "No Data found.",
         msg: "Data not found.",
       });
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
+function isValidSearchRegExp(search) {
+  // Check if search is a string
+  if (typeof search !== "string") {
+    return false;
+  }
+
+  // Check if search is empty
+  if (search.trim() === "") {
+    return false;
+  }
+
+  // Check if search contains only letters, numbers, and spaces
+  if (!/^[a-zA-Z0-9\s]+$/.test(search)) {
+    return false;
+  }
+
+  return true;
+}
+
+app.post("/searchClinic", async (req, res) => {
+  console.log("-------------REQ BODY" + JSON.stringify(req.body));
+  const { searchClinic } = req.body; // Assuming vet ID is passed as a query parameter
+  try {
+    if (isValidSearchRegExp(searchClinic)) {
+      const regexClin = new RegExp(searchClinic, "i");
+      // console.log("RegExp: ", regexClin);
+
+      const veternarians = await Veternarian.find({
+        mainCity: { $regex: regexClin },
+      }).select(
+        "_id fullname veterinaryClinicName mainCity veterinaryClinicAddress"
+      );
+      console.log("veternarians: " + JSON.stringify(veternarians));
+
+      if (veternarians && veternarians.length > 0) {
+        res.send(JSON.stringify(veternarians));
+      } else {
+        console.log("Status:    " + res.status);
+        res.status(404).send("Date Data not found.");
+      }
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
+app.post("/searchPharmacy", async (req, res) => {
+  console.log("------searchPharmacy-------REQ BODY" + JSON.stringify(req.body));
+  const { searchPharmacy } = req.body; // Assuming vet ID is passed as a query parameter
+  try {
+    if (isValidSearchRegExp(searchPharmacy)) {
+      const regexPhar = new RegExp(searchPharmacy, "i");
+      console.log("RegExp: ", regexPhar);
+
+      const pharmacies = await Pharmacy.find({
+        mainCity: { $regex: regexPhar },
+      }).select("_id fullname pharmacyName mainCity pharmacyAddress");
+      console.log("pharmacies: " + JSON.stringify(pharmacies));
+
+      if (pharmacies && pharmacies.length > 0) {
+        res.send(JSON.stringify(pharmacies));
+      } else {
+        console.log("Status:    " + res.status);
+        res.status(404).send("Date Data not found.");
+      }
     }
   } catch (error) {
     console.error("Error during database query:", error);
@@ -553,22 +655,6 @@ app.get("/stripe-key", (req, res) => {
 
   return res.send({ data: publishable_key });
 });
-
-// const userID = async (username, res) => {
-//   console.log("username:   " + username);
-//   try {
-//     const result = await User.findOne({ username: username });
-//     console.log("result:   " + JSON.stringify(result._id));
-//     if (result) {
-//       res.send({ data: result._id });
-//     } else {
-//       res.send({ error: "User did not match." });
-//     }
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//     res.send({ error: "An error occurred while fetching user data." });
-//   }
-// };
 
 async function GetUserID(username) {
   console.log("username:   " + username);
@@ -604,11 +690,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
   try {
     console.log("----3----  " + orderAmount + " - " + currency);
-    // const paymentIntent = await stripe.paymentIntents.create(params)
-    // .then((res) => {
-    //   if(res)
-    //   {console.log("res");}
-    // });
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount: orderAmount,
       currency: currency,
@@ -630,7 +712,6 @@ app.post("/create-payment-intent", async (req, res) => {
     });
   }
 });
-
 
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);
