@@ -582,6 +582,34 @@ app.post("/searchClinic", async (req, res) => {
   }
 });
 
+app.post("/searchPharmacy", async (req, res) => {
+  console.log("------searchPharmacy-------REQ BODY" + JSON.stringify(req.body));
+  const { searchPharmacy } = req.body; // Assuming vet ID is passed as a query parameter
+  try {
+    if (isValidSearchRegExp(searchPharmacy)) {
+      const regexPhar = new RegExp(searchPharmacy, "i");
+      console.log("RegExp: ", regexPhar);
+
+      const pharmacies = await Pharmacy.find({
+        mainCity: { $regex: regexPhar },
+      }).select(
+        "_id fullname pharmacyName mainCity pharmacyAddress"
+      );
+      console.log("pharmacies: " + JSON.stringify(pharmacies));
+
+      if (pharmacies && pharmacies.length > 0) {
+        res.send(JSON.stringify(pharmacies));
+      } else {
+        console.log("Status:    " + res.status);
+        res.status(404).send("Date Data not found.");
+      }
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
 ///// STRIPE Start
 
 function getKeys(keyType) {
