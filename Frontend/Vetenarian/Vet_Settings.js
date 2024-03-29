@@ -60,7 +60,7 @@ const Petowner_Settings = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("ReceivedMessages")}>
+        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
