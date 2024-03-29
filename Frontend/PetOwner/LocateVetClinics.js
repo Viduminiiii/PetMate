@@ -40,10 +40,10 @@ const LocateVetClinics = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      {/main container for the whole component/}
+      {/*main container for the whole component*/}
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
-          {/TouchableOpacity component naviagets to the Menu screen on press/}
+          {/*TouchableOpacity component naviagets to the Menu screen on press*/}
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo_img}
@@ -60,11 +60,11 @@ const LocateVetClinics = ({ navigation }) => {
             source={require("../../AppPics/Setting.png")}
             style={styles.settings_img}
           />
-          {/adding the settings image icon/}
+          {/*adding the settings image icon*/}
         </TouchableOpacity>
       </View>
       <Text style={styles.text}>Find the nearest</Text>
-      {/adding a text to display/}
+      {/*adding a text to display*/}
       <View style={styles.loc_search_bar}>
         <Image
           source={require("../../AppPics/Search.png")}
@@ -75,8 +75,8 @@ const LocateVetClinics = ({ navigation }) => {
           placeholder="Search"
           onChangeText={(text) => setSearchClinic(text)}
         ></TextInput>
-        {/this line allows to add a TextInput component so that the user could type a text/}
-        {/adds the image/}
+        {/*this line allows to add a TextInput component so that the user could type a text*/}
+        {/*adds the image*/}
       </View>
       <TouchableOpacity style={styles.search_button} onPress={handlePress}>
         <Text style={styles.searchButtonText}>SEARCH</Text>
@@ -110,7 +110,7 @@ const LocateVetClinics = ({ navigation }) => {
           ))}
       </ScrollView>
       
-      {/creating the footer/}
+      {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
