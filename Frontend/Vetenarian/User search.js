@@ -80,7 +80,7 @@ const UserSearch = ({ navigation }) => {
         </TouchableOpacity>
         {/* Chat button */}
         <TouchableOpacity
-          onPress={() => navigation.navigate("ReceivedMessages")}
+          onPress={() => navigation.navigate("ChatScreen")}
         >
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
