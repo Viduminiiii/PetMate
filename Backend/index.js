@@ -97,11 +97,13 @@ app.post("/register", async (req, res) => {
         email: email,
         petname: petname,
         age,
+        createdDate: new Date(),
       });
       const user = await User.create({
         username: username,
         password: password,
         petOwner: objPet._id,
+        createdDate: new Date(),
       });
 
       if (objPet !== null && user !== null) {
@@ -726,7 +728,7 @@ function calculateAppTime(date1, date2, noOfApp) {
 
 app.post("/createAppointment", async (req, res) => {
   console.log("--------------req.body:   " + JSON.stringify(req.body));
-  const { vetAvlID, userID, totalAmount,medications, instructions} = req.body;
+  const { vetAvlID, userID, totalAmount, medications, instructions } = req.body;
 
   const objAvailability = await Availability.findById(vetAvlID);
 
@@ -750,8 +752,8 @@ app.post("/createAppointment", async (req, res) => {
         appointmentNo: appointNo,
         isPaid: true,
         paidAmount: totalAmount,
-        medications:medications,
-        instructions:instructions,
+        medications: medications,
+        instructions: instructions,
         paidDate: new Date(),
         availability: vetAvlID,
         petOwner: userID,
@@ -877,39 +879,38 @@ app.post("/appointmentsData", async (req, res) => {
   }
 });
 
-
 app.post("/updateMedications", async (req, res) => {
-  console.log("\n----updateMedications--req.body:   " + JSON.stringify(req.body));
+  console.log(
+    "\n----updateMedications--req.body:   " + JSON.stringify(req.body)
+  );
   const { appointID, medication, information } = req.body;
   try {
-
     const updateData = {
       medications: medication,
       instructions: information,
       modifiedDate: new Date(),
     };
-    console.log("  updateMedications   updateData:  " + JSON.stringify(updateData));
+    console.log(
+      "  updateMedications   updateData:  " + JSON.stringify(updateData)
+    );
 
     const updatedAppointment = await Appointments.findByIdAndUpdate(
       appointID,
       updateData,
       { new: true }
     );
-    console.log(
-      "updatedAppointment:  " + JSON.stringify(updatedAppointment)
-    );
+    console.log("updatedAppointment:  " + JSON.stringify(updatedAppointment));
 
     if (updatedAppointment !== null) {
       console.log("Appointment updated");
       res.send({ status: "ok", data: JSON.stringify(updatedAppointment) });
+    } else {
+      res.send({ status: "Error", data: "No data in updatedAppointment" });
     }
-    else{
-      res.send({ status: "Error", data: "No data in updatedAppointment" });}
   } catch (error) {
     res.send({ status: "Error", data: error });
   }
 });
-
 
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);
