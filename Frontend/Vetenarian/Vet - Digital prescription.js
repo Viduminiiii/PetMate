@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+//import necessary components from react native
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,178 +7,198 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";// Importing Dropdown component
-import DatePicker from "react-native-date-picker";// Importing DatePicker component
+import { useAuth } from "../config/AuthContext";
+import { useRoute } from "@react-navigation/native";
+import axios from "axios";
+import { formatDateToYYYYMMDD } from "../config/helper";
+const config = require("../config/config");
 
-const VetPrescription = ({ navigation }) => {
+//prescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
+const Prescription = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  // console.log("baseURL: " + baseURL);
+  const route = useRoute();
+  const { appointID } = route.params;
+
+  const { user, userID, userType } = useAuth();
+  const [appData, setAppData] = useState([]);
+
+  const [petname, setPetname] = useState();
+  const [age, setAge] = useState();
+  const [petfullname, setPetfullname] = useState();
+  const [vetfullname, setVetfullname] = useState();
+  const [medication, setMedication] = useState();
+  const [information, setInformation] = useState();
+  const today = formatDateToYYYYMMDD(new Date());
+
+  useEffect(() => {
+    // alert("Vet")
+    const userObject = JSON.parse(user);
+    // console.log("userObject.userLevelId:  " + userObject.userLevelId);
+    const userLevelId = userType == 1 ? userObject.userLevelId : appointID;
+    // console.log("---userID 2:  " + userLevelId + "  appointID:  " + appointID);
+
+    axios
+      .get(baseURL + `/appointmentData/${appointID}`)
+      .then((response) => {
+        // console.log("---userID 4:  " + JSON.stringify(response.data));
+        const appResults = JSON.parse(JSON.stringify(response.data));
+        // console.log("appResults.name:   " + appResults.petOwner.fullname);
+        console.log(
+          "\n\n -----degital presc data:  " + JSON.stringify(response.data)
+        );
+        // console.log("\n\nappData.medications:  " + appResults.medications);
+
+        setPetname(appResults?.petOwner.petname);
+        setAge(appResults?.petOwner.age);
+        setPetfullname(appResults?.petOwner.fullname);
+        setVetfullname(appResults?.availability.veternarian.fullname);
+        setMedication(appResults.medications);
+        setInformation(appResults.instructions);
+
+        // setAppData(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const handlePress = () => {
     console.log("Button pressed");
-  };
 
-  // State variables for dropdown value, focus state, and date
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const [date, setDate] = useState(new Date());
+    if(userType == 2){
+      //creating userData object
+      const userData = {
+        appointID,
+        medication,
+        information,
+      };
+  
+      //log message indicating all fields are filled and registration is proceeding
+      console.log("All fields filled, proceed with registration.");
+      console.log("userData:  " + JSON.stringify(userData)); //logging the user data after converting it to a JSON string.
+      //sending a POST request to register the user with provided data
+      axios
+        .post(baseURL + "/updateMedications", userData)
+        .then((res) => {
+          console.log("res.data.status:  " + res.data.status);
+          console.log("res.data.data:  " + JSON.stringify(res.data.data));
+        })
+        .catch((e) => console.log(e));
+    }
+    else{
+      navigation.goBack();
+    }
+  };
 
   return (
     <View style={styles.container}>
+      {/* main container for the whole component*/}
       <View style={styles.nav_bar}>
-        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
+          {/*TouchableOpacity component naviagets to the Menu screen on press*/}
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo}
           />
+          {/*adding the logo picture*/}
         </TouchableOpacity>
         <Text style={styles.nav_text}>DIGITAL PRESCRIPTION</Text>
       </View>
-      {/* Prescription details */}
       <View style={styles.details_box}>
         <View style={styles.petInfo}>
           <Text style={styles.heading}>Pet Information</Text>
+          {/*adding a text*/}
           <View style={styles.info}>
             <Text style={styles.name}>Name</Text>
-            <TextInput style={styles.petText_box}></TextInput>
+            <Text style={styles.petText_box}>{petname}</Text>
             <Text style={styles.name}>Age</Text>
-            <TextInput style={styles.age_box}></TextInput>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Breed</Text>
-            <TextInput style={styles.breed_box}></TextInput>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Gender</Text>
-            <View>
-              <Dropdown
-                style={[styles.dropdown]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={[
-                  { label: "Male", value: "1" },
-                  { label: "Female", value: "2" },
-                ]}
-                maxHeight={200}
-                labelField="label"
-                valueField="value"
-                placeholder={!isFocus ? "Select" : "..."}
-                searchPlaceholder="Search..."
-                value={value}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                onChange={(item) => {
-                  setValue(item.value);
-                  setIsFocus(false);
-                }}
-              />
-            </View>
+            <Text style={styles.age_box}>{age}</Text>
           </View>
         </View>
 
-        {/* Owner Information */}
         <View style={styles.ownerInfo}>
           <Text style={styles.heading}>Owner Information</Text>
           <View style={styles.info}>
             <Text style={styles.name}>Name</Text>
-            <TextInput style={styles.ownerText_box}></TextInput>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Telephone</Text>
-            <View style={styles.ownerText_box}>
-              <TextInput style={styles.text1}>+94</TextInput>
-            </View>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Email</Text>
-            <TextInput style={styles.ownerText_box}></TextInput>
+            <Text style={styles.ownerText_box}>{petfullname}</Text>
           </View>
         </View>
 
-        {/* Medication Information */}
         <View style={styles.medInfo}>
           <Text style={styles.heading}>Medication Information</Text>
           <View style={styles.info_med}>
             <Text style={styles.name}>Medication</Text>
-            <TextInput style={styles.medText_box}></TextInput>
+            {userType == 1 && <Text style={styles.medText_box}>{medication}</Text>}
+            {userType == 2 && <TextInput
+              multiline
+              style={styles.medText_box}
+              onChangeText={(text) => setMedication(text)}
+            >
+              {medication}
+            </TextInput>}
             <View style={styles.info_box}>
               <Text style={styles.name}>Information</Text>
-              <TextInput style={styles.infoText_box}></TextInput>
+              {userType == 1 && <Text style={styles.infoText_box}>{information}</Text>}
+              {userType == 2 && <TextInput
+                multiline
+                style={styles.infoText_box}
+                onChangeText={(text) => setInformation(text)}
+              >
+                {information}
+              </TextInput>}
             </View>
           </View>
         </View>
 
-        {/* Doctor Information */}
         <View style={styles.docInfo}>
           <View style={styles.info}>
             <Text style={styles.name}>Doctor's Name</Text>
-            <TextInput style={styles.docText_box}></TextInput>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Doctor's ID</Text>
-            <TextInput style={styles.docText_box}></TextInput>
+            <TextInput style={styles.docText_box}>{vetfullname}</TextInput>
           </View>
           <View style={styles.info}>
             <Text style={styles.name}>Issued Date</Text>
-
-            <View style={styles.date_container}>
-              <DatePicker
-                style={styles.datePickerStyle}
-                date={date}
-                mode="date"
-                placeholder="select date"
-                format="DD/MM/YYYY"
-                minDate="01-01-1900"
-                maxDate="01-01-2100"
-                onDateChange={(date) => {
-                  setDate(date);
-                }}
-              />
-            </View>
+            <Text style={styles.date_container}>{today}</Text>
           </View>
         </View>
-        {/* Send button */}
-        <TouchableOpacity onPress={() => navigation.navigate("UserSearch")}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}> */}
+        {<TouchableOpacity onPress={handlePress}>
           <View style={styles.button}>
-            <Text style={styles.search_btn}>Send</Text>
+            <Text style={styles.send_btn}> {userType == 1 ? "OK" : Save}</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
-      {/* Footer navigation */}
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
+        {/*creating the footer*/}
+        <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image
             source={require("../../AppPics/Footer_Menu.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ChatScreen")}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
           <Image
             source={require("../../AppPics/Footer_Chat.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("VetPrescription")}
+          onPress={() => navigation.navigate("LocateVetClinics")}
         >
           <Image
-            source={require("../../AppPics/PharFooter_Prescription.png")}
-            style={styles.prescription_img}
+            source={require("../../AppPics/Footer_VetClinic.png")}
+            style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
+        <TouchableOpacity onPress={() => navigation.navigate("DocChannelling")}>
           <Image
             source={require("../../AppPics/Footer_appointment.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("VetAvailability")}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("History", {searchAvlID:1})}>
           <Image
-            source={require("../../AppPics/Footer_VetAvailability.png")}
+            source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
           />
         </TouchableOpacity>
@@ -239,36 +260,24 @@ const styles = StyleSheet.create({
   petText_box: {
     backgroundColor: "white",
     width: "35%",
-    height: "30%",
-    marginTop: 23,
-    borderRadius: 10,
-  },
-  breed_box: {
-    backgroundColor: "white",
-    width: "60%",
-    height: "30%",
+    height: "35%",
     marginTop: 23,
     borderRadius: 10,
   },
   age_box: {
     backgroundColor: "white",
     width: "15%",
-    height: "30%",
+    height: "35%",
     marginTop: 23,
     borderRadius: 10,
-  },
-  arrow_img: {
-    width: 20,
-    height: 20,
-    marginLeft: 90,
   },
   ownerInfo: {
     marginTop: -30,
   },
   ownerText_box: {
     backgroundColor: "white",
-    width: "55%",
-    height: "30%",
+    width: "70%",
+    height: "38%",
     marginTop: 23,
     borderRadius: 10,
   },
@@ -286,7 +295,7 @@ const styles = StyleSheet.create({
   medText_box: {
     backgroundColor: "white",
     width: "90%",
-    height: "15%",
+    height: "28%",
     marginTop: -15,
     borderRadius: 10,
     marginLeft: 15,
@@ -297,7 +306,7 @@ const styles = StyleSheet.create({
   infoText_box: {
     backgroundColor: "white",
     width: "90%",
-    height: "33%",
+    height: "36%",
     marginTop: -15,
     borderRadius: 10,
     marginLeft: 15,
@@ -313,16 +322,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    height: "20%",
+    height: "22%",
     width: "40%",
     backgroundColor: "white",
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    marginTop: -5,
   },
-  search_btn: {
+  send_btn: {
     fontWeight: "bold",
     fontSize: 15,
   },
@@ -337,11 +345,6 @@ const styles = StyleSheet.create({
   menu_img: {
     width: 40,
     height: 40,
-    margin: 15,
-  },
-  prescription_img: {
-    width: 50,
-    height: 50,
     margin: 15,
   },
   placeholderStyle: {
@@ -359,8 +362,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   dropdown: {
-    top: 15,
-    height: 20,
+    top: 23,
+    height: 25,
     width: 200,
     borderRadius: 10,
     paddingHorizontal: 10,
@@ -379,6 +382,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 22,
+    backgroundColor: "white",
+    height: 30,
+    borderRadius: 20,
+    textAlign: "center",
   },
 });
-export default VetPrescription;
+export default Prescription;

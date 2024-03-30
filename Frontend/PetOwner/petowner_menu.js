@@ -1,6 +1,7 @@
 //importing necessary components from react native
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Feather } from '@expo/vector-icons';
 
 //PetOwnerMenu component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PetOwnerMenu = ({ navigation }) => {
@@ -26,6 +27,12 @@ const PetOwnerMenu = ({ navigation }) => {
             style={styles.reminder}
           />
           {/*adding an image*/}
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Petowner_Settings")}
+        >
+        <Feather name="settings" size={52} color="black" />
         </TouchableOpacity>
       </View>
 
@@ -254,6 +261,13 @@ const styles = StyleSheet.create({
     height: 350,
     marginVertical: -220,
     marginTop: 40,
+  },  
+  settings: {
+    resizeMode: "contain",
+    width: 60,
+    height: 60,
+    borderRadius: 90,
+    marginLeft: 20,
   },
 });
 

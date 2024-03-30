@@ -24,7 +24,9 @@ export default function PaymentScreen({ navigation }) {
   const vetAvlID = route.params?.vetAvlID;
   const doctorFee = route.params?.doctorFee;
   const serviceCharge = route.params?.serviceCharge;
-  console.log("orderAmount:  " + orderAmount + "  vetAvlID: " + vetAvlID);
+  var objUserID = JSON.parse(user);
+  console.log("user:   " +userID+  "   --  "+user);
+  console.log("orderAmount:  " + orderAmount + "  vetAvlID: " + vetAvlID + " objUserID: " +objUserID.userLevelId);
 
   const [name, setName] = useState("");
   const { confirmPayment, loading } = useConfirmPayment();
@@ -62,10 +64,10 @@ export default function PaymentScreen({ navigation }) {
     try {
       const userData = {
         vetAvlID: vetAvlID,
-        userID: userID,
+        userID: objUserID.userLevelId,
         totalAmount: orderAmount,
-        doctorFee: doctorFee,
-        serviceCharge: serviceCharge
+        medications:"",
+        instructions:""
       };
       console.log("userData:  " + JSON.stringify(userData)); //logging the user data after converting it to a JSON string.
       //sending a POST request to register the user with provided data
