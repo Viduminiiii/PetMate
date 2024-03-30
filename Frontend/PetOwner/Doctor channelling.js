@@ -126,61 +126,6 @@ const DocChannelling = ({ navigation }) => {
             placeholder="Search Doctor/ Clinic"
             onChangeText={(text) => setDocClinicItem(text)}
           ></TextInput>
-
-          {/* <SearchableDropdown
-            containerStyle={{ padding: 5 }}
-            style={[styles.dropdown]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}            
-            items={itemList}
-            defaultIndex={0}
-            // chip={true}
-            // resetValue={false}
-            textInputProps={{
-              placeholder: "Search Doctor/ Clinic",
-              underlineColorAndroid: "transparent",
-              // style: {
-              //   padding: 12,
-              //   borderWidth: 1,
-              //   borderColor: "#ccc",
-              //   borderRadius: 5,
-              // },
-              onTextChange: (text) => alert(text),
-            }}            
-            onChange={(item) => {
-              setDocClinicItem(item.value);
-            }}
-            listProps={{
-              nestedScrollEnabled: true,
-            }}
-          /> */}
-
-          {/* <SearchableDropdown
-            style={[styles.dropdown]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={[
-              { label: "Dr. John", value: "1" },
-              { label: "Dr. Paul", value: "2" },
-              { label: "Dr. Sean", value: "3" },
-              { label: "Dr. Harry", value: "4" },
-            ]}
-            labelField="label"
-            valueField="value"
-            placeholder={!isFocusDoc ? "Select doctor" : "..."}
-            searchPlaceholder="Search..."
-            value={valueDoc}
-            onFocus={() => setIsFocusDoc(true)}
-            onBlur={() => setIsFocusDoc(false)}
-            onChange={(item) => {
-              setValueDoc(item.value);
-              setIsFocusDoc(false);
-            }}
-          /> */}
         </View>
         <Text style={styles.text}>Appointment Date</Text>
         <View style={styles.search_box}>

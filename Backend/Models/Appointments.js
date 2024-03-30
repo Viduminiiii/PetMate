@@ -9,12 +9,14 @@ const AppointmentsSchema=new Schema({
     appointmentTime: { type: Date, required: true }, // Time of the appointment
     appointmentNo: { type: Number, required: true }, // Appointment number
     isPaid: {type: Boolean, required: true, default: false }, // Indicates if the appointment is paid or not
+    paidAmount: { type: Number, required: true },
     paidDate: {type: Date}, // Date when the appointment was paid
-    medications: { type: String, required: true }, // Medications prescribed during the appointment
-    instructions: { type: String, required: true }, // Instructions given during the appointment
+    medications: { type: String }, // Medications prescribed during the appointment
+    instructions: { type: String }, // Instructions given during the appointment
     createdDate: {type: Date, required: true}, // Date when the appointment was created
     modifiedDate: {type: Date }, // Date when the appointment was last modified
-    availability: { type: Schema.Types.ObjectId, ref: 'Availability' } // Reference to availability slot
+    availability: { type: Schema.Types.ObjectId, ref: 'Availability' },// Reference to availability slot
+    petOwner: { type: Schema.Types.ObjectId, ref: 'PetOwner' }, // Reference to petowner slot
 },{
     collection: "Appointments" // Setting the collection name explicitly to "Appointments"
 })

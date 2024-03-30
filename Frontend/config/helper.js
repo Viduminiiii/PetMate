@@ -19,20 +19,7 @@ export async function fetchPublishableKey(keyType) {
     .catch((err) => {
       console.error(err);
     });
-       
-    // const key = axios.get(baseURL + "/stripe-key?keyType="+keyType);
-    // const {publishable_key} = await axios.get(baseURL + "//stripe-key?keyType=" + keyType);
-    // if(publishable_key){      
-    //   console.log("res:   "+(publishable_key));
-    //   const { publishableKey } = JSON.stringify(publishable_key);
-    //   return publishableKey;
-    // }
-
-    // const response = await fetch(DB_HOST +"/" + DB_PORT + "/stripe-key?keyType=" + keyType);
-    // console.log("response:   " + response);
-    // const { publishableKey } = await response.json();
-    // return publishableKey;
-    
+           
   } catch (e) {
     console.warn("Unable to fetch publishable key. Is your server running?");
     Alert.alert(
@@ -41,4 +28,20 @@ export async function fetchPublishableKey(keyType) {
     );
     return null;
   }
+}
+
+
+export function formatDateToYYYYMMDD(dateStr) {
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function formatTimeToHHMM(timeStr) {
+  const date = new Date(timeStr);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${hours}:${minutes}`;
 }
