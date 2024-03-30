@@ -13,6 +13,7 @@ import {
 import axios from "axios"; //importing axios library for making HTTP requests
 import config from "../config/config";
 import googleMap from "./../../AppPics/Google_map.png"
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 //PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
@@ -228,10 +229,12 @@ const PharmacySignUp = ({ navigation }) => {
               onPress={() => setIsPasswordVisible(!isPasswordVisible)}
               style={styles.button}
             >
-              <Image
-                source={googleMap}
-                style={styles.password_eyeimage}
-              />
+            <MaterialCommunityIcons 
+                name={!isPasswordVisible ? 'eye-off' : 'eye'} 
+                size={24} 
+                color="#aaa"
+                style={styles.icon} 
+            /> 
             </TouchableOpacity>
           </View>
         </View>
@@ -286,6 +289,7 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 15,
     marginLeft: 10,
+    width:"78%",
   },
   container3: {
     backgroundColor: "white",
@@ -361,7 +365,7 @@ const styles = StyleSheet.create({
   },
   container6: {
     flexDirection: "row",
-    marginTop: -90,
+    margin: 40,
   },
 });
 

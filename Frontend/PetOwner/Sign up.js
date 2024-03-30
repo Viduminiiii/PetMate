@@ -9,7 +9,9 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import axios from "axios"; // importing axios for making HTTP requests
+const config = require("./../config/config");
 
 const SignUp = ({ navigation }) => {
   //base URL for API requests
@@ -166,10 +168,12 @@ const SignUp = ({ navigation }) => {
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
             style={styles.button}
           >
-            <Image
-              source={require("../../AppPics/Password.png")}
-              style={styles.password_eyeimage}
-            />
+          <MaterialCommunityIcons 
+              name={!isPasswordVisible ? 'eye-off' : 'eye'} 
+              size={24} 
+              color="#aaa"
+              style={styles.icon} 
+          /> 
           </TouchableOpacity>
         </View>
       </View>
@@ -236,6 +240,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textInput: {
+    width:"80%",
     fontSize: 15,
     marginLeft: 10,
   },

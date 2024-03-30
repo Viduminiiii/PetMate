@@ -11,6 +11,7 @@ import {
   Button,
   Modal,
 } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import axios from "axios";
@@ -129,7 +130,7 @@ const VetSignUp = ({ navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.nav_bar}>
           <Text style={styles.nav_text}>VETERINARY REGISTRATION</Text>
@@ -220,10 +221,12 @@ const VetSignUp = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => setIsPasswordVisible(!isPasswordVisible)}
             >
-              <Image
-                source={require("../../AppPics/Password.png")}
-                style={styles.password_eyeimage}
-              />
+            <MaterialCommunityIcons 
+                name={!isPasswordVisible ? 'eye-off' : 'eye'} 
+                size={24} 
+                color="#aaa"
+                style={styles.icon} 
+            /> 
             </TouchableOpacity>
           </View>
         </View>
@@ -251,7 +254,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#CEEFA3",
     justifyContent: "flex-start", //start from the top
     alignItems: "center",
-    paddingTop: 30,
+    paddingTop: 60,
+    height:"100%"
   },
   // scrollViewContent: {
   //     color: 'red'
@@ -278,6 +282,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textInput: {
+    width:"78%",
     fontSize: 15,
     marginLeft: 10,
   },
@@ -358,7 +363,7 @@ const styles = StyleSheet.create({
 
   container6: {
     flexDirection: "row",
-    marginTop: -90,
+    padding:40
   },
 });
 
