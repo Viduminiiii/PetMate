@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import axios from "axios"; //importing axios library for making HTTP requests
 import config from "../config/config";
+import googleMap from "./../../AppPics/Google_map.png"
 //PharmacySignUp component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const PharmacySignUp = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //setting up the base URL for API requests
@@ -228,7 +229,7 @@ const PharmacySignUp = ({ navigation }) => {
               style={styles.button}
             >
               <Image
-                source={require("../../AppPics/Password.png")}
+                source={googleMap}
                 style={styles.password_eyeimage}
               />
             </TouchableOpacity>

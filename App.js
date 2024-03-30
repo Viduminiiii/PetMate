@@ -12,7 +12,7 @@ import PetOwnerMenu from "./Frontend/PetOwner/petowner_menu";
 import Petowner_Settings from "./Frontend/PetOwner/Petowner_Settings";
 import Petowner_NotificationPage from "./Frontend/PetOwner/Petowner_NotificationPage";
 import Pharmacy_Settings from "./Frontend/Pharmacy/Pharmacy_Settings";
-import PharmacySignUp from "./Frontend/Pharmacy/Pharmacy Sign up";
+import PharmacySignUp from "./Frontend/Pharmacy/PharmacySignup";
 import PharmacyPrescription from "./Frontend/Pharmacy/PharmacyPrescription";
 import Prescription from "./Frontend/PetOwner/Digital prescription";
 import ReceivedMessages from "./Frontend/Vetenarian/ReceivedMessages";
