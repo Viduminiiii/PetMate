@@ -12,7 +12,8 @@ const AvailabilitySchema=new Schema({
     serviceCharges: { type: Number, required: true }, // Additional service charges during this availability slot
     createdDate: {type: Date, required: true}, // Date when the availability was created
     modifiedDate: {type: Date }, // Date when the availability was last modified
-    veternarian: { type: Schema.Types.ObjectId, ref: 'Veternarian' } // Reference to the veterinarian associated with this availability
+    veternarian: { type: Schema.Types.ObjectId, ref: 'Veternarian' }, // Reference to the veterinarian associated with this availability
+    lastAppNo: { type: Number, required: true } // Last appointment no given to a patient
 },{
     collection: "Availability" // Setting the collection name explicitly to "Availability"
 })

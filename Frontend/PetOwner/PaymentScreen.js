@@ -1,27 +1,33 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   Alert,
   ScrollView,
   StyleSheet,
   TextInput,
   Text,
-  Button
-} from "react-native"
-import { CardField, useConfirmPayment } from "@stripe/stripe-react-native"
+  Button,
+} from "react-native";
+import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 import axios from "axios";
 // import { colors } from "./colors"
 const config = require("../config/config");
-import { useRoute } from "@react-navigation/native"
+import { useRoute } from "@react-navigation/native";
+import { useAuth } from "../config/AuthContext";
 
-export default function Card({ navigation }) {
+export default function PaymentScreen({ navigation }) {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  
-  const route = useRoute()
+
+  const { user, userID, userType } = useAuth();
+
+  const route = useRoute();
   const orderAmount = route.params?.orderAmount;
-  console.log("orderAmount:  " + orderAmount);
-  
-  const [name, setName] = useState("")
-  const { confirmPayment, loading } = useConfirmPayment()
+  const vetAvlID = route.params?.vetAvlID;
+  const doctorFee = route.params?.doctorFee;
+  const serviceCharge = route.params?.serviceCharge;
+  console.log("orderAmount:  " + orderAmount + "  vetAvlID: " + vetAvlID);
+
+  const [name, setName] = useState("");
+  const { confirmPayment, loading } = useConfirmPayment();
 
   const fetchPaymentIntentClientSecret = async () => {
     console.log("----1----  " + orderAmount);
@@ -29,15 +35,19 @@ export default function Card({ navigation }) {
       params = {
         paymentMethodType: "card",
         orderAmount: orderAmount,
-        currency: 'lkr',
+        currency: "lkr",
       };
-      const response = await axios.post(baseURL + "/create-payment-intent",params);
-      if(response)
-      {
-        console.log("----clientSecret:    "+JSON.stringify(response));
+      const response = await axios.post(
+        baseURL + "/create-payment-intent",
+        params
+      );
+      if (response) {
+        console.log(
+          "----clientSecret response:    " + JSON.stringify(response)
+        );
         const obj = JSON.parse(JSON.stringify(response.data));
         const clientSecret = obj.clientSecret;
-        console.log("----clientSecret 2:    "+clientSecret);
+        console.log("----clientSecret 2:    " + clientSecret);
         return clientSecret;
       }
     } catch (error) {
@@ -47,42 +57,46 @@ export default function Card({ navigation }) {
     }
   };
 
-  // const handlePayPress = async () => {
-  //   console.log("----2---- handlePayPress  " + orderAmount.value);
-  //   // Gather the customer's billing information (for example, email)
-    
-  //   console.log("----3----  ");
-  //   // Fetch the intent client secret from the backend.
-  //   const clientSecret = await fetchPaymentIntentClientSecret();
-  //   console.log("----clientSecret 3:    "+clientSecret);
+  const appointmentCreate = async () => {
+    console.log("----1----  " + orderAmount + "  ----- " + vetAvlID);
+    try {
+      const userData = {
+        vetAvlID: vetAvlID,
+        userID: userID,
+        totalAmount: orderAmount,
+        doctorFee: doctorFee,
+        serviceCharge: serviceCharge
+      };
+      console.log("userData:  " + JSON.stringify(userData)); //logging the user data after converting it to a JSON string.
+      //sending a POST request to register the user with provided data
+      axios
+        .post(baseURL + "/createAppointment", userData)
+        .then((res) => {
+          console.log("res.data:  "+JSON.stringify(res.data));
+          if (res.data.status === "ok") {
+            const apptID = JSON.parse((res.data.data))._id;
+            console.log("----------apptID:  " + apptID);
+            navigation.navigate("Medicalrecords", { appointmentID: apptID });
+          } //navigating to the Login screen if registration is successful
+        })
+        .catch((e) => console.log(e));
+    } catch (error) {
+      console.error(error);
+      // Handle the error as needed
+      throw error; // Rethrow the error to propagate it further if necessary
+    }
+  };
 
-  //   const billingDetails = {
-  //     email: "vidu@example.com",
-  //   };
-  //   // Confirm the payment with the card details
-  //   const { paymentIntent, error } = await confirmPayment(clientSecret, {
-  //     paymentMethodType: "Card",
-  //     paymentMethodData: {
-  //       billingDetails,
-  //     },
-  //   });
-
-  //   if (error) {
-  //     console.log("Payment confirmation error", error);
-  //   } else if (paymentIntent) {
-  //     console.log("Success from promise", paymentIntent);
-  //   }
-  // }
-  async function buy() {    
+  async function buy() {
     console.log("----2----  " + orderAmount.value);
     // Gather the customer's billing information (for example, email)
     const billingDetails = {
       email: "vidu@example.com",
+      amount: orderAmount,
     };
     // Fetch the intent client secret from the backend.
     const clientSecret = await fetchPaymentIntentClientSecret();
-    console.log("----buy clientSecret 3:    "+clientSecret);
-    
+    console.log("----buy clientSecret 3:    " + clientSecret);
 
     // Confirm the payment with the card details
     const { paymentIntent, error } = await confirmPayment(clientSecret, {
@@ -94,8 +108,15 @@ export default function Card({ navigation }) {
 
     if (error) {
       console.log("Payment confirmation error", error);
-    } else if (paymentIntent) {
+      console.log("JSON.stringify(error).code:   " + JSON.parse(JSON.stringify(error)).code);
+      if(JSON.parse(JSON.stringify(error)).code === "Failed")
+      {
+        console.log("--------Failed------------");
+        await appointmentCreate();
+      }
+    } else if (paymentIntent) {      
       console.log("Success from promise", paymentIntent);
+      await appointmentCreate();
     }
   }
 
@@ -112,57 +133,55 @@ export default function Card({ navigation }) {
         autoCapitalize="none"
         placeholder="Name"
         keyboardType="name-phone-pad"
-        onChange={value => 
-          {
+        onChange={(value) => {
           setName(value.nativeEvent.text);
-        }
-        }
+        }}
         style={styles.input}
       />
       <CardField
         placeholder={{
-          number: "4242 4242 4242 4242"
+          number: "4242 4242 4242 4242",
         }}
-        onCardChange={cardDetails => {
-          console.log("cardDetails ", cardDetails)
+        onCardChange={(cardDetails) => {
+          console.log("cardDetails ", cardDetails);
         }}
-        onFocus={focusedField => {
-          console.log("focusField ", focusedField)
+        onFocus={(focusedField) => {
+          console.log("focusField ", focusedField);
         }}
         cardStyle={inputStyles}
         style={styles.cardField}
       />
       <Button onPress={buy} title="Pay" disabled={loading} />
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
-    paddingTop: 20,
-    paddingHorizontal: 16
+    paddingTop: 150,
+    paddingHorizontal: 16,
   },
   cardField: {
     width: "100%",
     height: 50,
-    marginVertical: 30
+    marginVertical: 30,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20
+    marginBottom: 20,
   },
   text: {
-    marginLeft: 12
+    marginLeft: 12,
   },
   input: {
     height: 44,
     borderBottomColor: "#ffffff",
-    borderBottomWidth: 1.5
-  }
-})
+    borderBottomWidth: 1.5,
+  },
+});
 
 const inputStyles = {
   borderWidth: 1,
@@ -170,5 +189,5 @@ const inputStyles = {
   borderColor: "#000000",
   borderRadius: 8,
   fontSize: 14,
-  placeholderColor: "#999999"
-}
+  placeholderColor: "#999999",
+};

@@ -18,10 +18,10 @@ const Prescription = ({ navigation }) => {
     console.log("Button pressed");
   };
 
-  state = { user: "" };
-  updateUser = (user) => {
-    this.setState({ user: user });
-  };
+  // state = { user: "" };
+  // updateUser = (user) => {
+  //   this.setState({ user: user });
+  // };
 
   const [value, setValue] = useState(null); //'value' state initialized with null to hold selected input from the UI
   const [isFocus, setIsFocus] = useState(false); //'isFocus' state initialized with false to track input focus in UI
@@ -29,23 +29,21 @@ const Prescription = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {" "}
       {/* main container for the whole component*/}
       <View style={styles.nav_bar}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
-          {" "}
           {/*TouchableOpacity component naviagets to the Menu screen on press*/}
           <Image
             source={require("../../AppPics/Logo.png")}
             style={styles.logo}
-          />{" "}
+          />
           {/*adding the logo picture*/}
         </TouchableOpacity>
         <Text style={styles.nav_text}>DIGITAL PRESCRIPTION</Text>
       </View>
       <View style={styles.details_box}>
         <View style={styles.petInfo}>
-          <Text style={styles.heading}>Pet Information</Text>{" "}
+          <Text style={styles.heading}>Pet Information</Text>
           {/*adding a text*/}
           <View style={styles.info}>
             <Text style={styles.name}>Name</Text>
@@ -154,7 +152,6 @@ const Prescription = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.footer}>
-        {" "}
         {/*creating the footer*/}
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image

@@ -11,6 +11,7 @@ import {
 import { useAuth } from "../config/AuthContext";
 import { useRoute } from "@react-navigation/native";
 import axios from "axios";
+import {formatDateToYYYYMMDD, formatTimeToHHMM} from "./../config/helper"
 const config = require("./../config/config");
 
 const Available_VetSessions = ({ navigation }) => {
@@ -40,37 +41,6 @@ const Available_VetSessions = ({ navigation }) => {
       .catch((error) => console.error(error));
   }, []);
 
-  function formatDateToYYYYMMDD(dateStr) {
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
-
-  function formatTimeToHHMM(timeStr) {
-    const date = new Date(timeStr);
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    return `${hours}:${minutes}`;
-  }
-
-  // const getAppData = () => {
-  //   // console.log("---- getApp User2:  " + user);
-  // const userObject = JSON.parse(JSON.stringify(user));
-  //   const userLevelId = userObject.userLevelId;
-  //   // console.log("---userID 111:  " + userLevelId);
-  //   const userData = { vet_id: userLevelId };
-
-  //   // console.log("userData:  " + JSON.stringify(userData));
-  //   const vetAvailabilities = axios
-  //     .post(baseURL + "/vetAvailability", userData)
-  //     .then((res) => {
-  //       console.log("---------------res:   " + JSON.stringify(res));
-  //       setAppData(res.data);
-  //     })
-  //     .catch((e) => console.log(e));
-  // };
 
   const handlePress = () => {
     console.log("Button pressed");
@@ -129,10 +99,13 @@ const Available_VetSessions = ({ navigation }) => {
                     <Text style={styles.text1_1}>
                       Service Fee: {post.serviceCharges}
                     </Text>
+                    <Text style={styles.text1_1}>
+                      Last Appointment No: {post.lastAppNo}
+                    </Text>
                     <View style={styles.container2}>
                       <TouchableOpacity
                         style={styles.book_button}
-                        onPress={() => navigation.navigate("Payment_1")}
+                        onPress={() => navigation.navigate("Payment_1", {vetAvlID: post._id})}
                       >
                         <Text style={styles.bookButtonText}>BOOK NOW</Text>
                       </TouchableOpacity>

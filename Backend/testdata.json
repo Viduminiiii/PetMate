@@ -1,45 +1,24 @@
-[
-    {
-        "_id":"65f4a1ef89962e94036a5f88",
-        "availableDate":"2023-03-14T00:00:00.000Z",
-        "timeFrom":"2024-03-18T12:00:00.000Z",
-        "timeTo":"2024-03-18T18:00:00.000Z",
-        "noofPatients":5,"doctorCharges":2000,
-        "serviceCharges":1000,
-        "createdDate":"2024-03-15T19:30:55.425Z",
-        "veternarian":
-        {
-            "_id":"65f4a01fcb90355cdc1f8c18",
-            "fullname":"chanumi Eeeeeee",
-            "email":"chanumi1@gmail.com",
-            "veterinaryClinicName":"chanumi vet clininc 1",
-            "veterinaryLicenseNumber":"LIC001",
-            "veterinaryClinicAddress":"Adrs1",
-            "createdDate":"2024-03-15T19:23:11.750Z",
-            "__v":0
-        },
-        "__v":0
-    },
-    {
-        "_id":"65f4a26f89962e94036a5f8b",
-        "availableDate":"2023-03-14T00:00:00.000Z",
-        "timeFrom":"2024-03-18T13:00:00.000Z",
-        "timeTo":"2024-03-18T18:00:00.000Z",
-        "noofPatients":15,
-        "doctorCharges":2000,
-        "serviceCharges":1000,
-        "createdDate":"2024-03-15T19:33:03.838Z",
-        "veternarian":
-        {
-            "_id":"65f4a01fcb90355cdc1f8c18",
-            "fullname":"chanumi Eeeeeee",
-            "email":"chanumi1@gmail.com",
-            "veterinaryClinicName":"chanumi vet clininc 1",
-            "veterinaryLicenseNumber":"LIC001",
-            "veterinaryClinicAddress":"Adrs1",
-            "createdDate":"2024-03-15T19:23:11.750Z",
-            "__v":0
-        },
-        "__v":0
+{
+  "_id": "660723ac5d2214fe8a8350fd",
+  "appointmentDate": "2023-03-15T00:00:00.000Z",
+  "appointmentTime": "1970-01-01T00:00:00.013Z",
+  "appointmentNo": 1,
+  "isPaid": true,
+  "paidDate": "2024-03-29T20:25:16.623Z",
+  "createdDate": "2024-03-29T20:25:16.623Z",
+  "availability": {
+    "_id": "65f4a2a689962e94036a5f8f",
+    "timeFrom": "2024-03-18T09:00:00.000Z",
+    "doctorCharges": 2000,
+    "serviceCharges": 1000,
+    "veternarian": {
+      "_id": "65f4a034cb90355cdc1f8c20",
+      "fullname": "Tchathila Eeeeeee",
+      "veterinaryClinicName": "chathila vet clininc 1",
+      "veterinaryClinicAddress": "Adrs1"
     }
-]
+  },
+  "petOwner": "65f20d0e15c83be4ec3926c5",
+  "__v": 0,
+  "paidAmount": 3000
+}

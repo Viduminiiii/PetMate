@@ -6,11 +6,9 @@ var mongoose = require("mongoose");
 var cors = require("cors");
 
 //const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT } = process.env;
-const { PUBLISHABLE_KEY, CLIENT_SECRET_KEY, PORT } = process.env;
+const { PUBLISHABLE_KEY, CLIENT_SECRET_KEY, PORT, STRIPE_KEY } = process.env;
 // const stripe = require('stripe')(PUBLISHABLE_KEY);
-const stripe = require("stripe")(
-  "sk_test_51OwpvSSDj3zXuJENZB9N0Iru93O4s5BW0Hv5HawCnqFgYhcYPFoIHmjLferh6CdjDqqWeh6NoDGIbBWuhDqvFXBK00eVLJ8Djp"
-);
+const stripe = require("stripe")(STRIPE_KEY);
 
 // const stripe = require('stripe')(PUBLISHABLE_KEY, {
 //   apiVersion: "2023-10-16"});
@@ -450,7 +448,7 @@ app.post("/vetAvailability", async (req, res) => {
   try {
     const vetAvailabilities = await Availability.find({ veternarian: vet_id })
       .select(
-        "_id availableDate timeFrom timeTo noofPatients doctorCharges serviceCharges"
+        "_id availableDate timeFrom timeTo noofPatients lastAppNo doctorCharges serviceCharges"
       )
       .populate({
         path: "veternarian",
@@ -711,6 +709,121 @@ app.post("/create-payment-intent", async (req, res) => {
       },
     });
   }
+});
+
+function calculateAppTime(date1, date2, noOfApp) {
+  const ONE_MINUTE = 1000 * 60; // Milliseconds in one minute
+  // Ensure dates are of Date type
+  const startDate = new Date(date1);
+  const endDate = new Date(date2);
+
+  const differenceInMs = endDate - startDate;
+  // Convert difference from milliseconds to minutes
+  const noOfMinutesPerPatient = differenceInMs / ONE_MINUTE / noOfApp;
+
+  return Math.round(noOfMinutesPerPatient) + 1; // Return the absolute value to avoid negative results
+}
+
+app.post("/createAppointment", async (req, res) => {
+  console.log("--------------req.body:   " + JSON.stringify(req.body));
+  const { vetAvlID, userID, totalAmount } = req.body;
+
+  const objAvailability = await Availability.findById(vetAvlID);
+
+  if (objAvailability === null) {
+    res.send({ data: "Doctor schedule do not exist. Please try again." });
+  } else {
+    try {
+      console.log(" ---- 2----");
+      const appointNo =
+        objAvailability.lastAppNo === 0 ? 1 : objAvailability.lastAppNo + 1;
+      const appTime = calculateAppTime(
+        objAvailability.timeFrom,
+        objAvailability.timeTo,
+        objAvailability.noofPatients
+      );
+      console.log("appointNo:  " + appointNo + "  appTime: " + appTime);
+
+      const objAppointment = await Appointments.create({
+        appointmentDate: objAvailability.availableDate,
+        appointmentTime: appTime,
+        appointmentNo: appointNo,
+        isPaid: true,
+        paidAmount: totalAmount,
+        paidDate: new Date(),
+        availability: vetAvlID,
+        petOwner: userID,
+        createdDate: new Date(),
+      });
+      console.log("objAppointment:  " + JSON.stringify(objAppointment));
+
+      if (objAppointment !== null) {
+        console.log("------333-------------");
+        const updateData = {
+          lastAppNo: appointNo,
+          modifiedDate: new Date(),
+        };
+        console.log("updateData:  " + JSON.stringify(updateData));
+
+        const updatedAvailability = await Availability.findByIdAndUpdate(
+          vetAvlID,
+          updateData
+        );
+        console.log(
+          "updatedAvailability:  " + JSON.stringify(updatedAvailability)
+        );
+
+        if (updatedAvailability !== null) {
+          console.log("Appoinment created");
+          res.send({ status: "ok", data: JSON.stringify(objAppointment) });
+        }
+      } else {
+        res.send({ status: "failed", data: "Something went wrong." });
+      }
+    } catch (error) {
+      res.send({ status: "Error", data: error });
+    }
+  }
+});
+
+app.get("/appointmentData/:appointmentID", (req, res) => {
+  const appointmentID = req.params.appointmentID;
+  console.log("appointmentID---------------" + appointmentID);
+
+  Appointments.findById(appointmentID)
+    .populate({
+      path: "availability",
+      // select: "timeFrom doctorCharges serviceCharges",
+      populate: {
+        path: "veternarian",
+        // select: "fullname veterinaryClinicName veterinaryClinicAddress",
+      },
+    })
+    .then((result) => {
+      console.log("res---------------:   " + JSON.stringify(result));
+      res.send(JSON.stringify(result));
+      // res.status(200).json(users);
+    })
+    .catch((err) => {
+      console.log("Error retrieving users", err);
+      res.send({ status: 500, message: "Error retrieving users" });
+    });
+});
+
+
+app.get("/availabilityData/:vetAvlID", (req, res) => {
+  const vetAvlID = req.params.vetAvlID;
+  console.log("vetAvlID---------------" + vetAvlID);
+
+  Availability.findById(vetAvlID)
+    .then((result) => {
+      console.log("Availability res---------------:   " + JSON.stringify(result));
+      res.send(JSON.stringify(result));
+    })
+    .catch((err) => {
+      console.log("Error retrieving users", err);
+      res.send({ status: 500, message: "Error retrieving users" });
+    });
 });
 
 app.listen(port, () => {
