@@ -130,9 +130,6 @@ const Medicalrecords = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.navigate("Prescription")}>
             <Text style={styles.sampleText}>Digital prescription</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handlePress}>
-            <Text style={styles.sampleText}>Digital prescription</Text>
-          </TouchableOpacity>
         </View>
       </View>
       {/*creating the footer*/}

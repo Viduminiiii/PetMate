@@ -1,5 +1,5 @@
 //import necessary components from react native
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,17 +11,46 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown"; //importing dropdown component
 import DatePicker from "react-native-date-picker"; //importing date-picker component
+import { useAuth } from "../config/AuthContext";
+import { useRoute } from "@react-navigation/native";
+const config = require("../config/config");
 
 //prescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Prescription = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT;
+  // console.log("baseURL: " + baseURL);
+  const route = useRoute();
+  const { appointID } = route.params;
+
+  const { user, userID, userType } = useAuth();
+  const [appData, setAppData] = useState([]);
+  
+  useEffect(() => {
+    alert("Pet")
+    const userObject = JSON.parse(user);
+    console.log("userObject.userLevelId:  " + userObject.userLevelId);
+    const userLevelId = userType == 1 ? userObject.userLevelId : appointID;
+    console.log(
+      "---userID 2:  " + userLevelId + "  appointID:  " + appointID
+    );
+
+    axios.get(baseURL + `/appointmentData/${appointID}`)
+      .then((response) => {
+        console.log("---userID 4:  " + JSON.stringify(response.data));
+        
+      // const userObject2 = JSON.parse(response.data);
+      console.log("\n\n -----degital presc data:  " + response.data);
+        setAppData(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const handlePress = () => {
     console.log("Button pressed");
+    alert(
+      <Text>{appData.petOwner.fullname}</Text>);
   };
 
-  // state = { user: "" };
-  // updateUser = (user) => {
-  //   this.setState({ user: user });
-  // };
 
   const [value, setValue] = useState(null); //'value' state initialized with null to hold selected input from the UI
   const [isFocus, setIsFocus] = useState(false); //'isFocus' state initialized with false to track input focus in UI
@@ -47,13 +76,9 @@ const Prescription = ({ navigation }) => {
           {/*adding a text*/}
           <View style={styles.info}>
             <Text style={styles.name}>Name</Text>
-            <TextInput style={styles.petText_box}></TextInput>
+            <TextInput style={styles.petText_box}>{appData.petOwner.fullname}</TextInput>
             <Text style={styles.name}>Age</Text>
             <TextInput style={styles.age_box}></TextInput>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Breed</Text>
-            <TextInput style={styles.breed_box}></TextInput>
           </View>
           <View style={styles.info}>
             <Text style={styles.name}>Gender</Text>
@@ -92,16 +117,6 @@ const Prescription = ({ navigation }) => {
             <Text style={styles.name}>Name</Text>
             <TextInput style={styles.ownerText_box}></TextInput>
           </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Telephone</Text>
-            <View style={styles.ownerText_box}>
-              <TextInput style={styles.text1}>+94</TextInput>
-            </View>
-          </View>
-          <View style={styles.info}>
-            <Text style={styles.name}>Email</Text>
-            <TextInput style={styles.ownerText_box}></TextInput>
-          </View>
         </View>
 
         <View style={styles.medInfo}>
@@ -117,10 +132,6 @@ const Prescription = ({ navigation }) => {
         </View>
 
         <View style={styles.docInfo}>
-          <View style={styles.info}>
-            <Text style={styles.name}>Doctor's Name</Text>
-            <TextInput style={styles.docText_box}></TextInput>
-          </View>
           <View style={styles.info}>
             <Text style={styles.name}>Doctor's ID</Text>
             <TextInput style={styles.docText_box}></TextInput>
@@ -145,9 +156,10 @@ const Prescription = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}> */}
+        <TouchableOpacity onPress={handlePress}>
           <View style={styles.button}>
-            <Text style={styles.send_btn}>Send</Text>
+            <Text style={styles.send_btn}>Send DATA</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -243,21 +255,14 @@ const styles = StyleSheet.create({
   petText_box: {
     backgroundColor: "white",
     width: "35%",
-    height: "30%",
-    marginTop: 23,
-    borderRadius: 10,
-  },
-  breed_box: {
-    backgroundColor: "white",
-    width: "60%",
-    height: "30%",
+    height: "35%",
     marginTop: 23,
     borderRadius: 10,
   },
   age_box: {
     backgroundColor: "white",
     width: "15%",
-    height: "30%",
+    height: "35%",
     marginTop: 23,
     borderRadius: 10,
   },
@@ -266,8 +271,8 @@ const styles = StyleSheet.create({
   },
   ownerText_box: {
     backgroundColor: "white",
-    width: "55%",
-    height: "30%",
+    width: "70%",
+    height: "38%",
     marginTop: 23,
     borderRadius: 10,
   },
@@ -285,7 +290,7 @@ const styles = StyleSheet.create({
   medText_box: {
     backgroundColor: "white",
     width: "90%",
-    height: "15%",
+    height: "28%",
     marginTop: -15,
     borderRadius: 10,
     marginLeft: 15,
@@ -296,7 +301,7 @@ const styles = StyleSheet.create({
   infoText_box: {
     backgroundColor: "white",
     width: "90%",
-    height: "33%",
+    height: "36%",
     marginTop: -15,
     borderRadius: 10,
     marginLeft: 15,
@@ -312,14 +317,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    height: "20%",
+    height: "22%",
     width: "40%",
     backgroundColor: "white",
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    marginTop: -5,
   },
   send_btn: {
     fontWeight: "bold",
@@ -353,8 +357,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   dropdown: {
-    top: 15,
-    height: 20,
+    top: 23,
+    height: 25,
     width: 200,
     borderRadius: 10,
     paddingHorizontal: 10,

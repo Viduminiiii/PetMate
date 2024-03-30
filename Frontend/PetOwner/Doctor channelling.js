@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
 } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 import { Dropdown } from "react-native-element-dropdown";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import DatePicker from "react-native-date-picker"; //importing date-picker component
@@ -102,19 +103,17 @@ const DocChannelling = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.nav_text}>DOCTOR CHANNELLING</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Petowner_Settings")}
+          onPress={() => navigation.navigate("History", {searchAvlID:1})}
         >
-          <Image
-            source={require("../../AppPics/Setting.png")}
-            style={styles.settings}
-          />
+          <MaterialIcons name="history" size={52} color="black"  style={styles.history} />
         </TouchableOpacity>
       </View>
+
       <View style={styles.container1}>
         <Text style={styles.schedule_text}>Schedule an appointment</Text>
       </View>
       <View style={styles.search_page}>
-        <Text style={styles.text}>Doctor's Name</Text>
+        <Text style={styles.text}>Doctor/ Clinic Name</Text>
         <View style={styles.search_box}>
           <Image
             source={require("../../AppPics/Search.png")}
@@ -187,7 +186,7 @@ const DocChannelling = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
+        <TouchableOpacity onPress={() => navigation.navigate("History", {searchAvlID:1})}>
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -222,7 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  settings: {
+  history: {
     resizeMode: "contain",
     width: 60,
     height: 60,
@@ -246,6 +245,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
     marginVertical: 10,
+    marginBottom:120
   },
   text: {
     fontSize: 20,
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row", // Use 'column' for vertical split
     padding: 10,
-    marginTop: -10,
+    marginTop: 20,
   },
   search_img: {
     width: 30,

@@ -8,17 +8,37 @@
   "createdDate": "2024-03-29T20:25:16.623Z",
   "availability": {
     "_id": "65f4a2a689962e94036a5f8f",
+    "availableDate": "2023-03-15T00:00:00.000Z",
     "timeFrom": "2024-03-18T09:00:00.000Z",
+    "timeTo": "2024-03-18T12:00:00.000Z",
+    "noofPatients": 15,
     "doctorCharges": 2000,
     "serviceCharges": 1000,
+    "createdDate": "2024-03-15T19:33:58.486Z",
     "veternarian": {
+      "location": { "type": "Point", "coordinates": [] },
       "_id": "65f4a034cb90355cdc1f8c20",
       "fullname": "Tchathila Eeeeeee",
+      "email": "chathila@gmail.com",
       "veterinaryClinicName": "chathila vet clininc 1",
-      "veterinaryClinicAddress": "Adrs1"
-    }
+      "veterinaryLicenseNumber": "LIC001",
+      "veterinaryClinicAddress": "Adrs1",
+      "createdDate": "2024-03-15T19:23:32.084Z",
+      "__v": 0
+    },
+    "__v": 0,
+    "lastAppNo": 14,
+    "modifiedDate": "2024-03-30T00:09:40.181Z"
   },
-  "petOwner": "65f20d0e15c83be4ec3926c5",
+  "petOwner": {
+    "_id": "65f20d0d15c83be4ec3926c3",
+    "fullname": "vidumini",
+    "email": "vidu1@gmail.com",
+    "petname": "tommy",
+    "age": 21,
+    "createdDate": "2024-03-13T20:31:09.607Z",
+    "__v": 0
+  },
   "__v": 0,
   "paidAmount": 3000
 }

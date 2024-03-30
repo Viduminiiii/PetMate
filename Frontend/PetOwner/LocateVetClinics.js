@@ -138,7 +138,7 @@ const LocateVetClinics = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Medicalrecords")}>
+        <TouchableOpacity onPress={() => navigation.navigate("History", {searchAvlID:1})}>
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}

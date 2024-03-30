@@ -726,7 +726,7 @@ function calculateAppTime(date1, date2, noOfApp) {
 
 app.post("/createAppointment", async (req, res) => {
   console.log("--------------req.body:   " + JSON.stringify(req.body));
-  const { vetAvlID, userID, totalAmount } = req.body;
+  const { vetAvlID, userID, totalAmount,medications, instructions} = req.body;
 
   const objAvailability = await Availability.findById(vetAvlID);
 
@@ -750,6 +750,8 @@ app.post("/createAppointment", async (req, res) => {
         appointmentNo: appointNo,
         isPaid: true,
         paidAmount: totalAmount,
+        medications:medications,
+        instructions:instructions,
         paidDate: new Date(),
         availability: vetAvlID,
         petOwner: userID,
@@ -799,6 +801,7 @@ app.get("/appointmentData/:appointmentID", (req, res) => {
         // select: "fullname veterinaryClinicName veterinaryClinicAddress",
       },
     })
+    .populate("petOwner")
     .then((result) => {
       console.log("res---------------:   " + JSON.stringify(result));
       res.send(JSON.stringify(result));
@@ -810,14 +813,15 @@ app.get("/appointmentData/:appointmentID", (req, res) => {
     });
 });
 
-
 app.get("/availabilityData/:vetAvlID", (req, res) => {
   const vetAvlID = req.params.vetAvlID;
   console.log("vetAvlID---------------" + vetAvlID);
 
   Availability.findById(vetAvlID)
     .then((result) => {
-      console.log("Availability res---------------:   " + JSON.stringify(result));
+      console.log(
+        "Availability res---------------:   " + JSON.stringify(result)
+      );
       res.send(JSON.stringify(result));
     })
     .catch((err) => {
@@ -825,6 +829,87 @@ app.get("/availabilityData/:vetAvlID", (req, res) => {
       res.send({ status: 500, message: "Error retrieving users" });
     });
 });
+
+app.post("/appointmentsData", async (req, res) => {
+  console.log("\n-------------appointmentsData" + JSON.stringify(req.body));
+  const { searchID, userType } = req.body; // Assuming vet ID is passed as a query parameter
+  console.log("\n-----searchID:   " + searchID + " -userType " + userType);
+  try {
+    const query = {
+      availability: searchID,
+    };
+    const query2 = {
+      petOwner: searchID,
+    };
+    console.log(
+      "query: " + JSON.stringify(query) + "  query2: " + JSON.stringify(query2)
+    );
+
+    let appointments;
+    if (userType == 2) {
+      appointments = await Appointments.find(query).populate({
+        path: "petOwner",
+        select: "_id fullname petname age",
+      });
+    } else {
+      appointments = await Appointments.find(query2).populate({
+        path: "availability",
+        select:
+          "_id availableDate timeFrom timeTo noofPatients lastAppNo doctorCharges serviceCharges",
+        populate: {
+          path: "veternarian",
+          select: "fullname veterinaryClinicName veterinaryClinicAddress",
+        },
+      });
+    }
+
+    console.log("\n---------appointments:  " + appointments);
+    if (appointments && appointments.length > 0) {
+      console.log("\n -----availabilities: " + JSON.stringify(appointments));
+      res.send(JSON.stringify(appointments));
+    } else {
+      console.log("Status:    " + res.status);
+      res.status(404).send("Date Data not found.");
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
+
+app.post("/updateMedications", async (req, res) => {
+  console.log("\n----updateMedications--req.body:   " + JSON.stringify(req.body));
+  const { appointID, medication, information } = req.body;
+  try {
+
+    const updateData = {
+      medications: medication,
+      instructions: information,
+      modifiedDate: new Date(),
+    };
+    console.log("  updateMedications   updateData:  " + JSON.stringify(updateData));
+
+    const updatedAppointment = await Appointments.findByIdAndUpdate(
+      appointID,
+      updateData,
+      { new: true }
+    );
+    console.log(
+      "updatedAppointment:  " + JSON.stringify(updatedAppointment)
+    );
+
+    if (updatedAppointment !== null) {
+      console.log("Appointment updated");
+      res.send({ status: "ok", data: JSON.stringify(updatedAppointment) });
+    }
+    else{
+      res.send({ status: "Error", data: "No data in updatedAppointment" });}
+  } catch (error) {
+    res.send({ status: "Error", data: error });
+  }
+});
+
 
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);

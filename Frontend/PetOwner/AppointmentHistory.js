@@ -10,15 +10,16 @@ import {
 } from "react-native";
 import { useAuth } from "../config/AuthContext";
 import { useRoute } from "@react-navigation/native";
+import { Fontisto } from "@expo/vector-icons";
 import axios from "axios";
-import { formatDateToYYYYMMDD, formatTimeToHHMM } from "./../config/helper";
-const config = require("./../config/config");
+import { formatDateToYYYYMMDD, formatTimeToHHMM } from "../config/helper";
+const config = require("../config/config");
 
 const Available_VetSessions = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
   // console.log("baseURL: " + baseURL);
   const route = useRoute();
-  const { searchVetID } = route.params;
+  const { searchAvlID } = route.params;
 
   const { user, userID, userType } = useAuth();
   const [appData, setAppData] = useState([]);
@@ -29,20 +30,31 @@ const Available_VetSessions = ({ navigation }) => {
         user +
         " -- userType:  " +
         userType +
-        " - searchVetID: " +
-        searchVetID
+        " - searchAvlID: " +
+        searchAvlID
     );
 
     const userObject = JSON.parse(user);
     console.log("userObject.userLevelId:  " + userObject.userLevelId);
-    const userLevelId = userType == 2 ? userObject.userLevelId : searchVetID; //'65f4a034cb90355cdc1f8c20';
-    console.log("---userID 2:  " + userLevelId);
-    const userData = { vet_id: userLevelId };
+    const userLevelId = userType == 1 ? userObject.userLevelId : searchAvlID;
+    console.log(
+      "---userID 2:  " + userLevelId + "  searchAvlID:  " + searchAvlID
+    );
+    const userData = { searchID: userLevelId, userType: userType };
+    console.log(
+      "URL: ---------   " +
+        baseURL +
+        "/appointmentsData  " +
+        JSON.stringify(userData)
+    );
 
     axios
-      .post(baseURL + "/vetAvailability", userData)
+      .post(baseURL + "/appointmentsData", userData)
       .then((response) => {
-        // console.log("---userID 4:  " + JSON.stringify(response.data));
+        console.log("---userID 4:  " + JSON.stringify(response.data));
+        
+      // const userObject2 = JSON.parse(response.data);
+      console.log("\n\nresponse.data:  " + response.data);
         setAppData(response.data);
       })
       .catch((error) => console.error(error));
@@ -61,8 +73,8 @@ const Available_VetSessions = ({ navigation }) => {
           />
         </TouchableOpacity>
         <View style={styles.nav_text_container}>
-          <Text style={styles.nav_text}>AVAILABLE</Text>
-          <Text style={styles.nav_text}>SESSIONS</Text>
+          <Text style={styles.nav_text}>APPOINTMENT</Text>
+          <Text style={styles.nav_text}>HISTORY</Text>
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("Petowner_Settings")}
@@ -77,65 +89,101 @@ const Available_VetSessions = ({ navigation }) => {
       <ScrollView style={styles.screen}>
         {appData &&
           appData.map((post) => (
-            <View key={post._id}>
-              <View style={styles.summary}>
-                <View style={styles.abc_clinic}>
-                  <View style={styles.pic1}>
-                    <Image
-                      source={require("../../AppPics/ABC_vet clinic.png")}
-                      style={[styles.clinic1, , { marginBottom: 0 }]}
-                    />
-                  </View>
-                  <View style={styles.content2}>
-                    <Text style={styles.text1}>
-                      {post.veternarian.veterinaryClinicName}
-                    </Text>
-                    <Text style={styles.text1_1}>
-                      {post.veternarian.veterinaryClinicAddress}
-                    </Text>
-                    <Text style={styles.text1_1}>
-                      {formatDateToYYYYMMDD(post.availableDate)}{" "}
-                      {formatTimeToHHMM(post.timeFrom)}
-                    </Text>
-                    {/* <Text style={styles.text1_1}>{formatTimeToHHMM(post.timeFrom)}</Text> */}
-                    <Text style={styles.text1_1}>{post.noofPatients}</Text>
-                    <Text style={styles.text1_1}>
-                      Doctor Fee: {post.doctorCharges}
-                    </Text>
-                    <Text style={styles.text1_1}>
-                      Service Fee: {post.serviceCharges}
-                    </Text>
-                    <Text style={styles.text1_1}>
-                      Last Appointment No: {post.lastAppNo}
-                    </Text>
-                    <View style={styles.container2}>
-                      {userType == 2 && (
-                        <TouchableOpacity
-                          style={styles.book_button}
-                          onPress={() =>
-                            navigation.navigate("History", {
-                              searchAvlID: post._id,
-                            })
-                          }
-                        >
-                          <Text style={styles.bookButtonText}>
-                            APPOINTMENTS
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                      {userType == 1 && (
-                        <TouchableOpacity
-                          style={styles.book_button}
-                          onPress={() =>
-                            navigation.navigate("Payment_1", {
-                              vetAvlID: post._id,
-                            })
-                          }
-                        >
-                          <Text style={styles.bookButtonText}>BOOK NOW</Text>
-                        </TouchableOpacity>
-                      )}
+            <View style={styles.summary} key={post._id}>
+              <View style={styles.abc_clinic}>
+                <View style={styles.pic1}>
+                  <Fontisto name="date" size={55} color="black" />
+                </View>
+                <View style={styles.content2}>
+                  <View style={styles.vetDetails}>
+                    <View style={styles.dataRow}>
+                      <Text style={styles.text1}>Appointment Date:</Text>
+                      <Text style={styles.text1_1}>
+                        {formatDateToYYYYMMDD(post.appointmentDate)}
+                      </Text>
                     </View>
+                    <View style={styles.dataRow}>
+                      <Text style={styles.text1}>Appointment Time:</Text>
+                      <Text style={styles.text1_1}>
+                        {formatTimeToHHMM(post.appointmentTime)}
+                      </Text>
+                    </View>
+                    <View style={styles.dataRow}>
+                      <Text style={styles.text1}>Appointment No:</Text>
+                      <Text style={styles.text1_1}>{post.appointmentNo}</Text>
+                    </View>
+                  </View>
+                  {userType == 1 && (
+                    <View style={styles.vetDetails}>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Clinic Name:</Text>
+                        <Text style={styles.text1_1}>
+                          {post.availability.veternarian.veterinaryClinicName}
+                        </Text>
+                      </View>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Clinic Address:</Text>
+                        <Text style={styles.text1_1}>
+                          {
+                            post.availability.veternarian
+                              .veterinaryClinicAddress
+                          }
+                        </Text>
+                      </View>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>
+                          Appointments Start time:
+                        </Text>
+                        <Text style={styles.text1_1}>
+                          {formatTimeToHHMM(post.availability.timeFrom)}
+                        </Text>
+                      </View>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Doctor Fee:</Text>
+                        <Text style={styles.text1_1}>
+                          {post.availability.doctorCharges}
+                        </Text>
+                      </View>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Service Fee:</Text>
+                        <Text style={styles.text1_1}>
+                          {post.availability.serviceCharges}
+                        </Text>
+                      </View>
+                    </View>
+                  )}
+                  {userType == 2 && (
+                    <View style={styles.vetDetails}>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Pet owner Name:</Text>
+                        <Text style={styles.text1_1}>
+                          {post.petOwner.fullname}
+                        </Text>
+                      </View>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Pet name:</Text>
+                        <Text style={styles.text1_1}>
+                          {post.petOwner.petname}
+                        </Text>
+                      </View>
+                      <View style={styles.dataRow}>
+                        <Text style={styles.text1}>Pet age:</Text>
+                        <Text style={styles.text1_1}>{post.petOwner.age}</Text>
+                      </View>
+                    </View>
+                  )}
+                  <View style={styles.container2}>
+                    <TouchableOpacity
+                      style={styles.book_button}
+                      onPress={() => {navigation.navigate("VetPrescription", {
+                              appointID: post._id,
+                            });
+                      }}
+                    >
+                      <Text style={styles.bookButtonText}>
+                        {userType == 2 ? "Create Prescription" : "View Prescription"}
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -214,7 +262,7 @@ const Available_VetSessions = ({ navigation }) => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Medicalrecords")}
+            onPress={() => navigation.navigate("History", {searchAvlID:1})}
           >
             <Image
               source={require("../../AppPics/Footer_medicalRecords.png")}
@@ -275,14 +323,13 @@ const styles = StyleSheet.create({
   pic1: {
     justifyContent: "center",
     alignItems: "center",
-    width: "40%",
+    width: "25%",
     height: "100%",
     marginTop: 30,
   },
   content2: {
     justifyContent: "center",
-    alignItems: "center",
-    width: "60%",
+    width: "100%",
     height: "165%",
     backgroundColor: "#E6B4EB",
     borderTopRightRadius: 15,
@@ -290,17 +337,19 @@ const styles = StyleSheet.create({
   },
   text1: {
     color: "black",
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
+    paddingRight: 15,
   },
   text1_1: {
     color: "black",
     fontSize: 14,
-    fontWeight: "bold",
+    // fontWeight: "bold",
   },
   container2: {
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   book_button: {
     backgroundColor: "#7986CB",
@@ -308,6 +357,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10,
     marginTop: 10,
+    width: "80%",
   },
   bookButtonText: {
     color: "black",
@@ -335,9 +385,10 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   screen: {
-    margin: 1,
-    // backgroundColor: "#E6B4EB",
+    // margin: 1,
+    // backgroundColor: "#aaaaaa",
     marginBottom: 67,
+    width: "100%",
   },
   summary: {
     flex: 1,
@@ -352,6 +403,15 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: "white",
+    width: "100%",
+  },
+  vetDetails: {
+    marginLeft: 10,
+    // backgroundColor: "#ffffff",
+    marginTop: 2,
+  },
+  dataRow: {
+    flexDirection: "row",
   },
 });
 export default Available_VetSessions;
