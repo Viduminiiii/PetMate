@@ -18,7 +18,7 @@ const config = require("../config/config");
 //prescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Prescription = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  // console.log("baseURL: " + baseURL);
+  
   const route = useRoute();
   const { appointID } = route.params;
 
@@ -66,14 +66,14 @@ const Prescription = ({ navigation }) => {
   const handlePress = () => {
     console.log("Button pressed");
 
-    if(userType == 2){
+    if (userType == 2) {
       //creating userData object
       const userData = {
         appointID,
         medication,
         information,
       };
-  
+
       //log message indicating all fields are filled and registration is proceeding
       console.log("All fields filled, proceed with registration.");
       console.log("userData:  " + JSON.stringify(userData)); //logging the user data after converting it to a JSON string.
@@ -85,8 +85,7 @@ const Prescription = ({ navigation }) => {
           console.log("res.data.data:  " + JSON.stringify(res.data.data));
         })
         .catch((e) => console.log(e));
-    }
-    else{
+    } else {
       navigation.goBack();
     }
   };
@@ -129,24 +128,32 @@ const Prescription = ({ navigation }) => {
           <Text style={styles.heading}>Medication Information</Text>
           <View style={styles.info_med}>
             <Text style={styles.name}>Medication</Text>
-            {userType == 1 && <Text style={styles.medText_box}>{medication}</Text>}
-            {userType == 2 && <TextInput
-              multiline
-              style={styles.medText_box}
-              onChangeText={(text) => setMedication(text)}
-            >
-              {medication}
-            </TextInput>}
+            {userType == 1 && (
+              <Text style={styles.medText_box}>{medication}</Text>
+            )}
+            {userType == 2 && (
+              <TextInput
+                multiline
+                style={styles.medText_box}
+                onChangeText={(text) => setMedication(text)}
+              >
+                {medication}
+              </TextInput>
+            )}
             <View style={styles.info_box}>
               <Text style={styles.name}>Information</Text>
-              {userType == 1 && <Text style={styles.infoText_box}>{information}</Text>}
-              {userType == 2 && <TextInput
-                multiline
-                style={styles.infoText_box}
-                onChangeText={(text) => setInformation(text)}
-              >
-                {information}
-              </TextInput>}
+              {userType == 1 && (
+                <Text style={styles.infoText_box}>{information}</Text>
+              )}
+              {userType == 2 && (
+                <TextInput
+                  multiline
+                  style={styles.infoText_box}
+                  onChangeText={(text) => setInformation(text)}
+                >
+                  {information}
+                </TextInput>
+              )}
             </View>
           </View>
         </View>
@@ -162,11 +169,15 @@ const Prescription = ({ navigation }) => {
           </View>
         </View>
         {/* <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy")}> */}
-        {<TouchableOpacity onPress={handlePress}>
-          <View style={styles.button}>
-            <Text style={styles.send_btn}> {userType == 1 ? "OK" : Save}</Text>
-          </View>
-        </TouchableOpacity>}
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={handlePress} style={styles.button}>
+            <Text style={styles.send_btn}>{userType == 1 ? "OK" : "Save"}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy", { appointID: appointID })} style={styles.button2}>
+            <Text style={styles.send_btn}>Send</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.footer}>
         {/*creating the footer*/}
@@ -196,7 +207,9 @@ const Prescription = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("History", {searchAvlID:1})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("History", { searchAvlID: 1 })}
+        >
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -322,13 +335,28 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    height: "22%",
-    width: "40%",
-    backgroundColor: "white",
+    flex:1,
+    height: "35%",
+    width: "30%",
+    backgroundColor: "#FFFFFF",
     borderRadius: 15,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     alignSelf: "center",
+    margin: 10,
+    marginTop:-15
+  },
+  button2: {
+    flex:1,
+    height: "35%",
+    width: "30%",
+    backgroundColor: "#3366ff",
+    borderRadius: 15,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    alignSelf: "center",
+    margin: 10,
+    marginTop:-15
   },
   send_btn: {
     fontWeight: "bold",

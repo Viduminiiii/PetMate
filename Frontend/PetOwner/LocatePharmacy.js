@@ -1,5 +1,5 @@
 //import necessary components from react native
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,35 +9,103 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
+import { Entypo } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 import axios from "axios"; //importing axios library for HTTP requests
+import { useRoute } from "@react-navigation/native";
 const config = require("../config/config"); //importing configuration file
 //locatePharmacy component recieves a 'navigation' prop which allows to navigate between different screens in the app
 
 const LocatePharmacy = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT; //base URL for the database connection
 
+  const route = useRoute();
+  const { appointID } = route.params;
+  console.log("locate pharmacy appointID: " + appointID);
+
   const [searchPharmacy, setSearchPharmacy] = useState();
   const [appData, setAppData] = useState([]);
+  const [sendID, setSendID] = useState();
+  const [searchData, setSearchData] = useState(false);
 
-  const handlePress = () => {
-    console.log("Button pressed");
-    //constructing userData object based on the state values
-    const userData = { searchPharmacy: searchPharmacy };
+  useEffect(() => {
+    if (searchData) {
+      setSearchData(false);
+      //constructing userData object based on the state values
+      const userData = { searchPharmacy: searchPharmacy };
+      axios
+        .post(baseURL + "/searchPharmacy", userData)
+        .then((res) => {
+          // console.log("----res.data.searchPharmacy------:   " + res.data.status); //outputting response data to the console to understand its contents and structure fro debugging purpose
+          if (res.data.status != 404) {
+            setAppData(res.data);
+          } else {
+            console.log("Data not found.");
+            alert("Data not found.");
+          }
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [searchData]);
+
+  const handleSearchPress = () => {
+    console.log("handleSearchPress Button pressed");
     console.log("searchPharmacy:   " + searchPharmacy);
-    //sending a POST request to search for availability using axios
-    axios
-      .post(baseURL + "/searchPharmacy", userData)
-      .then((res) => {
-        console.log("----res.data.searchPharmacy------:   " + res.data); //outputting response data to the console to understand its contents and structure fro debugging purpose
-        if (res.data) {
-          setAppData(res.data);
-        } else {
-          //handling error if status if not "ok"
-          console.error("Error fetching pharmacy:", response.data.msg);
-          alert("Error fetching pharmacy:", response.data.msg);
-        }
-      })
-      .catch((e) => console.log(e));
+    setSearchData(true);
+  };
+
+  const handleDataPress = () => {
+    console.log("--------------handleDataPress Button pressed  " + sendID);
+    //constructing userData object based on the state values
+    if (sendID != undefined) {
+      const userData = { appointID: appointID, pharmacyID: sendID };
+      // console.log("sendPrescription:   " + sendPrescription);
+      console.log("userData:  1  " + JSON.stringify(userData));
+      //// sending a POST request to search for availability using axios
+      axios
+        .post(baseURL + "/sendPrescription", userData)
+        .then((res) => {
+          console.log(
+            "---2-res.data.searchPharmacy------:   " + JSON.stringify(res.data)
+          ); //outputting response data to the console to understand its contents and structure fro debugging purpose
+          if (res.data.status === "ok") {
+            console.log("OK:  " + res.data.data);
+            navigation.navigate("History", { searchAvlID: 1 });
+          } else {
+            console.log("Data not found.");
+            alert("Data not found.");
+          }
+        })
+        .catch((e) => console.log(e));
+    } else {
+    }
+  };
+  
+  const handleDataPress2 = () => {
+    console.log("--------------handleDataPress Button pressed  " + sendID);
+    //constructing userData object based on the state values
+    if (sendID != undefined) {
+      const userData = { appointID: appointID, pharmacyID: sendID };
+      // console.log("sendPrescription:   " + sendPrescription);
+      console.log("userData:  1  " + JSON.stringify(userData));
+      //// sending a POST request to search for availability using axios
+      axios
+        .post(baseURL + "/getPrescriptionData", userData)
+        .then((res) => {
+          console.log(
+            "---2-res.data.searchPharmacy------:   " + JSON.stringify(res.data)
+          ); //outputting response data to the console to understand its contents and structure fro debugging purpose
+          if (res.data.status === "ok") {
+            console.log("OK:  " + res.data.data);
+            navigation.navigate("History", { searchAvlID: 1 });
+          } else {
+            console.log("Data not found.");
+            alert("Data not found.");
+          }
+        })
+        .catch((e) => console.log(e));
+    } else {
+    }
   };
 
   return (
@@ -74,35 +142,43 @@ const LocatePharmacy = ({ navigation }) => {
           onChangeText={(text) => setSearchPharmacy(text)}
         ></TextInput>
       </View>
-      <TouchableOpacity style={styles.search_button} onPress={handlePress}>
+      <TouchableOpacity
+        style={styles.search_button}
+        onPress={handleSearchPress}
+      >
         <Text style={styles.searchButtonText}>SEARCH</Text>
       </TouchableOpacity>
 
       <ScrollView style={styles.screen}>
         {appData &&
           appData.map((post) => (
-            <View key={post._id}>
+            <TouchableOpacity
+              key={post._id}
+              onPress={() => {
+                setSendID(post._id);
+                handleDataPress();
+              }}
+            >
               <View style={styles.summary}>
                 <View style={styles.button_1_2}>
-                  <Image
-                    source={require("../../AppPics/ABC_Pharmacy.jpg")}
-                    style={styles.button_img_2}
-                  />
+                  <View style={styles.data_Img}>
+                    <Image
+                      source={require("../../AppPics/ABC_Pharmacy.jpg")}
+                      style={styles.button_img_2}
+                    />
+                  </View>
                   <View style={styles.button_half_view_column}>
-                    <Text style={styles.button_text}>
-                      {post.pharmacyName}
-                    </Text>
+                    <Text style={styles.button_text}>{post.pharmacyName}</Text>
                     <View style={styles.button_half_view_row}>
-                      <Image
-                        source={require("../../AppPics/VetClinic_Location.png")}
-                        style={styles.location_img}
-                      />
+                      <View style={styles.loc_icon}>
+                        <Entypo name="location" size={25} color="black" />
+                      </View>
                       <Text style={styles.location_text}>{post.mainCity}</Text>
                     </View>
                   </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
       </ScrollView>
 
@@ -135,7 +211,9 @@ const LocatePharmacy = ({ navigation }) => {
             style={styles.menu_img}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("History", {searchAvlID:1})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("History", { searchAvlID: 1 })}
+        >
           <Image
             source={require("../../AppPics/Footer_medicalRecords.png")}
             style={styles.menu_img}
@@ -249,20 +327,27 @@ const styles = StyleSheet.create({
   button_img_2: {
     width: 120,
     height: 100,
+    margin: 5,
   },
   button_img_3: {
     width: 120,
     height: 90,
   },
   button_half_view_column: {
-    marginTop: 10,
+    alignItems: "center",
+    margin: 5,
+    marginLeft: 10,
+    width: "60%",
+    // backgroundColor: "yellow",
   },
   button_half_view_row: {
     flexDirection: "row",
+    alignContent: "center",
   },
   button_text: {
     fontSize: 22,
-    marginLeft: 40,
+    marginLeft: 30,
+    marginTop: 10,
   },
   location_img: {
     marginTop: 10,
@@ -271,9 +356,9 @@ const styles = StyleSheet.create({
     height: 37,
   },
   location_text: {
-    fontSize: 17,
+    fontSize: 18,
     marginTop: 10,
-    marginLeft: 20,
+    marginLeft: 10,
   },
   footer: {
     flexDirection: "row",
@@ -323,12 +408,12 @@ const styles = StyleSheet.create({
     margin: 1,
     // backgroundColor: "#E6B4EB",
     marginBottom: 10,
-    marginTop: 25
+    marginTop: 25,
   },
   summary: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: "flex-start",
+    justifyContent: "space-evenly",
     marginBottom: 20,
     padding: 1,
     shadowColor: "black",
@@ -338,6 +423,19 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: "white",
+  },
+  data_Img: {
+    width: "30%",
+    textAlign: "left",
+    margin: 5,
+    marginStart: 5,
+    marginLeft: 5,
+    backgroundColor: "#CEEFA3",
+  },
+  loc_icon: {
+    width: "10%",
+    textAlign: "left",
+    margin: 5,
   },
 });
 
