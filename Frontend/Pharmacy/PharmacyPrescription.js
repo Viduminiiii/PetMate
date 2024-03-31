@@ -44,21 +44,22 @@ const PharmacyPrescription = ({ navigation }) => {
       .catch((error) => console.error(error));
   }, []);
 
-  const handlePress = () => {
-    console.log("Button pressed");
-    const petOwnersList = appData.map((appointment) => ({
-      ownerId: appointment.appointments.petOwner._id,
-      ownerName: appointment.appointments.petOwner.fullname,
-      petName: appointment.appointments.petOwner.petname,
-    }));
+  // const handlePress = () => {
+  //   console.log("Button pressed");
+  //   const petOwnersList = appData.map((appointment) => ({
+  //     ownerId: appointment.appointments.petOwner._id,
+  //     ownerName: appointment.appointments.petOwner.fullname,
+  //     petName: appointment.appointments.petOwner.petname,
+  //   }));
 
-    // Display the pet owners list
-    petOwnersList.forEach((owner) => {
-      console.log(
-        `${owner.ownerName} (${owner.ownerId}) - Pet: ${owner.petName}`
-      );
-    });
-  };
+  //   // Display the pet owners list
+  //   petOwnersList.forEach((owner) => {
+  //     console.log(
+  //       `${owner.ownerName} (${owner.ownerId}) - Pet: ${owner.petName}`
+  //     );
+  //   });
+  // };
+  
   return (
     <View style={styles.maincontainer}>
       {/*main container for the whole component*/}
@@ -103,8 +104,8 @@ const PharmacyPrescription = ({ navigation }) => {
                 onPress={() =>
                   navigation.navigate("AvailableMedicine", {
                     prescID: post._id,
-                    medication: post.appointments.medications,
-                    instruction: post.appointments.instructions,
+                    medication: post.appointments?.medications,
+                    instruction: post.appointments?.instructions,
                   })
                 }
               >
@@ -113,28 +114,25 @@ const PharmacyPrescription = ({ navigation }) => {
                     <View style={styles.button_half_view_column}>
                       <Text style={styles.name}>
                         <Text style={styles.label}>Pet name:</Text>{" "}
-                        {post.appointments.petOwner.petname}
+                        {post.appointments?.petOwner?.petname}
                       </Text>
                     </View>
                     <View style={styles.button_half_view_column}>
                       <Text style={styles.name}>
                         <Text style={styles.label}> Age:</Text>{" "}
-                        {post.appointments.petOwner.age}
+                        {post.appointments?.petOwner?.age}
                       </Text>
                     </View>
                     <View style={styles.button_half_view_column}>
                       <Text style={styles.name}>
                         <Text style={styles.label}>Pet owner name :</Text>{" "}
-                        {post.appointments.petOwner.fullname}
+                        {post.appointments?.petOwner?.fullname}
                       </Text>
                     </View>
                     <View style={styles.button_half_view_column}>
                       <Text style={styles.name}>
                         <Text style={styles.label}>Clinic Name: </Text>
-                        {
-                          post.appointments.availability.veternarian
-                            .veterinaryClinicName
-                        }
+                        {post.appointments?.availability?.veternarian?.veterinaryClinicName}
                       </Text>
                     </View>
                     <View style={styles.button_half_view_column}>
