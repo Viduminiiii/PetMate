@@ -40,20 +40,20 @@ const PetOwnerMenu = ({ navigation }) => {
             </View> 
 
             {/* Button for digital prescription */}
-            <View style={styles.menu_button2}>
+            {/* <View style={styles.menu_button2}>
             <TouchableOpacity onPress={() => navigation.navigate('VetPrescription')} style={styles.button}>
-                  <View style={styles.vet}>
+                  <View style={styles.vet}> */}
                     {/* Half view for icon */}
-                     <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
+                     {/* <View style={[styles.halfView1, { backgroundColor: '#6B68F7' }, { borderTopLeftRadius: 15 }, { borderBottomLeftRadius: 15 }]}>
                            <Image source={require('../../AppPics/Digital_Prescription.png')} style={styles.prescription_image} />
-                     </View>
+                     </View> */}
                      {/* Half view for text */}
-                     <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
+                     {/* <View style={[styles.halfView2, { backgroundColor: '#3300FF' }, { borderTopRightRadius: 15 }, { borderBottomRightRadius: 15 }]}>
                            <Text style={styles.text1}>Digital prescription</Text>
                      </View>
                   </View>
                </TouchableOpacity>
-            </View>
+            </View> */}
 
             {/* Button for vet availability */}
             <View style={styles.menu_button3}>
