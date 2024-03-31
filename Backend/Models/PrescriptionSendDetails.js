@@ -9,7 +9,7 @@ const PrescriptionSendDetailsSchema=new Schema({
     sendPharmacy: { type: Schema.Types.ObjectId, ref: 'Pharmacy' },
     pharmacyRepliedDate: {type: Date },
     drugsAvailability: {type: Boolean, default: false },
-    pharmacyComment: {type: String, required: true }, 
+    pharmacyComment: {type: String }, 
     isMedicineBought: {type: Boolean, default: false },
     createdDate: {type: Date, required: true},
     modifiedDate: {type: Date },

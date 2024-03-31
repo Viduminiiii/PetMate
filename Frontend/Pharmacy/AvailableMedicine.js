@@ -1,5 +1,7 @@
 //importing necessary components from react native
-import React from "react";
+import { useRoute } from "@react-navigation/native";
+import axios from "axios";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -8,11 +10,43 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { CheckBox } from "react-native-elements";
+const config = require("../config/config"); //importing configuration file
 
 //AvailableMedicine component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const AvailableMedicine = ({ navigation }) => {
+  const baseURL = config.DB_HOST + ":" + config.DB_PORT; //base URL for the database connection
+
+  const route = useRoute();
+  const { prescID, medication, instruction } = route.params;
+
+  const [comments, setComments] = useState();
+  const [isAvailable, setAvailable] = useState(false);
+  const [checked, setChecked] = React.useState(false);
+  const toggleCheckbox = () => setChecked(!checked);
+
+  console.log(
+    "prescrption ID prescID: " +
+      prescID +
+      "  medication:   " +
+      medication +
+      "  instruction:  " +
+      instruction
+  );
+
   const handlePress = () => {
     console.log("Button pressed");
+    // const userData = { prescID, comments, isAvailable };
+    // console.log(JSON.stringify(userData));
+    // axios
+    //   .post(baseURL + "/updatePrescription", userData)
+    //   .then((res) => {
+    //     console.log("---res.data:   " + JSON.stringify(res.data));
+    //     if (res.data.status === "ok") {
+    //       navigation.navigate("PharmacyPrescription");
+    //     }
+    //   })
+    //   .catch((e) => console.log(e));
   };
   return (
     <View style={styles.container}>
@@ -44,18 +78,33 @@ const AvailableMedicine = ({ navigation }) => {
       </View>
       <View style={styles.inside_container_1}>
         <Text style={styles.container_1_text}>Digital Prescription</Text>
-        {/* <Image
-                    source={require("../PetMate/AppPics/User_icon.png")}
-                    style={styles.digital_prescription} 
-                /> */}
+        <Text style={styles.container_digi_text}>{medication}</Text>
+      </View>
+      <View style={styles.checkboxContainer}>
+        <CheckBox
+          value={isAvailable}
+          checked={checked}
+          onPress={toggleCheckbox}
+          onValueChange={setAvailable}
+          iconType="material-community"
+          checkedIcon="checkbox-marked-outline"
+          uncheckedIcon={"checkbox-blank-outline"}
+          style={styles.checkbox}
+        />
+        <Text style={styles.label}>Are the medicine available?</Text>
       </View>
       <View style={styles.inside_container_2}>
         <Text style={styles.container_2_text}>Available Medicine</Text>
-        <TextInput style={styles.text_input_box}>Type here...</TextInput>
+        <TextInput
+          multiline
+          style={styles.text_input_box}
+          placeholder="  Type here..."
+          onChange={(text) => setComments(text)}
+        ></TextInput>
         {/*adding a TextInput component to input text by the user*/}
 
         <TouchableOpacity
-          onPress={() => handlePress("Send")}
+          onPress={() => handlePress()}
           style={styles.send_button}
         >
           <View style={styles.send_button_container}>
@@ -78,18 +127,6 @@ const AvailableMedicine = ({ navigation }) => {
             style={styles.footer_prescription_img}
           />
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={() => handlePress("Menu")}>
-                    <Image
-                        source={require("../PetMate/AppPics/Footer_Menu.png")}
-                        style={styles.footer_menu_img} 
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Medicine")}>
-                    <Image
-                        source={require("../PetMate/AppPics/PharFooter_Medicine.png")}
-                        style={styles.footer_medicine_img} 
-                    />
-                </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -135,6 +172,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     alignSelf: "flex-start",
+    textDecorationLine: "underline",
+  },
+  container_digi_text: {
+    margin: 20,
+    fontSize: 16,
+    alignSelf: "center",
   },
   // digital_prescription:{
   //     width: 150,
@@ -143,7 +186,7 @@ const styles = StyleSheet.create({
   inside_container_2: {
     alignItems: "center",
     backgroundColor: "#E6B4EB",
-    marginTop: 20,
+    marginTop: 10,
     width: 380,
     height: 290,
     borderRadius: 30,
@@ -196,6 +239,20 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     // marginRight: 50,
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    borderWidth: 1,
+    padding: 5,
+    paddingRight: 25,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  label: {
+    marginTop: 12,
+    marginBottom: 10,
+    fontSize: 18,
   },
 });
 
