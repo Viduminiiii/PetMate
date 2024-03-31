@@ -35,9 +35,13 @@ const AvailableMedicine = ({ navigation }) => {
   );
 
   const handlePress = () => {
-    console.log("Button pressed");
-    // const userData = { prescID, comments, isAvailable };
-    // console.log(JSON.stringify(userData));
+    // console.log("Button pressed");
+    // const userData = {
+    //   prescID: prescID,
+    //   comments: comments,
+    //   isAvailable: isAvailable,
+    // };
+    // // console.log("\nuserData:-----------   "+JSON.stringify(userData));
     // axios
     //   .post(baseURL + "/updatePrescription", userData)
     //   .then((res) => {

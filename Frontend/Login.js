@@ -77,6 +77,10 @@ const Login = ({ navigation }) => {
             navigation.navigate("Login");
           }
         }
+        else{
+          console.log("nooo");
+          alert(res.data.data);
+        }
       })
       .catch((e) => console.log(e));
   };
