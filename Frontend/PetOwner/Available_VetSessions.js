@@ -143,7 +143,7 @@ const Available_VetSessions = ({ navigation }) => {
           ))}
       </ScrollView>
 
-      {userType == 2 && (
+      {userType == 1 && (
         <View style={styles.footer}>
           <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
             <Image
@@ -183,41 +183,43 @@ const Available_VetSessions = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       )}
-      {userType == 1 && (
+      {userType == 2 && (
         <View style={styles.footer}>
-          <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
+          <TouchableOpacity onPress={() => navigation.navigate("VetMenu")}>
             <Image
               source={require("../../AppPics/Footer_Menu.png")}
               style={styles.menu_img}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+          {/* Button to navigate to ReceivedMessages */}
+          <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
             <Image
               source={require("../../AppPics/Footer_Chat.png")}
               style={styles.menu_img}
             />
           </TouchableOpacity>
+          {/* Button to navigate to VetPrescription */}
           <TouchableOpacity
-            onPress={() => navigation.navigate("LocateVetClinics")}
+            onPress={() => navigation.navigate("VetPrescription")}
           >
             <Image
-              source={require("../../AppPics/Footer_VetClinic.png")}
-              style={styles.menu_img}
+              source={require("../../AppPics/PharFooter_Prescription.png")}
+              style={styles.prescription_img}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("DocChannelling")}
-          >
+          {/* Button to navigate to VetReminder */}
+          <TouchableOpacity onPress={() => navigation.navigate("VetReminder")}>
             <Image
               source={require("../../AppPics/Footer_appointment.png")}
               style={styles.menu_img}
             />
           </TouchableOpacity>
+          {/* Button to navigate to VetAvailability */}
           <TouchableOpacity
-            onPress={() => navigation.navigate("Medicalrecords")}
+            onPress={() => navigation.navigate("VetAvailability")}
           >
             <Image
-              source={require("../../AppPics/Footer_medicalRecords.png")}
+              source={require("../../AppPics/Footer_VetAvailability.png")}
               style={styles.menu_img}
             />
           </TouchableOpacity>
@@ -352,6 +354,11 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: "white",
+  },
+  prescription_img: {
+    width: 50,
+    height: 50,
+    margin: 15,
   },
 });
 export default Available_VetSessions;

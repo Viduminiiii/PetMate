@@ -9,6 +9,8 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useAuth } from "./config/AuthContext";
 const config = require("./config/config");
 
@@ -104,11 +106,13 @@ const Login = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => setIsPasswordVisible(!isPasswordVisible)}
           style={styles.button}
-        >
-          <Image
-            source={require("../AppPics/Password.png")}
-            style={styles.password_eyeimage}
-          />
+        > 
+        <MaterialCommunityIcons 
+            name={!isPasswordVisible ? 'eye-off' : 'eye'} 
+            size={28} 
+            color="#aaa"
+            style={styles.icon} 
+        /> 
         </TouchableOpacity>
       </View>
 
@@ -168,9 +172,9 @@ const styles = StyleSheet.create({
   },
   password_eyeimage: {
     resizeMode: "contain",
-    width: 40,
+    width: 20,
     height: 35,
-    marginLeft: 150,
+    marginLeft: 50,
   },
   username: {
     backgroundColor: "white",
@@ -211,8 +215,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   text: {
+    width:"76%",
     fontSize: 14,
     marginLeft: 20,
+    // backgroundColor:"#aaaaaa"
   },
   container: {
     justifyContent: "center",

@@ -5,15 +5,9 @@ var app = express();
 var mongoose = require("mongoose");
 var cors = require("cors");
 
-//const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT } = process.env;
 const { PUBLISHABLE_KEY, CLIENT_SECRET_KEY, PORT, STRIPE_KEY } = process.env;
-// const stripe = require('stripe')(PUBLISHABLE_KEY);
+
 const stripe = require("stripe")(STRIPE_KEY);
-
-// const stripe = require('stripe')(PUBLISHABLE_KEY, {
-//   apiVersion: "2023-10-16"});
-
-const base = "https://api-m.sandbox.paypal.com";
 
 // host static files
 app.use(express.static("client"));
@@ -28,8 +22,6 @@ console.log(
 );
 
 const mongoUrl = dbconfig.url;
-// const mongoUrl = 'mongodb+srv://admin:admin@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate'
-//                  'mongodb+srv://admin:admin@petmate.ssqjitl.mongodb.net/?retryWrites=true&w=majority&appName=PetMate'
 console.log("configfile.url: " + mongoUrl);
 
 mongoose
@@ -97,11 +89,13 @@ app.post("/register", async (req, res) => {
         email: email,
         petname: petname,
         age,
+        createdDate: new Date(),
       });
       const user = await User.create({
         username: username,
         password: password,
         petOwner: objPet._id,
+        createdDate: new Date(),
       });
 
       if (objPet !== null && user !== null) {
@@ -408,7 +402,9 @@ app.get("/messages/:senderId/:recepientId", async (req, res) => {
 });
 
 app.post("/availability", async (req, res) => {
-  console.log("-------- req.body availability:   " + JSON.stringify(req.body));
+  console.log(
+    "-------- req.body availability:222   " + JSON.stringify(req.body)
+  );
   const {
     availableDate,
     timeFrom,
@@ -425,14 +421,17 @@ app.post("/availability", async (req, res) => {
       timeFrom: timeFrom,
       timeTo: timeTo,
       noofPatients: noofPatients,
-
       doctorCharges: doctorCharges,
       serviceCharges: serviceCharges,
       createdDate: new Date(),
       veternarian: vet_id,
+      lastAppNo: 0,
     });
 
     if (availability !== null) {
+      console.log(
+        "--- create   availability:  " + JSON.stringify(availability)
+      );
       console.log("OK done.");
       res.send({ status: "ok", data: "Availability created" });
     }
@@ -592,7 +591,7 @@ app.post("/searchClinic", async (req, res) => {
         res.send(JSON.stringify(veternarians));
       } else {
         console.log("Status:    " + res.status);
-        res.status(404).send("Date Data not found.");
+        res.send({ status: 404, data: "Date Data not found." });
       }
     }
   } catch (error) {
@@ -618,7 +617,7 @@ app.post("/searchPharmacy", async (req, res) => {
         res.send(JSON.stringify(pharmacies));
       } else {
         console.log("Status:    " + res.status);
-        res.status(404).send("Date Data not found.");
+        res.send({ status: 404, data: "Date Data not found." });
       }
     }
   } catch (error) {
@@ -726,7 +725,7 @@ function calculateAppTime(date1, date2, noOfApp) {
 
 app.post("/createAppointment", async (req, res) => {
   console.log("--------------req.body:   " + JSON.stringify(req.body));
-  const { vetAvlID, userID, totalAmount,medications, instructions} = req.body;
+  const { vetAvlID, userID, totalAmount, medications, instructions } = req.body;
 
   const objAvailability = await Availability.findById(vetAvlID);
 
@@ -750,8 +749,8 @@ app.post("/createAppointment", async (req, res) => {
         appointmentNo: appointNo,
         isPaid: true,
         paidAmount: totalAmount,
-        medications:medications,
-        instructions:instructions,
+        medications: medications,
+        instructions: instructions,
         paidDate: new Date(),
         availability: vetAvlID,
         petOwner: userID,
@@ -877,39 +876,38 @@ app.post("/appointmentsData", async (req, res) => {
   }
 });
 
-
 app.post("/updateMedications", async (req, res) => {
-  console.log("\n----updateMedications--req.body:   " + JSON.stringify(req.body));
+  console.log(
+    "\n----updateMedications--req.body:   " + JSON.stringify(req.body)
+  );
   const { appointID, medication, information } = req.body;
   try {
-
     const updateData = {
       medications: medication,
       instructions: information,
       modifiedDate: new Date(),
     };
-    console.log("  updateMedications   updateData:  " + JSON.stringify(updateData));
+    console.log(
+      "  updateMedications   updateData:  " + JSON.stringify(updateData)
+    );
 
     const updatedAppointment = await Appointments.findByIdAndUpdate(
       appointID,
       updateData,
       { new: true }
     );
-    console.log(
-      "updatedAppointment:  " + JSON.stringify(updatedAppointment)
-    );
+    console.log("updatedAppointment:  " + JSON.stringify(updatedAppointment));
 
     if (updatedAppointment !== null) {
       console.log("Appointment updated");
       res.send({ status: "ok", data: JSON.stringify(updatedAppointment) });
+    } else {
+      res.send({ status: "Error", data: "No data in updatedAppointment" });
     }
-    else{
-      res.send({ status: "Error", data: "No data in updatedAppointment" });}
   } catch (error) {
     res.send({ status: "Error", data: error });
   }
 });
-
 
 app.listen(port, () => {
   console.log("Mongo DB connection successful run in port: " + port);

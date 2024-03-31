@@ -45,6 +45,7 @@ const DocChannelling = ({ navigation }) => {
       .then((res) => {
         console.log("----res.data.data------:   " + JSON.stringify(res.data.data)); //outputting response data to the console to understand its contents and structure fro debugging purpose
         if (res.data.status === "ok") {
+          
           const resultData = JSON.parse(JSON.stringify(res.data.data));
           console.log("isAvailable:  " + resultData.isAvailable + " - date:  " + resultData.date + "  vetIDs:  " + resultData.vetIDs);
           if(resultData.isAvailable === true){
@@ -61,36 +62,6 @@ const DocChannelling = ({ navigation }) => {
       .catch((e) => console.log(e));
   };
   
-  const searchAvailability = async () => {
-    try {
-      // Format the date as required by your backend, e.g., ISO string
-      // const formattedDate = date.toISOString().split('T')[0];
-
-      //constructing userData object with search criteria
-      const userData = {
-        searchDate: searchDate, //date to search for availability
-        searchDoctor: docClinicItem, //selected doctor search
-        searchClinic: docClinicItem,
-      };
-      //sending a POST  request to search for availability
-      const response = await axios.post(
-        baseURL + "/searchAvailability", //API endpoint for searching availability
-        userData //data to be sent in the request body
-      );
-      if (response.data.status === "ok") {
-        console.log("get Availabilities:", response.data.data);
-        // Do something with the availabilities, e.g., navigate to another screen and pass them as props
-        if (res.data.status === "ok")
-          navigation.navigate("Available_VetSessions");
-      } else {
-        console.error("Error fetching availabilities:", response.data.msg);
-        alert("Error fetching availabilities:", response.data.msg);
-      }
-    } catch (error) {
-      //loging any errors that occurs during the search process
-      console.error("Error:", error);
-    }
-  };
 
   return (
     <View style={styles.container}>

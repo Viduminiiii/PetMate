@@ -20,19 +20,19 @@ const PetOwnerMenu = ({ navigation }) => {
           />
         </TouchableOpacity>
         <Text style={styles.nav_text}>MENU</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Reminders")}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate("Reminders")}> */}
           {/*navigating to the Reminders screen by clicking on the reminder image*/}
-          <Image
+          {/* <Image
             source={require("../../AppPics/Reminder.png")}
             style={styles.reminder}
-          />
+          /> */}
           {/*adding an image*/}
-        </TouchableOpacity>
+        {/* </TouchableOpacity> */}
         
         <TouchableOpacity
           onPress={() => navigation.navigate("Petowner_Settings")}
         >
-        <Feather name="settings" size={52} color="black" />
+        <Feather name="settings" size={52} color="black" style={styles.settings}/>
         </TouchableOpacity>
       </View>
 
@@ -131,7 +131,7 @@ const PetOwnerMenu = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("LocatePharmacy")}
+          onPress={() => navigation.navigate("LocatePharmacy", { appointID: 1 })}
           style={styles.button}
         >
           <View style={styles.pharmacy}>
@@ -263,11 +263,10 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },  
   settings: {
-    resizeMode: "contain",
     width: 60,
     height: 60,
     borderRadius: 90,
-    marginLeft: 20,
+    marginLeft: 30,
   },
 });
 
