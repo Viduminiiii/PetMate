@@ -45,3 +45,11 @@ export function formatTimeToHHMM(timeStr) {
   const minutes = String(date.getMinutes()).padStart(2, "0");
   return `${hours}:${minutes}`;
 }
+
+export function formatToLabel(string) {
+  const spaced = string.replace(/([A-Z])/g, ' $1').trim();
+  const words = spaced.split(' ');
+  const lowerCaseResult = words.join(' ').toLowerCase();
+  const result = lowerCaseResult.charAt(0).toUpperCase() + lowerCaseResult.slice(1);
+  return result;
+}

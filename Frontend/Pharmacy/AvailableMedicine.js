@@ -23,34 +23,44 @@ const AvailableMedicine = ({ navigation }) => {
   const [comments, setComments] = useState();
   const [isAvailable, setAvailable] = useState(false);
   const [checked, setChecked] = React.useState(false);
-  const toggleCheckbox = () => setChecked(!checked);
 
-  console.log(
-    "prescrption ID prescID: " +
-      prescID +
-      "  medication:   " +
-      medication +
-      "  instruction:  " +
-      instruction
-  );
+  const toggleCheckbox = () => {
+    console.log("isAvailable:  "  +isAvailable);
+    console.log("checked:  "  +checked);
+    setAvailable((prevValue) => !prevValue);
+    setChecked((prevValue) => !prevValue);
+  };
+
+  // console.log(
+  //   "prescrption ID prescID: " +
+  //     prescID +
+  //     "  medication:   " +
+  //     medication +
+  //     "  instruction:  " +
+  //     instruction
+  // );
 
   const handlePress = () => {
-    // console.log("Button pressed");
-    // const userData = {
-    //   prescID: prescID,
-    //   comments: comments,
-    //   isAvailable: isAvailable,
-    // };
-    // // console.log("\nuserData:-----------   "+JSON.stringify(userData));
-    // axios
-    //   .post(baseURL + "/updatePrescription", userData)
-    //   .then((res) => {
-    //     console.log("---res.data:   " + JSON.stringify(res.data));
-    //     if (res.data.status === "ok") {
-    //       navigation.navigate("PharmacyPrescription");
-    //     }
-    //   })
-    //   .catch((e) => console.log(e));
+    console.log("Button pressed");
+
+    const userData = {
+      comments: comments,
+      isAvailable: isAvailable,
+    };
+
+    axios
+      .patch(baseURL + `/updatePrescription/${prescID}`, userData)
+      .then((res) => {
+        console.log("---res.data:   " + JSON.stringify(res.data));
+        if (res.status === 200) {
+          navigation.navigate("PharmacyPrescription");
+        } else {
+          console.log("Unexpected response from server:", res.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Error while updating prescription:", error);
+      });
   };
   return (
     <View style={styles.container}>
@@ -84,17 +94,30 @@ const AvailableMedicine = ({ navigation }) => {
         <Text style={styles.container_1_text}>Digital Prescription</Text>
         <Text style={styles.container_digi_text}>{medication}</Text>
       </View>
+      <View style={styles.inside_container_1}>
+        <Text style={styles.container_1_text}>Instructions</Text>
+        <Text style={styles.container_digi_text}>{instruction}</Text>
+      </View>
       <View style={styles.checkboxContainer}>
         <CheckBox
           value={isAvailable}
+          onPress={toggleCheckbox}
+          iconType="material-community"
+          checkedIcon="checkbox-marked-outline"
+          uncheckedIcon="checkbox-blank-outline"
+          style={styles.checkbox}
+          checked={checked}
+        />
+        {/* <CheckBox
+          value={isAvailable}
           checked={checked}
           onPress={toggleCheckbox}
-          onValueChange={setAvailable}
+          onValueChange={toggleCheckbox}
           iconType="material-community"
           checkedIcon="checkbox-marked-outline"
           uncheckedIcon={"checkbox-blank-outline"}
           style={styles.checkbox}
-        />
+        /> */}
         <Text style={styles.label}>Are the medicine available?</Text>
       </View>
       <View style={styles.inside_container_2}>
@@ -103,7 +126,10 @@ const AvailableMedicine = ({ navigation }) => {
           multiline
           style={styles.text_input_box}
           placeholder="  Type here..."
-          onChange={(text) => setComments(text)}
+          onChangeText={(text) => {
+            console.log("text:  " + text);
+            setComments(text);
+          }}
         ></TextInput>
         {/*adding a TextInput component to input text by the user*/}
 
@@ -168,19 +194,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#E6B4EB",
     marginTop: 20,
     width: 380,
-    height: 180,
+    height: 100,
     borderRadius: 30,
   },
   container_1_text: {
-    margin: 20,
-    fontSize: 20,
+    margin: 10,
+    marginLeft: 20,
+    fontSize: 18,
     fontWeight: "bold",
     alignSelf: "flex-start",
     textDecorationLine: "underline",
   },
   container_digi_text: {
-    margin: 20,
-    fontSize: 16,
+    margin: 5,
+    fontSize: 14,
     alignSelf: "center",
   },
   // digital_prescription:{
@@ -196,8 +223,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   container_2_text: {
-    margin: 20,
-    fontSize: 20,
+    margin: 15,
+    fontSize: 18,
     fontWeight: "bold",
     alignSelf: "flex-start",
   },

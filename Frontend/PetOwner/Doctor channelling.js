@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    resizeMode: "contain",
+    // resizeMode: "contain",
     width: 60,
     height: 60,
     borderRadius: 90,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   history: {
-    resizeMode: "contain",
+    // resizeMode: "contain",
     width: 60,
     height: 60,
     borderRadius: 90,

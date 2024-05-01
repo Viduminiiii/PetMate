@@ -1,117 +1,46 @@
-[
-  {
-    "_id": "65f4a020cb90355cdc1f8c1a",
-    "username": "chanumi1",
-    "Veternarian": {
-      "_id": "65f4a01fcb90355cdc1f8c18",
-      "fullname": "chanumi Eeeeeee",
-      "email": "chanumi1@gmail.com",
-      "veterinaryClinicName": "chanumi vet clininc 1"
-    }
-  },
-  {
-    "_id": "65f4a034cb90355cdc1f8c22",
-    "username": "chathila",
-    "Veternarian": {
+{
+  "_id": "6632115a5b6b344289003bd7",
+  "appointmentDate": "2023-05-16T00:00:00.000Z",
+  "appointmentTime": "1970-01-01T00:00:00.021Z",
+  "appointmentNo": 3,
+  "isPaid": true,
+  "paidAmount": 3000,
+  "paidDate": "2024-05-01T09:54:34.962Z",
+  "medications": "",
+  "instructions": "",
+  "createdDate": "2024-05-01T09:54:34.962Z",
+  "availability": {
+    "_id": "65f4a2b289962e94036a5f91",
+    "availableDate": "2023-05-16T00:00:00.000Z",
+    "timeFrom": "2024-05-18T13:00:00.000Z",
+    "timeTo": "2024-05-18T18:00:00.000Z",
+    "noofPatients": 15,
+    "doctorCharges": 2000,
+    "serviceCharges": 1000,
+    "createdDate": "2024-03-15T19:34:10.022Z",
+    "veternarian": {
+      "location": { "type": "Point", "coordinates": [] },
       "_id": "65f4a034cb90355cdc1f8c20",
-      "fullname": "Tchathila Eeeeeee",
+      "fullname": "chathila silva",
       "email": "chathila@gmail.com",
-      "veterinaryClinicName": "chathila vet clininc 1"
-    }
+      "veterinaryClinicName": "chathila vet clininc 1",
+      "veterinaryLicenseNumber": "LIC001",
+      "veterinaryClinicAddress": "Adrs1",
+      "createdDate": "2024-03-15T19:23:32.084Z",
+      "__v": 0
+    },
+    "__v": 0,
+    "lastAppNo": 3,
+    "modifiedDate": "2024-05-01T09:54:35.090Z"
   },
-  {
-    "_id": "66086da77fa995abd33935d8",
-    "username": "Thilosha",
-    "Veternarian": {
-      "_id": "66086da77fa995abd33935d6",
-      "fullname": "Nimhan",
-      "email": "nimhan@gmail.com",
-      "veterinaryClinicName": "GoodVets"
-    }
+  "petOwner": {
+    "_id": "65f20d0d15c83be4ec3926c3",
+    "fullname": "vidumini dayan",
+    "email": "vidu1@gmail.com",
+    "petname": "tommy",
+    "age": 21,
+    "createdDate": "2024-03-13T20:31:09.607Z",
+    "__v": 0
   },
-  {
-    "_id": "6608703a4d46c32166b90a17",
-    "username": "upeja_30",
-    "Veternarian": {
-      "_id": "6608703a4d46c32166b90a15",
-      "fullname": "Upeja Jathunga",
-      "email": "upejaj@gmail.com",
-      "veterinaryClinicName": "Cool Pet Vet Clinic"
-    }
-  },
-  {
-    "_id": "660870a77fa995abd33935fd",
-    "username": "Perera",
-    "Veternarian": {
-      "_id": "660870a77fa995abd33935fb",
-      "fullname": "John",
-      "email": "perera@gmail.com",
-      "veterinaryClinicName": "BestVet"
-    }
-  },
-  {
-    "_id": "660871567fa995abd3393606",
-    "username": "Silva",
-    "Veternarian": {
-      "_id": "660871567fa995abd3393604",
-      "fullname": "Mahinda",
-      "email": "mahinda@gmail.com",
-      "veterinaryClinicName": "HappyVet"
-    }
-  },
-  {
-    "_id": "660872267fa995abd339360f",
-    "username": "John",
-    "Veternarian": {
-      "_id": "660872267fa995abd339360d",
-      "fullname": "Gehan",
-      "email": "john@gmail.com",
-      "veterinaryClinicName": "HelloPets"
-    }
-  },
-  {
-    "_id": "6608db82718cd88f8de8c638",
-    "username": "Inoka",
-    "Veternarian": {
-      "_id": "6608db82718cd88f8de8c636",
-      "fullname": "Inoka Fernando",
-      "email": "inoka@gmail.com",
-      "veterinaryClinicName": "Inoka Clinic"
-    }
-  },
-  {
-    "_id": "6608dd59718cd88f8de8c649",
-    "username": "kamal",
-    "Veternarian": {
-      "_id": "6608dd59718cd88f8de8c647",
-      "fullname": "Kamal Perera",
-      "email": "kamal@gmail.com",
-      "veterinaryClinicName": "Kamal Clinic"
-    }
-  },
-  {
-    "_id": "6608f6ef8901bcc293be7a9c",
-    "username": "vizz",
-    "Veternarian": {
-      "_id": "6608f6ee8901bcc293be7a9a",
-      "fullname": "Vimanshi",
-      "email": "vimanshiv@gmail.com",
-      "veterinaryClinicName": "Happy Paws"
-    }
-  },
-  {
-    "_id": "66093cfaa0cbb96f9ee21b4f",
-    "username": "Ryle",
-    "Veternarian": null
-  },
-  {
-    "_id": "66094045a0cbb96f9ee21b67",
-    "username": "Chathila",
-    "Veternarian": {
-      "_id": "66094045a0cbb96f9ee21b65",
-      "fullname": "Chathila Amaranath",
-      "email": "chathila.amaranath@gmail.com",
-      "veterinaryClinicName": "Chathila clinic"
-    }
-  }
-]
+  "__v": 0
+}

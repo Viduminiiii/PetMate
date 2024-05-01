@@ -127,7 +127,7 @@ const Medicalrecords = ({ navigation }) => {
       </View>
       <View style={styles.detailContainer3}>
         <View style={styles.samplePrescription}>
-          <TouchableOpacity onPress={() => navigation.navigate("Prescription")}>
+          <TouchableOpacity onPress={() => navigation.navigate("VetPrescription", { appointID: appointmentID })}>
             <Text style={styles.sampleText}>Digital prescription</Text>
           </TouchableOpacity>
         </View>
