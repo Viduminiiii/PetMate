@@ -130,8 +130,8 @@ const PetOwnerMenu = ({ navigation }) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LocatePharmacy", { appointID: 1 })}
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate("PharmacyFeedback", { appointID: 1 })}
           style={styles.button}
         >
           <View style={styles.pharmacy}>
@@ -156,10 +156,10 @@ const PetOwnerMenu = ({ navigation }) => {
                 { borderBottomRightRadius: 15 },
               ]}
             >
-              <Text style={styles.text1}>Pharmacy</Text>
+              <Text style={styles.text1}>Pharmacy Feedback</Text>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

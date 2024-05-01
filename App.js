@@ -35,6 +35,7 @@ import FPVerification from "./Frontend/FPVerification";
 import PaymentScreen from "./Frontend/PetOwner/PaymentScreen";
 import ChatScreen from "./Frontend/ChatScreen";
 import History from "./Frontend/PetOwner/AppointmentHistory";
+import PharmacyFeedback from "./Frontend/PetOwner/PharmacyFeedback";
 import ChatMessages from "./Frontend/components/ChatMessage";
 
 import FPResetPassword from "./Frontend/FPResetPassword";
@@ -78,6 +79,7 @@ function App() {
           <Stack.Screen name="LocateVetClinics" component={LocateVetClinics} />
           <Stack.Screen name="LocatePharmacy" component={LocatePharmacy} />
           <Stack.Screen name="History" component={History} />
+          <Stack.Screen name="PharmacyFeedback" component={PharmacyFeedback} />
 
           <Stack.Screen name="VetSignUp" component={VetSignUp} />
           <Stack.Screen name="VetMenu" component={VetMenu} />

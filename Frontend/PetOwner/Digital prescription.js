@@ -13,6 +13,7 @@ import { Dropdown } from "react-native-element-dropdown"; //importing dropdown c
 import DatePicker from "react-native-date-picker"; //importing date-picker component
 import { useAuth } from "../config/AuthContext";
 import { useRoute } from "@react-navigation/native";
+import axios from "axios";
 const config = require("../config/config");
 
 //prescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
@@ -36,10 +37,11 @@ const Prescription = ({ navigation }) => {
 
     axios.get(baseURL + `/appointmentData/${appointID}`)
       .then((response) => {
-        console.log("---userID 4:  " + JSON.stringify(response.data));
+        console.log("\n---userID 4:  " + JSON.stringify(response.data.result));
+        console.log("\n---sentData:  " + JSON.stringify(response.data.sentData));
         
       // const userObject2 = JSON.parse(response.data);
-      console.log("\n\n -----degital presc data:  " + response.data);
+      console.log("\n\n --2---degital presc data:  " + response.data.result);
         setAppData(response.data);
       })
       .catch((error) => console.error(error));
