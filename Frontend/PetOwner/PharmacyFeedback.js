@@ -77,8 +77,8 @@ const Available_VetSessions = ({ navigation }) => {
           />
         </TouchableOpacity>
         <View style={styles.nav_text_container}>
-          <Text style={styles.nav_text}>APPOINTMENT</Text>
-          <Text style={styles.nav_text}>HISTORY</Text>
+          <Text style={styles.nav_text}>PHARMACY</Text>
+          <Text style={styles.nav_text}>FEEDBACK</Text>
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("Petowner_Settings")}

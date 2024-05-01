@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios"; //importing axios library for HTTP requests
 import { useRoute } from "@react-navigation/native";
 const config = require("../config/config"); //importing configuration file
@@ -21,11 +22,10 @@ const LocatePharmacy = ({ navigation }) => {
 
   const route = useRoute();
   const { appointID } = route.params;
-  console.log("locate pharmacy appointID: " + appointID);
+  // console.log("locate pharmacy appointID: " + appointID);
 
   const [searchPharmacy, setSearchPharmacy] = useState();
   const [appData, setAppData] = useState([]);
-  const [sendID, setSendID] = useState();
   const [searchData, setSearchData] = useState(false);
 
   useEffect(() => {
@@ -49,58 +49,37 @@ const LocatePharmacy = ({ navigation }) => {
   }, [searchData]);
 
   const handleSearchPress = () => {
-    console.log("handleSearchPress Button pressed");
-    console.log("searchPharmacy:   " + searchPharmacy);
+    // console.log("handleSearchPress Button pressed");
+    // console.log("searchPharmacy:   " + searchPharmacy);
     setSearchData(true);
   };
 
-  const handleDataPress = () => {
-    console.log("--------------handleDataPress Button pressed  " + sendID);
+  const handleDataPress = (senderID) => {
+    // console.log("senderID: " + senderID);
+    // console.log("--------------handleDataPress Button pressed  " + senderID);
     //constructing userData object based on the state values
-    if (sendID != undefined) {
-      const userData = { appointID: appointID, pharmacyID: sendID };
+    if (senderID != undefined) {
+      const userData = { appointID: appointID, pharmacyID: senderID };
       // console.log("sendPrescription:   " + sendPrescription);
-      console.log("userData:  1  " + JSON.stringify(userData));
+      // console.log("userData:  1  " + JSON.stringify(userData));
       //// sending a POST request to search for availability using axios
       axios
         .post(baseURL + "/sendPrescription", userData)
         .then((res) => {
-          console.log(
-            "---2-res.data.searchPharmacy------:   " + JSON.stringify(res.data)
-          ); //outputting response data to the console to understand its contents and structure fro debugging purpose
-          if (res.data.status === "ok") {
-            console.log("OK:  " + res.data.data);
-            navigation.navigate("History", { searchAvlID: 1 });
+          console
+            .log
+            // "---2-res.data.searchPharmacy------:   " + JSON.stringify(res.data)
+            (); //outputting response data to the console to understand its contents and structure fro debugging purpose
+          if (res.status === 200) {
+            // console.log("OK:  " + res.data.data);
+            alert("Prescription send to pharmacy.");
+            // navigation.navigate("History", { searchAvlID: 1 });
           } else {
+            alert(
+              JSON.stringify(res.data.message).replace('"', "").replace('"', "")
+            );
             console.log("Data not found.");
-            alert("Data not found.");
-          }
-        })
-        .catch((e) => console.log(e));
-    } else {
-    }
-  };
-  
-  const handleDataPress2 = () => {
-    console.log("--------------handleDataPress Button pressed  " + sendID);
-    //constructing userData object based on the state values
-    if (sendID != undefined) {
-      const userData = { appointID: appointID, pharmacyID: sendID };
-      // console.log("sendPrescription:   " + sendPrescription);
-      console.log("userData:  1  " + JSON.stringify(userData));
-      //// sending a POST request to search for availability using axios
-      axios
-        .post(baseURL + "/getPrescriptionData", userData)
-        .then((res) => {
-          console.log(
-            "---2-res.data.searchPharmacy------:   " + JSON.stringify(res.data)
-          ); //outputting response data to the console to understand its contents and structure fro debugging purpose
-          if (res.data.status === "ok") {
-            console.log("OK:  " + res.data.data);
-            navigation.navigate("History", { searchAvlID: 1 });
-          } else {
-            console.log("Data not found.");
-            alert("Data not found.");
+            // alert("Data not found.");
           }
         })
         .catch((e) => console.log(e));
@@ -155,8 +134,7 @@ const LocatePharmacy = ({ navigation }) => {
             <TouchableOpacity
               key={post._id}
               onPress={() => {
-                setSendID(post._id);
-                handleDataPress();
+                handleDataPress(post._id);
               }}
             >
               <View style={styles.summary}>
@@ -181,8 +159,6 @@ const LocatePharmacy = ({ navigation }) => {
             </TouchableOpacity>
           ))}
       </ScrollView>
-
-      {/*creating the footer*/}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
           <Image

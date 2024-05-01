@@ -325,6 +325,132 @@ app.get("/users/:userId/:usertype", (req, res) => {
   }
 });
 
+app.get("/getUserData/:userId", async (req, res) => {
+  console.log("\n\n -------user  params---:  " + JSON.stringify(req.params));
+
+  const { userId } = req.params;
+  console.log("assigned");
+  await User.findById(userId).then(async (result) => {
+    try {
+      console.log("result:   " + JSON.stringify(result));
+      if (result && result !== null) {
+        const userLevel =
+          result.petOwner !== undefined
+            ? "1"
+            : result.Veternarian !== undefined
+            ? "2"
+            : result.Pharmacy !== undefined
+            ? "3"
+            : "0";
+        const userLevelId =
+          result.petOwner !== undefined
+            ? result.petOwner._id
+            : result.Veternarian !== undefined
+            ? result.Veternarian._id
+            : result.Pharmacy !== undefined
+            ? result.Pharmacy._id
+            : "0";
+
+        let resultData;
+
+        
+        if (userLevel == "1") {
+          const petOwner = await PetOwner.findById(userLevelId);
+          
+          resultData = {
+            username: result.username,
+            fullName: petOwner.fullname,
+            email: petOwner.email,
+            petName: petOwner.petname,
+            age: petOwner.age,
+          };
+        } else if (userLevel == "2") {
+          const petOwner = await Veternarian.findById(userLevelId);
+          resultData = {
+            userID: result._id,
+            username: result.username,
+            fullName: petOwner.fullname,
+            email: petOwner.email,
+            veterinaryClinicName: petOwner.veterinaryClinicName,
+            veterinaryLicenseNumber: petOwner.veterinaryLicenseNumber,
+            veterinaryClinicAddress: petOwner.veterinaryClinicAddress,
+            mainCity: petOwner.mainCity,
+            location: petOwner.location,
+          };
+        } else if (userLevel == "3") {
+          const petOwner = await Pharmacy.findById(userLevelId);
+          resultData = {
+            userID: result._id,
+            username: result.username,
+            fullName: petOwner.fullname,
+            email: petOwner.email,
+            pharmacyName: petOwner.pharmacyName,
+            pharmacyLicenseNumber: petOwner.pharmacyLicenseNumber,
+            pharmacyAddress: petOwner.pharmacyAddress,
+            mainCity: petOwner.mainCity,
+            location: petOwner.location,
+          };
+        }
+
+        console.log("----resultData:  " + JSON.stringify(resultData));
+        // res.send({ status: "ok", data: resultData, });
+        return res.status(200).send(resultData);
+      } else {
+        return res.status(404).send("Data not found");
+        // res.send({ status: 404, data: "Data not found." });
+      }
+    } catch (error) {
+      console.log("res.status:  " + res.status);
+      res.send({ status: "Error", data: error });
+    }
+  });
+});
+
+app.patch("/petOwnerProfileUpdate/:userID", async (req, res) => {
+  try {
+    console.log(
+      "  ---userID: " +
+        req.params.userID +
+        "  -- req.body --  " +
+        JSON.stringify(req.body)
+    );
+    const { fullName, email, password, petName, age, username } = req.body;
+    const userData = await User.findById(req.params.userID);
+
+    if (userData) {
+      console.log(
+        "  ----1---userData: " +
+          JSON.stringify(userData) +
+          " -  userData.petOwner   " +
+          userData.petOwner
+      );
+      const filter = { _id: userData.petOwner };
+      const update = {
+        fullname: fullName,
+        email: email,
+        petname: petName,
+        age: age,
+      };
+
+      const updatedUser = await PetOwner.findOneAndUpdate(filter, update, {
+        new: true, // return the updated document
+        runValidators: true, // validate before update
+      });
+
+      console.log("  ----2---userData: " + JSON.stringify(userData));
+      if (!updatedUser) {
+        console.log("  ----3---userData:error----------- ");
+        return res.status(404).send({ message: "User not found" });
+      }
+
+      console.log("  ----4---updatedUser: " + JSON.stringify(updatedUser));
+      res.status(200).send({ message: "User updated." });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
 const multer = require("multer");
 
 // Configure multer for handling file uploads
@@ -807,9 +933,18 @@ app.get("/appointmentData/:appointmentID", (req, res) => {
       },
     })
     .populate("petOwner")
-    .then((result) => {
-      console.log("res---------------:   " + JSON.stringify(result));
-      res.send(JSON.stringify(result));
+    .then(async (result) => {
+      let sentData = false;
+      if (result) {
+        const filter = { appointments: appointmentID };
+        const prescData = await PrescriptionSendDetails.findOne(filter);
+        console.log("\n----prescData----:   " + JSON.stringify(prescData));
+        if (prescData) {
+          sentData = true;
+        }
+      }
+      // console.log("res---------------:   " + JSON.stringify(result));
+      res.send({result: JSON.stringify(result), sentData:sentData});
       // res.status(200).json(users);
     })
     .catch((err) => {
@@ -883,6 +1018,64 @@ app.post("/appointmentsData", async (req, res) => {
 });
 
 
+app.post("/pharmacyFeedbackData", async (req, res) => {
+  console.log("\n-------------appointmentsData" + JSON.stringify(req.body));
+  const { petOwnerID, userType } = req.body; // Assuming vet ID is passed as a query parameter
+  console.log("\n-----petOwnerID:   " + petOwnerID + " -userType " + userType);
+  try {
+    const query = {
+      petOwner: petOwnerID,
+      // pharmacyRepliedDate: { $ne: null } 
+    };
+    const query2 = {
+      petOwner: petOwnerID,
+    };
+    console.log(
+      "query: " + JSON.stringify(query) + "  query2: " + JSON.stringify(query2)
+    );
+
+    let appointments;
+    let appointments1;
+    // if (userType == 1) 
+    {
+      const appoints = await Appointments.find(query).select('_id');
+      const appointmentIds = appoints.map(appointment => appointment._id);
+
+      const query3 = {
+        appointment: { $in: appointmentIds },
+        pharmacyRepliedDate: { $ne: null }
+      };
+      const query4 = {
+        appointment: { $in: appointmentIds },
+      };
+      
+    console.log("\nquery3: " + JSON.stringify(query3));
+    appointments1 = await PrescriptionSendDetails.find(query4);
+    // const dd  = appointments1.map(x => x.appointments);
+
+      appointments = await PrescriptionSendDetails.find(query3)
+      .select('_id pharmacyRepliedDate drugsAvailability pharmacyComment')
+      .populate({
+        path: "sendPharmacy",
+        select: "_id fullname pharmacyName pharmacyAddress mainCity",
+      });
+      
+    } 
+    
+    console.log("\n---------appointments:  " + appointments1.length);
+    if (appointments && appointments.length > 0) {
+      console.log("\n -----availabilities: " + JSON.stringify(appointments));
+      res.send(JSON.stringify(appointments));
+    } else {
+      console.log("Status:    " + res.status);
+      res.status(404).send("Date Data not found.");
+    }
+  } catch (error) {
+    console.error("Error during database query:", error);
+    res.status(500).send({ status: "Error", data: error.message });
+  }
+});
+
 app.post("/updateMedications", async (req, res) => {
   console.log(
     "\n----updateMedications--req.body:   " + JSON.stringify(req.body)
@@ -916,6 +1109,27 @@ app.post("/updateMedications", async (req, res) => {
   }
 });
 
+app.get("/checkPrescriptionSent/:appointID", async (req, res) => {
+  try {
+    console.log(
+      "  ---appointID: " +
+        req.params.appointID +
+        "  -- req.body --  " +
+        JSON.stringify(req.body)
+    );
+    const filter = { appointID: req.params.appointID };
+    const prescData = await PrescriptionSendDetails.findOne(filter);
+
+    if (prescData) {
+      res.status(200).send({ message: "Appointment send." });
+    } else {
+      return res.status(404).send({ message: "Appointment not sent." });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
 app.post("/sendPrescription", async (req, res) => {
   console.log(
     "--------------req.body sendPrescription:   " + JSON.stringify(req.body)
@@ -923,25 +1137,34 @@ app.post("/sendPrescription", async (req, res) => {
   const { appointID, pharmacyID } = req.body;
 
   try {
-    console.log(" ---- 1----");
+    // console.log(" ---- 1----");
 
-    const objprescriptSend = await PrescriptionSendDetails.create({
-      appointments: appointID,
-      sendPharmacy: pharmacyID,
-      pharmacyRepliedDate: null,
-      drugsAvailability: false,
-      pharmacyComment: "",
-      isMedicineBought: false,
-      createdDate: new Date(),
-    });
-    console.log("objprescriptSend:  " + JSON.stringify(objprescriptSend));
-
-    if (objprescriptSend !== null) {
-      let resultsData = [];
-      res.send({ status: "ok", data: JSON.stringify(objprescriptSend) });
-    } else {
-      res.send({ status: "failed", data: "Something went wrong." });
+    const filter = { appointments: appointID, sendPharmacy: pharmacyID };
+    const prescData = await PrescriptionSendDetails.findOne(filter);
+    console.log("\n----prescData----:   " + JSON.stringify(prescData));
+    if (prescData) {
+      res.status(201).send({ message: "Already sent." });
     }
+    else{
+      const objprescriptSend = await PrescriptionSendDetails.create({
+        appointments: appointID,
+        sendPharmacy: pharmacyID,
+        pharmacyRepliedDate: null,
+        drugsAvailability: false,
+        pharmacyComment: "",
+        isMedicineBought: false,
+        createdDate: new Date(),
+      });
+      console.log("objprescriptSend:  " + JSON.stringify(objprescriptSend));
+  
+      if (objprescriptSend !== null) {
+        let resultsData = [];
+        res.status(200).send({ data: JSON.stringify(objprescriptSend) });
+      } else {
+        res.status(500).send({ message: "Something went wrong." });
+      }
+    }
+
   } catch (error) {
     console.log("ERROR---  " + error);
     res.send({ status: "Error", data: error });
@@ -1019,35 +1242,39 @@ app.post("/updatePrescriptionData", async (req, res) => {
   }
 });
 
-
-app.post("/updatePrescription", async (req, res) => {
+app.patch("/updatePrescription/:prescID", async (req, res) => {
   console.log(
     "\n----updatePrescription--req.body:   " + JSON.stringify(req.body)
   );
-  const { prescID, comments, isAvailable } = req.body;
+  const prescID = req.params.prescID;
+  const { comments, isAvailable } = req.body;
   try {
+    const filter = { _id: prescID };
     const updateData = {
       pharmacyComment: comments,
       drugsAvailability: isAvailable,
       pharmacyRepliedDate: new Date(),
       modifiedDate: new Date(),
     };
-    console.log(
-      "  updateMedications   updateData:  " + JSON.stringify(updateData)
-    );
+    console.log("updateMedications   updateData:  " + JSON.stringify(updateData));
+    
+    const updatedPresc = await PrescriptionSendDetails.findOneAndUpdate(filter, updateData, {
+      new: true, // return the updated document
+      runValidators: true, // validate before update
+    });
 
-    const updatedPrecription = await PrescriptionSendDetails.findByIdAndUpdate(
-      prescID,
-      updateData,
-      { new: true }
-    );
-    console.log("updatedPrecription:  " + JSON.stringify(updatedPrecription));
+    if (!updatedPresc) {
+      console.log("  ----3---updatedPresc:error----------- ");
+      return res.status(404).send({ message: "Prescription data not found" });
+    }
 
-    if (updatedPrecription !== null) {
+    console.log("updatedPrecription:  " + JSON.stringify(updatedPresc));
+
+    if (updatedPresc !== null) {
       console.log("Prescription Details updated");
-      res.send({ status: "ok", data: JSON.stringify(updatedPrecription) });
+      res.status(200).send({ data: JSON.stringify(updatedPresc) });
     } else {
-      res.send({ status: "Error", data: "No data in updatedPrecription" });
+      res.send({ status: "Error", data: "No data in precription" });
     }
   } catch (error) {
     res.send({ status: "Error", data: error });

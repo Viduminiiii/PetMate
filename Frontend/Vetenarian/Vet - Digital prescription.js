@@ -18,12 +18,13 @@ const config = require("../config/config");
 //prescription component recieves a 'navigation' prop which allows to navigate between different screens in the app
 const Prescription = ({ navigation }) => {
   const baseURL = config.DB_HOST + ":" + config.DB_PORT;
-  
+
   const route = useRoute();
   const { appointID } = route.params;
 
   const { user, userID, userType } = useAuth();
   const [appData, setAppData] = useState([]);
+  const [sentData, setSentData] = useState();
 
   const [petname, setPetname] = useState();
   const [age, setAge] = useState();
@@ -44,13 +45,11 @@ const Prescription = ({ navigation }) => {
       .get(baseURL + `/appointmentData/${appointID}`)
       .then((response) => {
         // console.log("---userID 4:  " + JSON.stringify(response.data));
-        const appResults = JSON.parse(JSON.stringify(response.data));
-        // console.log("appResults.name:   " + appResults.petOwner.fullname);
-        console.log(
-          "\n\n -----degital presc data:  " + JSON.stringify(response.data)
-        );
-        // console.log("\n\nappData.medications:  " + appResults.medications);
+        const appResults = JSON.parse(response.data.result);
+        console.log("\n---sentData:  " + response.data.sentData);
+        console.log("\n\n --2---degital presc data:  " + response.data.result);
 
+        setSentData(response.data.sentData);
         setPetname(appResults?.petOwner.petname);
         setAge(appResults?.petOwner.age);
         setPetfullname(appResults?.petOwner.fullname);
@@ -174,7 +173,15 @@ const Prescription = ({ navigation }) => {
             <Text style={styles.send_btn}>{userType == 1 ? "OK" : "Save"}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate("LocatePharmacy", { appointID: appointID })} style={styles.button2}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("LocatePharmacy", { appointID: appointID })
+            }
+            style={[
+              styles.button2,
+              { backgroundColor: sentData ? "#3366ff" : "#3366ff" },
+            ]}
+          >
             <Text style={styles.send_btn}>Send</Text>
           </TouchableOpacity>
         </View>
@@ -335,7 +342,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    flex:1,
+    flex: 1,
     height: "35%",
     width: "30%",
     backgroundColor: "#FFFFFF",
@@ -344,10 +351,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     margin: 10,
-    marginTop:-15
+    marginTop: -15,
   },
   button2: {
-    flex:1,
+    flex: 1,
     height: "35%",
     width: "30%",
     backgroundColor: "#3366ff",
@@ -356,7 +363,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     margin: 10,
-    marginTop:-15
+    marginTop: -15,
   },
   send_btn: {
     fontWeight: "bold",
